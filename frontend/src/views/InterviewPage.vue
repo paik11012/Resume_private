@@ -103,11 +103,10 @@ export default {
   data() {
     return {
       dialog: false,
-      title : '',
-      body : '',
-      created_at : '',
-      img: '',
       drawer: null,
+      company: '',
+      res_date:'',
+      task:'',
     };
   },
   methods: {

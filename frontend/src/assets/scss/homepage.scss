@@ -1,9 +1,10 @@
-@import "./style.scss";
+@import "./mystyle.scss";
 
-div{
+.hometitle{
   position: fixed;
   overflow: hidden;
   font-family: $main_font;
+  font-size: 100px;
   @include breakpoint(xs){
     text-align: right;
     font-size: 80px;

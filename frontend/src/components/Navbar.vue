@@ -2,29 +2,33 @@
   <div>
     <div id="nav">
       <v-layout class="navbar" row align-center>
-          <div class="my-2 spacer">
+          <div class="my-2">
             <a href="/home" class="navtitle">9's resume</a>
           </div>
-          <div class="my-2" v-if="$vuetify.breakpoint.mdAndUp">
-            <a href="/home" class="navitem">Home</a>
-          </div>
-          <div class="my-2" v-if="$vuetify.breakpoint.mdAndUp">
-            <a href="/info" class="navitem" >Profile</a>
-          </div>
-          <div class="my-2" v-if="$vuetify.breakpoint.mdAndUp">  
-            <a href="/resume" class="navitem">Resumes</a>
-          </div>
-          <div class="my-2" v-if="$vuetify.breakpoint.mdAndUp">
-            <a href="/interview" class="navitem">Interviews</a>
-          </div>
-          <v-icon @click="my_menu" style="font-size:35px;margin-right:20px; color:white;">mdi-account-circle</v-icon>
+          <v-layout row align-center justify-end>
+            <div class="my-2" v-if="$vuetify.breakpoint.mdAndUp">
+              <a href="/home" class="navitem">Home</a>
+            </div>
+            <div class="my-2" v-if="$vuetify.breakpoint.mdAndUp">
+              <a href="/info" class="navitem" >Profile</a>
+            </div>
+            <div class="my-2" v-if="$vuetify.breakpoint.mdAndUp">  
+              <a href="/resume" class="navitem">Resumes</a>
+            </div>
+            <div class="my-2" v-if="$vuetify.breakpoint.mdAndUp">
+              <a href="/interview" class="navitem">Interviews</a>
+            </div>
+            <div class="navitem">
+            <v-icon @click="my_menu" class="nav_icon">mdi-account-circle</v-icon>
+            </div>
+          </v-layout>
       </v-layout>
         <div class="mymenu">
           <transition name="slide">
-          <p v-if="show1" style="margin: 10px;"><a href="/userinfo" style="text-align:center; color:white; font-family: 'Fredoka One', cursive;">My Page</a></p>
+          <p v-if="show1"><a href="/userinfo" style="text-align:center; color:white; font-family: 'Fredoka One', cursive;">My Page</a></p>
           </transition>
           <transition name="slide">
-          <p v-if="show2" style="margin: 10px;"><a href="/" @click="logout()" style="text-align:center; color:white; font-family: 'Fredoka One', cursive;">Logout</a></p>
+          <p v-if="show2"><a href="/" @click="logout()" style="text-align:center; color:white; font-family: 'Fredoka One', cursive;">Logout</a></p>
           </transition>
         </div>
     </div>

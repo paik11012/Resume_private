@@ -1,9 +1,16 @@
-@import "@/assets/scss/style.scss";
+@import "@/assets/scss/mystyle.scss";
+  .navitem{
+    margin-right: 35px;
+  }
   .my-2{
-    margin-right: 50px;
     &:hover{
       transform: translateY(-3px)
     }
+  }
+  .nav_icon{
+    color: white !important;
+    font-size: 35px !important;
+    margin-right: 30px;
   }
   .spacer{
     margin-left: 15px;
@@ -14,6 +21,9 @@
     width: 100px;
     height: 80px;
     opacity: 0.9;
+    & p {
+      margin: 10px !important;
+    }
   }
   .navbar{
     background: $Serenity;
@@ -24,7 +34,7 @@
     color:white !important;
     font-family: 'Fredoka One', cursive;
     &.navtitle{
-      margin-left: 45px;
+      margin-left: 60px;
     }
   }
 

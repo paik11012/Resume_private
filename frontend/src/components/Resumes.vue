@@ -1,6 +1,5 @@
 <template>
   <div>
-  <transition name="slide">
   <div class="cont" oncontextmenu="return false" @click="show">
     <div class="company">{{company}}</div>
     <hr>
@@ -16,7 +15,6 @@
       <div class="text_val">{{text_val}}자</div>
     </div>
   </div>
-  </transition>
   <ResumeModal
   :value="showmenu"
   :company="company"
