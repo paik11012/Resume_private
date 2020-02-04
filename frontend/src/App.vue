@@ -1,28 +1,41 @@
 <template>
-  <v-app>
-    <Menu v-if="show"/>
-    <Navbar class="Nav"/>
-    <DrwBtn class="DrwBtn"/>
-    <v-content>
-      <router-view class="rout"/>
-    </v-content>
+  <v-app style="background:none;">
+    <div class="backapp" v-if="setting"></div>
+    <router-view v-if="setting" class="rout"/>
+    <router-view v-else/>
+    <transition name="slide">
+    <Navbar class="Nav" v-if="setting"/>
+    </transition>
+    <transition name="slide">
+    <DrwBtn class="DrwBtn" v-if="setting"/>
+    </transition>
+    
+    <!-- <v-content>
+    </v-content> -->
   </v-app>
-<!-- 힘들어 -->
 </template>
-
 
 <script>
 import Navbar from '@/components/Navbar'
-import DrwBtn from '@/components/drawer'
-import Menu from '@/components/Menu'
+import DrwBtn from '@/components/Drawer'
+// console.log(window.location.pathname);
+
 export default {
   name: 'App',
   components:{
-    Navbar, DrwBtn, Menu
+    Navbar, DrwBtn
   },
   data: () => ({
-    showmenu:false
+    showmenu:false,
+    curpath:"",
+    setting:false,
   }),
+  mounted(){
+    this.curpath = window.location.pathname
+    if (this.curpath != '/' & this.curpath != '/home'){
+      this.setting = true
+    }
+  }
 };
 </script>
 
@@ -43,4 +56,17 @@ export default {
   .rout{
     margin-top:80px;
   }
+  .backapp{
+    font-size: 25px;
+    text-align: center;
+    position:fixed;
+    width:100%;
+    height:100%;
+    z-index: -1000;
+    background: linear-gradient(115deg, rgb(247,202,201), rgb(180, 180, 185), rgb(146,168,209), rgb(230,230,230));
+    filter: blur(4px);
+  }
+a{
+  text-decoration: none;
+}
 </style>

@@ -42,6 +42,23 @@ export default {
 			created_at: firebase.firestore.FieldValue.serverTimestamp()
 		})
 	},
+	getInterView(){
+		const interViewCollection = firestore.collection('interview')
+		console.log("이건 됐어?");
+		
+		return interViewCollection
+			.orderBy('created_at', 'desc')
+			.get()
+			.then((docSnapshots)=>{
+				console.log(docSnapshots);
+				console.log("docsnap");
+				return docSnapshots.docs.map((doc)=>{
+					console.log("doc");
+					let data = doc.data()
+					return data
+				})
+			})
+	},
 	getPortfolios() {
 		const postsCollection = firestore.collection(PORTFOLIOS)
 		return postsCollection
@@ -66,13 +83,6 @@ export default {
 						return data
 					})
 				})
-				// .then((docSnapshots) => {					
-				// 	return docSnapshots.docs.map((doc) => {
-				// 		let data = doc.data()
-				// 		data.created_at = new Date(data.created_at.toDate())
-				// 		return data
-				// 	})
-				// })
 	},
 	postPortfolio(title, body, img) {
 		return firestore.collection(PORTFOLIOS).add({

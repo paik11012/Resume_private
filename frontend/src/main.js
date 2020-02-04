@@ -18,7 +18,6 @@ Vue.use(VueSimplemde)
 Vue.use(Vuetify)
 
 
-
 new Vue({
   router,
   store,

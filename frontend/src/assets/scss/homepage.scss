@@ -1,0 +1,63 @@
+@import "./style.scss";
+
+div{
+  position: fixed;
+  overflow: hidden;
+  font-family: $main_font;
+  @include breakpoint(xs){
+    text-align: right;
+    font-size: 80px;
+    &.profile{
+      animation: fadein 1.5s;
+      top:40%;
+      right: 5%;
+    }
+    &.resume{
+      animation: fadein 1.5s;
+      top:55%;
+      right: 5%;
+    }
+    &.interview{
+      animation: fadein 1.5s;
+      top: 70%;
+      right: 5%;
+    }
+  }
+
+  @include breakpoint(sm){
+    font-size: 110px;
+    &.profile{
+      animation: slide_l 1s;
+      top:30%;
+      left:5%;
+    }
+    &.resume{
+      animation: slide_l 1s;
+      top:50%;
+      left: 5%;
+    }
+    &.interview{
+      animation: slide_l 1s;
+      top:70%;
+      left:5%;
+    }
+  }
+  @include breakpoint(md,up){
+    font-size: 160px;
+    &.profile{
+      animation: slide_f_l 1.5s;
+      top: 15%;
+      left: 5%;
+    }
+    &.resume{
+      animation: slide_f_l 1.5s;
+      top: 40%;
+      left: 5%;
+    }
+    &.interview{
+      animation: slide_f_l 1.5s;
+      top: 65%;
+      left: 5%;
+    }
+  }
+}

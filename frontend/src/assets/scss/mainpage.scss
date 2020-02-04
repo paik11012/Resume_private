@@ -1,0 +1,95 @@
+@import "@/assets/scss/style.scss";
+.back{
+  animation: fadein 2.5s;
+  opacity: 1;
+}
+a{
+  text-decoration: none;
+}
+p{
+  position: fixed;
+  cursor: pointer;
+  animation: slide_f_l 1.5s;
+  font-family: 'Fredoka One', cursive;  
+  @include breakpoint(xs){
+    font-size: 120px;
+    &.signbtn{
+      @include gradient_text(600, $main_degree, $main_gradient);
+      left: 5%;
+      bottom: 10%;
+      &on{
+        animation: fadein 1s;
+        font-weight: 600;
+        color:white;
+        left: 5%;
+        bottom: 10%;
+      }
+    }
+    &.logbtn{
+      @include gradient_text(600, $main_degree, $main_gradient);
+      left: 5%;
+      bottom: 40%;
+      &on{  
+        animation: fadein 1s;
+        color: white;
+        font-weight: 600;
+        left: 5%;
+        bottom: 40%;
+      }
+    }
+  }
+  @include breakpoint(sm){
+    font-size: 150px;
+    &.signbtn{
+      @include gradient_text(600, $main_degree, $main_gradient);
+      left: 5%;
+      bottom: 20%;
+      &on{
+        animation: fadein 1s;
+        font-weight: 600;
+        color:white;
+        left: 5%;
+        bottom: 20%;
+      }
+    }
+    &.logbtn{
+      @include gradient_text(600, $main_degree, $main_gradient);
+      left: 5%;
+      bottom: 50%;
+      &on{  
+        animation: fadein 1s;
+        color: white;
+        font-weight: 600;
+        left: 5%;
+        bottom: 50%;
+      }
+    }
+  }
+  @include breakpoint(md,up){
+    font-size: 200px;
+    &.signbtn{
+      @include gradient_text(600, $main_degree, $main_gradient);
+      left: 15%;
+      bottom: 10%;
+      &on{
+        animation: fadein 1s;
+        font-weight: 600;
+        color:white;
+        left: 15%;
+        bottom: 10%;
+      }
+    }
+    &.logbtn{
+      @include gradient_text(600, $main_degree, $main_gradient);
+      left: 5%;
+      top : 10%;
+      &on{  
+        animation: fadein 1s;
+        color: white;
+        font-weight: 600;
+        left: 5%;
+        top: 10%;
+      }
+    }
+  }
+}

@@ -9,7 +9,6 @@
           </span>
         </v-flex>
       </v-layout>
-    </v-img>
   </div>
 </template>
 

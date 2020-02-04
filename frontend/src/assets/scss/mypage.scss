@@ -1,0 +1,32 @@
+@import "@/assets/scss/style.scss";
+#rcorners2 {
+  border-radius: 15px;
+  border: 1px solid #92a8d1;
+  padding: 15px;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.rights{
+  width: 200px;
+}
+.bounce-enter-active {
+  animation: bounce .3s;
+}
+.bounce-leave-active {
+  animation: bounce .2s reverse;
+}
+
+.titlebox{
+  color:white; 
+  margin-top:50px; 
+  z-index: 99999999;
+  font-family: 'Fredoka One', cursive;
+  margin-bottom: 30px;
+}
+.title-item{
+  &:hover{
+    cursor: pointer;
+  }
+  z-index:2000;
+}

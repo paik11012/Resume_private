@@ -1,0 +1,35 @@
+@import "@/assets/scss/style.scss";
+  .drwback{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top:0;
+    left: 0;
+    background: gray;
+    opacity: 0.5;
+    z-index: 9999999;
+  }
+  .drw_btn{
+    margin-top: 8px;
+  }
+  #drwlist{
+    z-index: 999999999;
+    position: fixed;
+    height: 100%;
+    padding-top: 30px;
+    top: 0;
+    left: 0;
+    width:250px;
+    box-shadow: 2px 2px gray;
+  }
+  .v-list-item__title{
+    @include gradient_text(400, 115deg, $black_gradient);
+    font-size: 22px;
+  }
+
+  .slide_f_l-enter-active{
+    animation: slide_f_l 0.6s;
+  }
+  .slide_f_l-leave-active{
+    animation: slide_f_l 0.3s reverse;
+  }

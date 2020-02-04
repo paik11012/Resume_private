@@ -1,51 +1,79 @@
 <template >
   <div
     id="main"
-    :style="{backgroundImage : `url(${backgroundUrl})`}"
-    class="layout align-center justify-center row fill-height"
+    class=" align-center justify-center row fill-height"
   >
-    <v-container class="layout align-center justify-center row">
-      <h2 id="title" class>Temp Title</h2>
-      <br />
-      <v-row class="justify-center">
-        <div class="my-2" style="margin:10px">
-          <v-btn tile outlined @click="showLoginModal=true">Login</v-btn>
-        </div>
-        <div class="my-2" style="margin:10px">
-          <v-btn tile outlined><a href="/signup" style="color:black;">Sign Up</a></v-btn>
-        </div>
-      </v-row>
-    </v-container>
+  <div class="back" v-if="backon | loginModalOpen | signupModalOpen" @mouseover="back"></div>
+  <p class="logbtn" v-if="logc" @mouseover="logpic" @click="openLoginModal">Login</p>
+  <p class="logbtnon" v-else @mouseout="back" @click="openLoginModal">Login</p>
+  <LoginModal v-model="loginModalOpen"></LoginModal>
+        
+  <p class="signbtn" v-if="signc" @mouseover="signpic" @click="openSignupModal">Sign Up</p>
+  <p class="signbtnon" v-else @mouseout="back" @click="openSignupModal">Sign Up</p>
+  <SignupModal v-model="signupModalOpen"></SignupModal>
+
   </div>
 </template>
 
 <script>
 import LoginModal from '../components/LoginModal.vue'
-import backgroundUrl from "@/assets/first.png";
+import SignupModal from '../components/SignupModal.vue'
+
 export default {
-  components: {LoginModal : LoginModal},
+  components: {
+    LoginModal,
+    SignupModal
+    },
   data() {
     return {
-      backgroundUrl,
-      showLoginModal: false
+      loginModalOpen: false,
+      signupModalOpen: false,
+      backon:false,
+      logc: false,
+      signc: false,
     };
   },
+  mounted(){setTimeout(() => {
+    this.signc = true
+  }, 700);
+    setTimeout(() => {
+      this.logc = true
+    }, 200);
+  },
   methods: {
-    showLoginModal() {
-      this.showLoginModal = true;
+    openLoginModal() {
+      this.loginModalOpen = !this.loginModalOpen;
+    },
+    openSignupModal() {
+      this.signupModalOpen = !this.signupModalOpen;
+    },
+    logpic(){
+      this.backon = true
+      setTimeout(() => {
+        this.logc = false
+      }, 300);
+
+      
+    },
+    signpic(){
+      this.backon = true
+      setTimeout(() => {
+        this.signc = false
+      }, 300);
+    },
+    back(){
+      setTimeout(() => {
+        this.background = ''
+        this.color = ''
+        this.signc = true
+        this.logc = true
+      }, 100);
+      this.backon = false;
     }
   }
 };
 </script>
 
-<style>
-#main {
-  background-size: cover;
-  width:100%;
-}
-#title {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 5%
-}
+<style lang="scss" scoped>
+@import "@/assets/scss/mainpage.scss"
 </style>

@@ -1,46 +1,48 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HomePage from './views/HomePage.vue'
-import PostPage from './views/PostPage.vue'
-import PortfolioPage from './views/PortfolioPage.vue'
-import LoginPage from './views/LoginPage.vue'
-import MJPage from './views/MJPage.vue'
+import InterviewPage from './views/InterviewPage.vue'
+import ResumePage from './views/ResumePage.vue'
+import TeamPage from './views/TeamPage.vue'
+import MyPage from './views/MyPage.vue'
 import MainPage from './views/MainPage.vue'
 import SignupPage from './views/SignupPage.vue'
- 
+import UserInfo from './views/UserInfo.vue'
+
 Vue.use(Router)
 
 export default new Router({
+	
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
 		{
-			path: '/',
+			path: '/home',
 			name: 'home',
 			component: HomePage
 		},
 		{
-			path: '/post',
-			name: 'post',
-			component: PostPage
+			path: '/interview',
+			name: 'interview',
+			component: InterviewPage
 		},
 		{
-			path: '/portfolio',
-			name: 'portfolio',
-			component: PortfolioPage
+			path: '/resume',
+			name: 'resume',
+			component: ResumePage
 		},
 		{
-			path: '/login',
-			name: 'login',
-			component: LoginPage
+			path: '/team',
+			name: 'team',
+			component: TeamPage
 		},
 		{
 			path: '/info',
 			name: 'info',
-			component: MJPage
+			component: MyPage
 		},
 		{
-			path: '/main',
+			path: '/',
 			name: 'main',
 			component: MainPage
 		},
@@ -49,5 +51,10 @@ export default new Router({
 			name: 'signup',
 			component: SignupPage
 		},
+		{
+			path: '/userinfo',
+			name: 'userinfo',
+			component: UserInfo
+		}
   ]
 })
