@@ -1,7 +1,7 @@
 <template>
   <v-layout mt-5 wrap justify-space-around>
     <v-flex
-      v-for="i in resumes.length > lim ? lim : resumes.length"
+      v-for="i in resumes.length"
       :key="i"
       xs12
       sm12
@@ -9,9 +9,11 @@
       lg4
       xl4
     >
-    <transition-group name="list">
+    <transition-group name="list" >
       <Resume
-        class="ma-3"
+      v-bind:key="i"
+      v-if="sec >= i"
+        class="ma-3 layout justify-center"
         :resume_company="resumes[i - 1].resume_company"
         :resume_answer="resumes[i - 1].resume_answer"
         :resume_question="resumes[i - 1].resume_question"
@@ -65,11 +67,20 @@ export default {
       .then(response => {
         console.log(response.data)
         this.resumes = response.data
+        this.$emit("load")
+        for (let i = 0; i < this.resumes.length; i++) {
+        setTimeout(() => {
+          this.sec ++
+          console.log(this.sec);
+        }, 100*i);
+      }
       })
       .catch(error => {
       console.log(error)
       })
+    
     }
+    
   }
 };
 </script>
