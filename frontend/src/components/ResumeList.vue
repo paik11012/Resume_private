@@ -1,6 +1,5 @@
 <template>
   <v-layout mt-5 wrap>
-    <transition-group name="list">
     <v-flex
       v-for="i in resumes.length > lim ? lim : resumes.length"
       :key="i"
@@ -10,7 +9,10 @@
       lg4
       xl3
     >
+    <transition-group name="list">
       <Resume
+        v-bind:key="i"
+        v-if="sec>=i"
         class="ma-3"
         :company="resumes[i - 1].company"
         :answer="resumes[i - 1].answer"
@@ -22,8 +24,8 @@
         :created_at="resumes[i - 1].created_at.toString()"
         
       ></Resume>
-    </v-flex>
     </transition-group>
+    </v-flex>
 
     <v-flex xs12 text-xs-center round my-5 v-if="loadMore">
       <v-btn color="info" v-if="resumes.length > lim" dark v-on:click="loadMorePortfolios()">
@@ -47,6 +49,7 @@ export default {
     return {
       resumes: [],
       lim : this.limits,
+      sec : 0,
     };
   },
   components: {
@@ -59,14 +62,19 @@ export default {
   methods: {
     async getResume() {
       this.resumes = await FirebaseService.getResume();
-
+      for (let i = 0; i < this.resumes.length; i++) {
+              setTimeout(() => {
+                this.sec ++
+                console.log(this.sec);
+              }, 100*i);
+            }
       console.log(this.resumes);
     },
   }
 };
 </script>
 <style lang="scss">
-@import "@/assets/scss/style.scss";
+@import "@/assets/scss/mystyle.scss";
 .mw-700 {
   max-width: 700px;
   margin: auto;

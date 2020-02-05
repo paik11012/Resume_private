@@ -1,12 +1,16 @@
-@import "@/assets/scss/style.scss";
-.back{
+@import "@/assets/scss/mystyle.scss";
+.fadein-enter-active{
   animation: fadein 2.5s;
-  opacity: 1;
 }
+
+.fadein-leave-active{
+  animation: fadeout 1s;
+}
+
 a{
   text-decoration: none;
 }
-p{
+.main_p{
   position: fixed;
   cursor: pointer;
   animation: slide_f_l 1.5s;

@@ -9,8 +9,10 @@
       lg4
       xl3
     >
-      <Interview
+    <transition-group name="list">
+      <Interview v-bind:key="i"
         class="ma-3"
+        v-if="sec >= i"
         :company="interview[i - 1].company"
         :myans="interview[i - 1].myans"
         :editans="interview[i-1].editans"
@@ -19,6 +21,7 @@
         :date="interview[i - 1].date"
         :created_at="interview[i - 1].created_at.toString()"
       ></Interview>
+    </transition-group>
     </v-flex>
 
     <v-flex xs12 text-xs-center round my-5 v-if="loadMore">
@@ -42,7 +45,15 @@ export default {
   data() {
     return {
       interview: [],
-      lim : this.limits
+      lim : this.limits,
+      company:"",
+      myans:"",
+      editans:"",
+      question:"",
+      task:"",
+      date:"",
+      created_at:"",
+      sec: 0,
     };
   },
   components: {
@@ -57,6 +68,12 @@ export default {
       console.log("이거라고?");
       this.interview = await FirebaseService.getInterView();
       console.log("인터뷰 받았어?");
+      for (let i = 0; i < this.interview.length; i++) {
+        setTimeout(() => {
+          this.sec ++
+          console.log(this.sec);
+        }, 100*i);
+      }
       console.log(this.interview);
       
       
@@ -72,4 +89,5 @@ export default {
   max-width: 700px;
   margin: auto;
 }
+
 </style>

@@ -1,15 +1,14 @@
 <template >
-  <div
-    id="main"
-    class=" align-center justify-center row fill-height"
-  >
+  <div>
+  <transition name="fadein">
   <div class="back" v-if="backon | loginModalOpen | signupModalOpen" @mouseover="back"></div>
-  <p class="logbtn" v-if="logc" @mouseover="logpic" @click="openLoginModal">Login</p>
-  <p class="logbtnon" v-else @mouseout="back" @click="openLoginModal">Login</p>
-  <LoginModal v-model="loginModalOpen"></LoginModal>
+  </transition>
+  <p class="logbtn main_p" v-if="logc" @mouseover="logpic" @click="openLoginModal">Login</p>
+  <p class="logbtnon main_p" v-else @mouseout="back" @click="openLoginModal">Login</p>
+  <LoginModal v-model="loginModalOpen" @close="openLoginModal"></LoginModal>
         
-  <p class="signbtn" v-if="signc" @mouseover="signpic" @click="openSignupModal">Sign Up</p>
-  <p class="signbtnon" v-else @mouseout="back" @click="openSignupModal">Sign Up</p>
+  <p class="signbtn main_p" v-if="signc" @mouseover="signpic" @click="openSignupModal">Sign Up</p>
+  <p class="signbtnon main_p" v-else @mouseout="back" @click="openSignupModal">Sign Up</p>
   <SignupModal v-model="signupModalOpen"></SignupModal>
 
   </div>
@@ -74,6 +73,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/assets/scss/mainpage.scss"
 </style>
