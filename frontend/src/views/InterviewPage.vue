@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div class="full">
+    <v-layout justify-center align-center style="height:100%;" v-if="loading">
+      <Load />
+    </v-layout>
     <v-flex xs12 text-xs-center round my-5>
       <v-btn v-on:click="showWrite" class="mx-2 corner" fab dark color="cyan" id="write">
         <v-icon dark>edit</v-icon>
@@ -80,7 +83,7 @@
     <v-container>
       <v-layout>
         <v-flex xs12>
-          <InterviewList :limits="4" :load-more="true">
+          <InterviewList :limits="3" :load-more="true" @load="complete">
           </InterviewList>
         </v-flex>
       </v-layout>
@@ -92,16 +95,19 @@
 import ImgBanner from "../components/ImgBanner";
 import InterviewList from "../components/InterviewList";
 import Navbar from "../components/Navbar";
-import FirebaseService from '@/services/FirebaseService'
+import FirebaseService from '@/services/FirebaseService';
+import Load from '@/components/Loading';
 
 export default {
   name: "PostPage",
   components: {
+    Load,
     InterviewList,
     Navbar,
   },
   data() {
     return {
+      loading:true,
       dialog: false,
       drawer: null,
       company: '',
@@ -114,7 +120,10 @@ export default {
       return this.dialog = true
     },
     savePort() {
-    }
+    },
+    complete(){
+      return this.loading = !this.loading
+    },
   }
 }
 </script>

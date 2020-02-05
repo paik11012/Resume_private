@@ -11,34 +11,43 @@ a{
   text-decoration: none;
 }
 .main_p{
+  margin: 0px;
+  padding-bottom: 15px;
   position: fixed;
   cursor: pointer;
   animation: slide_f_l 1.5s;
   font-family: 'Fredoka One', cursive;  
   @include breakpoint(xs){
     font-size: 120px;
+    width:320px;
     &.signbtn{
       @include gradient_text(600, $main_degree, $main_gradient);
-      left: 5%;
+      line-height: 1;
+      text-align: right;
+      right: 10%;
       bottom: 10%;
       &on{
         animation: fadein 1s;
         font-weight: 600;
+        line-height: 1;
+        text-align: right;
         color:white;
-        left: 5%;
+        right: 10%;
         bottom: 10%;
       }
     }
     &.logbtn{
       @include gradient_text(600, $main_degree, $main_gradient);
-      left: 5%;
-      bottom: 40%;
-      &on{  
+      right: 10%;
+      bottom: 50%;
+      line-height: 1;
+      &on{
         animation: fadein 1s;
+        line-height: 1;
         color: white;
         font-weight: 600;
-        left: 5%;
-        bottom: 40%;
+        right: 10%;
+        bottom: 50%;
       }
     }
   }

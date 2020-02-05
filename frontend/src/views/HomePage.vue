@@ -32,13 +32,25 @@ export default {
     }
   },
   mounted(){
-    this.show1 = true
-    setTimeout(()=>{
-      this.show2 = true
-    }, 300)
-    setTimeout(()=>{
+    console.log(document.body.offsetWidth);
+    
+    if(document.body.offsetWidth < 480){
       this.show3 = true
-    }, 600)
+      setTimeout(()=>{
+        this.show2 = true
+      }, 200)
+      setTimeout(()=>{
+        this.show1 = true
+      }, 400)
+    } else {
+      this.show1 = true
+      setTimeout(()=>{
+        this.show2 = true
+      }, 300)
+      setTimeout(()=>{
+        this.show3 = true
+      }, 600)
+    }
   }
 }
 </script>

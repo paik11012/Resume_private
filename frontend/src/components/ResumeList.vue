@@ -1,10 +1,10 @@
 <template>
-  <v-layout mt-5 wrap>
+  <v-layout mt-5 wrap justify-space-around>
     <v-flex
       v-for="i in resumes.length > lim ? lim : resumes.length"
       :key="i"
       xs12
-      sm6
+      sm12
       md6
       lg4
       xl3
@@ -13,7 +13,7 @@
       <Resume
         v-bind:key="i"
         v-if="sec>=i"
-        class="ma-3"
+        class="layout justify-center ma-3"
         :company="resumes[i - 1].company"
         :answer="resumes[i - 1].answer"
         :question="resumes[i - 1].question"
@@ -62,6 +62,7 @@ export default {
   methods: {
     async getResume() {
       this.resumes = await FirebaseService.getResume();
+      this.$emit('load')
       for (let i = 0; i < this.resumes.length; i++) {
               setTimeout(() => {
                 this.sec ++
