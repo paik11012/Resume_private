@@ -46,4 +46,8 @@ public class Educations {
     // setter //
     public void setUser(Users user) { this.user = user; }
     public void setEdu_id(Long education_id) { this.education_id = education_id; }
+    public void setEdu_school_name(String edu_school_name) { this.edu_school_name = edu_school_name; }
+    public void setEdu_school_sort(String edu_school_sort) { this.edu_school_sort = edu_school_sort; }
+    public void setEdu_school_st_date(String edu_school_st_date) { this.edu_school_st_date = edu_school_st_date; }
+    public void setEdu_school_ed_date(String edu_school_st_date) { this.edu_school_ed_date = edu_school_ed_date; }
 }

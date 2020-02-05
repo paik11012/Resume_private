@@ -33,9 +33,11 @@ public class UsersService {
         return usersRepository.findAll();
     }
 
-    public Users update(String user_id, Users new_user) {
-        new_user.setUser_id(user_id);
-        return usersRepository.save(new_user);
+    public Users update(Users user, Users new_user) {
+        user.setUser_password(new_user.getUser_password());
+        user.setUser_name(new_user.getUser_name());
+        user.setUser_phone(new_user.getUser_phone());
+        return usersRepository.save(user);
     }
 
     @Transactional
@@ -61,5 +63,19 @@ public class UsersService {
     @Transactional
     public void deleteByAdmin(String user_id) {
         usersRepository.deleteById(user_id);
+    }
+
+    @Transactional
+    public boolean checkId(String user_id) {
+        Optional<Users> user = usersRepository.findById(user_id);
+        if(user.isPresent()) return false;
+        else return true;
+    }
+
+    @Transactional
+    public Users updateAuth(String user_id) {
+        Users user = usersRepository.findById(user_id).get();
+        user.setUser_authority("admin");
+        return usersRepository.save(user);
     }
 }

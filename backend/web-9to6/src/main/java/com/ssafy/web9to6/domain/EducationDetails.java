@@ -21,10 +21,10 @@ public class EducationDetails {
     private String edu_detail_major_sort; // 전공, 복수전공, 부전공
 
     @Column
-    private String edu_detail_credit; // 이수학점
+    private Long edu_detail_credit; // 이수학점
 
     @Column
-    private Long edu_detail_grade; // 평점(학점)
+    private Double edu_detail_grade; // 평점(학점)
 
     // 외래키 //
     @ManyToOne
@@ -33,7 +33,7 @@ public class EducationDetails {
     // END: 외래키 //
 
     @Builder
-    public EducationDetails(String edu_detail_major_sort, String edu_detail_credit, Long edu_detail_grade){
+    public EducationDetails(String edu_detail_major_sort, Long edu_detail_credit, Double edu_detail_grade){
         this.edu_detail_major_sort = edu_detail_major_sort;
         this.edu_detail_credit = edu_detail_credit;
         this.edu_detail_grade = edu_detail_grade;
@@ -42,5 +42,8 @@ public class EducationDetails {
     // setter //
     public void setEducation(Educations education) { this.education = education; }
     public void setEduDetail_id(Long edu_detail_id) { this.edu_detail_id = edu_detail_id; }
+    public void setEdu_detail_major_sort(String edu_detail_major_sort) { this.edu_detail_major_sort = edu_detail_major_sort; }
+    public void setEdu_detail_credit(Long edu_detail_credit) { this.edu_detail_credit = edu_detail_credit; }
+    public void setEdu_detail_grade(Double edu_detail_grade) { this.edu_detail_grade = edu_detail_grade; }
     // END: setter //
 }

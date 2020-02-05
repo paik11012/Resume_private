@@ -25,6 +25,12 @@ public class UsersResponseDto {
         this.user_authority = user_authority;
     }
 
+    public UsersResponseDto(String user_password, String user_name, String user_phone){
+        this.user_password = user_password;
+        this.user_name = user_name;
+        this.user_phone = user_phone;
+    }
+
     public Users toEntity() {
         return Users.builder()
                 .user_id(user_id)

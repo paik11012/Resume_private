@@ -27,4 +27,13 @@ public class EducationDetailsService {
 
     @Transactional
     public Optional<EducationDetails> findById(Long edu_detail_id) { return educationDetailsRepository.findById(edu_detail_id); }
+
+    @Transactional
+    public EducationDetails update(EducationDetails ed, EducationDetails new_ed) {
+        ed.setEdu_detail_major_sort(new_ed.getEdu_detail_major_sort());
+        ed.setEdu_detail_credit(Long.valueOf(new_ed.getEdu_detail_credit()));
+        ed.setEdu_detail_grade(new_ed.getEdu_detail_grade());
+
+        return educationDetailsRepository.save(ed);
+    }
 }
