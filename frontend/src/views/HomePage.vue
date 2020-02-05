@@ -1,17 +1,17 @@
 <template>
   <v-layout>
     <div class="back"></div>
-      <div class="profile hovright" v-if="show1">
-        <a href="/info" class="gradient_text_black">
+      <div class="hometitle profile hovright" v-if="show1">
+        <a href="/info" class=" gradient_text_black">
           PROFILE
         </a>
       </div>
-      <div class="resume hovright" v-if="show2">
+      <div class="hometitle resume hovright" v-if="show2">
         <a href="/resume" class="gradient_text_black">
           RESUMES
         </a>
       </div>
-      <div class="interview hovright" v-if="show3">
+      <div class="hometitle interview hovright" v-if="show3">
         <a href="/interview" class="gradient_text_black">
           INTERVIEW
         </a>
@@ -19,7 +19,7 @@
   </v-layout>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "@/assets/scss/homepage.scss";
 </style>
 <script>
@@ -32,13 +32,25 @@ export default {
     }
   },
   mounted(){
-    this.show1 = true
-    setTimeout(()=>{
-      this.show2 = true
-    }, 300)
-    setTimeout(()=>{
+    console.log(document.body.offsetWidth);
+    
+    if(document.body.offsetWidth < 480){
       this.show3 = true
-    }, 600)
+      setTimeout(()=>{
+        this.show2 = true
+      }, 200)
+      setTimeout(()=>{
+        this.show1 = true
+      }, 400)
+    } else {
+      this.show1 = true
+      setTimeout(()=>{
+        this.show2 = true
+      }, 300)
+      setTimeout(()=>{
+        this.show3 = true
+      }, 600)
+    }
   }
 }
 </script>

@@ -1,16 +1,18 @@
 <template>
-  <v-layout mt-5 wrap>
+  <v-layout mt-5 wrap justify-space-around>
     <v-flex
       v-for="i in interview.length > lim ? lim : interview.length"
       :key="i"
       xs12
-      sm6
+      sm12
       md6
       lg4
       xl3
     >
-      <Interview
-        class="ma-3"
+    <transition-group name="list">
+      <Interview v-bind:key="i"
+        class="layout justify-center ma-3"
+        v-if="sec >= i"
         :company="interview[i - 1].company"
         :myans="interview[i - 1].myans"
         :editans="interview[i-1].editans"
@@ -19,6 +21,7 @@
         :date="interview[i - 1].date"
         :created_at="interview[i - 1].created_at.toString()"
       ></Interview>
+    </transition-group>
     </v-flex>
 
     <v-flex xs12 text-xs-center round my-5 v-if="loadMore">
@@ -42,7 +45,15 @@ export default {
   data() {
     return {
       interview: [],
-      lim : this.limits
+      lim : this.limits,
+      company:"",
+      myans:"",
+      editans:"",
+      question:"",
+      task:"",
+      date:"",
+      created_at:"",
+      sec: 0,
     };
   },
   components: {
@@ -56,7 +67,14 @@ export default {
     async getInterView() {
       console.log("이거라고?");
       this.interview = await FirebaseService.getInterView();
+      this.$emit('load')
       console.log("인터뷰 받았어?");
+      for (let i = 0; i < this.interview.length; i++) {
+        setTimeout(() => {
+          this.sec ++
+          console.log(this.sec);
+        }, 100*i);
+      }
       console.log(this.interview);
       
       
@@ -67,9 +85,12 @@ export default {
   }
 };
 </script>
-<style>
+<style lang="scss">
+
 .mw-700 {
   max-width: 700px;
   margin: auto;
 }
+
+
 </style>

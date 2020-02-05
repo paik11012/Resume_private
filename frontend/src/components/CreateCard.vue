@@ -3,7 +3,16 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left" style="font-size:20px">HighSchool</th>
+          <th>
+          <div class="menubar">
+            <ul>
+              <li><a href="#">Sliders</a></li>
+              <li><a href="#">Galleries</a></li>
+              <li><a href="#">Apps</a></li>
+              <li><a href="#">Extensions</a></li>
+            </ul>
+          </div>
+          </th>
           <th class="layout justify-end">
             <v-btn v-on:click="editor" v-if="editing" small fab dark color="cyan" id="write">
               <v-icon dark>edit</v-icon>
@@ -48,6 +57,23 @@ export default {
 </script>
 
 <style lang="scss">
+.menubar ul{
+    background: rgb(109,109,109);
+    display:none;  /* 평상시에는 서브메뉴가 안보이게 하기 */
+    height:auto;
+    padding:0px;
+    margin:0px;
+    border:0px;
+    position:absolute;
+    width:200px;
+    z-index:200;
+    color:black;
+}
+
+.menubar li:hover ul{
+  display: block;
+}
+
 #write{
   position: relative;
   left: 10px;

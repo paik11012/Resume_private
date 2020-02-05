@@ -1,5 +1,8 @@
 // init start ----------------------------------------
-
+html,body{
+  width: 100%;
+  height: 100%;
+}
 // braekpoint
   // xs : 0 ~599
   // sm : 600 ~ 959
@@ -8,6 +11,7 @@
 // 색상
 $RoseQuartz:#F7CAC9;
 $Serenity:#92A8D1;
+$modal_z:99999999999;
 
 
 // 글씨체
@@ -34,8 +38,13 @@ $black_gradient : rgb(40,40,40), rgb(70,70,70), rgb(52,52,52), rgb(130,130,130);
 // breakpoint
 @mixin breakpoint($pointer,$dir:btw){
   @if $dir == btw{
+    @if $pointer == under{
+      @media screen and (max-width: 479px){
+        @content;
+      }
+    }
     @if $pointer == xs{
-      @media screen and (max-width:599px){
+      @media screen and (min-width :480px) and (max-width:599px){
         @content;
       }
     } @else if $pointer == sm{
@@ -100,11 +109,33 @@ $black_gradient : rgb(40,40,40), rgb(70,70,70), rgb(52,52,52), rgb(130,130,130);
   height: 100%;
   background: linear-gradient(115deg, $RoseQuartz, rgb(180, 180, 185), $Serenity, rgb(230,230,230));
   z-index: -100;
-  opacity: 0.8;
+}
+
+.header{
+  width: 100%;
+  height: 20%;
+  font-size: 30px;
+  text-align: center;
+}
+
+.modal_back{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: gray;
+  opacity: 0.5;
+  z-index: -99;
+}
+.list-enter-active{
+  animation: slide_r 0.5s;
 }
 
 .main_gradient{
   @include gradient($main_degree,$main_gradient)
+}
+.full{
+  width: 100%;
+  height: 100%;
 }
 
 // 배경 end ----------------------------------------------
@@ -236,6 +267,14 @@ $black_gradient : rgb(40,40,40), rgb(70,70,70), rgb(52,52,52), rgb(130,130,130);
 @keyframes slide_d{
   0%{
     transform: translateY(-20px);
+  }
+  100%{
+    transform: translateY(0px);
+  }
+}
+@keyframes slide_d_a{
+  0%{
+    transform: translateY(-200px);
   }
   100%{
     transform: translateY(0px);

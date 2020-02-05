@@ -12,28 +12,12 @@
     <div class="label">Memo</div>
     <div class="editans">{{eda}}</div>
   </div>
-  <!-- <InterviewModal
-  :value="showmenu"
-  :company="company"
-  :myans="myans"
-  :question="question"
-  :task="task"
-  :date="date"
-  :editans="editans"
-  :created_at="created_at" 
-  @input="input"
-  /> -->
   </div>
 </template>
 
 <script>
-import InterviewModal from '../components/InterviewModal.vue'
-
 export default {
   name: "Interview",
-  components: {
-    InterviewModal : InterviewModal
-  },
   props:{
     company : {type: String},
     myans : {type: String},
@@ -68,9 +52,19 @@ export default {
 
 };
 </script>
-<style>
+<style lang="scss">
+  @import "@/assets/scss/mystyle.scss";
   .contain{
-    width: 95%;
+    @include breakpoint(sm){
+      width: 60%;
+    }
+    @include breakpoint(xs,down){
+      width: 90%;
+    }
+    @include breakpoint(md,up){
+      width: 90%;
+    }
+    
     height: 310px;
     /* border: 1px solid ; */
     text-align: center;

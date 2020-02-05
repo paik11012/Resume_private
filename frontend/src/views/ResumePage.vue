@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div class="full">
+    <v-layout justify-center align-center style="height:100%;" v-if="loading">
+      <Load />
+    </v-layout>
     <v-flex xs12 text-xs-center round my-5>
       <v-btn v-on:click="showWrite" class="mx-2 corner" fab dark color="cyan" id="write">
         <v-icon dark>edit</v-icon>
@@ -7,6 +10,7 @@
     </v-flex>
   <!-- resume 작성하기 -->
   <template>
+
   <v-row justify="center">
     <v-dialog v-model="dialog" :persistent="true" max-width="800px" max-height="1000px" style="z-index:999999;">
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
@@ -93,7 +97,7 @@
       <!-- Portfolio -->
       <v-layout>
         <v-flex xs12>
-          <ResumeList :limits="4" :load-more="true">
+          <ResumeList :limits="4" :load-more="true" @load="complete">
           </ResumeList>
         </v-flex>
       </v-layout>
@@ -107,10 +111,12 @@ import ImgBanner from "../components/ImgBanner";
 import ResumeList from "../components/ResumeList";
 import Navbar from "../components/Navbar";
 import { mapActions } from 'vuex';
+import Load from "@/components/Loading";
 
 export default {
   name: "ResumePage",
   components: {
+    Load,
     ImgBanner,
     ResumeList,
     Navbar,
@@ -118,6 +124,7 @@ export default {
   },
   data() {
     return {
+      loading:true,
       resume_company:null,
       resume_task:null,
       resume_date:null,
@@ -125,12 +132,16 @@ export default {
       resume_answer:null,
       dialog: false,
       drawer: null,
-      tag_name: []
+      tag_name: [],
+      resumes: []
     };
   },
   methods: {
     showWrite() {
       return this.dialog = true
+    },
+    complete(){
+      return this.loading = !this.loading
     },
     writeResume() {
       var resume_info = {
@@ -144,10 +155,17 @@ export default {
           resume_info : resume_info,
           tag_name : this.tag_name
       }
-      axios.post(
-        'http://70.12.247.99:8080/resume/save', 
+      // axios.request({
+      //   url: 'resume/save',
+      //   method: 'post',
+      //   baseURL: 'http://70.12.247.99:8080/',
+      //   headers: {
+      //     'Authorization' : window.sessionStorage.getItem("jwt-auth-token")}
+      //   })
+        axios.post(
+        'http://70.12.247.99:8080/resume/save',
         r_data,
-        {headers : {'token' : window.sessionStorage.getItem("jwt-auth-token")}})
+        {headers : {'Authorization' : 'Bearer ' + window.sessionStorage.getItem("jwt-auth-token")}})
       .then(response=>{
         console.log(response)
         return this.dialog = false
@@ -156,9 +174,6 @@ export default {
         console.log(error)
       })
     },
-    mounted() {
-
-    }
   }
 }
 

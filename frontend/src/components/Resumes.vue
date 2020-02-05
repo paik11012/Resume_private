@@ -1,79 +1,65 @@
 <template>
   <div>
   <transition name="slide">
-  <div class="cont" oncontextmenu="return false" @click="show">
-    <div class="company">{{company}}</div>
+  <div class="cont" oncontextmenu="return false">
+    <div class="company">{{resume_company}}</div>
     <hr>
-    <div class="task">{{task}}</div>
-    <div class="date">{{date}}</div>
+    <div class="task">{{resume_task}}</div>
+    <div class="date">{{resume_date}}</div>
     <div class="label">질문</div>
-    <div class="question">{{question}}</div>
+    <div class="question">{{resume_question}}</div>
     <div class="label">답변</div>
-    <div class="answer">{{answer}}</div>
-    <div class="row">
+    <div class="answer">{{resume_answer}}</div>
+    <!-- <div class="row">
       <div class="tag">{{tag[0]}} {{tag[1]}}</div>
       <v-spacer></v-spacer>
       <div class="text_val">{{text_val}}자</div>
-    </div>
+    </div> -->
   </div>
   </transition>
-  <ResumeModal
-  :value="showmenu"
-  :company="company"
-  :answer="answer"
-  :question="question"
-  :task="task"
-  :tag="tag"
-  :text_val="text_val"
-  :date="date"
-  :created_at="created_at" 
-  @input="input"
-  />
   </div>
 </template>
 
 <script>
-import ResumeModal from '../components/ResumeModal.vue'
 
 export default {
-  name: "Portfolio",
-  components: {
-    ResumeModal : ResumeModal
-  },
+  name: "Resume",
   props:{
-    company : {type: String},
-    answer : {type: String},
-    question : {type: String},
-    task : {type: String},
-    tag : {type: Array},
+    resume_company : {type: String},
+    resume_answer : {type: String},
+    resume_question : {type: String},
+    resume_task : {type: String},
+    tag_name : {type: Array},
     text_val : {type: Number},
-    date : {type: String},
+    resume_date : {type: String},
     created_at : {type: String},
   },
   data() {
     return {
       showmenu: false,
-      title:"회사명 넘겨줄게",
-      body:"뭔가 넘겨줄게"
     };
   },
   methods: {
-    show(){
-      console.log(ResumeModal.props.value);
-      this.showmenu = true
-    },
     input(value){
       this.showmenu = value
       console.log(this.showmenu);
-      
     }
   }
 
 };
 </script>
-<style>
+<style lang="scss">
+  @import "@/assets/scss/mystyle.scss";
   .cont{
-    width: 95%;
+    @include breakpoint(sm){
+      width: 60%;
+    }
+    @include breakpoint(xs){
+      width: 90%;
+    }
+    @include breakpoint(md,up){
+      width: 90%;
+    }
     height: 325px;
     /* border: 1px solid ; */
     text-align: center;

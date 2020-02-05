@@ -12,8 +12,14 @@
               <myinfo id="rcorners2" v-if="showme"/>
             </transition>
             <transition name="bounce">
-              <edu id="rcorners2" v-if="showeduh"/>
+              <edu id="rcorners2" v-if="showedu"/>
             </transition>
+            <transition name="bounce">
+              <crecard v-if="showcre" id="rcorners2"/>
+            </transition>
+            <v-btn class="insert" v-if="showedu" @click="create" small fab dark color="#F7CAC9" id="write">
+              <v-icon color="#92A8D1">mdi-plus</v-icon>
+            </v-btn>
           </template>
         </v-flex>
       </v-layout>
@@ -27,17 +33,20 @@ import Navbar from "../components/Navbar"
 import { mapGetters } from "vuex"
 import myinfo from "@/components/MyInfo"
 import edu from "@/components/EduHigh"
+import crecard from "@/components/CreateCard"
+
 export default {
   name: "HomePage",
   components: {
-    Navbar, myinfo, edu
+    Navbar, myinfo, edu, crecard
   },
   methods: {
     getImgUrl(img) {
       return require("../assets/" + img);
     },
     myinfo(){
-      this.showeduh = false
+      this.showedu = false
+      this.showcre = false
       setTimeout(()=>{
         this.showme = !this.showme
       }, 300)
@@ -45,15 +54,19 @@ export default {
     myedu(){
       this.showme = false
       setTimeout(() => {
-        this.showeduh = !this.showeduh
+        this.showedu = !this.showedu
       }, 300);
+    },
+    create(){
+      this.showcre = !this.showcre
     }
   },
   data() {
     return {
       drawer: null,
       showme:false,
-      showeduh:false,
+      showedu:false,
+      showcre:false,
     };
   },
 };

@@ -1,9 +1,31 @@
-@import "./style.scss";
+@import "./mystyle.scss";
 
-div{
+.hometitle{
   position: fixed;
   overflow: hidden;
   font-family: $main_font;
+  font-size: 90px;
+  @include breakpoint(under){
+    width:75px;
+    text-align: center;
+    line-height: 0.8;
+    word-wrap: break-word;
+    &.profile{
+      animation: slide_d_a 0.8s;
+      top:15%;
+      right: 180px;
+    }
+    &.resume{
+      animation: slide_d_a 0.8s;
+      top: 15%;
+      right: 90px;
+    }
+    &.interview{
+      animation: slide_d_a 0.8s;
+      top:5%;
+      right:0;
+    }
+  }
   @include breakpoint(xs){
     text-align: right;
     font-size: 80px;
