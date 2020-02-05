@@ -9,16 +9,12 @@
     <transition name="slide">
     <DrwBtn class="DrwBtn" v-if="setting"/>
     </transition>
-    
-    <!-- <v-content>
-    </v-content> -->
   </v-app>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar'
 import DrwBtn from '@/components/Drawer'
-// console.log(window.location.pathname);
 
 export default {
   name: 'App',

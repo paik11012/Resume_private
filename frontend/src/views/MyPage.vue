@@ -12,8 +12,11 @@
               <myinfo id="rcorners2" v-if="showme"/>
             </transition>
             <transition name="bounce">
-              <edu id="rcorners2" v-if="showeduh"/>
+              <edu id="rcorners2" v-if="showedu"/>
             </transition>
+            <v-btn class="insert" v-if="showedu" @click="create" small fab dark color="#F7CAC9" id="write">
+              <v-icon color="#92A8D1">mdi-plus</v-icon>
+            </v-btn>
           </template>
         </v-flex>
       </v-layout>
@@ -30,14 +33,14 @@ import edu from "@/components/EduHigh"
 export default {
   name: "HomePage",
   components: {
-    Navbar, myinfo, edu
+    Navbar, myinfo, edu,
   },
   methods: {
     getImgUrl(img) {
       return require("../assets/" + img);
     },
     myinfo(){
-      this.showeduh = false
+      this.showedu = false
       setTimeout(()=>{
         this.showme = !this.showme
       }, 300)
@@ -45,7 +48,7 @@ export default {
     myedu(){
       this.showme = false
       setTimeout(() => {
-        this.showeduh = !this.showeduh
+        this.showedu = !this.showedu
       }, 300);
     }
   },
@@ -53,7 +56,7 @@ export default {
     return {
       drawer: null,
       showme:false,
-      showeduh:false,
+      showedu:false,
     };
   },
 };

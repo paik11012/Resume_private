@@ -48,9 +48,18 @@ export default {
 
 };
 </script>
-<style>
+<style lang="scss">
+  @import "@/assets/scss/mystyle.scss";
   .cont{
-    width: 95%;
+    @include breakpoint(sm){
+      width: 60%;
+    }
+    @include breakpoint(xs){
+      width: 90%;
+    }
+    @include breakpoint(md,up){
+      width: 90%;
+    }
     height: 325px;
     /* border: 1px solid ; */
     text-align: center;

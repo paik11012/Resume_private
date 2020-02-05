@@ -1,15 +1,15 @@
 <template>
-  <v-layout mt-5 wrap>
-    <transition-group name="list">
+  <v-layout mt-5 wrap justify-space-around>
     <v-flex
       v-for="i in resumes.length > lim ? lim : resumes.length"
       :key="i"
       xs12
-      sm6
+      sm12
       md6
       lg4
       xl4
     >
+    <transition-group name="list">
       <Resume
         class="ma-3"
         :resume_company="resumes[i - 1].resume_company"
@@ -19,8 +19,8 @@
         :text_val="resumes[i - 1].text_val"
         :resume_date="resumes[i - 1].resume_date"        
       ></Resume>
-    </v-flex>
     </transition-group>
+    </v-flex>
 
     <v-flex xs12 text-xs-center round my-5 v-if="loadMore">
       <v-btn color="info" v-if="resumes.length > lim" dark v-on:click="loadMorePortfolios()">
@@ -45,6 +45,7 @@ export default {
     return {
       resumes: [],
       lim : this.limits,
+      sec : 0,
     };
   },
   components: {
@@ -73,7 +74,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import "@/assets/scss/style.scss";
+@import "@/assets/scss/mystyle.scss";
 .mw-700 {
   max-width: 700px;
   margin: auto;

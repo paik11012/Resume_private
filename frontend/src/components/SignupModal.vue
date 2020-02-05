@@ -10,9 +10,12 @@
       <div class="box-part" id="bp-left">
         <div class="partition" id="partition-register">
           <div class="partition-title">SIGN UP</div>
+
           <div class="partition-form">
             <form autocomplete="false">
-              <input required v-model="user_id" id="n-username" type="text" placeholder="User ID" />
+              <ValidationProvider name="email" rules="required|email">
+                <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email">
+              </ValidationProvider>
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -22,7 +25,6 @@
               />
               <input required v-model="user_phone" type="text" placeholder="Phone Number" />
               <input v-model="user_name" type="text" placeholder="Name" />
-              <input required v-model="user_email" type="text" placeholder="Email" />
             </form>
 
             <div style="margin-top: 42px"></div>
@@ -31,6 +33,7 @@
               <span>Sign Up</span>
             </button>
           </div>
+
         </div>
       </div>
       <div class="box-part" id="bp-right">
@@ -48,7 +51,7 @@
           <div class="partition-title">Sign Up</div>
           <div class="partition-form">
             <form autocomplete="false">
-              <input required v-model="user_id" id="n-username" type="text" placeholder="User ID" />
+              <input v-validate="'email'" data-vv-as="email" v-model="user_id" name="email_field" type="text">
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -58,7 +61,6 @@
               />
               <input required v-model="user_phone" type="text" placeholder="Phone Number" />
               <input v-model="user_name" type="text" placeholder="Name" />
-              <input required v-model="user_email" type="text" placeholder="Email" />
             </form>
 
             <div style="margin-top: 42px"></div>
@@ -76,9 +78,9 @@
       <div class="box-part" id="bp-left">
         <div class="partition" id="partition-register">
           <div class="partition-title">Sign Up</div>
-                    <div class="partition-form">
+            <div class="partition-form">
             <form autocomplete="false">
-              <input required v-model="user_id" id="n-username" type="text" placeholder="User ID" />
+              <input v-validate="'email'" data-vv-as="email" v-model="user_id" name="email_field" type="text">
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -88,7 +90,7 @@
               />
               <input required v-model="user_phone" type="text" placeholder="Phone Number" />
               <input v-model="user_name" type="text" placeholder="Name" />
-              <input required v-model="user_email" type="text" placeholder="Email" />
+
             </form>
 
             <div style="margin-top: 42px"></div>
@@ -114,7 +116,7 @@
           <div class="partition-title">Sign Up</div>
           <div class="partition-form">
             <form autocomplete="false">
-              <input required v-model="user_id" id="n-username" type="text" placeholder="User ID" />
+              <input v-validate="'email'" data-vv-as="email" v-model="user_id" name="email_field" type="text">
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -124,7 +126,6 @@
               />
               <input required v-model="user_phone" type="text" placeholder="Phone Number" />
               <input v-model="user_name" type="text" placeholder="Name" />
-              <input required v-model="user_email" type="text" placeholder="Email" />
             </form>
 
             <div style="margin-top: 42px"></div>
@@ -139,7 +140,9 @@
   </v-dialog>
 </template>
 <script>
+
 import { mapActions } from 'vuex';
+import VeeValidate from 'vee-validate'
 const MODAL_WIDTH = 656;
 export default {
   name: "SignupModal",
@@ -161,6 +164,7 @@ export default {
   },
   data() {
     return {
+      errors: [],
       modalWidth: MODAL_WIDTH,
       autogrow: true,
       dialog: false,
@@ -178,15 +182,15 @@ export default {
       user_email: null,
       user_phone:null,
       storeData: 'Yes',
-    };
+    }; 
   },
   methods: {
     submitted() {
       this.isSubmitted = true;
     },
     ...mapActions(["signup"])
-  }
-};
+  },                        
+}
 </script>
 <style lang="scss">
 $background_color: #404142;
