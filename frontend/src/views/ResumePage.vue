@@ -162,12 +162,12 @@ export default {
       //   headers: {
       //     'Authorization' : window.sessionStorage.getItem("jwt-auth-token")}
       //   })
-        axios.post(
-        'http://70.12.247.99:8080/resume/save',
+      axios.post(
+        'http://70.12.247.99:8080/resume/save', 
         r_data,
-        {headers : {'Authorization' : 'Bearer ' + window.sessionStorage.getItem("jwt-auth-token")}})
+        {headers : {'token' : window.sessionStorage.getItem("jwt-auth-token")}})
       .then(response=>{
-        console.log(response)
+        console.log(response.data)
         return this.dialog = false
       })
       .catch(error=>{
