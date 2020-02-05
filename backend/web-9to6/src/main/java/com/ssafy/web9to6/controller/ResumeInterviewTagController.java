@@ -17,6 +17,7 @@ import org.hibernate.type.MapType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,12 +35,14 @@ public class ResumeInterviewTagController {
     private ResumeService rs;
     @Autowired
     private UsersService us;
+    @Autowired
+    private JwtService jwtService;
 
     @ApiOperation("자소서 조회")
     @RequestMapping(value = "/resume", method = RequestMethod.GET)
     public List<Resume> findAllResume(HttpSession session) {
         String user_id = (String)session.getAttribute("user_id");
-        return rs.findAll(us.findById(user_id));
+        return rs.findAll(us.findById("test"));
     }
 
 //    @ApiOperation("자소서 저장")
@@ -53,10 +56,10 @@ public class ResumeInterviewTagController {
 
         @ApiOperation("자소서 저장")
     @RequestMapping(value = "/resume/save", method = RequestMethod.POST)
-    public void saveResume(HttpSession session,@RequestBody Map<String,Object> rrd) throws Exception {
+    public void saveResume(HttpSession session, HttpServletRequest request, @RequestBody Map<String,Object> rrd) throws Exception {
             Map res  = (Map)rrd.get("resume_info");
             ArrayList<String> tags = (ArrayList<String>) rrd.get("tag_name");
-            System.out.println(rrd.get("tag_name").getClass());
+
             ResumeResponseDto resume = new ResumeResponseDto();
             resume.setResume_answer((String)res.get("resume_answer"));
             resume.setResume_date((String)res.get("resume_task"));
@@ -68,10 +71,6 @@ public class ResumeInterviewTagController {
             try {
                 Resume r =  rs.save(resume);
                 Long id = r.getId();
-                System.out.print("Dd" + tags.size());
-                System.out.print("Dd" + ((ArrayList<String>) rrd.get("tag_name")).get(0).getClass());
-                System.out.print("Dd" + ((ArrayList<String>) rrd.get("tag_name")).get(0));
-
                 for(int i=0;i<tags.size();i++) {
                     TagResponseDto trd = new TagResponseDto();
                     trd.setResume(r);
@@ -81,12 +80,6 @@ public class ResumeInterviewTagController {
             } catch (Exception e) {
                 throw new Exception();
             }
-
-
-
-
-
-
     }
     @ApiOperation("자소서 삭제")
     @RequestMapping(value = "/resume/del/{id}", method = RequestMethod.DELETE)
@@ -115,7 +108,8 @@ public class ResumeInterviewTagController {
     public Interview saveInterview(HttpSession session,@RequestBody InterviewResponseDto rrd) {
        // String user_id = (String)session.getAttribute("user_id");
         // rrd.setUser(us.findById(user_id));
-        rrd.setUser(us.findById("temp"));
+        //rrd.setUser(us.findById("temp"));
+        rrd.setUser(us.findById("test"));
         return is.save(rrd);
     }
 

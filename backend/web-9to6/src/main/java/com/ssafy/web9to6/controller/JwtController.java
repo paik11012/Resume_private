@@ -8,6 +8,7 @@ import com.ssafy.web9to6.service.UsersService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,9 @@ import java.util.Map;
 @CrossOrigin(value = {"*"}, exposedHeaders = {"Content-Disposition"})
 public class JwtController {
     private final UsersService usersService;
-    private final JwtService jwtService;
+
+    @Autowired
+    private JwtService jwtService;
 
     @ApiOperation("회원 로그인")
     @PostMapping("/users/signin2")

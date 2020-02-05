@@ -16,15 +16,17 @@ public class InterviewResponseDto {
     private String interview_date;
     private String interview_question;
     private String interview_answer;
+    private String interview_memo;
 
     @Builder
-    public InterviewResponseDto(Users user, String interview_company, String interview_task, String interview_date, String interview_question, String interview_answer) {
+    public InterviewResponseDto(Users user,String interview_memo, String interview_company, String interview_task, String interview_date, String interview_question, String interview_answer) {
         this.user = user;
         this.interview_answer = interview_answer;
         this.interview_company = interview_company;
         this.interview_date = interview_date;
         this.interview_question = interview_question;
         this.interview_task = interview_task;
+        this.interview_memo = interview_memo;
     }
 
     public Interview toEntity() {
@@ -34,6 +36,7 @@ public class InterviewResponseDto {
                 .interview_question(interview_question)
                 .interview_date(interview_date)
                 .interview_task(interview_task)
+                .interview_memo(interview_memo)
                 .user(user)
                 .build();
 
