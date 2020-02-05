@@ -1,17 +1,17 @@
 <template>
-  <v-layout mt-5 wrap>
+  <v-layout mt-5 wrap justify-space-around>
     <v-flex
       v-for="i in interview.length > lim ? lim : interview.length"
       :key="i"
       xs12
-      sm6
+      sm12
       md6
       lg4
       xl3
     >
     <transition-group name="list">
       <Interview v-bind:key="i"
-        class="ma-3"
+        class="layout justify-center ma-3"
         v-if="sec >= i"
         :company="interview[i - 1].company"
         :myans="interview[i - 1].myans"
@@ -67,6 +67,7 @@ export default {
     async getInterView() {
       console.log("이거라고?");
       this.interview = await FirebaseService.getInterView();
+      this.$emit('load')
       console.log("인터뷰 받았어?");
       for (let i = 0; i < this.interview.length; i++) {
         setTimeout(() => {
@@ -84,10 +85,12 @@ export default {
   }
 };
 </script>
-<style>
+<style lang="scss">
+
 .mw-700 {
   max-width: 700px;
   margin: auto;
 }
+
 
 </style>
