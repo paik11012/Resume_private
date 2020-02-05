@@ -3,11 +3,13 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left" style="font-size:20px" colspan="3">My Info
-            <v-btn v-on:click="editor" v-if="editing" class="mx-2" small fab dark color="cyan" id="write">
+          <th class="text-left" style="font-size:20px" colspan="2">My Info
+          </th>
+          <th>
+            <v-btn v-on:click="editor" v-if="editing" small fab dark color="cyan" id="write">
               <v-icon dark>edit</v-icon>
             </v-btn>
-            <v-btn v-else v-on:click="editor" class="mx-2" small fab id="write" color="success">
+            <v-btn v-else v-on:click="editor" small fab id="write" color="success">
               <v-icon>check</v-icon>
             </v-btn>
           </th>
@@ -16,23 +18,23 @@
       <tbody>
         <tr>
           <td style="width:30%;" rowspan="3"><img style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/권응.jpg"/></td>
-          <td class="rights">병역구분</td>
+          <td>병역구분</td>
           <td v-if="editing">육군 만기전역</td>
           <td v-else><input type="text" v-model="mil_sort" placeholder="병역구분"></td>
         </tr>
         <tr>
-          <td class="rights">계급</td>
+          <td>계급</td>
           <td v-if="editing">병장</td>
           <td v-else><input type="text" v-model="mil_grade" placeholder="계급"></td>
         </tr>
         <tr>
-          <td class="rights">복무기간</td>
+          <td>복무기간</td>
           <td v-if="editing">하하하</td>
           <td v-else><input type="text" v-model="mil_service" placeholder="복무기간"></td>
         </tr>
         <tr>
           <td class="layout justify-center"><v-btn style="margin-top:6px;" color="success" outlined><v-icon dark>mdi-cloud-download</v-icon></v-btn></td>
-          <td class="rights">메모</td>
+          <td>메모</td>
           <td v-if="editing">하하하</td>
           <td v-else><input type="text" v-model="memo" placeholder="메모"></td>
         </tr>
@@ -43,11 +45,13 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left" style="font-size:20px" colspan="2">My Info
-            <v-btn v-on:click="editor" v-if="editing" class="mx-2" small fab dark color="cyan" id="write">
+          <th class="text-left" style="font-size:20px" colspan="1">My Info
+          </th>
+          <th>
+            <v-btn v-on:click="editor" v-if="editing" small fab dark color="cyan" id="write">
               <v-icon dark>edit</v-icon>
             </v-btn>
-            <v-btn v-else v-on:click="editor" class="mx-2" small fab id="write" color="success">
+            <v-btn v-else v-on:click="editor" small fab id="write" color="success">
               <v-icon>check</v-icon>
             </v-btn>
           </th>
@@ -103,5 +107,9 @@ export default {
 </script>
 
 <style lang="scss" >
+#write{
+  position: relative;
+  left: 10px;
+}
 
 </style>
