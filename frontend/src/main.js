@@ -11,13 +11,13 @@ import store from './store'
 import './registerServiceWorker'
 import VueSidebarMenu from 'vue-sidebar-menu'
 import vuetify from './plugins/vuetify';
-
+import { ValidationProvider } from 'vee-validate';
+ 
 Vue.config.productionTip = false
 Vue.use(VueSidebarMenu)
 Vue.use(VueSimplemde)
 Vue.use(Vuetify)
-
-
+Vue.component('ValidationProvider', ValidationProvider);
 new Vue({
   router,
   store,

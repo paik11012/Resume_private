@@ -85,19 +85,12 @@ export default {
   data() {
     return {
       dialog: false,
-<<<<<<< HEAD
       interview_company: null,
       interview_task : null,
       interview_date : null,
       interview_question: null,
       interview_answer: null,
       interview_memo: null,
-=======
-      drawer: null,
-      company: '',
-      res_date:'',
-      task:'',
->>>>>>> f023073e78834750bf662729dc04b6d033193e9a
     };
   },
   methods: {
