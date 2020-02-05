@@ -34,13 +34,10 @@ export default new Vuex.Store({
       .then(res => {
         if (res.data.status) {
           alert("로그인이 성공적으로 이루어졌습니다");
-<<<<<<< HEAD
           // console.dir(res.headers["jwt-auth-token"]);
           // $store.state.isLoginned = true;
           // this.token = res.headers["jwt-auth-token"]
           // console.log(token)
-=======
->>>>>>> front
           // this.setInfo(
           //   "성공", res.headers["jwt-auth-token"], JSON.stringify(res.data.data)
           // );
