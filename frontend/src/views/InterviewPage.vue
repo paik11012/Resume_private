@@ -21,31 +21,32 @@
           <v-container>
             <v-row dense justify="center">
               <v-col cols="12" sm="2" md="2">
-              <v-text-field v-model="company" label="회사명" required
+              <v-text-field v-model="interview_company" label="회사명" required
               :dense="true"
               ></v-text-field>
               </v-col>
               <v-col cols="12" sm="2" md="2">
-              <v-text-field v-model="task" label="직무" required
+              <v-text-field v-model="interview_task" label="직무" required
               :dense="true"
               ></v-text-field>
               </v-col>
             <v-col cols="12" sm="3" md="3">
-            <v-text-field v-model="res_date" label="지원시기" required
+            <v-text-field v-model="interview_date" label="지원시기" required
             :dense="true"></v-text-field>
             </v-col>
             </v-row>
-
-
-           
             <v-text-field label="질문"
+            required
+            v-model="interview_question"
             :dense="true"></v-text-field>
       <v-textarea label="답변"
+      v-model="interview_answer"
       :auto-grow="true"
       :counter="true"
       :dense="true"
       ></v-textarea>
       <v-textarea label="메모"
+      v-model="interview_memo"
       :auto-grow="true"
       :counter="true"
       :dense="true"
@@ -55,31 +56,12 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" text @click="savePort()">Save</v-btn>
+          <v-btn color="blue darken-1" text @click="writeInterview">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
   </v-row>
 </template>
-
-    <v-navigation-drawer v-model="drawer" absolute temporary>
-      <v-list dense>
-        <v-list-item>
-          <v-list-item-content>
-            <a href="/" style="margin-top:15px;">
-              <v-list-item-title style="font-size:15px; color:black;">Home</v-list-item-title>
-            </a>
-             <a href="/portfolio" style="margin-top:15px;">
-              <v-list-item-title style="font-size:15px; color:black;">Pictures</v-list-item-title>
-            </a>
-            <a href="/post" style="margin-top:15px;">
-              <v-list-item-title style="font-size:15px; color:black;">Items</v-list-item-title>
-            </a>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
     <v-container>
       <v-layout>
         <v-flex xs12>
@@ -97,6 +79,7 @@ import InterviewList from "../components/InterviewList";
 import Navbar from "../components/Navbar";
 import FirebaseService from '@/services/FirebaseService';
 import Load from '@/components/Loading';
+import axios from 'axios';
 
 export default {
   name: "PostPage",
@@ -109,21 +92,38 @@ export default {
     return {
       loading:true,
       dialog: false,
-      drawer: null,
-      company: '',
-      res_date:'',
-      task:'',
+      interview_company: null,
+      interview_task : null,
+      interview_date : null,
+      interview_question: null,
+      interview_answer: null,
+      interview_memo: null,
     };
   },
   methods: {
     showWrite() {
       return this.dialog = true
     },
-    savePort() {
-    },
-    complete(){
-      return this.loading = !this.loading
-    },
+    writeInterview() {
+      var interview_info = {
+        "interview_company" : this.interview_company,
+        "interview_task" : this.interview_task,
+        "interview_date": this.interview_date,
+        "interview_question": this.interview_question,
+        "interview_answer": this.interview_answer,
+        "interview_memo": this.interview_memo,
+      }
+      axios.post(
+        'http://70.12.247.99:8080/interview/save',
+        interview_info)
+        .then(response=>{
+        console.log(response)
+        return this.dialog = false
+      })
+      .catch(error=>{
+        console.log(error)
+      })
+    }
   }
 }
 </script>

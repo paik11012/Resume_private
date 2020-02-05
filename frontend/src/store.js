@@ -34,15 +34,12 @@ export default new Vuex.Store({
       .then(res => {
         if (res.data.status) {
           alert("로그인이 성공적으로 이루어졌습니다");
-          // console.dir(res.headers["jwt-auth-token"]);
-          $store.state.isLoginned = true;
-          this.token = res.headers["jwt-auth-token"]
-          console.log(token)
           // this.setInfo(
           //   "성공", res.headers["jwt-auth-token"], JSON.stringify(res.data.data)
           // );
           storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
           storage.setItem('user_id',res.data.data.user_id);
+          console.log(storage);
         } else {
           this.message = "로그인해주세요"
           alert("입력 정보를 확인하세요")

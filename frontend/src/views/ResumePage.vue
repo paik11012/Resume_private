@@ -70,7 +70,6 @@
           <v-checkbox
           v-model="tag_name" class="mx-2" value="배려" label="배려"></v-checkbox>
         </v-row>
-        <h2>{{ resume_tag }}</h2>
       </div>
             <v-text-field label="질문"
             v-model="resume_question"
@@ -155,18 +154,24 @@ export default {
           resume_info : resume_info,
           tag_name : this.tag_name
       }
-      const tag_name = this.tag_name;
-      const user_id = window.sessionStorage.user_id;
-      // const token = window.sessionStorage.jwt-auth-token;
-      // console.log(token)
-        axios.post('http://70.12.247.99:8080/resume/save', r_data)
-        .then(response=>{
-          console.log(response)
-          return this.dialog = false
-        })
-        .catch(error=>{
-          console.log(error)
-        })
+      // axios.request({
+      //   url: 'resume/save',
+      //   method: 'post',
+      //   baseURL: 'http://70.12.247.99:8080/',
+      //   headers: {
+      //     'Authorization' : window.sessionStorage.getItem("jwt-auth-token")}
+      //   })
+        axios.post(
+        'http://70.12.247.99:8080/resume/save',
+        r_data,
+        {headers : {'Authorization' : 'Bearer ' + window.sessionStorage.getItem("jwt-auth-token")}})
+      .then(response=>{
+        console.log(response)
+        return this.dialog = false
+      })
+      .catch(error=>{
+        console.log(error)
+      })
     },
     mounted() {
 
