@@ -21,7 +21,7 @@ import SignupModal from '../components/SignupModal.vue'
 export default {
   components: {
     LoginModal,
-    SignupModal
+    SignupModal,
     },
   data() {
     return {

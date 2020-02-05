@@ -4,7 +4,7 @@
       <Load />
     </v-layout>
     <v-flex xs12 text-xs-center round my-5>
-      <v-btn v-on:click="showWrite" class="mx-2 corner" fab dark color="cyan" id="write">
+      <v-btn v-on:click="showWrite" class="mx-2 corner" small fab dark color="cyan">
         <v-icon dark>edit</v-icon>
       </v-btn>
     </v-flex>
