@@ -74,7 +74,7 @@ export default {
     @include breakpoint(sm){
       width: 60%;
     }
-    @include breakpoint(xs){
+    @include breakpoint(xs,down){
       width: 90%;
     }
     @include breakpoint(md,up){

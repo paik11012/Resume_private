@@ -5,7 +5,7 @@
   overflow: hidden;
   font-family: $main_font;
   font-size: 90px;
-  @include breakpoint(xs,down){
+  @include breakpoint(under){
     width:75px;
     text-align: center;
     line-height: 0.8;

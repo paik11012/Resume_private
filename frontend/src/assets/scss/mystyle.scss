@@ -38,6 +38,11 @@ $black_gradient : rgb(40,40,40), rgb(70,70,70), rgb(52,52,52), rgb(130,130,130);
 // breakpoint
 @mixin breakpoint($pointer,$dir:btw){
   @if $dir == btw{
+    @if $pointer == under{
+      @media screen and (max-width: 479px){
+        @content;
+      }
+    }
     @if $pointer == xs{
       @media screen and (min-width :480px) and (max-width:599px){
         @content;
@@ -75,7 +80,7 @@ $black_gradient : rgb(40,40,40), rgb(70,70,70), rgb(52,52,52), rgb(130,130,130);
     }
   } @else if $dir == down{
     @if $pointer == xs{
-      @media screen and (max-width:479px){
+      @media screen and (max-width:599px){
         @content;
       }
     } @else if $pointer == sm{

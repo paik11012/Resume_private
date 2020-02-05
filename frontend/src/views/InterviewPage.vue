@@ -104,6 +104,9 @@ export default {
     showWrite() {
       return this.dialog = true
     },
+    complete(){
+      return this.loading = !this.loading
+    },
     writeInterview() {
       var interview_info = {
         "interview_company" : this.interview_company,

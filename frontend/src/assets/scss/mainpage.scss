@@ -17,7 +17,7 @@ a{
   cursor: pointer;
   animation: slide_f_l 1.5s;
   font-family: 'Fredoka One', cursive;  
-  @include breakpoint(xs){
+  @include breakpoint(xs,down){
     font-size: 120px;
     width:320px;
     &.signbtn{
