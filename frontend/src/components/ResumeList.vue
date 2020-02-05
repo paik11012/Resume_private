@@ -8,19 +8,16 @@
       sm6
       md6
       lg4
-      xl3
+      xl4
     >
       <Resume
         class="ma-3"
-        :company="resumes[i - 1].company"
-        :answer="resumes[i - 1].answer"
-        :question="resumes[i - 1].question"
-        :tag="resumes[i - 1].tag.split(',')"
-        :task="resumes[i - 1].task"
+        :resume_company="resumes[i - 1].resume_company"
+        :resume_answer="resumes[i - 1].resume_answer"
+        :resume_question="resumes[i - 1].resume_question"
+        :resume_task="resumes[i - 1].resume_task"
         :text_val="resumes[i - 1].text_val"
-        :date="resumes[i - 1].date"
-        :created_at="resumes[i - 1].created_at.toString()"
-        
+        :resume_date="resumes[i - 1].resume_date"        
       ></Resume>
     </v-flex>
     </transition-group>
@@ -35,7 +32,8 @@
 </template>
 <script>
 import Resume from "@/components/Resumes";
-import FirebaseService from "@/services/FirebaseService";
+// import FirebaseService from "@/services/FirebaseService";
+import axios from 'axios'
 
 export default {
   name: "ResumeList",
@@ -53,15 +51,24 @@ export default {
     Resume
   },
   mounted() {
-    // console.log(this.resumes);
     this.getResume()
   },
   methods: {
-    async getResume() {
-      this.resumes = await FirebaseService.getResume();
-
-      console.log(this.resumes);
-    },
+    // async getResume() {
+      // this.resumes = await FirebaseService.getResume();    
+    //   console.log(this.resumes);
+    // },
+    getResume: function() {
+      axios.get('http://70.12.247.99:8080/resume',
+      {headers : {'token' : window.sessionStorage.getItem("jwt-auth-token")}})
+      .then(response => {
+        console.log(response.data)
+        this.resumes = response.data
+      })
+      .catch(error => {
+      console.log(error)
+      })
+    }
   }
 };
 </script>

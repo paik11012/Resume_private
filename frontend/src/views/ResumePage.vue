@@ -66,7 +66,6 @@
           <v-checkbox
           v-model="tag_name" class="mx-2" value="배려" label="배려"></v-checkbox>
         </v-row>
-        <h2>{{ resume_tag }}</h2>
       </div>
             <v-text-field label="질문"
             v-model="resume_question"
@@ -126,7 +125,8 @@ export default {
       resume_answer:null,
       dialog: false,
       drawer: null,
-      tag_name: []
+      tag_name: [],
+      resumes: []
     };
   },
   methods: {
@@ -158,9 +158,6 @@ export default {
           console.log(error)
         })
     },
-    mounted() {
-
-    }
   }
 }
 
