@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+import Vuex, { Store } from 'vuex'
 import axois from "axios"
 import { mapState } from 'vuex'
 Vue.use(Vuex)
@@ -35,7 +35,8 @@ export default new Vuex.Store({
         if (res.data.status) {
           alert("로그인이 성공적으로 이루어졌습니다");
           // console.dir(res.headers["jwt-auth-token"]);
-          // $store.state.isLoginned = true;
+          
+          // this.$store.state.isLoginned = true;
           // this.token = res.headers["jwt-auth-token"]
           // console.log(token)
           // this.setInfo(

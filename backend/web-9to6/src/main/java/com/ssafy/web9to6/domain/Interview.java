@@ -35,13 +35,17 @@ public class Interview {
     @Column(nullable = true)
     private String interview_answer;
 
+    @Column
+    private String interview_memo;
+
     @Builder
-    public Interview(Users user, String interview_company, String interview_task, String interview_date, String interview_question, String interview_answer) {
+    public Interview(Users user, String interview_memo,String interview_company, String interview_task, String interview_date, String interview_question, String interview_answer) {
         this.user = user;
         this.interview_answer = interview_answer;
         this.interview_company = interview_company;
         this.interview_date = interview_date;
         this.interview_question = interview_question;
         this.interview_task = interview_task;
+        this.interview_memo = interview_memo;
     }
 }

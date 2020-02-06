@@ -13,9 +13,7 @@
 
           <div class="partition-form">
             <form autocomplete="false">
-              <ValidationProvider name="email" rules="required|email">
-                <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email">
-              </ValidationProvider>
+              <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email">
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -168,7 +166,7 @@ export default {
       modalWidth: MODAL_WIDTH,
       autogrow: true,
       dialog: false,
-      rules: [
+      emailRules: [
         value => !!value || "Required.",
         value => (value || "").length <= 20 || "Max 20 characters",
         value => {

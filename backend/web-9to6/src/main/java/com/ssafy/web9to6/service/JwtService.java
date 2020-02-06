@@ -27,7 +27,7 @@ public class JwtService {
         //secret key를 이용한 암호화
 
         builder.signWith(SignatureAlgorithm.HS256, salt.getBytes());
-
+        System.out.println("id  " + user.getUser_id());
 
         //마지막으로 직렬화 처리
         final String jwt = builder.compact();
@@ -35,19 +35,26 @@ public class JwtService {
         return jwt;
     }
 
-    public void checkValid(final String jwt) {
+    public String checkValid(final String jwt) {
         log.trace("토큰 점검 : {}", jwt);
-        Jwts.parser().setSigningKey(salt.getBytes()).parseClaimsJws(jwt);
+        String dd = null;
+        System.out.print("tokdddddn" + jwt);
+        if (jwt.length() > 0) {
+            dd = Jwts.parser().setSigningKey(salt.getBytes()).parseClaimsJws(jwt).getBody().get("user_id").toString();
+            Jwts.parser().setSigningKey(salt.getBytes()).parseClaimsJws(jwt);
+            System.out.print("아이디 뽑히니?    " + dd);
+        }
+        return dd;
     }
 
-    public Map<String, Object> get(final String jwt) {
-        Jws<Claims> claims = null;
-        try {
-            claims = Jwts.parser().setSigningKey(salt.getBytes()).parseClaimsJws(jwt);
-        } catch (final Exception e) {
-            throw new RuntimeException();
+        public Map<String, Object> get(final String jwt) {
+            Jws<Claims> claims = null;
+            try {
+                claims = Jwts.parser().setSigningKey(salt.getBytes()).parseClaimsJws(jwt);
+            } catch (final Exception e) {
+                throw new RuntimeException();
+            }
+            log.trace("claims:{}", claims);
+            return claims.getBody();
         }
-        log.trace("claims:{}", claims);
-        return claims.getBody();
     }
-}
