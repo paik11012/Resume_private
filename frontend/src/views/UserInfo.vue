@@ -6,24 +6,34 @@
       </div>
     </div>
     <div class="col-xs-12 col-md-12 col-sm-12">
-      <h1 id="id" class="text-center">User Id</h1>
+      <h1 id="id" class="text-center">{{ user_id }}</h1>
     </div>
+
+    <div id="testt">
+      <input type="file" multiple accept="image/jpeg" @change="detectFiles($event.target.files)">
+    </div>
+
     <div class="col-xs-12 col-md-12 col-sm-12">
-      <p class="text-center caption">RESUME</p>
-      <p class="text-center caption">INTERVIEW</p>
+      <!-- 이름 전화번호 비밀번호 바꾸기 가능 -->
+      <p class="text-center">이름</p>
+      <p class="text-center">전화번호</p>
+      <p class="text-center">RESUME  {{ user_resume_number }}</p>
+      <p class="text-center">INTERVIEW {{ user_interview_number }} </p>
     </div>
   </div>
 </div>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
-      user_id: "hii",
-      user_email: "e@com",
+      user_id: "",
       user_resume_number: "3",
-      user_interview_number: "5"
+      user_interview_number: "5",
+      user_name: "",
+      user_phone_number:""
     };
   },
   mounted() {
@@ -55,23 +65,9 @@ export default {
 .rowss{
   padding:50px;
 }
-.btn-default{
-    font-family: "PT Sans", sans-serif;
-    letter-spacing: 6px;
-    color:#fff;
-    border: solid 2px #fff;
-    background-color: transparent;
-}
-.btn-default:hover, .btn-default:focus, .btn-default:active{
-    color: #ffb1b1;
-    background-color: #fff;
-    border-color: #fff;
-    box-shadow: none;
-    outline: none;
-}
 .caption{
     font-family: "PT Sans", sans-serif;
-    font-size: 16px;
+    font-size: 25px;
     text-transform: uppercase;
     letter-spacing: 6px;
 }
@@ -80,16 +76,8 @@ export default {
     position: absolute;
     width: 50px;
     height: 10px;
-    border-top: 5px solid #fff;
-    border-bottom: 1px solid #fff;
 }
 
-.caption:before {
-  margin: 7px 0 0 -60px;
-}
-.caption:after {
-  margin: 7px 0 0 10px;
-}
 
 .pulse{
    box-shadow: 0 0 0 0 rgb(231, 231, 231);
