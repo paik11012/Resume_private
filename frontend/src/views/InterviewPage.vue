@@ -117,8 +117,11 @@ export default {
         "interview_memo": this.interview_memo,
       }
       axios.post(
-        'http://70.12.247.99:8080/interview/save',
-        interview_info)
+        'http://70.12.247.99:8080/interview/save', 
+        interview_info,
+        {headers : {
+          'token' : window.sessionStorage.getItem("jwt-auth-token"),
+          'user_id': window.sessionStorage.getItem("user_id")},})
         .then(response=>{
         console.log(response)
         return this.dialog = false

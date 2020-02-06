@@ -14,12 +14,13 @@
       v-bind:key="i"
       v-if="sec >= i"
         class="ma-3 layout justify-center"
-        :resume_company="resumes[i - 1].resume_company"
-        :resume_answer="resumes[i - 1].resume_answer"
-        :resume_question="resumes[i - 1].resume_question"
-        :resume_task="resumes[i - 1].resume_task"
+        :resume_company="resumes[i - 1][0].resume_company"
+        :resume_answer="resumes[i - 1][0].resume_answer"
+        :resume_question="resumes[i - 1][0].resume_question"
+        :resume_task="resumes[i - 1][0].resume_task"
         :text_val="resumes[i - 1].text_val"
-        :resume_date="resumes[i - 1].resume_date"        
+        :resume_date="resumes[i - 1][0].resume_date"
+        :tag_name="resumes[i-1][1]"
       ></Resume>
     </transition-group>
     </v-flex>
@@ -58,8 +59,8 @@ export default {
       'user_id' : window.sessionStorage.getItem("user_id")}
       })
       .then(response => {
-        console.log(response.data)
         this.resumes = response.data
+        console.log(response.data)
         this.$emit("load")
         for (let i = 0; i < this.resumes.length; i++) {
         setTimeout(() => {

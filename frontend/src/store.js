@@ -6,6 +6,30 @@ import router from './router'
 Vue.use(Vuex)
 Vue.use(Router)
 export default new Vuex.Store({
+  state: {
+    token: '',
+    status: '',
+    isLogin: false,
+    isLoginError: '',
+    user_info: null,
+  },
+  mutations: {
+    loginSuccess(state, user_info) {
+      state.isLogin = true
+      state.isLoginError = false
+      state.user_info = user_info 
+    },
+    // 로그인이 실패했을 때,
+    loginError(state) {
+      state.islogin = false
+      state.isLoginError = true
+    },
+    logout(state) {
+      state.isLogin = false
+      state.isLoginError = false
+      state.userInfo = null
+    }
+  },
   actions: {
     logout() {  // 로그아웃
       const storage = window.sessionStorage
@@ -35,11 +59,15 @@ export default new Vuex.Store({
       .then(res => {
         if (res.data.status) {
           alert("로그인이 성공적으로 이루어졌습니다");
-          commit("loginSuccess")
           console.log(res.data)
           storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
           // storage.setItem('jwt-auth-token','dfssdfse')
           storage.setItem('user_id',res.data.data.user_id);
+          const user_info = {
+            user_phone : res.data.data.user_phone,
+            user_name : res.data.data.user_name
+          }
+          commit("loginSuccess", user_info)
           router.push('home')
         } else {
           this.message = "로그인해주세요"
@@ -62,29 +90,5 @@ export default new Vuex.Store({
     // mounted() {
     //   this.init()
     }
-  }, // action  끝
-  state: {
-    token: '',
-    status: '',
-    isLogin: false,
-    isLoginError: '',
-    userInfo: '',
-  },
-  mutations: {
-    loginSuccess(state, payload) {
-      state.isLogin = true
-      state.isLoginError = false
-      state.userInfo = payload
-    },
-    // 로그인이 실패했을 때,
-    loginError(state) {
-      state.islogin = false
-      state.isLoginError = true
-    },
-    logout(state) {
-      state.isLogin = false
-      state.isLoginError = false
-      state.userInfo = null
-    }
-  }
+  }, // action  끝  
 })

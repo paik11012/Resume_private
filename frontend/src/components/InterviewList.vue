@@ -21,7 +21,6 @@
           :interview_task="interview[i - 1].interview_task"
           :interview_date="interview[i - 1].interview_date"
           :interview_memo="interview[i - 1].interview_memo"
-          :created_at="interview[i - 1].created_at.toString()"
         ></Interview>
       </transition-group>
     </v-flex>
@@ -35,20 +34,11 @@ export default {
   name: "InterviewList",
   props: {
     limits: { type: Number, default: 6 },
-    loadMore: { type: Boolean, default: false }
   },
   data() {
     return {
       interview: [],
       lim: this.limits,
-      interview_company: "",
-      interview_answer: "",
-      editans: "",
-      interview_question: "",
-      interview_task: "",
-      interview_date: "",
-      created_at: "",
-      interview_memo: "",
       sec: 0
     };
   },

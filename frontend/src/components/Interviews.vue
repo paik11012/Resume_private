@@ -31,14 +31,6 @@ export default {
   data() {
     return {
       showmenu: false,
-      interview_company:this.interview_company,
-      interview_answer:this.interview_answer,
-      eda:this.editans,
-      interview_question:this.interview_question,
-      interview_task:this.interview_task,
-      interview_date:this.interview_date,
-      cra:this.created_at,
-      interview_memo:this.interview_memo,
     };
   },
   methods: {

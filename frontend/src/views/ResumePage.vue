@@ -155,7 +155,7 @@ export default {
           resume_info : resume_info,
           tag_name : this.tag_name
       }
-      // axios.request({
+      // axios.request({ 
       //   url: 'resume/save',
       //   method: 'post',
       //   baseURL: 'http://70.12.247.99:8080/',

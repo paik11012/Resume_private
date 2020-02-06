@@ -15,7 +15,7 @@
 
     <div class="col-xs-12 col-md-12 col-sm-12">
       <!-- 이름 전화번호 비밀번호 바꾸기 가능 -->
-      <p class="text-center">이름</p>
+      <p class="text-center">{{ user_name }}</p>
       <p class="text-center">전화번호</p>
       <p class="text-center">RESUME  {{ user_resume_number }}</p>
       <p class="text-center">INTERVIEW {{ user_interview_number }} </p>
@@ -30,7 +30,7 @@ export default {
   data() {
     return {
       user_id: "",
-      user_resume_number: "3",
+      user_resume_number: '',
       user_interview_number: "5",
       user_name: "",
       user_phone_number:""
@@ -38,7 +38,9 @@ export default {
   },
   mounted() {
     const storage = window.sessionStorage;
-      this.user_id = storage.user_id
+      this.user_id = storage.user_id;
+      console.log(this.$store.state.user_info)
+      // this.user_name = .user_name;
   }
 };
 </script>

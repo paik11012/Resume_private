@@ -10,11 +10,29 @@
     <div class="question">{{resume_question}}</div>
     <div class="label">답변</div>
     <div class="answer">{{resume_answer}}</div>
-    <!-- <div class="row">
-      <div class="tag">{{tag[0]}} {{tag[1]}}</div>
-      <v-spacer></v-spacer>
-      <div class="text_val">{{text_val}}자</div>
-    </div> -->
+    <div class="text-center">
+      <div class="label">태그</div>
+      <ul v-if="tag_name.length < 3">
+        <li v-for="item in tag_name" v-bind:key="item.id">
+          {{ item["tag_name"] }}
+        </li>
+      </ul>
+      <ul v-else>
+        <li>
+          {{ item["tag_name"][0] }}
+          {{ item["tag_name"][1] }}
+        </li>
+      </ul>
+
+
+      <!-- <div v-for="item in tag_name" v-bind:key='item.id'
+      >
+        {{ item["tag_name"] }}
+      </div> -->
+      <!-- <div class="tag">{{tag[0]}} {{tag[1]}}</div> -->
+      <!-- <v-spacer></v-spacer>
+      <div class="text_val">{{text_val}}자</div> -->
+    </div>
   </div>
   </transition>
   </div>
@@ -49,6 +67,10 @@ export default {
 };
 </script>
 <style lang="scss">
+ul{
+   list-style:none;
+   padding-left:0px;
+   }
   @import "@/assets/scss/mystyle.scss";
   .cont{
     @include breakpoint(sm){
