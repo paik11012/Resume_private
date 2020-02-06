@@ -49,7 +49,7 @@
           <div class="partition-title">Sign Up</div>
           <div class="partition-form">
             <form autocomplete="false">
-              <input v-validate="'email'" data-vv-as="email" v-model="user_id" name="email_field" type="text">
+              <input data-vv-as="email" v-model="user_id" name="email_field" type="text" placeholder="Email">
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -78,7 +78,7 @@
           <div class="partition-title">Sign Up</div>
             <div class="partition-form">
             <form autocomplete="false">
-              <input v-validate="'email'" data-vv-as="email" v-model="user_id" name="email_field" type="text">
+              <input placeholder="Email" data-vv-as="email" v-model="user_id" name="email_field" type="text">
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -114,7 +114,7 @@
           <div class="partition-title">Sign Up</div>
           <div class="partition-form">
             <form autocomplete="false">
-              <input v-validate="'email'" data-vv-as="email" v-model="user_id" name="email_field" type="text">
+              <input placeholder="Email" data-vv-as="email" v-model="user_id" name="email_field" type="text">
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -140,7 +140,7 @@
 <script>
 
 import { mapActions } from 'vuex';
-import VeeValidate from 'vee-validate'
+
 const MODAL_WIDTH = 656;
 export default {
   name: "SignupModal",

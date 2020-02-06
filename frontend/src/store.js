@@ -1,16 +1,17 @@
 import Vue from 'vue'
 import Vuex, { Store } from 'vuex'
 import axois from "axios"
-import { mapState } from 'vuex'
+import Router from 'vue-router'
+import router from './router'
 Vue.use(Vuex)
-
+Vue.use(Router)
 export default new Vuex.Store({
   actions: {
     logout() {  // 로그아웃
       const storage = window.sessionStorage
       storage.setItem('jwt-auth-token','')
       storage.setItem('user_id','');
-      console.log('로그아웃완료')
+      commit('logout')
     },
 
     signup(dispatch, signupObj) {
@@ -25,7 +26,8 @@ export default new Vuex.Store({
         })
     },
 
-    login(dispatch, loginObj) {
+    login({state, commit, dispatch}, loginObj) {
+      console.log(loginObj)
       const SERVER_IP = 'http://70.12.247.99:8080'
       const storage = window.sessionStorage;
       storage.setItem("jwt-auth-token", "");
@@ -34,17 +36,16 @@ export default new Vuex.Store({
       .then(res => {
         if (res.data.status) {
           alert("로그인이 성공적으로 이루어졌습니다");
+          commit("loginSuccess")
           // console.dir(res.headers["jwt-auth-token"]);
-          
-          // this.$store.state.isLoginned = true;
           // this.token = res.headers["jwt-auth-token"]
-          // console.log(token)
           // this.setInfo(
           //   "성공", res.headers["jwt-auth-token"], JSON.stringify(res.data.data)
           // );
-          storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
+          // storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
+          storage.setItem('jwt-auth-token','dfssdfse')
           storage.setItem('user_id',res.data.data.user_id);
-          console.log(storage);
+          router.push('home')
         } else {
           this.message = "로그인해주세요"
           alert("입력 정보를 확인하세요")
@@ -52,6 +53,7 @@ export default new Vuex.Store({
       })
       .catch((error) => {
         console.log(error)
+        commit('loginError')
       })
     // },
     // init() {
@@ -68,8 +70,9 @@ export default new Vuex.Store({
   state: {
     token: '',
     status: '',
-    info: '',
-    isLoginned: false,
+    isLogin: false,
+    isLoginError: '',
+    userInfo: '',
     career: [
       {
         onetitle: '내사진',
@@ -111,5 +114,22 @@ export default new Vuex.Store({
         onecontent: 305,
       },
     ],
+  },
+  mutations: {
+    loginSuccess(state, payload) {
+      state.isLogin = true
+      state.isLoginError = false
+      state.userInfo = payload
+    },
+    // 로그인이 실패했을 때,
+    loginError(state) {
+      state.islogin = false
+      state.isLoginError = true
+    },
+    logout(state) {
+      state.isLogin = false
+      state.isLoginError = false
+      state.userInfo = null
+    }
   }
 })
