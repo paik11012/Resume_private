@@ -3,15 +3,26 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th>
-          <div class="menubar">
-            <ul>
-              <li><a href="#">Sliders</a></li>
-              <li><a href="#">Galleries</a></li>
-              <li><a href="#">Apps</a></li>
-              <li><a href="#">Extensions</a></li>
+          <th style="position:relative;">
+            <!-- <li v-for="(item, index) in items">
+              {{ parentMessage }} - {{ index }} - {{ item.message }}
+            </li> -->
+            <div>
+            <ul class="menubar" @click="opendb"> 
+                 <!-- eslint-disable -->
+              <li
+                v-for="i in 4" 
+                v-bind:key="i"
+                v-if="select==i | opendrop"
+                @click="selectone(i)"
+                class="layout row"
+                style="padding-left: 10px;"
+              >
+                <!-- eslint-disable -->
+              {{ schoolsort[i-1] }} <div v-if="!opendrop" style="position:absolute; right:0;"><i class="material-icons">arrow_drop_down</i></div>
+              </li>
             </ul>
-          </div>
+            </div>
           </th>
           <th class="layout justify-end">
             <v-btn v-on:click="editor" v-if="editing" small fab dark color="cyan" id="write">
@@ -25,12 +36,27 @@
       </thead>
       <tbody>
         <tr>
-          <td width="150px">고등학교</td>
+          <td width="150px">학교명</td>
           <td v-if="editing">ABC 고등학교</td>
           <td v-else><input type="text" v-model="schoolname" placeholder="schoolname"></td>
         </tr>
         <tr>
           <td width="150px">재학기간</td>
+          <td v-if="editing">시작 ~ 끝</td>
+          <td v-else><input type="text" v-model="edu_period" placeholder="edu_period"></td>
+        </tr>
+        <tr v-if="select != 1">
+          <td width="150px">전공여부</td>
+          <td v-if="editing">시작 ~ 끝</td>
+          <td v-else><input type="text" v-model="edu_period" placeholder="edu_period"></td>
+        </tr>
+        <tr v-if="select != 1">
+          <td width="150px">이수학점</td>
+          <td v-if="editing">시작 ~ 끝</td>
+          <td v-else><input type="text" v-model="edu_period" placeholder="edu_period"></td>
+        </tr>
+        <tr v-if="select != 1">
+          <td width="150px">총 평점</td>
           <td v-if="editing">시작 ~ 끝</td>
           <td v-else><input type="text" v-model="edu_period" placeholder="edu_period"></td>
         </tr>
@@ -46,33 +72,58 @@ export default {
       editing:true,
       schoolname:'',
       edu_period:'',
+      select:2,
+      opendrop:false,
+      schoolsort:[
+        'HighSchool', 'University', 'Transfer', 'GradSchool'
+      ]
     }
   },
   methods:{
     editor(){
       this.editing = !this.editing
     },
+    opendb(){
+      this.opendrop = !this.opendrop
+      console.log(this.opendrop);
+    },
+    selectone(i){
+      this.select = i
+      console.log(this.select);
+      
+    },
   }
 }
 </script>
 
 <style lang="scss">
-.menubar ul{
-    background: rgb(109,109,109);
-    display:none;  /* 평상시에는 서브메뉴가 안보이게 하기 */
-    height:auto;
+@import "@/assets/scss/mystyle.scss"; 
+.menubar {
+    background: none;
+    height:100%;
+    font-size: 20px;
+    top: 5px;
+    left: 0;
     padding:0px;
     margin:0px;
     border:0px;
-    position:absolute;
-    width:200px;
+    text-align: left;
+    width:100%;
     z-index:200;
-    color:black;
+    color:white;
+    position: absolute;
+    & li {
+      background: white;
+      border: 1px solid;
+      color: black;
+      list-style: none;
+    }
+    & ul{
+      color:black;
+      list-style: none;
+    }
 }
 
-.menubar li:hover ul{
-  display: block;
-}
 
 #write{
   position: relative;

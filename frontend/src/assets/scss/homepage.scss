@@ -4,21 +4,21 @@
   position: fixed;
   overflow: hidden;
   font-family: $main_font;
-  font-size: 90px;
   @include breakpoint(under){
-    width:75px;
+    font-size: 20vw;
+    width:16.5vw;
     text-align: center;
     line-height: 0.8;
     word-wrap: break-word;
     &.profile{
       animation: slide_d_a 0.8s;
       top:15%;
-      right: 180px;
+      right: 34vw;
     }
     &.resume{
       animation: slide_d_a 0.8s;
       top: 15%;
-      right: 90px;
+      right: 17vw;
     }
     &.interview{
       animation: slide_d_a 0.8s;

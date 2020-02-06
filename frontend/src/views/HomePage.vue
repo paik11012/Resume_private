@@ -33,7 +33,6 @@ export default {
   },
   mounted(){
     console.log(document.body.offsetWidth);
-    
     if(document.body.offsetWidth < 480){
       this.show3 = true
       setTimeout(()=>{
