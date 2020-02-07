@@ -99,7 +99,7 @@
       <!-- Portfolio -->
       <v-layout>
         <v-flex xs12>
-          <ResumeList :limits="4" :load-more="true" @load="complete">
+          <ResumeList ref="updating" :load-more="true" @load="complete">
           </ResumeList>
         </v-flex>
       </v-layout>
@@ -135,7 +135,8 @@ export default {
       dialog: false,
       drawer: null,
       tag_name: [],
-      resumes: []
+      resumes: [],
+      reload:false,
     };
   },
   methods: {
@@ -143,7 +144,7 @@ export default {
       return this.dialog = true
     },
     complete(){
-      return this.loading = !this.loading
+      return this.loading = false
     },
     writeResume() {
       var resume_info = {
@@ -172,11 +173,13 @@ export default {
           'user_id': window.sessionStorage.getItem("user_id")},})
       .then(response=>{
         console.log(response.data)
+        this.$refs.updating.getResume()
         return this.dialog = false
       })
       .catch(error=>{
         console.log(error)
       })
+      // location.reload()
     },
   }
 }

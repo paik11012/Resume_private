@@ -33,12 +33,10 @@ import axios from 'axios'
 export default {
   name: "ResumeList",
   props: {
-    limits: { type: Number, default: 6 },
   },
   data() {
     return {
       resumes: [],
-      lim : this.limits,
       sec : 0,
     };
   },
@@ -72,6 +70,12 @@ export default {
       .catch(error => {
       console.log(error)
       })
+    }
+  },
+  computed(){
+    if(this.update){
+      this.$emit('complete')
+      this.getResume()
     }
   }
 };

@@ -1,17 +1,17 @@
 <template>
-  <div>
+  <div class="resumeCard layout justify-center" >
   <transition name="slide">
-  <div class="cont" oncontextmenu="return false">
-    <div class="company">{{resume_company}}</div>
+  <div class="full" oncontextmenu="return false">
+    <div class="company">{{rs_cpn}}</div>
     <hr>
     <div class="task">{{resume_task}}</div>
     <div class="date">{{resume_date}}</div>
-    <div class="label">질문</div>
+    <div class="label Q">질문</div>
     <div class="question">{{resume_question}}</div>
-    <div class="label">답변</div>
+    <div class="label A">답변</div>
     <div class="answer">{{resume_answer}}</div>
-    <div class="text-center" style="float:center">
-    <div id="texts" class="text-right">{{ resume_answer.length }}자</div>
+    <div class="text-right">{{ resume_answer.length }}자</div>
+    <div class="tags">
       <ul v-if="tag_name.length > 3">
         <li v-for="item in tag_name" v-bind:key="item.id">
           {{ ' #' + item }}
@@ -47,7 +47,17 @@ export default {
   data() {
     return {
       showmenu: false,
+      rs_cpn: this.resume_company,
+      rs_ans: this.resume_answer,
+      rs_qst: this.resume_question,
+      rs_tsk: this.resume_task,
+      rs_dat: this.resume_date,
     };
+  },
+  mounted(){
+    if (this.rs_cpn.length > 15){
+      this.rs_cpn = this.rs_cpn.slice(0, 15) + "..."
+    }
   },
   methods: {
     input(value){
@@ -59,67 +69,90 @@ export default {
 };
 </script>
 <style lang="scss">
-ul{
-   list-style:none;
-   padding-left:0px !important;
-   position: relative;
-   }
-   
-  @import "@/assets/scss/mystyle.scss";
-  .cont{
-    @include breakpoint(sm){
-      width: 60%;
-    }
-    @include breakpoint(xs,down){
-      width: 90%;
-    }
-    @include breakpoint(md,up){
-      width: 90%;
-    }
-    height: 325px;
-    position: relative;
-    /* border: 1px solid ; */
-    text-align: center;
-    border: 2px solid #92a8d1;
-    border-radius: 10px;
-    font-size: 13px;
-    box-shadow: 3px 3px rgb(247, 202, 201);
-    padding: 15px;
-    background: white;
+@import "@/assets/scss/mystyle.scss";
+.resumeCard{
+  position: relative;
+  @include breakpoint(sm){
+    width: 60%;
   }
-  .tag{
+  @include breakpoint(xs,down){
+    width: 90%;
+  }
+  @include breakpoint(md,up){
+    width: 90%;
+  }
+  height: 325px;
+  position: relative;
+  /* border: 1px solid ; */
+  text-align: center;
+  border: 2px solid #92a8d1;
+  border-radius: 10px;
+  font-size: 13px;
+  box-shadow: 3px 3px rgb(247, 202, 201);
+  padding: 5%;
+  background: white;
+  &.full{
+    width: 100%
+  }
+  & ul{
+    width: 90%;
+    padding: 0;
     position: absolute;
-    margin-left: 20px;
-    font-size: 15px;
-    color: rgb(123,123,255)
+    bottom: 5%;
   }
-  .text_val{
-    margin-right: 20px;
-    font-size: 15px;
-  }
-  .company{
+  & .company{
+    width: 90%;
+    position: absolute;
+    top:2%;
     font-size: 24px;
     margin-bottom: 2px;
   }
-  .task{
-    margin-top: 7px;  
-    font-size: 16px;
-    margin-bottom: 3px;
+  & hr{
+    position: absolute;
+    width:90%;
+    top: 14%;
   }
-  .date{
+  & .task{
+    width: 90%;
+    position: absolute;
+    top: 14%;
+    font-size: 16px;
+  }
+  & .date{
+    width: 90%;
+    top: 23%;
+    position: absolute;
     font-size: 13px;
     color: rgb(145,145,145);
     margin-bottom: 10px;
   }
-  .question{
+  & .Q{
+    width: 90%;
+    top: 32%;
+    position: absolute;
+    }
+
+  & .question{
+    width: 90%;
+    top: 39%;
+    position: absolute;
     font-size: 15px;
     margin-bottom: 6px;
     display: -webkit-box;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  .answer{
+
+  & .A{
+    width: 90%;
+    top: 56%;
+    position: absolute;
+  }
+  & .answer{
+    width: 90%;
+    top: 63%;
+    position: absolute;
     font-size: 15px;
     margin-bottom: 10px;
     display: -webkit-box;
@@ -127,12 +160,31 @@ ul{
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  // ul{
+    //   list-style:none;
+  //   padding-left:0px !important;
+  //   position: relative;
+  // }
+  // .tag{
+    //   position: absolute;
+  //   margin-left: 20px;
+  //   bottom: 110px;
+  //   font-size: 15px;
+  //   color: rgb(123,123,255)
+  // }
+  & .text_val{
+    width: 90%;
+    top: 80%;
+    position: absolute;
+    font-size: 15px;
+  }
+  
+  
+  
   .slide{
     animation: slide_l 0.6s
   }
-#texts{
-  margin-right:0;
-  position: relative;
 }
 </style>
+
 
