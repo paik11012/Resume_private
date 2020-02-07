@@ -1,5 +1,5 @@
 <template>
-  <div class="full">
+  <div class="full res_page">
     <v-layout justify-center align-center style="height:100%;" v-if="loading">
       <Load />
     </v-layout>
@@ -34,14 +34,13 @@
             ></v-text-field>
             </v-col>
             </v-row>
-
-
             <div style="margin:0px;">
             <label>tag</label>
             </div>
-            <div style=" margin:0;">
+            <div class="dig" style=" margin:0;">
         <v-row style="height: 60px;"
         justify="space-around">
+          <!-- <input type="checkbox" name="신뢰" style="width:20px; height:20px; border:2px solid;" label="신뢰" id="신뢰" > -->
           <v-checkbox
           v-model="tag_name" class="mx-2" value="신뢰" label="신뢰"></v-checkbox>
           <v-checkbox
@@ -158,13 +157,6 @@ export default {
           resume_info : resume_info,
           tag_name : this.tag_name
       }
-      // axios.request({ 
-      //   url: 'resume/save',
-      //   method: 'post',
-      //   baseURL: 'http://70.12.247.99:8080/',
-      //   headers: {
-      //     'Authorization' : window.sessionStorage.getItem("jwt-auth-token")}
-      //   })
       if (resume_info.resume_company == null
           || resume_info.resume_task == null
           || resume_info.resume_question == null
@@ -193,10 +185,21 @@ export default {
 }
 
 </script>
-<style>
+<style lang="scss">
+
 #write{
   margin-left:85% !important
 }
+.dig{
+  & .v-icon{
+    z-index: 0;
+  }
+  & .v-input--selection-controls__ripple{
+    z-index: 1;
+  }
+}
+
+
 .corner{
   position: fixed;
   right:30px;

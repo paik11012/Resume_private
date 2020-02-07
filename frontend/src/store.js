@@ -52,7 +52,7 @@ export default new Vuex.Store({
         })
     },
 
-    login({state, commit}, loginObj) {
+    login({state, commit, dispatch}, loginObj) {
       const SERVER_IP = 'http://70.12.247.99:8080'
       const storage = window.sessionStorage;
       storage.setItem("jwt-auth-token", "");
