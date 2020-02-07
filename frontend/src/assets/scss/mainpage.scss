@@ -6,53 +6,98 @@
 .fadein-leave-active{
   animation: fadeout 1s;
 }
-
+.pp{
+  @include breakpoint(xs,dwon){
+    padding: 6vw;
+  }
+}
 a{
   text-decoration: none;
 }
+
+.locset_log{
+  @include breakpoint(xs,down){
+    width: 67vw;
+
+  }
+  @include breakpoint(sm){
+    padding-bottom: 6vw;
+  }
+  @include breakpoint(md,up){
+    padding-bottom: 2vh;
+  }
+}
+.locset_sign{
+  @include breakpoint(xs,down){
+    width: 50vw;
+    margin-right: 2vw;
+
+  }
+  @include breakpoint(sm){
+    padding-bottom: 6vw;
+  }
+  @include breakpoint(md,up){
+    padding-bottom: 2vh;
+  }
+}
+
 .main_p{
-  margin: 0px;
-  padding-bottom: 15px;
-  position: fixed;
   cursor: pointer;
   animation: slide_f_l 1.5s;
   font-family: 'Fredoka One', cursive;  
   @include breakpoint(xs,down){
-    font-size: 120px;
-    width:320px;
+    font-size: 25vw;
+    &.logbtn{
+      @include gradient_text(600, $main_degree, $main_gradient);
+      width: 67vw;
+        padding-bottom: 10vh;
+        margin-right: 8vw;
+        text-align: right;
+        animation: fadein 1s;
+        line-height: 1;
+        color: white;
+        font-weight: 600;
+        right: 10vw;
+        bottom: 50%;
+        &on{
+          padding-bottom: 10vh;
+        width: 41vw;
+        margin-right: 8vw;
+        text-align: right;
+        animation: fadein 1s;
+        line-height: 1;
+        color: white;
+        font-weight: 600;
+        right: 10vw;
+        bottom: 50%;
+      }
+    }
     &.signbtn{
       @include gradient_text(600, $main_degree, $main_gradient);
+      width: 50vw;
+      font-weight: 600;
       line-height: 1;
       text-align: right;
-      right: 10%;
-      bottom: 10%;
+      color:white;
+      right: 10vw;
+      bottom: 10vh;
+      margin-right: 8vw;
       &on{
+        width: 50vw;
+        margin-right: 8vw;
         animation: fadein 1s;
         font-weight: 600;
         line-height: 1;
         text-align: right;
         color:white;
-        right: 10%;
-        bottom: 10%;
-      }
-    }
-    &.logbtn{
-      @include gradient_text(600, $main_degree, $main_gradient);
-      right: 10%;
-      bottom: 50%;
-      line-height: 1;
-      &on{
-        animation: fadein 1s;
-        line-height: 1;
-        color: white;
-        font-weight: 600;
-        right: 10%;
-        bottom: 50%;
+        right: 10vw;
+        bottom: 10vh;
       }
     }
   }
   @include breakpoint(sm){
-    font-size: 150px;
+
+    font-size: 18vw;
     &.signbtn{
       @include gradient_text(600, $main_degree, $main_gradient);
       left: 5%;
@@ -67,9 +112,11 @@ a{
     }
     &.logbtn{
       @include gradient_text(600, $main_degree, $main_gradient);
+      width: 55vw;
       left: 5%;
       bottom: 50%;
       &on{  
+        width: 55vw;
         animation: fadein 1s;
         color: white;
         font-weight: 600;
@@ -79,12 +126,12 @@ a{
     }
   }
   @include breakpoint(md,up){
-    font-size: 200px;
+    font-size: 22vh;
     &.signbtn{
       @include gradient_text(600, $main_degree, $main_gradient);
-      left: 15%;
-      bottom: 10%;
+      text-align: right;
       &on{
+        text-align: right;
         animation: fadein 1s;
         font-weight: 600;
         color:white;
@@ -95,8 +142,10 @@ a{
     &.logbtn{
       @include gradient_text(600, $main_degree, $main_gradient);
       left: 5%;
+      width: 60vh;
       top : 10%;
       &on{  
+        width: 60vh;
         animation: fadein 1s;
         color: white;
         font-weight: 600;

@@ -55,6 +55,8 @@ export default {
   .backapp{
     font-size: 25px;
     text-align: center;
+    left: 0;
+    top: 0;
     position:fixed;
     width:100%;
     height:100%;

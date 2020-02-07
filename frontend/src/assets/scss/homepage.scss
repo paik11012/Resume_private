@@ -2,29 +2,49 @@
 
 .hometitle{
   position: fixed;
-  overflow: hidden;
+  // overflow: hidden;
   font-family: $main_font;
+  & p{
+    margin-bottom: 0;
+    cursor: pointer;
+  }
   @include breakpoint(under){
-    font-size: 20vw;
-    width:16.5vw;
+    font-size: 19vw;
     text-align: center;
     line-height: 0.8;
     word-wrap: break-word;
+   
+    
     &.profile{
+      height: 100%;
       animation: slide_d_a 0.8s;
-      top:15%;
       right: 34vw;
     }
     &.resume{
+      height: 100%;
       animation: slide_d_a 0.8s;
-      top: 15%;
       right: 17vw;
     }
     &.interview{
+      height: 100%;
       animation: slide_d_a 0.8s;
-      top:5%;
       right:0;
     }
+    // &.profile{
+    //   animation: slide_d_a 0.8s;
+    //   top:15%;
+    //   right: 34vw;
+    // }
+    // &.resume{
+    //   animation: slide_d_a 0.8s;
+    //   top: 15%;
+    //   right: 17vw;
+    // }
+    // &.interview{
+    //   animation: slide_d_a 0.8s;
+    //   top:5%;
+    //   right:0;
+    // }
   }
   @include breakpoint(xs){
     text-align: right;

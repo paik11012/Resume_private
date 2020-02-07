@@ -1,17 +1,36 @@
 <template >
-  <div>
+  <div class="full layout col align-center" :class="{'justify-end' : phone, 'justify-center' : !phone}">
+    <div style="width:75%">
+      <div class="{layout justify-start:!phone}">
   <transition name="fadein">
   <div class="back" v-if="backon | loginModalOpen | signupModalOpen" @mouseover="back"></div>
   </transition>
-  <p class="logbtn main_p" v-if="logc" @mouseover="logpic" @click="openLoginModal">Login</p>
-  <p class="logbtnon main_p" v-else @mouseout="back" @click="openLoginModal">Login</p>
-  <LoginModal v-model="loginModalOpen" @close="openLoginModal"></LoginModal>
-        
-  <p class="signbtn main_p" v-if="signc" @mouseover="signpic" @click="openSignupModal">Sign Up</p>
-  <p class="signbtnon main_p" v-else @mouseout="back" @click="openSignupModal">Sign Up</p>
-  <SignupModal v-model="signupModalOpen"></SignupModal>
-
+  <div class="locset_log" v-if="logc">
+  <p class="logbtn main_p"  @mouseover="logpic" @click="openLoginModal">Login</p>
   </div>
+  <div class="locset_log" v-else>
+  <p class="logbtnon main_p"  @mouseout="back" @click="openLoginModal">Login</p>
+  </div>
+      </div>
+  <LoginModal v-model="loginModalOpen" @close="openLoginModal"></LoginModal>
+  <div class="layout justify-end">
+  <div class="locset_sign" v-if="signc & phone">
+  <p class="signbtn main_p"  @mouseover="signpic" @click="openSignupModal">Sign<br>Up</p>
+  </div>
+  <div class="locset_sign" v-else-if="phone">
+  <p class="signbtnon main_p"  @mouseout="back" @click="openSignupModal">Sign<br>Up</p>
+  </div>
+
+  <div class="locset_sign" v-if="signc & !phone">
+  <p class="signbtn main_p"  @mouseover="signpic" @click="openSignupModal">Sign Up</p>
+  </div>
+  <div class="locset_sign" v-else-if="!phone">
+  <p class="signbtnon main_p"  @mouseout="back" @click="openSignupModal">Sign Up</p>
+  </div>
+  </div>
+  <SignupModal v-model="signupModalOpen"></SignupModal>
+  </div>
+    </div>
 </template>
 
 <script>
@@ -30,9 +49,21 @@ export default {
       backon:false,
       logc: false,
       signc: false,
+      phone:false,
     };
   },
-  mounted(){setTimeout(() => {
+  created(){
+    window.addEventListener("resize",this.resizing);
+  },
+  destroyed(){
+    window.removeEventListener("resize",this.resizing);
+  },
+  mounted(){
+    console.log(this.phone);
+    
+    if(document.body.offsetWidth < 480){
+      this.phone = true}
+    setTimeout(() => {
     this.signc = true
   }, 700);
     setTimeout(() => {
@@ -40,6 +71,15 @@ export default {
     }, 200);
   },
   methods: {
+    resizing(e){
+      // console.log(e.target.window.innerWidth);
+      if (e.target.window.innerWidth < 480){
+        this.phone = true
+      } else {
+        this.phone = false
+      }
+    }
+    ,
     openLoginModal() {
       this.loginModalOpen = !this.loginModalOpen;
     },

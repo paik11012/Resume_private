@@ -66,6 +66,7 @@ export default new Vuex.Store({
     }
   }, // action  끝
   state: {
+    innerwidth:0,
     token: '',
     status: '',
     info: '',

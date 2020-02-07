@@ -105,6 +105,8 @@ $black_gradient : rgb(40,40,40), rgb(70,70,70), rgb(52,52,52), rgb(130,130,130);
 // 배경 start ----------------------------------------------
 .back{
   position: fixed;
+  left: 0;
+  top:0;
   width:100%;
   height: 100%;
   background: linear-gradient(115deg, $RoseQuartz, rgb(180, 180, 185), $Serenity, rgb(230,230,230));
