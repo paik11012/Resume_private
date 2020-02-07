@@ -16,7 +16,7 @@
                 v-if="select==i | opendrop"
                 @click="selectone(i)"
                 class="layout row"
-                style="padding-left: 10px;"
+                style="padding-left: 20px;"
               >
                 <!-- eslint-disable -->
               {{ schoolsort[i-1] }} <div v-if="!opendrop" style="position:absolute; right:0;"><i class="material-icons">arrow_drop_down</i></div>
@@ -25,8 +25,8 @@
             </div>
           </th>
           <th class="layout justify-end">
-            <v-btn v-on:click="editor" v-if="editing" small fab dark color="cyan" id="write">
-              <v-icon dark>edit</v-icon>
+            <v-btn v-on:click="editor" v-if="editing" small fab dark color="success" id="write">
+              <v-icon dark>check</v-icon>
             </v-btn>
             <v-btn v-else v-on:click="editor" small fab id="write" color="success">
               <v-icon>check</v-icon>
@@ -113,8 +113,8 @@ export default {
     color:white;
     position: absolute;
     & li {
-      background: white;
-      border: 1px solid;
+      background: white;;
+      border-radius: 2px;
       color: black;
       list-style: none;
     }

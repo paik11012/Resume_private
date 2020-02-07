@@ -11,6 +11,7 @@
     <div class="label">답변</div>
     <div class="answer">{{resume_answer}}</div>
     <div class="text-center" style="float:center">
+    <div id="texts" class="text-right">{{ resume_answer.length }}자</div>
       <ul v-if="tag_name.length > 3">
         <li v-for="item in tag_name" v-bind:key="item.id">
           {{ ' #' + item }}
@@ -23,7 +24,6 @@
         <div> #{{tag_name[0]}}</div>
       </ul>
     </div>
-    <div id="texts" class="text-right">{{ resume_answer.length }}자</div>
     <!-- 개인적으로 글자를 오른쪽, 맨 아래 배치하고 싶음 -->
   </div>
   </transition>
@@ -62,6 +62,7 @@ export default {
 ul{
    list-style:none;
    padding-left:0px !important;
+   position: relative;
    }
    
   @import "@/assets/scss/mystyle.scss";
@@ -76,6 +77,7 @@ ul{
       width: 90%;
     }
     height: 325px;
+    position: relative;
     /* border: 1px solid ; */
     text-align: center;
     border: 2px solid #92a8d1;
@@ -86,6 +88,7 @@ ul{
     background: white;
   }
   .tag{
+    position: absolute;
     margin-left: 20px;
     font-size: 15px;
     color: rgb(123,123,255)
@@ -109,7 +112,7 @@ ul{
     margin-bottom: 10px;
   }
   .question{
-    font-size: 18px;
+    font-size: 15px;
     margin-bottom: 6px;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -117,7 +120,7 @@ ul{
     overflow: hidden;
   }
   .answer{
-    font-size: 16px;
+    font-size: 15px;
     margin-bottom: 10px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -129,7 +132,7 @@ ul{
   }
 #texts{
   margin-right:0;
-  float: right;
+  position: relative;
 }
 </style>
 
