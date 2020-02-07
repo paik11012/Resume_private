@@ -19,7 +19,7 @@
         <tr>
           <td style="width:30%;" rowspan="3"><img style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/권응.jpg"/></td>
           <td>병역구분</td>
-          <td v-if="editing">육군 만기전역</td>
+          <td v-if="editing">공군 만기전역</td>
           <td v-else><input type="text" v-model="mil_sort" placeholder="병역구분"></td>
         </tr>
         <tr>
@@ -64,7 +64,7 @@
         </tr>
         <tr>
           <td style="text-align:center;">병역구분</td>
-          <td v-if="editing" style="text-align:center;">육군 만기전역</td>
+          <td v-if="editing" style="text-align:center;">공군 만기전역</td>
           <td v-else><input type="text" style="text-align:center; width:100%;" v-model="mil_sort" placeholder="병역구분"></td>
         </tr>
         <tr>

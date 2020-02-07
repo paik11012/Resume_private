@@ -164,7 +164,14 @@ export default {
       //   headers: {
       //     'Authorization' : window.sessionStorage.getItem("jwt-auth-token")}
       //   })
-      axios.post(
+      if (resume_info.resume_company == null
+          || resume_info.resume_task == null
+          || resume_info.resume_question == null
+          || resume_info.resume_answer == null
+          ) {
+        return alert('태그와 지원시기 외 정보는 모두 입력해주세요')
+      } else {
+        axios.post(
         'http://70.12.247.99:8080/resume/save', 
         r_data,
         {headers : {
@@ -177,6 +184,7 @@ export default {
       .catch(error=>{
         console.log(error)
       })
+      }
     },
   }
 }
