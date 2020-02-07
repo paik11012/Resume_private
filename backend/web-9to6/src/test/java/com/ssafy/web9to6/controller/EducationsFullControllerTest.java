@@ -41,12 +41,14 @@ public class EducationsFullControllerTest {
     public void testUploadEduDetails(){
         // given
         // Educations //
-        String edu_school_name = "삼성고등학교";
-        String edu_school_st_date = "2010.03.01";
-        String edu_school_ed_date = "2013.02.01";
-        String edu_school_sort = "고등학교";
+        String edu_school_id = null;
+        String edu_school_name = "삼성대학교";
+        String edu_school_st_date = "2013.03.01";
+        String edu_school_ed_date = "2017.02.01";
+        String edu_school_sort = "대학교";
 
         EducationsResponseDto requestDtoEdu = EducationsResponseDto.builder()
+                .edu_id(edu_school_id)
                 .edu_school_name(edu_school_name)
                 .edu_school_st_date(edu_school_st_date)
                 .edu_school_ed_date(edu_school_ed_date)
@@ -55,15 +57,20 @@ public class EducationsFullControllerTest {
         // END: Educations //
 
         // Educations Details //
-        String edu_det_sort = "전공";
-        String edu_det_credit = "140";
-        String edu_det_grade = "3.5";
+        String edu_det_id = null;
+        String edu_det_sort = "복수전공";
+        String edu_det_credit = "20";
+        String edu_det_grade = "2.7";
 
-        EducationDetailsResponseDto requestDtoEduDetail = EducationDetailsResponseDto.builder()
-                .edu_detail_major_sort(edu_det_sort)
-                .edu_detail_credit(Long.parseLong(edu_det_credit))
-                .edu_detail_grade(Double.parseDouble(edu_det_grade))
-                .build();
+        EducationDetailsResponseDto requestDtoEduDetail = new EducationDetailsResponseDto();
+        if(edu_det_sort!=null){
+            requestDtoEduDetail = EducationDetailsResponseDto.builder()
+                    .edu_detail_id(edu_det_id)
+                    .edu_detail_major_sort(edu_det_sort)
+                    .edu_detail_credit(Long.parseLong(edu_det_credit))
+                    .edu_detail_grade(Double.parseDouble(edu_det_grade))
+                    .build();
+        }
         // END: Educations Details //
 
         Map<String, Object> map = new HashMap<>();
@@ -104,6 +111,7 @@ public class EducationsFullControllerTest {
 
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody().size()).isEqualTo(5);
 //        for(int i = 0; i < responseEntity.getBody().size(); i++)
 //        System.out.println(responseEntity.getBody().get(i).toString());
     }
@@ -113,7 +121,7 @@ public class EducationsFullControllerTest {
         // given
         int before = educationsRepository.findAll().size();
 
-        String edu_id = "3";
+        String edu_id = "21";
         String url = "http://localhost:" + port + "/edu/deleteOne/" + edu_id;
 
         // when
@@ -122,5 +130,18 @@ public class EducationsFullControllerTest {
         // then
         int after = educationsRepository.findAll().size();
         assertThat(before).isGreaterThan(after);
+    }
+
+    @Test
+    public void testDeleteDetailOneEdu() throws Exception{
+        // given
+        String edu_det_id = "5";
+        String url = "http://localhost:" + port + "/edu/deleteDetailOne/" + edu_det_id;
+
+        // when
+        restTemplate.delete(url);
+
+        // then
+
     }
 }

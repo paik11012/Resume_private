@@ -193,7 +193,7 @@ public class UsersControllerTest {
     public void testDeleteByAdminUser() throws Exception{
         // given
         int before = usersRepository.findAll().size();
-        String user_id = "ee";
+        String user_id = "mjmj";
         String url = "http://localhost:" + port + "/users/deleteByAdmin/" + user_id;
 
         // when

@@ -36,4 +36,9 @@ public class EducationDetailsService {
 
         return educationDetailsRepository.save(ed);
     }
+
+    @Transactional
+    public void deleteOne(Long edu_det_id) {
+        educationDetailsRepository.deleteById(edu_det_id);
+    }
 }

@@ -29,7 +29,7 @@ public class EducationsFullController {
     @ApiOperation("학력 정보 등록/수정")
     @PostMapping("/edu/upload")
     public Map<String, Object> uploadEduDetails(@RequestBody Map<String, Object> requestDto) {
-        String user_id = "test@ssafy.com";
+        String user_id = "mjmj";
         Users user = usersService.findById(user_id);
 
         Map<String, Object> res = new HashMap<>(); // result object
@@ -42,17 +42,25 @@ public class EducationsFullController {
                 .edu_school_st_date((String) map_edu.get("edu_school_st_date"))
                 .edu_school_ed_date((String) map_edu.get("edu_school_ed_date"))
                 .build();
+        if(map_edu.get("edu_id")!=null) education.setEdu_id(Long.valueOf((String) map_edu.get("edu_id")));
 
+        boolean edu_det_save = false;
         Map map_edu_detail = (Map) requestDto.get("education_detail");
-        EducationDetails educationDetails = EducationDetails.builder()
-                .edu_detail_major_sort((String) map_edu_detail.get("edu_detail_major_sort"))
-                .edu_detail_credit(Long.valueOf((Integer) map_edu_detail.get("edu_detail_credit")))
-                .edu_detail_grade((Double) map_edu_detail.get("edu_detail_grade"))
-                .build();
+        EducationDetails educationDetails = new EducationDetails();
+        if(map_edu_detail.get("edu_detail_major_sort")!=null){ // 고등학교는 상세 정보 X
+            edu_det_save = true;
+            educationDetails = EducationDetails.builder()
+                    .edu_detail_major_sort((String) map_edu_detail.get("edu_detail_major_sort"))
+                    .edu_detail_credit(Long.valueOf((Integer) map_edu_detail.get("edu_detail_credit")))
+                    .edu_detail_grade((Double) map_edu_detail.get("edu_detail_grade"))
+                    .build();
+            if(map_edu_detail.get("edu_detail_id")!=null) educationDetails.setEduDetail_id(Long.valueOf((String) map_edu_detail.get("edu_detail_id")));
+        }
         // END: request object //
 
         List<Educations> find = educationsService.findAll(user);
-        if(find.size() == 0){ // 회원에 등록된 education 정보가 없으면 insert
+        // 회원에 기존 등록된 education 정보가 없으면 education, educationDetails insert //
+        if(education.getEducation_id()==null) {
             // Educations //
             education.setUser(user);
             Educations edu = educationsService.save(education);
@@ -63,17 +71,26 @@ public class EducationsFullController {
             EducationDetails edu_detail = educationDetailsService.save(educationDetails);
             res.put("education_detail", edu_detail);
         }
-        else { // 회원에 등록된 education 정보가 있으면, 일치하는 정보를 찾아서 update
+        else { // 회원에 기존 등록된 education 정보가 있으면, 일치하는 정보를 찾아서 update
             for(Educations edu : find){
                 if(edu.getEducation_id().equals(education.getEducation_id())){ // DB에서, client에서 넘어온 id와 동일한 id를 찾음
                     edu = educationsService.update(edu, education);
-                    res.put("Educations", edu);
+                    res.put("education", edu);
 
-                    List<EducationDetails> edu_detail_list = educationDetailsService.findAll(edu);
-                    for(EducationDetails ed : edu_detail_list){
-                        if(ed.getEdu_detail_id().equals(educationDetails.getEdu_detail_id())){ // DB에서, client에서 넘어온 id와 동일한 id를 찾음
-                            ed = educationDetailsService.update(ed, educationDetails);
-                            res.put("EducationDetails", ed); break;
+                    if(edu_det_save){
+                        boolean find_edu_det = false;
+                        List<EducationDetails> edu_detail_list = educationDetailsService.findAll(edu);
+                        for(EducationDetails edu_det : edu_detail_list){
+                            if(edu_det.getEdu_detail_id().equals(educationDetails.getEdu_detail_id())){ // DB에서, client에서 넘어온 id와 동일한 id를 찾음
+                                find_edu_det = true;
+                                edu_det = educationDetailsService.update(edu_det, educationDetails);
+                                res.put("education_detail", edu_det); break;
+                            }
+                        }
+                        if(!find_edu_det){
+                            educationDetails.setEducation(edu);
+                            EducationDetails edu_detail = educationDetailsService.save(educationDetails);
+                            res.put("education_detail", edu_detail);
                         }
                     }
                     break;
@@ -86,7 +103,7 @@ public class EducationsFullController {
     @ApiOperation("모든 학력 정보 조회")
     @GetMapping("/edu/findAll")
     public List<Map<Educations, List<EducationDetails>>> findAllEdu(){
-        String user_id = "daseul@ssafy.com";
+        String user_id = "test@ssafy.com";
         Users user = usersService.findById(user_id);
 
         List<Map<Educations, List<EducationDetails>>> mapList = new LinkedList<>();
@@ -95,6 +112,7 @@ public class EducationsFullController {
             Map<Educations, List<EducationDetails>> tmpMap = new HashMap<>();
             List<EducationDetails> eduDetailList = educationDetailsService.findAll(edu);
             tmpMap.put(edu, eduDetailList);
+            mapList.add(tmpMap);
         }
 
         return mapList;
@@ -112,9 +130,15 @@ public class EducationsFullController {
         return res;
     }
 
-    @ApiOperation("학력 정보 삭제")
+    @ApiOperation("학력 정보(학력+학력 상세) 한개 삭제")
     @DeleteMapping("/edu/deleteOne/{edu_id}")
     public void deleteOneEdu(@PathVariable String edu_id){
         educationsService.deleteOne(Long.valueOf(edu_id));
+    }
+
+    @ApiOperation("학력 상세 정보(전공/복수전공/부전공) 한개 삭제")
+    @DeleteMapping("/edu/deleteDetailOne/{edu_det_id}")
+    public void deleteDetailOneEdu(@PathVariable String edu_det_id){
+        educationDetailsService.deleteOne(Long.valueOf(edu_det_id));
     }
 }
