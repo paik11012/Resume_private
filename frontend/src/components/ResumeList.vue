@@ -14,13 +14,13 @@
       v-bind:key="i"
       v-if="sec >= i"
         class="ma-3 layout justify-center"
-        :resume_company="resumes[i - 1][0].resume_company"
-        :resume_answer="resumes[i - 1][0].resume_answer"
-        :resume_question="resumes[i - 1][0].resume_question"
-        :resume_task="resumes[i - 1][0].resume_task"
+        :resume_company="resumes[i - 1].resume.resume_company"
+        :resume_answer="resumes[i - 1].resume.resume_answer"
+        :resume_question="resumes[i - 1].resume.resume_question"
+        :resume_task="resumes[i - 1].resume.resume_task"
         :text_val="resumes[i - 1].text_val"
-        :resume_date="resumes[i - 1][0].resume_date"
-        :tag_name="resumes[i-1][1]"
+        :resume_date="resumes[i - 1].resume.resume_date"
+        :tag_name="resumes[i-1].tag_name"
       ></Resume>
     </transition-group>
     </v-flex>

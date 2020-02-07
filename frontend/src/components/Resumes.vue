@@ -10,27 +10,21 @@
     <div class="question">{{resume_question}}</div>
     <div class="label">답변</div>
     <div class="answer">{{resume_answer}}</div>
-    <div class="text-center">
-      <ul v-if="tag_name.length < 3">
+    <div class="text-center" style="float:center">
+      <ul v-if="tag_name.length > 3">
         <li v-for="item in tag_name" v-bind:key="item.id">
-          {{ '#' + item["tag_name"] }}
+          {{ ' #' + item }}
         </li>
+      </ul>
+      <ul v-else-if="tag_name.length == 2">
+        <div> #{{tag_name[0]}}  #{{ tag_name[1] }} </div>
       </ul>
       <ul v-else>
-        <li>
-          {{ '#' + item["tag_name"][0] }}
-          {{ '#' + item["tag_name"][1] }}
-        </li>
+        <div> #{{tag_name[0]}}</div>
       </ul>
-
-      <!-- <div v-for="item in tag_name" v-bind:key='item.id'
-      >
-        {{ item["tag_name"] }}
-      </div> -->
-      <!-- <div class="tag">{{tag[0]}} {{tag[1]}}</div> -->
-      <!-- <v-spacer></v-spacer>
-      <div class="text_val">{{text_val}}자</div> -->
     </div>
+    <div id="texts" class="text-right">{{ resume_answer.length }}자</div>
+    <!-- 개인적으로 글자를 오른쪽, 맨 아래 배치하고 싶음 -->
   </div>
   </transition>
   </div>
@@ -69,7 +63,6 @@ ul{
    list-style:none;
    padding-left:0px !important;
    }
-
    
   @import "@/assets/scss/mystyle.scss";
   .cont{
@@ -125,7 +118,7 @@ ul{
   }
   .answer{
     font-size: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -134,6 +127,9 @@ ul{
   .slide{
     animation: slide_l 0.6s
   }
-
+#texts{
+  margin-right:0;
+  float: right;
+}
 </style>
 

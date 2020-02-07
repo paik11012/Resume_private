@@ -8,11 +8,6 @@
     <div class="col-xs-12 col-md-12 col-sm-12">
       <h1 id="id" class="text-center">{{ user_id }}</h1>
     </div>
-
-    <div id="testt">
-      <input type="file" multiple accept="image/jpeg" @change="detectFiles($event.target.files)">
-    </div>
-
     <div class="col-xs-12 col-md-12 col-sm-12">
       <!-- 이름 전화번호 비밀번호 바꾸기 가능 -->
       <p class="text-center">{{ user_name }}</p>

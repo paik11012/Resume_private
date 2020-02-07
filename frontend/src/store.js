@@ -3,6 +3,7 @@ import Vuex, { Store } from 'vuex'
 import axois from "axios"
 import Router from 'vue-router'
 import router from './router'
+import Axios from 'axios'
 Vue.use(Vuex)
 Vue.use(Router)
 export default new Vuex.Store({
@@ -11,13 +12,13 @@ export default new Vuex.Store({
     status: '',
     isLogin: false,
     isLoginError: '',
-    user_info: null,
+    userInfo: null,
   },
   mutations: {
-    loginSuccess(state, user_info) {
+    loginSuccess(state, userInfo) {
       state.isLogin = true
       state.isLoginError = false
-      state.user_info = user_info 
+      state.userInfo = userInfo 
     },
     // 로그인이 실패했을 때,
     loginError(state) {
@@ -63,11 +64,11 @@ export default new Vuex.Store({
           storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
           // storage.setItem('jwt-auth-token','dfssdfse')
           storage.setItem('user_id',res.data.data.user_id);
-          const user_info = {
-            user_phone : res.data.data.user_phone,
-            user_name : res.data.data.user_name
-          }
-          commit("loginSuccess", user_info)
+          dispatch("getMemberInfo")
+          
+          // 새로고침시 state 날라가는 경우
+          // 토큰만 갖고 멤버정보 요청 가능 , session
+          // commit("loginSuccess", user_info)
           router.push('home')
         } else {
           this.message = "로그인해주세요"
@@ -89,6 +90,23 @@ export default new Vuex.Store({
     // },
     // mounted() {
     //   this.init()
+    },
+    getMemberInfo({ commit }) {
+      // 저장된 토큰 불러오기
+      let token = sessionStorage.getItem("jwt-auth-token")
+      let config = {headers : {"jwt-auth-token": token}}
+      let id = res.data.data.user_id
+      axios.get(`http://70.12.247.99:8080/users/findOne/${id}`, config)
+      .then(res => {
+        const userInfo = {
+          user_id : res.data.data.user_id,
+          user_phone : res.data.data.user_phone,
+          user_name : res.data.data.user_name
+        }
+        commit("loginSuccess", userInfo)
+      })
+      .catch(() => {alert("이메일과 비밀번호를 확인하세요.")}
+      )
     }
   }, // action  끝  
 })
