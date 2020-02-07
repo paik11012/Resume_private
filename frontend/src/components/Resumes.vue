@@ -55,8 +55,8 @@ export default {
     };
   },
   mounted(){
-    if (this.rs_cpn.length > 15){
-      this.rs_cpn = this.rs_cpn.slice(0, 15) + "..."
+    if (this.rs_cpn.length > 10){
+      this.rs_cpn = this.rs_cpn.slice(0, 10) + "..."
     }
   },
   methods: {
@@ -103,8 +103,8 @@ export default {
   & .company{
     width: 90%;
     position: absolute;
-    top:2%;
-    font-size: 24px;
+    top:4%;
+    font-size: 20px;
     margin-bottom: 2px;
   }
   & hr{
