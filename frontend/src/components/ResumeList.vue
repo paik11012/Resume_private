@@ -14,34 +14,26 @@
       v-bind:key="i"
       v-if="sec >= i"
         class="ma-3 layout justify-center"
-        :resume_company="resumes[i - 1].resume_company"
-        :resume_answer="resumes[i - 1].resume_answer"
-        :resume_question="resumes[i - 1].resume_question"
-        :resume_task="resumes[i - 1].resume_task"
+        :resume_company="resumes[i - 1].resume.resume_company"
+        :resume_answer="resumes[i - 1].resume.resume_answer"
+        :resume_question="resumes[i - 1].resume.resume_question"
+        :resume_task="resumes[i - 1].resume.resume_task"
         :text_val="resumes[i - 1].text_val"
-        :resume_date="resumes[i - 1].resume_date"        
+        :resume_date="resumes[i - 1].resume.resume_date"
+        :tag_name="resumes[i-1].tag_name"
       ></Resume>
     </transition-group>
-    </v-flex>
-
-    <v-flex xs12 text-xs-center round my-5 v-if="loadMore">
-      <v-btn color="info" v-if="resumes.length > lim" dark v-on:click="loadMorePortfolios()">
-        <!-- lim은 4 8 12 이런 식으로 커지고 length는 6으로 일정하다 -->
-        <v-icon size="25" class="mr-2">fa-plus</v-icon>more
-      </v-btn>
     </v-flex>
   </v-layout>
 </template>
 <script>
 import Resume from "@/components/Resumes";
-// import FirebaseService from "@/services/FirebaseService";
 import axios from 'axios'
 
 export default {
   name: "ResumeList",
   props: {
     limits: { type: Number, default: 6 },
-    loadMore: { type: Boolean, default: false }
   },
   data() {
     return {
@@ -63,10 +55,12 @@ export default {
     // },
     getResume: function() {
       axios.get('http://70.12.247.99:8080/resume',
-      {headers : {'token' : window.sessionStorage.getItem("jwt-auth-token")}})
+      {headers : {'token' : window.sessionStorage.getItem("jwt-auth-token"),
+      'user_id' : window.sessionStorage.getItem("user_id")}
+      })
       .then(response => {
-        console.log(response.data)
         this.resumes = response.data
+        console.log(response.data)
         this.$emit("load")
         for (let i = 0; i < this.resumes.length; i++) {
         setTimeout(() => {
@@ -78,9 +72,7 @@ export default {
       .catch(error => {
       console.log(error)
       })
-    
     }
-    
   }
 };
 </script>

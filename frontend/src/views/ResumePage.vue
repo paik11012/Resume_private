@@ -155,7 +155,7 @@ export default {
           resume_info : resume_info,
           tag_name : this.tag_name
       }
-      // axios.request({
+      // axios.request({ 
       //   url: 'resume/save',
       //   method: 'post',
       //   baseURL: 'http://70.12.247.99:8080/',
@@ -165,7 +165,9 @@ export default {
       axios.post(
         'http://70.12.247.99:8080/resume/save', 
         r_data,
-        {headers : {'token' : window.sessionStorage.getItem("jwt-auth-token")}})
+        {headers : {
+          'token' : window.sessionStorage.getItem("jwt-auth-token"),
+          'user_id': window.sessionStorage.getItem("user_id")},})
       .then(response=>{
         console.log(response.data)
         return this.dialog = false

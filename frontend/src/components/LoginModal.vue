@@ -16,6 +16,7 @@
             <form autocomplete="false">
               <input v-model="user_id" type="text" placeholder="User ID" />
               <input v-model="user_password" type="password" placeholder="Password" />
+
             </form>
 
             <div style="margin-top: 42px"></div>
@@ -51,6 +52,7 @@
             <form autocomplete="false">
               <input v-model="user_id" type="text" placeholder="User ID" />
               <input v-model="user_password" type="password" placeholder="Password" />
+              
             </form>
 
             <div style="margin-top: 42px"></div>

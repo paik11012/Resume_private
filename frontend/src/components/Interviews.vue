@@ -1,16 +1,16 @@
 <template>
   <div>
   <div class="contain" oncontextmenu="return false" @click="show">
-    <div class="company">{{com}}</div>
+    <div class="company">{{interview_company}}</div>
     <hr>
-    <div class="task">{{tas}}</div>
-    <div class="date">{{dat}}</div>
+    <div class="task">{{interview_task}}</div>
+    <div class="date">{{interview_date}}</div>
     <div class="label">질문</div>
-    <div class="question">{{que}}</div>
+    <div class="question">{{interview_question}}</div>
     <div class="label">답변</div>
-    <div class="myans">{{mya}}</div>
+    <div class="myans">{{interview_answer}}</div>
     <div class="label">Memo</div>
-    <div class="editans">{{eda}}</div>
+    <div class="editans">{{interview_memo}}</div>
   </div>
   </div>
 </template>
@@ -19,24 +19,18 @@
 export default {
   name: "Interview",
   props:{
-    company : {type: String},
-    myans : {type: String},
+    interview_company : {type: String},
+    interview_answer : {type: String},
     editans:{type:String},
-    question : {type: String},
-    task : {type: String},
-    date : {type: String},
+    interview_question : {type: String},
+    interview_task : {type: String},
+    interview_date : {type: String},
     created_at : {type: String},
+    interview_memo : {type: String},
   },
   data() {
     return {
       showmenu: false,
-      com:this.company,
-      mya:this.myans,
-      eda:this.editans,
-      que:this.question,
-      tas:this.task,
-      dat:this.date,
-      cra:this.created_at,
     };
   },
   methods: {

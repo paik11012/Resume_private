@@ -9,88 +9,90 @@
       lg4
       xl3
     >
-    <transition-group name="list">
-      <Interview v-bind:key="i"
-        class="layout justify-center ma-3"
-        v-if="sec >= i"
-        :company="interview[i - 1].company"
-        :myans="interview[i - 1].myans"
-        :editans="interview[i-1].editans"
-        :question="interview[i - 1].question"
-        :task="interview[i - 1].task"
-        :date="interview[i - 1].date"
-        :created_at="interview[i - 1].created_at.toString()"
-      ></Interview>
-    </transition-group>
-    </v-flex>
-
-    <v-flex xs12 text-xs-center round my-5 v-if="loadMore">
-      <v-btn color="info" v-if="interview.length > lim" dark v-on:click="loadMorePortfolios()">
-        <!-- lim은 4 8 12 이런 식으로 커지고 length는 6으로 일정하다 -->
-        <v-icon size="25" class="mr-2">fa-plus</v-icon>more
-      </v-btn>
+      <transition-group name="list">
+        <Interview
+          v-bind:key="i"
+          class="layout justify-center ma-3"
+          v-if="sec >= i"
+          :interview_company="interview[i - 1].interview_company"
+          :interview_myans="interview[i - 1].interview_myans"
+          :editans="interview[i-1].editans"
+          :interview_question="interview[i - 1].interview_question"
+          :interview_task="interview[i - 1].interview_task"
+          :interview_date="interview[i - 1].interview_date"
+          :interview_memo="interview[i - 1].interview_memo"
+        ></Interview>
+      </transition-group>
     </v-flex>
   </v-layout>
 </template>
 <script>
 import Interview from "@/components/Interviews";
-import FirebaseService from "@/services/FirebaseService";
+import axios from 'axios'
 
 export default {
   name: "InterviewList",
   props: {
     limits: { type: Number, default: 6 },
-    loadMore: { type: Boolean, default: false }
   },
   data() {
     return {
       interview: [],
-      lim : this.limits,
-      company:"",
-      myans:"",
-      editans:"",
-      question:"",
-      task:"",
-      date:"",
-      created_at:"",
-      sec: 0,
+      lim: this.limits,
+      sec: 0
     };
   },
   components: {
-    Interview,
+    Interview
   },
   mounted() {
     // console.log(this.interview);
-    this.getInterView()
+    this.getInterView();
   },
   methods: {
-    async getInterView() {
-      console.log("이거라고?");
-      this.interview = await FirebaseService.getInterView();
-      this.$emit('load')
-      console.log("인터뷰 받았어?");
-      for (let i = 0; i < this.interview.length; i++) {
-        setTimeout(() => {
-          this.sec ++
-          console.log(this.sec);
-        }, 100*i);
-      }
-      console.log(this.interview);
-      
-      
-    },
-    loadMorePortfolios() {
-      this.lim = this.lim + 4
+    getInterView: function() {
+      axios
+        .get("http://70.12.247.99:8080/interview", {
+          headers: {
+            token: window.sessionStorage.getItem("jwt-auth-token"),
+            user_id: window.sessionStorage.getItem("user_id")
+          }
+        })
+        .then(resopnse => {
+          console.log(resopnse.data);
+          this.interview = resopnse.data;
+          this.$emit("load");
+          for (let i = 0; i < this.interview.length; i++) {
+            setTimeout(() => {
+              this.sec++;
+              console.log(this.sec);
+            }, 100 * i);
+          }
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
+    // async getInterView() {
+    //   console.log("이거라고?");
+    //   this.interview = await FirebaseService.getInterView();
+    //   this.$emit('load')
+    //   console.log("인터뷰 받았어?");
+    //   for (let i = 0; i < this.interview.length; i++) {
+    //     setTimeout(() => {
+    //       this.sec ++
+    //       console.log(this.sec);
+    //     }, 100*i);
+    //   }
+    //   console.log(this.interview);
+
+    // },
   }
 };
 </script>
 <style lang="scss">
-
 .mw-700 {
   max-width: 700px;
   margin: auto;
 }
-
-
 </style>

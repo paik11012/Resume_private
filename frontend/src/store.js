@@ -1,16 +1,42 @@
 import Vue from 'vue'
 import Vuex, { Store } from 'vuex'
 import axois from "axios"
-import { mapState } from 'vuex'
+import Router from 'vue-router'
+import router from './router'
+import Axios from 'axios'
 Vue.use(Vuex)
-
+Vue.use(Router)
 export default new Vuex.Store({
+  state: {
+    token: '',
+    status: '',
+    isLogin: false,
+    isLoginError: '',
+    userInfo: null,
+  },
+  mutations: {
+    loginSuccess(state, userInfo) {
+      state.isLogin = true
+      state.isLoginError = false
+      state.userInfo = userInfo 
+    },
+    // 로그인이 실패했을 때,
+    loginError(state) {
+      state.islogin = false
+      state.isLoginError = true
+    },
+    logout(state) {
+      state.isLogin = false
+      state.isLoginError = false
+      state.userInfo = null
+    }
+  },
   actions: {
     logout() {  // 로그아웃
       const storage = window.sessionStorage
       storage.setItem('jwt-auth-token','')
       storage.setItem('user_id','');
-      console.log('로그아웃완료')
+      commit('logout')
     },
 
     signup(dispatch, signupObj) {
@@ -25,26 +51,25 @@ export default new Vuex.Store({
         })
     },
 
-    login(dispatch, loginObj) {
+    login({state, commit, dispatch}, loginObj) {
       const SERVER_IP = 'http://70.12.247.99:8080'
       const storage = window.sessionStorage;
       storage.setItem("jwt-auth-token", "");
       storage.setItem("user_id", "");
-      axois.post(SERVER_IP + "/users/signin2", loginObj)
+      axois.post(SERVER_IP + "/users/signin", loginObj)
       .then(res => {
         if (res.data.status) {
           alert("로그인이 성공적으로 이루어졌습니다");
-          // console.dir(res.headers["jwt-auth-token"]);
-          
-          // this.$store.state.isLoginned = true;
-          // this.token = res.headers["jwt-auth-token"]
-          // console.log(token)
-          // this.setInfo(
-          //   "성공", res.headers["jwt-auth-token"], JSON.stringify(res.data.data)
-          // );
+          console.log(res.data)
           storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
+          // storage.setItem('jwt-auth-token','dfssdfse')
           storage.setItem('user_id',res.data.data.user_id);
-          console.log(storage);
+          dispatch("getMemberInfo")
+          
+          // 새로고침시 state 날라가는 경우
+          // 토큰만 갖고 멤버정보 요청 가능 , session
+          // commit("loginSuccess", user_info)
+          router.push('home')
         } else {
           this.message = "로그인해주세요"
           alert("입력 정보를 확인하세요")
@@ -52,6 +77,8 @@ export default new Vuex.Store({
       })
       .catch((error) => {
         console.log(error)
+        commit('loginError')
+        alert("입력 정보를 확인하세요")
       })
     // },
     // init() {
@@ -63,54 +90,23 @@ export default new Vuex.Store({
     // },
     // mounted() {
     //   this.init()
+    },
+    getMemberInfo({ commit }) {
+      // 저장된 토큰 불러오기
+      let token = sessionStorage.getItem("jwt-auth-token")
+      let config = {headers : {"jwt-auth-token": token}}
+      let id = res.data.data.user_id
+      axios.get(`http://70.12.247.99:8080/users/findOne/${id}`, config)
+      .then(res => {
+        const userInfo = {
+          user_id : res.data.data.user_id,
+          user_phone : res.data.data.user_phone,
+          user_name : res.data.data.user_name
+        }
+        commit("loginSuccess", userInfo)
+      })
+      .catch(() => {alert("이메일과 비밀번호를 확인하세요.")}
+      )
     }
-  }, // action  끝
-  state: {
-    innerwidth:0,
-    token: '',
-    status: '',
-    info: '',
-    isLoginned: false,
-    career: [
-      {
-        onetitle: '내사진',
-        onecontent: '사진',
-      },
-      {
-        onetitle: '병역 구분',
-        onecontent: '육군 만기전역',
-      },
-      {
-        onetitle: '계급',
-        onecontent: '병장',
-      },
-      {
-        onetitle: '복무 기간',
-        onecontent: '2015-12-01 ~ 2017-11-29',
-      },
-
-      {
-        onetitle: '메모',
-        onecontent: 'Caught a mistake or want to contribute to the documentation? Edit this page on GitHub!',
-      },
-    ],
-    edu: [
-      {
-        onetitle: '고등학교',
-        onecontent: '람쥐고등학교',
-      },
-      {
-        onetitle: '토순대학교',
-        onecontent: '2013-03-02 ~ 2017-02-24',
-      },
-      {
-        onetitle: 'Eclair',
-        onecontent: 262,
-      },
-      {
-        onetitle: 'Cupcake',
-        onecontent: 305,
-      },
-    ],
-  }
+  }, // action  끝  
 })
