@@ -1,9 +1,10 @@
 import Vue from 'vue'
-import Vuex, { Store } from 'vuex'
-import axois from "axios"
+import Vuex from 'vuex'
+import axios from "axios"
 import Router from 'vue-router'
 import router from './router'
-import Axios from 'axios'
+
+
 Vue.use(Vuex)
 Vue.use(Router)
 export default new Vuex.Store({
@@ -41,7 +42,7 @@ export default new Vuex.Store({
 
     signup(dispatch, signupObj) {
       const SERVER_IP = 'http://70.12.247.99:8080'
-      axois.post(SERVER_IP + "/users/signup", signupObj)
+      axios.post(SERVER_IP + "/users/signup", signupObj)
         .then(res => {
           alert("회원가입이 성공적으로 이루어졌습니다");
         }) 
@@ -56,7 +57,7 @@ export default new Vuex.Store({
       const storage = window.sessionStorage;
       storage.setItem("jwt-auth-token", "");
       storage.setItem("user_id", "");
-      axois.post(SERVER_IP + "/users/signin", loginObj)
+      axios.post(SERVER_IP + "/users/signin", loginObj)
       .then(res => {
         if (res.data.status) {
           alert("로그인이 성공적으로 이루어졌습니다");
@@ -80,33 +81,26 @@ export default new Vuex.Store({
         commit('loginError')
         alert("입력 정보를 확인하세요")
       })
-    // },
-    // init() {
-    //   if (storage.getItem('jwt-auth-token')) {
-    //     this.message = storage.getItem("user_id" + "로 로그인되었습니다")
-    //   } else {
-    //     storage.setItem('jwt-auth-token', '');
-    //   } 
-    // },
-    // mounted() {
-    //   this.init()
     },
     getMemberInfo({ commit }) {
       // 저장된 토큰 불러오기
-      let token = sessionStorage.getItem("jwt-auth-token")
-      let config = {headers : {"jwt-auth-token": token}}
-      let id = res.data.data.user_id
-      axios.get(`http://70.12.247.99:8080/users/findOne/${id}`, config)
+      // let token = sessionStorage.getItem("jwt-auth-token")
+      let id = sessionStorage.getItem("user_id")
+      // let config = {headers : {"jwt-auth-token": token}}
+      // axios.get(`http://70.12.247.99:8080/users/findOne/${id}`, config)
+      axios.get(`http://70.12.247.99:8080/users/findOne/${id}`)
       .then(res => {
+        console.log(res.data)
         const userInfo = {
-          user_id : res.data.data.user_id,
-          user_phone : res.data.data.user_phone,
-          user_name : res.data.data.user_name
+          user_id : res.data.user_id,
+          user_phone : res.data.user_phone,
+          user_name : res.data.user_name
         }
+        console.log(res)
         commit("loginSuccess", userInfo)
       })
-      .catch(() => {alert("이메일과 비밀번호를 확인하세요.")}
-      )
+      // .catch(() => {alert("이메일과 비밀번호를 확인하세요.")}
+      // )
     }
   }, // action  끝  
 })

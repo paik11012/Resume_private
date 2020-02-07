@@ -73,8 +73,10 @@
       </div>
             <v-text-field label="질문"
             v-model="resume_question"
+            required
             ></v-text-field>
       <v-textarea label="대답"
+      required
       v-model="resume_answer"
       :auto-grow="true"
       :counter="true"
