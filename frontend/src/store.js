@@ -52,7 +52,7 @@ export default new Vuex.Store({
         })
     },
 
-    login({state, commit, dispatch}, loginObj) {
+    login({state, commit}, loginObj) {
       const SERVER_IP = 'http://70.12.247.99:8080'
       const storage = window.sessionStorage;
       storage.setItem("jwt-auth-token", "");
@@ -64,9 +64,7 @@ export default new Vuex.Store({
           console.log(res.data)
           storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
           // storage.setItem('jwt-auth-token','dfssdfse')
-          storage.setItem('user_id',res.data.data.user_id);
-          dispatch("getMemberInfo")
-          
+          storage.setItem('user_id',res.data.data.user_id);          
           // 새로고침시 state 날라가는 경우
           // 토큰만 갖고 멤버정보 요청 가능 , session
           // commit("loginSuccess", user_info)
@@ -82,25 +80,5 @@ export default new Vuex.Store({
         alert("입력 정보를 확인하세요")
       })
     },
-    getMemberInfo({ commit }) {
-      // 저장된 토큰 불러오기
-      // let token = sessionStorage.getItem("jwt-auth-token")
-      let id = sessionStorage.getItem("user_id")
-      // let config = {headers : {"jwt-auth-token": token}}
-      // axios.get(`http://70.12.247.99:8080/users/findOne/${id}`, config)
-      axios.get(`http://70.12.247.99:8080/users/findOne/${id}`)
-      .then(res => {
-        console.log(res.data)
-        const userInfo = {
-          user_id : res.data.user_id,
-          user_phone : res.data.user_phone,
-          user_name : res.data.user_name
-        }
-        console.log(res)
-        commit("loginSuccess", userInfo)
-      })
-      // .catch(() => {alert("이메일과 비밀번호를 확인하세요.")}
-      // )
-    }
   }, // action  끝  
 })
