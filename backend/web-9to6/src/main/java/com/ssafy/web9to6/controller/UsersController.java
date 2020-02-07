@@ -79,7 +79,7 @@ public class UsersController {
     @ApiOperation("회원 탈퇴")
     @DeleteMapping("/users/delete")
     public void userDelete(HttpServletRequest request){
-        String user_id = "d";
+        String user_id = "test";
         usersService.delete(user_id);
     }
 
@@ -89,7 +89,7 @@ public class UsersController {
         String admin_id = "ds@ssafy.com";
         Users admin = usersService.findById(admin_id);
         if(admin.getUser_authority().equals("admin")){
-            usersService.deleteByAdmin(user_id);
+            usersService.delete(user_id);
         }
     }
 
