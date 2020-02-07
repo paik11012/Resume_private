@@ -2,21 +2,30 @@ package com.ssafy.web9to6.controller;
 
 import com.ssafy.web9to6.domain.Users;
 import com.ssafy.web9to6.dto.UsersResponseDto;
+import com.ssafy.web9to6.service.JwtService;
 import com.ssafy.web9to6.service.UsersService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RequiredArgsConstructor
 @RestController
 public class UsersController {
     private final UsersService usersService;
+    @Autowired
+    private JwtService jwtService;
     // 수정수정
     @ApiOperation("회원 이메일(ID) 중복체크")
     @PostMapping("/users/checkId")
@@ -35,15 +44,30 @@ public class UsersController {
 
     @ApiOperation("회원 로그인")
     @PostMapping("/users/signin")
-    public String userSignIn(HttpServletRequest request, @RequestBody UsersResponseDto requestDto){
+    public ResponseEntity<Map<String, Object>> userSignIn(HttpServletResponse response, HttpServletRequest request, @RequestBody UsersResponseDto requestDto){
         Users users = requestDto.toEntity();
-        String res = usersService.signIn(users).toString();
-        if(res.equals("true")){
-            HttpSession session = request.getSession(true);
-            session.setAttribute("user_id", users.getUser_id());
-            return res;
+        Users res = usersService.signIn(users);
+        Map<String, Object> resultmap = new HashMap<>();
+        HttpStatus status = null;
+        if(res.getUser_id().equals(users.getUser_id())){
+//            HttpSession session = request.getSession(true);
+//            session.setAttribute("user_id", users.getUser_id());
+            String token = jwtService.create(res);
+            response.setHeader("jwt-auth-token", token);
+            response.setHeader("Access-Control-Allow-Origin","*");
+            response.setHeader("Access-Control-Allow-Headers","Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
+            response.setHeader("Access-Control-Max-Age","3600 ");
+            response.setHeader("Access-Control-Allow-Methods","*");
+            response.setHeader("Access-Control-Expose-Headers","jwt-auth-token");
+
+            resultmap.put("data", res);
+            resultmap.put("status", true);
+            resultmap.put("jwt-auth-token", token);
+            status = HttpStatus.ACCEPTED;
+            //return res;
         }
-        return "false";
+        //return res;
+        return new  ResponseEntity<Map<String, Object>>(resultmap, status);
     }
 
     @ApiOperation("회원 로그아웃")

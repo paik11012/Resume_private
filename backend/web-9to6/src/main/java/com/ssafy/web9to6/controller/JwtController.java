@@ -39,7 +39,9 @@ public class JwtController {
         HttpStatus status = null;
         Users users = requestDto.toEntity();
         System.out.println("users" +  users.getUser_id());
-        String res = usersService.signIn(users).toString();
+        Users res = usersService.signIn(users);
+        System.out.println("Resss" +  res.getUser_name());
+        System.out.println(res);
         if(res.equals("true")){
 //            HttpSession session = request.getSession(true);
 //            session.setAttribute("user_id", users.getUser_id());
@@ -56,7 +58,7 @@ public class JwtController {
               //response.se
 
               //resultmap.put("response", response.);
-              resultmap.put("data", users);
+              resultmap.put("data", res);
               resultmap.put("status", true);
             resultmap.put("jwt-auth-token", token);
         //    resultmap.put("reponse", response);
@@ -68,6 +70,6 @@ public class JwtController {
 
         }
         //return "false";
-        return new ResponseEntity<Map<String, Object>>(resultmap, status);
+        return new  ResponseEntity<Map<String, Object>>(resultmap, status);
     }
 }

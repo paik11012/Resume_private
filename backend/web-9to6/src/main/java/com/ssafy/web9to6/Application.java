@@ -1,6 +1,6 @@
 package com.ssafy.web9to6;
 
-import com.ssafy.web9to6.service.JwtInterceptor;
+import com.ssafy.web9to6.controller.JwtInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,15 +27,16 @@ public class Application implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor)
                 .addPathPatterns("/resume/**")
-//                .addPathPatterns("/careers/**")
-//                .addPathPatterns("/edu/**")
-//                .addPathPatterns("/exp/**")
-//                .addPathPatterns("/lic/**")
-//                .addPathPatterns("/awards/**")
-////                .addPathPatterns("/")
-//                .addPathPatterns("/hello")
-//                .addPathPatterns("/interview")
-//                .addPathPatterns("/resume")
+                .addPathPatterns("/interview/**")
+                .addPathPatterns("/careers/**")
+                .addPathPatterns("/edu/**")
+                .addPathPatterns("/exp/**")
+                .addPathPatterns("/lic/**")
+                .addPathPatterns("/awards/**")
+//                .addPathPatterns("/")
+               // .addPathPatterns("/hello")
+         //       .addPathPatterns("/interview")
+       //         .addPathPatterns("/resume")
                 .excludePathPatterns(Arrays.asList("/users/**"));
     }
 

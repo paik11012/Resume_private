@@ -29,13 +29,13 @@ public class Interview {
     @Column(nullable = true)
     private String interview_date;
 
-    @Column(nullable = true)
+    @Column(nullable = true,length=1000)
     private String interview_question;
 
-    @Column(nullable = true)
+    @Column(nullable = true,length=3000)
     private String interview_answer;
 
-    @Column
+    @Column(length=3000)
     private String interview_memo;
 
     @Builder

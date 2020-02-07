@@ -46,18 +46,18 @@ public class UsersService {
     }
 
     @Transactional
-    public Boolean signIn(Users user) {
+    public Users signIn(Users user) {
         String user_id = user.getUser_id();
         String user_password = user.getUser_password();
         boolean b_pass = false;
-
+        Users find_user = null;
         Optional<Users> find = usersRepository.findById(user_id);
         if(find.isPresent()){
-            Users find_user = find.get();
+            find_user = find.get();
             b_pass = user_password.equals(find_user.getUser_password());
         }
 
-        return b_pass;
+        return find_user;
     }
 
     @Transactional

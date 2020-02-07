@@ -23,6 +23,10 @@ public class ResumeService {
         return rr.findByUser(user);
     }
 
+    public List<Resume> findAllWithTags(Users user) {
+        return rr.findByUser(user);
+    }
+
     public  Resume save(ResumeResponseDto lic) {
         return rr.save(lic.toEntity());
     }

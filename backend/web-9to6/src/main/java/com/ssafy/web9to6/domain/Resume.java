@@ -29,10 +29,10 @@ public class Resume {
     @Column(nullable = true)
     private String resume_date;
 
-    @Column(nullable = true)
+    @Column(nullable = true,length=1000)
     private String resume_question;
 
-    @Column(nullable = true)
+    @Column(nullable = true,length=3000)
     private String resume_answer;
 
     @Builder
