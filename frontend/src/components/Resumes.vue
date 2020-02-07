@@ -4,7 +4,7 @@
   <div class="full" oncontextmenu="return false">
     <div class="company">{{rs_cpn}}</div>
     <hr>
-    <div class="task">{{resume_task}}</div>
+    <div class="task">{{rs_tsk}}</div>
     <div class="date">{{resume_date}}</div>
     <div class="label Q">질문</div>
     <div class="question">{{resume_question}}</div>
@@ -57,6 +57,9 @@ export default {
   mounted(){
     if (this.rs_cpn.length > 10){
       this.rs_cpn = this.rs_cpn.slice(0, 10) + "..."
+    }
+    if (this.rs_tsk.length > 15){
+      this.rs_tsk = this.rs_tsk.slice(0,15) + '...'
     }
   },
   methods: {
