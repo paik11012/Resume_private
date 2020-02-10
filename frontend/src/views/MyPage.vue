@@ -27,7 +27,7 @@
               color="#F7CAC9"
               id="write"
             >
-              <v-icon color="#92A8D1">mdi-plus</v-icon>
+              <v-icon color="black">mdi-plus</v-icon>
             </v-btn>
           </template>
         </v-flex>

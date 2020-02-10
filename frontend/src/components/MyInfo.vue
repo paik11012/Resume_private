@@ -16,12 +16,28 @@
         </tr>
       </thead>
       <tbody>
+
+        <!-- 사진 업로드하는 부분 -->
         <tr>
-          <td style="width:30%;" rowspan="3"><img style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/권응.jpg"/></td>
+          <td v-if="career_myPic == ''" style="width:30%;" rowspan="3">
+            <div id="testt">
+              <input
+                type="file"
+                multiple
+                accept="image/jpeg"
+                @change="detectFiles($event.target.files)"
+              />
+              <button @click="downloadImg">download</button>
+              <img src id="imgtag" />
+            </div>
+          </td>
+
+          <td v-else style="width:30%;" rowspan="3"><img style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/권응.jpg"/></td>
           <td>병역구분</td>
           <td v-if="editing">{{ military_sort }}</td>
           <td v-else><input type="text" v-model="military_sort" placeholder="병역구분"></td>
         </tr>
+
         <tr>
           <td>계급</td>
           <td v-if="editing">{{ military_class }}</td>
@@ -92,6 +108,10 @@
 
 <script>
 import axios from 'axios'
+import { app } from "../services/FirebaseService";
+import firebase, { storage } from "firebase/app";
+import "firebase/firestore";
+import "firebase/storage";
 export default {
   data(){
     return{
@@ -101,6 +121,8 @@ export default {
       'military_class':'',
       'military_st_date':'',
       'military_sort':'',
+      file: File,
+      uploadTask: ""
     }
   },
   methods:{
@@ -125,6 +147,45 @@ export default {
       })
       this.editing = !this.editing
     },
+    detectFiles(fileList) {
+      Array.from(Array(fileList.length).keys()).map(x => {
+        // console.log(fileList[x])
+        this.upload(fileList[x]);
+      });
+    },
+    upload(file) {
+      this.uploadTask = firebase
+        .storage(app)
+        .ref(file.name)
+        .put(file);
+    },
+
+    downloadImg() {
+      var storage = firebase.storage();
+      var storageRef = firebase.storage().ref();
+
+      var gsReference = storage.refFromURL(
+        "gs://web-9to6.appspot.com/벼리.jpg"
+      );
+      storageRef
+        .child("벼리.jpg")
+        .getDownloadURL()
+        .then(function(url) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", url);
+
+          xhr.responseType = "blob";
+          xhr.onload = function(event) {
+            var blob = xhr.response;
+            console.log(xhr);
+            var link = document.createElement("a");
+            link.href = window.URL.createObjectURL(blob);
+            link.download = blob;
+            link.click();
+          };
+          xhr.send();
+        });
+    }
   },
     mounted() {
     const SERVER_IP = "http://70.12.247.99:8080";
@@ -144,6 +205,24 @@ export default {
       .catch(error => {
         console.log(error);
       });
+  },
+  watch: {
+    uploadTask: function() {
+      this.uploadTask.on(
+        "state_changed",
+        sp => {
+          this.progressUpload = Math.floor(
+            (sp.bytesTransferred / sp.totalBytes) * 100
+          );
+        },
+        null,
+        () => {
+          this.uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+            this.$emit("url", downloadURL);
+          });
+        }
+      );
+    }
   }
 }
 </script>
