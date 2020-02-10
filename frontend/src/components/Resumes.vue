@@ -1,5 +1,6 @@
 <template>
-  <div class="resumeCard layout justify-center" >
+  <div>
+  <div class="resumeCard layout justify-center" :class="{non_scroll:rsdt}" @click="opendetail" >
   <transition name="slide">
   <div class="full" oncontextmenu="return false">
     <div class="company">{{rs_cpn}}</div>
@@ -10,10 +11,10 @@
     <div class="question">{{resume_question}}</div>
     <div class="label A">답변</div>
     <div class="answer">{{resume_answer}}</div>
-    <div class="text-right">{{ resume_answer.length }}자</div>
+    <div class="text_val">{{ resume_answer.length }}자</div>
     <div class="tags">
       <ul v-if="tag_name.length > 2">
-        <div> #{{tag_name[0]}}  #{{ tag_name[1] }}... </div>
+        <div> #{{tag_name[0]}}  #{{ tag_name[1] }} </div>
       </ul>
       <ul v-else-if="tag_name.length == 2">
         <div> #{{tag_name[0]}}  #{{ tag_name[1] }} </div>
@@ -26,12 +27,27 @@
   </div>
   </transition>
   </div>
+  <rsd v-if="rsdt"
+    :company="resume_company"
+    :task="resume_task"
+    :date="resume_date"
+    :question="resume_question"
+    :answer="resume_answer"
+    :tags="tag_name"
+    :text_val="resume_answer.length"
+    @clsrsd="closedetail"
+  />
+  </div>
 </template>
 
 <script>
+import rsd from "@/components/ResumeDetail"
 
 export default {
   name: "Resume",
+  components:{
+    rsd,
+  },
   props:{
     resume_company : {type: String},
     resume_answer : {type: String},
@@ -50,6 +66,8 @@ export default {
       rs_qst: this.resume_question,
       rs_tsk: this.resume_task,
       rs_dat: this.resume_date,
+      rsdt:false,
+      scr_cur:0,
     };
   },
   mounted(){
@@ -64,17 +82,29 @@ export default {
     input(value){
       this.showmenu = value
       console.log(this.showmenu);
+    },
+    move(){
+      window.scroll(0,100)
+    },
+    opendetail(){
+      this.scrc = window.scrollY
+      this.rsdt = true
+      this.$emit('opdt')
+    },
+    closedetail(){
+      this.rsdt = false
+      this.$emit('cldt')
     }
   }
-
 };
 </script>
 <style lang="scss">
 @import "@/assets/scss/mystyle.scss";
+
 .resumeCard{
   position: relative;
   @include breakpoint(sm){
-    width: 60%;
+    width: 60% !important;
   }
   @include breakpoint(xs,down){
     width: 90%;
@@ -161,25 +191,12 @@ export default {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  // ul{
-    //   list-style:none;
-  //   padding-left:0px !important;
-  //   position: relative;
-  // }
-  // .tag{
-    //   position: absolute;
-  //   margin-left: 20px;
-  //   bottom: 110px;
-  //   font-size: 15px;
-  //   color: rgb(123,123,255)
-  // }
   & .text_val{
-    width: 90%;
-    top: 80%;
+    top:5%;
+    right: 2%;
     position: absolute;
     font-size: 15px;
   }
-  
   
   
   .slide{

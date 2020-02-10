@@ -65,7 +65,7 @@
     <v-container>
       <v-layout>
         <v-flex xs12>
-          <InterviewList :limits="3" :load-more="true" @load="complete">
+          <InterviewList ref="updating" :load-more="true" @load="complete">
           </InterviewList>
         </v-flex>
       </v-layout>
@@ -105,7 +105,7 @@ export default {
       return this.dialog = true
     },
     complete(){
-      return this.loading = !this.loading
+      return this.loading = false
     },
     writeInterview() {
       var interview_info = {
@@ -124,6 +124,7 @@ export default {
           'user_id': window.sessionStorage.getItem("user_id")},})
         .then(response=>{
         console.log(response)
+        this.$refs.updating.getInterView()
         return this.dialog = false
       })
       .catch(error=>{

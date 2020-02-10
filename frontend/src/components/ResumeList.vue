@@ -1,5 +1,5 @@
 <template>
-  <v-layout mt-5 wrap justify-space-around>
+  <v-layout mt-5 wrap justify-space-around :class="{not_scroll:detail}" class="nav">
     <v-flex
       v-for="i in resumes.length"
       :key="i"
@@ -10,7 +10,7 @@
       xl4
     >
     <transition-group name="list" >
-      <Resume
+      <Resume @opdt="noscr" @cldt="scr"
       v-bind:key="i"
       v-if="sec >= i"
         class="ma-3 layout justify-center"
@@ -38,6 +38,7 @@ export default {
     return {
       resumes: [],
       sec : 0,
+      detail:false,
     };
   },
   components: {
@@ -47,6 +48,14 @@ export default {
     this.getResume()
   },
   methods: {
+    noscr(){
+      this.detail = true
+    },
+    scr(){
+      this.detail = false
+      window.scroll(0,1000)
+    },
+
     // async getResume() {
       // this.resumes = await FirebaseService.getResume();    
     //   console.log(this.resumes);
@@ -82,9 +91,24 @@ export default {
 </script>
 <style lang="scss">
 @import "@/assets/scss/mystyle.scss";
-.mw-700 {
-  max-width: 700px;
-  margin: auto;
+
+.not_scroll{
+  position:fixed;
+  overflow: hidden;
+  @include breakpoint(lg,up){
+    left: 17.5%;
+    width: 65%;
+  }
+  @include breakpoint(md){
+    left: 12.5%;
+    width: 75%;
+  }
+  @include breakpoint(sm,down){
+    left: 2.5%;
+    width: 95%;
+  }
+  height: 90%;
 }
+
 
 </style>
