@@ -33,9 +33,11 @@ public class UsersService {
         return usersRepository.findAll();
     }
 
-    public Users update(String user_id, Users new_user) {
-        new_user.setUser_id(user_id);
-        return usersRepository.save(new_user);
+    public Users update(Users user, Users new_user) {
+        user.setUser_password(new_user.getUser_password());
+        user.setUser_name(new_user.getUser_name());
+        user.setUser_phone(new_user.getUser_phone());
+        return usersRepository.save(user);
     }
 
     @Transactional
@@ -44,22 +46,36 @@ public class UsersService {
     }
 
     @Transactional
-    public Boolean signIn(Users user) {
+    public Users signIn(Users user) {
         String user_id = user.getUser_id();
         String user_password = user.getUser_password();
         boolean b_pass = false;
-
+        Users find_user = null;
         Optional<Users> find = usersRepository.findById(user_id);
         if(find.isPresent()){
-            Users find_user = find.get();
+            find_user = find.get();
             b_pass = user_password.equals(find_user.getUser_password());
         }
 
-        return b_pass;
+        return find_user;
     }
 
     @Transactional
     public void deleteByAdmin(String user_id) {
         usersRepository.deleteById(user_id);
+    }
+
+    @Transactional
+    public boolean checkId(String user_id) {
+        Optional<Users> user = usersRepository.findById(user_id);
+        if(user.isPresent()) return false;
+        else return true;
+    }
+
+    @Transactional
+    public Users updateAuth(String user_id) {
+        Users user = usersRepository.findById(user_id).get();
+        user.setUser_authority("admin");
+        return usersRepository.save(user);
     }
 }

@@ -34,7 +34,7 @@ Experiences {
     @Column(nullable = false)
     private String exp_org_role;
 
-    @Column(nullable = true)
+    @Column(nullable = true,length=3000)
     private String exp_org_detail;
 
     @Builder  // 빌더 패턴 클래스 생성. 생성자 상단에 선언 시, 생성자에 포함된 필드만 빌더에 포함

@@ -20,7 +20,7 @@ public class Licenses {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Users user;
 
-    @Column(nullable = false)
+    @Column(nullable = false,length=1000)
     private String lic_name;
 
     @Column(nullable = false)

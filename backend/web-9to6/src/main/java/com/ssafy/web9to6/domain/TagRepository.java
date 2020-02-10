@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Long> {
 //    List<Tag> findByTagName(String tag_name);
+    public List<Tag> findByResume(Resume resume);
 }

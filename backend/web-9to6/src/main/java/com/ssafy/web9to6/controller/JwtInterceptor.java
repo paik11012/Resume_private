@@ -1,5 +1,6 @@
-package com.ssafy.web9to6.service;
+package com.ssafy.web9to6.controller;
 
+import com.ssafy.web9to6.service.JwtService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,20 +19,15 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        //      String token = request.getHeader("token");
-//        System.out.print(jwtService.checkValid(token));
-//                return  true;
-
         if (request.getMethod().equals("OPTIONS")) {
             return true;
         } else {
             String token = request.getHeader("token");
-            if (token != null && token.length() > 0) {
-                jwtService.checkValid(token);
-                log.trace("토큰 사용 가능 {} + ", token);
+            String user_id = request.getHeader("user_id");
+            if (token != null && token.length() > 0 && jwtService.checkValid(token,user_id)) { //토큰 유효성 검사
                 return true;
             } else {
-                throw new RuntimeException("인증 토큰이 없습니다. ");
+                throw new RuntimeException("토큰 문제 발생"); //reponse로 에러 발생 메세지 보냄
             }
 
 

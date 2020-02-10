@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -15,7 +16,7 @@ public class TagService {
     @Autowired
     private TagRepository tr;
 
-//    public List<Tag> findResumesByTagName(String tag_name) {
+    //    public List<Tag> findResumesByTagName(String tag_name) {
 //        return tr.findByTagName(tag_name);
 //    }
     public  Tag save(TagResponseDto lic) {
@@ -24,5 +25,15 @@ public class TagService {
 
     public void delete(Long id) {
         tr.deleteById(id);
+    }
+
+    public List<String> findAll(Resume resume) {
+        List<Tag> list = tr.findByResume(resume);
+        List<String> list2 = new ArrayList<>();
+
+        for(int i=0;i<list.size();i++) {
+            list2.add(list.get(i).getTag_name());
+        }
+        return list2;
     }
 }
