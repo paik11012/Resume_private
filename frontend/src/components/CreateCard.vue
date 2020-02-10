@@ -16,7 +16,7 @@
                 style="padding-left: 20px;"
               >
                 <!-- eslint-disable -->
-              {{ schoolsort[i-1] }} <div v-if="!opendrop" style="position:absolute; right:0;"><i class="material-icons">arrow_drop_down</i></div>
+              {{ edu_school_sort[i-1] }} <div v-if="!opendrop" style="position:absolute; right:0;"><i class="material-icons">arrow_drop_down</i></div>
               </li>
             </ul>
             </div>
@@ -34,27 +34,27 @@
       <tbody>
         <tr>
           <td width="150px">학교명</td>
-          <td v-if="editing">ABC 고등학교</td>
+          <td v-if="editing">{{ edu_school_name }}</td>
           <td v-else><input type="text" v-model="edu_school_name" placeholder="school name"></td>
         </tr>
         <tr>
           <td width="150px">재학기간</td>
-          <td v-if="editing">시작 ~ 끝</td>
+          <td v-if="editing">{{ edu_school_st_date }}</td>
           <td v-else><input type="text" v-model="edu_school_st_date" placeholder="edu period"></td>
         </tr>
         <tr v-if="select != 1">
-          <td width="150px">전공여부</td>
-          <td v-if="editing">시작 ~ 끝</td>
-          <td v-else><input type="text" v-model="edu_detail_major_sort" placeholder="edu_period"></td>
+          <td width="150px">전공</td>
+          <td v-if="editing">{{ edu_detail_major_sort }}</td>
+          <td v-else><input type="text" v-model="edu_detail_major_sort" placeholder="major"></td>
         </tr>
         <tr v-if="select != 1">
           <td width="150px">이수학점</td>
-          <td v-if="editing">시작 ~ 끝</td>
-          <td v-else><input type="text" v-model="edu_detail_credit" placeholder="edu_period"></td>
+          <td v-if="editing">{{ edu_detail_credit }}</td>
+          <td v-else><input type="text" v-model="edu_detail_credit" placeholder="credit"></td>
         </tr>
         <tr v-if="select != 1">
           <td width="150px">총 평점</td>
-          <td v-if="editing">시작 ~ 끝</td>
+          <td v-if="editing">{{ edu_detail_grade }}</td>
           <td v-else><input type="text" v-model="edu_detail_grade" placeholder="grade"></td>
         </tr>
       </tbody>
@@ -67,11 +67,14 @@ export default {
   data(){
     return{
       editing:true,
-      schoolname:'',
-      edu_period:'',
+      edu_school_name: '',
+      edu_school_st_date: '',
+      edu_detail_credit: '',
+      edu_detail_grade: '',
+      edu_detail_major_sort: '',
       select:2,
       opendrop:false,
-      schoolsort:[
+      edu_school_sort:[
         'HighSchool', 'University', 'Transfer', 'GradSchool'
       ]
     }

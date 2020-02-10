@@ -9,6 +9,7 @@
 
 </template>
 <script>
+import axios from 'axios' 
 import eduh from './EduHigh'
 import eduu from './EduUniv'
 export default {
@@ -24,11 +25,11 @@ mounted() {
           user_id: window.sessionStorage.getItem("user_id")
     }})
     .then(response => {
-      // console.log(response.data[0]);
+      console.log(response);
       for (var [key,value] of Object.entries(response.data)){
         // console.log(value)
         for (var [key1, value1] of Object.entries(value)){
-          if (value1[0]["education"]["edu_school_sort"] == "고등학교")
+          if (value1[0]["education"]["edu_school_sort"] == "1")
           this.edu_school_name = value1[0]["education"]["edu_school_name"]
           this.edu_school_st_date = value1[0]["education"]["edu_school_st_date"]}
         }
@@ -36,7 +37,7 @@ mounted() {
     .catch(error => {
       console.log(error)
     })
-  }  
+  }
 }
 </script>
 
