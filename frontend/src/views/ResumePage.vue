@@ -98,7 +98,7 @@
       <!-- Portfolio -->
       <v-layout>
         <v-flex xs12>
-          <ResumeList ref="updating" :load-more="true" @load="complete">
+          <ResumeList class="relist" ref="updating" :load-more="true" @load="complete">
           </ResumeList>
         </v-flex>
       </v-layout>
@@ -178,7 +178,6 @@ export default {
       .catch(error=>{
         console.log(error)
       })
-      // location.reload()
     }
   }
 }
@@ -204,5 +203,6 @@ export default {
   position: fixed;
   right:30px;
   bottom:30px;
+  z-index: 1e9
 }
 </style> 
