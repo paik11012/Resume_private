@@ -64,18 +64,18 @@
         </tr>
         <tr>
           <td style="text-align:center;">병역구분</td>
-          <td v-if="editing" style="text-align:center;">공군 만기전역</td>
-          <td v-else><input type="text" style="text-align:center; width:100%;" v-model="mil_sort" placeholder="병역구분"></td>
+          <td v-if="editing" style="text-align:center;">{{ military_sort }}</td>
+          <td v-else><input type="text" style="text-align:center; width:100%;" v-model="military_sort" placeholder="병역구분"></td>
         </tr>
         <tr>
           <td style="text-align:center;">계급</td>
-          <td v-if="editing" style="text-align:center;">병장</td>
-          <td v-else><input type="text" style="text-align:center; width:100%;" v-model="mil_grade" placeholder="계급"></td>
+          <td v-if="editing" style="text-align:center;">{{ military_class }}</td>
+          <td v-else><input type="text" style="text-align:center; width:100%;" v-model="military_class" placeholder="계급"></td>
         </tr>
         <tr>
           <td style="text-align:center;">복무기간</td>
-          <td v-if="editing" style="text-align:center;">하하하</td>
-          <td v-else><input style="text-align:center; width:100%;" type="text" v-model="mil_service" placeholder="복무기간"></td>
+          <td v-if="editing" style="text-align:center;">{{ military_st_date }}</td>
+          <td v-else><input style="text-align:center; width:100%;" type="text" v-model="military_st_date" placeholder="복무기간"></td>
         </tr>
         <tr>
           <td style="text-align:center;">메모</td>
@@ -93,9 +93,10 @@ export default {
     return{
       editing:true,
       memo:'',
-      mil_service:'',
-      mil_grade:'',
-      mil_sort:'',
+      'career_myPic':'',
+      'military-class':'',
+      'military_st_date':'',
+      'military_sort':'',
     }
   },
   methods:{
