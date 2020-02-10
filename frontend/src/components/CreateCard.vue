@@ -35,27 +35,27 @@
         <tr>
           <td width="150px">학교명</td>
           <td v-if="editing">ABC 고등학교</td>
-          <td v-else><input type="text" v-model="schoolname" placeholder="schoolname"></td>
+          <td v-else><input type="text" v-model="edu_school_name" placeholder="school name"></td>
         </tr>
         <tr>
           <td width="150px">재학기간</td>
           <td v-if="editing">시작 ~ 끝</td>
-          <td v-else><input type="text" v-model="edu_period" placeholder="edu_period"></td>
+          <td v-else><input type="text" v-model="edu_school_st_date" placeholder="edu period"></td>
         </tr>
         <tr v-if="select != 1">
           <td width="150px">전공여부</td>
           <td v-if="editing">시작 ~ 끝</td>
-          <td v-else><input type="text" v-model="edu_period" placeholder="edu_period"></td>
+          <td v-else><input type="text" v-model="edu_detail_major_sort" placeholder="edu_period"></td>
         </tr>
         <tr v-if="select != 1">
           <td width="150px">이수학점</td>
           <td v-if="editing">시작 ~ 끝</td>
-          <td v-else><input type="text" v-model="edu_period" placeholder="edu_period"></td>
+          <td v-else><input type="text" v-model="edu_detail_credit" placeholder="edu_period"></td>
         </tr>
         <tr v-if="select != 1">
           <td width="150px">총 평점</td>
           <td v-if="editing">시작 ~ 끝</td>
-          <td v-else><input type="text" v-model="edu_period" placeholder="edu_period"></td>
+          <td v-else><input type="text" v-model="edu_detail_grade" placeholder="grade"></td>
         </tr>
       </tbody>
     </template>
