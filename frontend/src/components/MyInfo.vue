@@ -19,18 +19,18 @@
         <tr>
           <td style="width:30%;" rowspan="3"><img style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/권응.jpg"/></td>
           <td>병역구분</td>
-          <td v-if="editing">공군 만기전역</td>
-          <td v-else><input type="text" v-model="mil_sort" placeholder="병역구분"></td>
+          <td v-if="editing">{{ military_sort }}</td>
+          <td v-else><input type="text" v-model="military_sort" placeholder="병역구분"></td>
         </tr>
         <tr>
           <td>계급</td>
-          <td v-if="editing">병장</td>
-          <td v-else><input type="text" v-model="mil_grade" placeholder="계급"></td>
+          <td v-if="editing">{{ military_class }}</td>
+          <td v-else><input type="text" v-model="military_class" placeholder="계급"></td>
         </tr>
         <tr>
           <td>복무기간</td>
-          <td v-if="editing">하하하</td>
-          <td v-else><input type="text" v-model="mil_service" placeholder="복무기간"></td>
+          <td v-if="editing">{{ military_st_date }}</td>
+          <td v-else><input type="text" v-model="military_st_date" placeholder="복무기간"></td>
         </tr>
         <tr>
           <td class="layout justify-center"><v-btn style="margin-top:6px;" color="success" outlined><v-icon dark>mdi-cloud-download</v-icon></v-btn></td>
@@ -41,6 +41,9 @@
       </tbody>
     </template>
   </v-simple-table>
+
+
+
   <v-simple-table v-else>
     <template v-slot:default>
       <thead>
@@ -88,21 +91,59 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   data(){
     return{
       editing:true,
       memo:'',
       'career_myPic':'',
-      'military-class':'',
+      'military_class':'',
       'military_st_date':'',
       'military_sort':'',
     }
   },
   methods:{
     editor(){
+      var career_info = {
+      'career_myPic':this.career_myPic,
+      'military_class':this.military_class,
+      'military_st_date':this.military_st_date,
+      'military_sort':this.military_sort,
+      }
+      const SERVER_IP = 'http://70.12.247.99:8080'
+      axios.post(SERVER_IP + '/careers/upload', career_info, 
+      {headers : {
+          'token' : window.sessionStorage.getItem("jwt-auth-token"),
+          'user_id': window.sessionStorage.getItem("user_id")}}
+      )
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
       this.editing = !this.editing
     },
+  },
+    mounted() {
+    const SERVER_IP = "http://70.12.247.99:8080";
+    axios
+      .get(SERVER_IP + "/careers/findOne", {
+        headers: {
+          token: window.sessionStorage.getItem("jwt-auth-token"),
+          user_id: window.sessionStorage.getItem("user_id")
+        }})
+      .then(response => {
+        console.log(response);
+        this.military_class = response.data.military_class
+        this.military_st_date = response.data.military_st_date
+        this.military_sort = response.data.military_sort
+        this.career_myPic = response.data.career_myPic
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 }
 </script>
