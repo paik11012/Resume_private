@@ -26,10 +26,13 @@ public class CareersService {
     }
 
     @Transactional
-    public Careers update(String user_id, Careers new_career) {
-        Careers career = careersRepository.findByUser(usersRepository.findById(user_id).get());
-        new_career.setCareer_id(career.getCareer_id());
+    public Careers update(Careers career, Careers new_career) {
+        career.setCareer_myPic(new_career.getCareer_myPic());
+        career.setMilitary_sort(new_career.getMilitary_sort());
+        career.setMilitary_st_date(new_career.getMilitary_st_date());
+        career.setMilitary_ed_date(new_career.getMilitary_ed_date());
+        career.setMilitary_class(new_career.getMilitary_class());
 
-        return careersRepository.save(new_career);
+        return careersRepository.save(career);
     }
 }

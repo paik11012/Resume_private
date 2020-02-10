@@ -27,69 +27,83 @@ public class EducationsFullController {
     private final EducationDetailsService educationDetailsService;
 
     @ApiOperation("학력 정보 등록/수정")
-    @PostMapping("/edu/registration")
-    public Map<String, Object> registrationEduDetails(@RequestBody EducationFullResponseDto requestDto) {
-        String user_id = "daseul@ssafy.com";
+    @PostMapping("/edu/upload")
+    public Map<String, Object> uploadEduDetails(@RequestBody Map<String, Object> requestDto) {
+        String user_id = "mjmj";
         Users user = usersService.findById(user_id);
 
-        // Education 처리 //
-        Long edu_id = requestDto.getEdu_id();
-        Optional<Educations> edu = educationsService.findById(edu_id);
+        Map<String, Object> res = new HashMap<>(); // result object
 
-        Educations new_edu;
-        if (edu.isPresent()) { // 기존 education 정보가 존재하면 update
-            new_edu = Educations.builder()
-                    .edu_school_name(requestDto.getEdu_school_name())
-                    .edu_school_st_date(requestDto.getEdu_school_st_date())
-                    .edu_school_ed_date(requestDto.getEdu_school_ed_date())
-                    .edu_school_sort(requestDto.getEdu_school_sort())
+        // request object //
+        Map map_edu = (Map) requestDto.get("education");
+        Educations education = Educations.builder()
+                .edu_school_name((String) map_edu.get("edu_school_name"))
+                .edu_school_sort((String) map_edu.get("edu_school_sort"))
+                .edu_school_st_date((String) map_edu.get("edu_school_st_date"))
+                .edu_school_ed_date((String) map_edu.get("edu_school_ed_date"))
+                .build();
+        if(map_edu.get("edu_id")!=null) education.setEdu_id(Long.valueOf((String) map_edu.get("edu_id")));
+
+        boolean edu_det_save = false;
+        Map map_edu_detail = (Map) requestDto.get("education_detail");
+        EducationDetails educationDetails = new EducationDetails();
+        if(map_edu_detail.get("edu_detail_major_sort")!=null){ // 고등학교는 상세 정보 X
+            edu_det_save = true;
+            educationDetails = EducationDetails.builder()
+                    .edu_detail_major_sort((String) map_edu_detail.get("edu_detail_major_sort"))
+                    .edu_detail_credit(Long.valueOf((Integer) map_edu_detail.get("edu_detail_credit")))
+                    .edu_detail_grade((Double) map_edu_detail.get("edu_detail_grade"))
                     .build();
-            new_edu.setEdu_id(edu_id); // 기존 education_id 연결
-        } else { // 기존 education 정보가 없으면 insert
-            new_edu = Educations.builder()
-                    .edu_school_name(requestDto.getEdu_school_name())
-                    .edu_school_st_date(requestDto.getEdu_school_st_date())
-                    .edu_school_ed_date(requestDto.getEdu_school_ed_date())
-                    .edu_school_sort(requestDto.getEdu_school_sort())
-                    .build();
-            new_edu.setUser(user);
+            if(map_edu_detail.get("edu_detail_id")!=null) educationDetails.setEduDetail_id(Long.valueOf((String) map_edu_detail.get("edu_detail_id")));
         }
-        new_edu = educationsService.save(new_edu);
-        // END: Education 처리 //
+        // END: request object //
 
-        // Education Detail 처리 //
-        Long edu_detail_id = requestDto.getEdu_detail_id();
-        Optional<EducationDetails> edu_detail = educationDetailsService.findById(edu_detail_id);
+        List<Educations> find = educationsService.findAll(user);
+        // 회원에 기존 등록된 education 정보가 없으면 education, educationDetails insert //
+        if(education.getEducation_id()==null) {
+            // Educations //
+            education.setUser(user);
+            Educations edu = educationsService.save(education);
+            res.put("education", edu);
 
-        EducationDetails new_edu_detail;
-        if (edu_detail.isPresent()) { // 기존 education detail 정보가 존재하면 update
-            new_edu_detail = EducationDetails.builder()
-                    .edu_detail_major_sort(requestDto.getEdu_detail_major_sort())
-                    .edu_detail_credit(requestDto.getEdu_detail_credit())
-                    .edu_detail_grade(requestDto.getEdu_detail_grade())
-                    .build();
-            new_edu_detail.setEduDetail_id(edu_detail_id);  // 기존 education_detail_id 연결
-        } else { // 기존 education detail 정보가 없으면 insert
-            new_edu_detail = EducationDetails.builder()
-                    .edu_detail_major_sort(requestDto.getEdu_detail_major_sort())
-                    .edu_detail_credit(requestDto.getEdu_detail_credit())
-                    .edu_detail_grade(requestDto.getEdu_detail_grade())
-                    .build();
+            // EducationDetails //
+            educationDetails.setEducation(edu);
+            EducationDetails edu_detail = educationDetailsService.save(educationDetails);
+            res.put("education_detail", edu_detail);
         }
-        new_edu_detail.setEducation(new_edu);
-        educationDetailsService.save(new_edu_detail);
-        // END: Education Detail 처리 //
+        else { // 회원에 기존 등록된 education 정보가 있으면, 일치하는 정보를 찾아서 update
+            for(Educations edu : find){
+                if(edu.getEducation_id().equals(education.getEducation_id())){ // DB에서, client에서 넘어온 id와 동일한 id를 찾음
+                    edu = educationsService.update(edu, education);
+                    res.put("education", edu);
 
-        Map<String, Object> res = new HashMap<>();
-        res.put("Educations", new_edu);
-        res.put("EducationDetails", new_edu_detail);
+                    if(edu_det_save){
+                        boolean find_edu_det = false;
+                        List<EducationDetails> edu_detail_list = educationDetailsService.findAll(edu);
+                        for(EducationDetails edu_det : edu_detail_list){
+                            if(edu_det.getEdu_detail_id().equals(educationDetails.getEdu_detail_id())){ // DB에서, client에서 넘어온 id와 동일한 id를 찾음
+                                find_edu_det = true;
+                                edu_det = educationDetailsService.update(edu_det, educationDetails);
+                                res.put("education_detail", edu_det); break;
+                            }
+                        }
+                        if(!find_edu_det){
+                            educationDetails.setEducation(edu);
+                            EducationDetails edu_detail = educationDetailsService.save(educationDetails);
+                            res.put("education_detail", edu_detail);
+                        }
+                    }
+                    break;
+                }
+            }
+        }
         return res;
     }
 
     @ApiOperation("모든 학력 정보 조회")
     @GetMapping("/edu/findAll")
     public List<Map<Educations, List<EducationDetails>>> findAllEdu(){
-        String user_id = "daseul@ssafy.com";
+        String user_id = "test@ssafy.com";
         Users user = usersService.findById(user_id);
 
         List<Map<Educations, List<EducationDetails>>> mapList = new LinkedList<>();
@@ -98,6 +112,7 @@ public class EducationsFullController {
             Map<Educations, List<EducationDetails>> tmpMap = new HashMap<>();
             List<EducationDetails> eduDetailList = educationDetailsService.findAll(edu);
             tmpMap.put(edu, eduDetailList);
+            mapList.add(tmpMap);
         }
 
         return mapList;
@@ -115,9 +130,15 @@ public class EducationsFullController {
         return res;
     }
 
-    @ApiOperation("학력 정보 삭제")
+    @ApiOperation("학력 정보(학력+학력 상세) 한개 삭제")
     @DeleteMapping("/edu/deleteOne/{edu_id}")
     public void deleteOneEdu(@PathVariable String edu_id){
         educationsService.deleteOne(Long.valueOf(edu_id));
+    }
+
+    @ApiOperation("학력 상세 정보(전공/복수전공/부전공) 한개 삭제")
+    @DeleteMapping("/edu/deleteDetailOne/{edu_det_id}")
+    public void deleteDetailOneEdu(@PathVariable String edu_det_id){
+        educationDetailsService.deleteOne(Long.valueOf(edu_det_id));
     }
 }

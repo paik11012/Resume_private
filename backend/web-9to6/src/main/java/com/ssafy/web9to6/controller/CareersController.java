@@ -22,35 +22,27 @@ public class CareersController {
     private final CareersService careersService;
     private final UsersService usersService;
 
-    @ApiOperation("회원 이력 등록")
-    @PostMapping("/careers/registration")
-    public Careers registrationCareer(HttpServletRequest request, @RequestBody CareersResponseDto requestDto){
-        HttpSession session = request.getSession();
-        String user_id = (String) session.getAttribute("user_id");
-        user_id = "daseul@ssafy.com";
+    @ApiOperation("회원 이력 등록/수정")
+    @PostMapping("/careers/upload")
+    public Careers uploadCareer(HttpServletRequest request, @RequestBody CareersResponseDto requestDto){
+        String user_id = "test@ssafy.com";
         Users user = usersService.findById(user_id);
 
         Careers career = requestDto.toEntity();
-        career.setUser(user);
-        return careersService.save(career);
+        Careers find = careersService.findByUser(user);
+        if(find==null){
+            career.setUser(user);
+            return careersService.save(career);
+        }
+        else{ return careersService.update(find, career); }
+
     }
 
     @ApiOperation("회원 이력 정보")
     @GetMapping("/careers/findOne")
     public Careers selectCareer(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        String user_id = (String) session.getAttribute("user_id");
-//        user_id = "test2";
+        String user_id = "test@ssafy.com";
         Users user = usersService.findById(user_id);
         return careersService.findByUser(user);
-    }
-
-    @ApiOperation("회원 이력 수정")
-    @PutMapping("/careers/update")
-    public Careers updateCareer(HttpServletRequest request, @RequestBody CareersResponseDto requestDto){
-        HttpSession session = request.getSession();
-        String user_id = (String) session.getAttribute("user_id");
-//        user_id = "test";
-        return careersService.update(user_id, requestDto.toEntity());
     }
 }

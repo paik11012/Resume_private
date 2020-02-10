@@ -16,21 +16,37 @@
         </tr>
       </thead>
       <tbody>
+
+        <!-- 사진 업로드하는 부분 -->
         <tr>
-          <td style="width:30%;" rowspan="3"><img style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/권응.jpg"/></td>
+          <td v-if="career_myPic == ''" style="width:30%;" rowspan="3">
+            <div id="testt">
+              <input
+                type="file"
+                multiple
+                accept="image/jpeg"
+                @change="detectFiles($event.target.files)"
+              />
+              <button @click="downloadImg">download</button>
+              <img src id="imgtag" />
+            </div>
+          </td>
+
+          <td v-else style="width:30%;" rowspan="3"><img style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/권응.jpg"/></td>
           <td>병역구분</td>
-          <td v-if="editing">공군 만기전역</td>
-          <td v-else><input type="text" v-model="mil_sort" placeholder="병역구분"></td>
+          <td v-if="editing">{{ military_sort }}</td>
+          <td v-else><input type="text" v-model="military_sort" placeholder="병역구분"></td>
         </tr>
+
         <tr>
           <td>계급</td>
-          <td v-if="editing">병장</td>
-          <td v-else><input type="text" v-model="mil_grade" placeholder="계급"></td>
+          <td v-if="editing">{{ military_class }}</td>
+          <td v-else><input type="text" v-model="military_class" placeholder="계급"></td>
         </tr>
         <tr>
           <td>복무기간</td>
-          <td v-if="editing">하하하</td>
-          <td v-else><input type="text" v-model="mil_service" placeholder="복무기간"></td>
+          <td v-if="editing">{{ military_st_date }}</td>
+          <td v-else><input type="text" v-model="military_st_date" placeholder="복무기간"></td>
         </tr>
         <tr>
           <td class="layout justify-center"><v-btn style="margin-top:6px;" color="success" outlined><v-icon dark>mdi-cloud-download</v-icon></v-btn></td>
@@ -41,6 +57,9 @@
       </tbody>
     </template>
   </v-simple-table>
+
+
+
   <v-simple-table v-else>
     <template v-slot:default>
       <thead>
@@ -64,18 +83,18 @@
         </tr>
         <tr>
           <td style="text-align:center;">병역구분</td>
-          <td v-if="editing" style="text-align:center;">공군 만기전역</td>
-          <td v-else><input type="text" style="text-align:center; width:100%;" v-model="mil_sort" placeholder="병역구분"></td>
+          <td v-if="editing" style="text-align:center;">{{ military_sort }}</td>
+          <td v-else><input type="text" style="text-align:center; width:100%;" v-model="military_sort" placeholder="병역구분"></td>
         </tr>
         <tr>
           <td style="text-align:center;">계급</td>
-          <td v-if="editing" style="text-align:center;">병장</td>
-          <td v-else><input type="text" style="text-align:center; width:100%;" v-model="mil_grade" placeholder="계급"></td>
+          <td v-if="editing" style="text-align:center;">{{ military_class }}</td>
+          <td v-else><input type="text" style="text-align:center; width:100%;" v-model="military_class" placeholder="계급"></td>
         </tr>
         <tr>
           <td style="text-align:center;">복무기간</td>
-          <td v-if="editing" style="text-align:center;">하하하</td>
-          <td v-else><input style="text-align:center; width:100%;" type="text" v-model="mil_service" placeholder="복무기간"></td>
+          <td v-if="editing" style="text-align:center;">{{ military_st_date }}</td>
+          <td v-else><input style="text-align:center; width:100%;" type="text" v-model="military_st_date" placeholder="복무기간"></td>
         </tr>
         <tr>
           <td style="text-align:center;">메모</td>
@@ -88,20 +107,122 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { app } from "../services/FirebaseService";
+import firebase, { storage } from "firebase/app";
+import "firebase/firestore";
+import "firebase/storage";
 export default {
   data(){
     return{
       editing:true,
       memo:'',
-      mil_service:'',
-      mil_grade:'',
-      mil_sort:'',
+      'career_myPic':'',
+      'military_class':'',
+      'military_st_date':'',
+      'military_sort':'',
+      file: File,
+      uploadTask: ""
     }
   },
   methods:{
     editor(){
+      var career_info = {
+      'career_myPic':this.career_myPic,
+      'military_class':this.military_class,
+      'military_st_date':this.military_st_date,
+      'military_sort':this.military_sort,
+      }
+      const SERVER_IP = 'http://70.12.247.99:8080'
+      axios.post(SERVER_IP + '/careers/upload', career_info, 
+      {headers : {
+          'token' : window.sessionStorage.getItem("jwt-auth-token"),
+          'user_id': window.sessionStorage.getItem("user_id")}}
+      )
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
       this.editing = !this.editing
     },
+    detectFiles(fileList) {
+      Array.from(Array(fileList.length).keys()).map(x => {
+        // console.log(fileList[x])
+        this.upload(fileList[x]);
+      });
+    },
+    upload(file) {
+      this.uploadTask = firebase
+        .storage(app)
+        .ref(file.name)
+        .put(file);
+    },
+
+    downloadImg() {
+      var storage = firebase.storage();
+      var storageRef = firebase.storage().ref();
+
+      var gsReference = storage.refFromURL(
+        "gs://web-9to6.appspot.com/벼리.jpg"
+      );
+      storageRef
+        .child("벼리.jpg")
+        .getDownloadURL()
+        .then(function(url) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", url);
+
+          xhr.responseType = "blob";
+          xhr.onload = function(event) {
+            var blob = xhr.response;
+            console.log(xhr);
+            var link = document.createElement("a");
+            link.href = window.URL.createObjectURL(blob);
+            link.download = blob;
+            link.click();
+          };
+          xhr.send();
+        });
+    }
+  },
+    mounted() {
+    const SERVER_IP = "http://70.12.247.99:8080";
+    axios
+      .get(SERVER_IP + "/careers/findOne", {
+        headers: {
+          token: window.sessionStorage.getItem("jwt-auth-token"),
+          user_id: window.sessionStorage.getItem("user_id")
+        }})
+      .then(response => {
+        console.log(response);
+        this.military_class = response.data.military_class
+        this.military_st_date = response.data.military_st_date
+        this.military_sort = response.data.military_sort
+        this.career_myPic = response.data.career_myPic
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
+  watch: {
+    uploadTask: function() {
+      this.uploadTask.on(
+        "state_changed",
+        sp => {
+          this.progressUpload = Math.floor(
+            (sp.bytesTransferred / sp.totalBytes) * 100
+          );
+        },
+        null,
+        () => {
+          this.uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+            this.$emit("url", downloadURL);
+          });
+        }
+      );
+    }
   }
 }
 </script>

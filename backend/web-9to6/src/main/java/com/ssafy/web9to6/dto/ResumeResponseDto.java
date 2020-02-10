@@ -19,13 +19,13 @@ public class ResumeResponseDto {
     private String resume_answer;
 
     @Builder
-    public ResumeResponseDto(Users user,String resume_company,String resume_task,String resume_date,String resume_question,String resume_answer) {
-        this.user = user;
+    public ResumeResponseDto(String resume_company,String resume_task,String resume_date,String resume_question,String resume_answer, Users user) {
         this.resume_answer = resume_answer;
         this.resume_company = resume_company;
         this.resume_date = resume_date;
         this.resume_question = resume_question;
         this.resume_task = resume_task;
+        this.user = user;
     }
 
     public Resume toEntity() {

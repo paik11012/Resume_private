@@ -5,6 +5,8 @@ import com.ssafy.web9to6.domain.CareersRepository;
 import com.ssafy.web9to6.domain.Users;
 import com.ssafy.web9to6.domain.UsersRepository;
 import com.ssafy.web9to6.dto.CareersResponseDto;
+import com.ssafy.web9to6.service.CareersService;
+import com.ssafy.web9to6.service.UsersService;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,19 +34,19 @@ public class CareersControllerTest {
     private TestRestTemplate restTemplate;
 
     @Autowired
-    public CareersRepository careersRepository;
+    public CareersService careersService;
 
     @Autowired
-    public UsersRepository usersRepository;
+    public UsersService usersService;
 
     @After
     public void afterTest() throws Exception{}
 
     @Test
-    public void testRegistrationCareer() throws Exception{
+    public void testUploadCareer() throws Exception{
         // given
         String career_myPic = "";
-        String military_sort = "해군";
+        String military_sort = "육군";
         String military_st_date = "2000.12.01";
         String military_ed_date = "2002.01.01";
         String military_class = "병장";
@@ -57,16 +59,15 @@ public class CareersControllerTest {
                 .military_class(military_class)
                 .build();
 
-        String url = "http://localhost:" + port + "/careers/registration";
+        String url = "http://localhost:" + port + "/careers/upload";
 
         // when
-        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
+        ResponseEntity<Careers> responseEntity = restTemplate.postForEntity(url, requestDto, Careers.class);
 
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
-        Careers career = careersRepository.findById(responseEntity.getBody()).get();
+        Careers career = responseEntity.getBody();
         assertThat(career.getMilitary_sort()).isEqualTo(military_sort);
         assertThat(career.getMilitary_st_date()).isEqualTo(military_st_date);
         assertThat(career.getMilitary_ed_date()).isEqualTo(military_ed_date);
@@ -76,10 +77,10 @@ public class CareersControllerTest {
     @Test
     public void testSelectOneCareer(){
         // given
-        Users user = usersRepository.findById("test2").get();
-        Careers career = careersRepository.findByUser(user);
+        Users user = usersService.findById("test@ssafy.com");
+        Careers career = careersService.findByUser(user);
 
-        String url = "http://localhost:" + port + "/careers/select";
+        String url = "http://localhost:" + port + "/careers/findOne";
 
         // when
         ResponseEntity<Careers> responseEntity = restTemplate.getForEntity(url, Careers.class);
@@ -87,32 +88,5 @@ public class CareersControllerTest {
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody().getCareer_id()).isEqualTo(career.getCareer_id());
-    }
-
-    @Test
-    public void testUpdateCareer() throws Exception{
-        // given
-        String user_id = "test";
-        Careers career = careersRepository.findByUser(usersRepository.findById(user_id).get());
-        String myPic = "myPic_update";
-        String military_class = "병장_update";
-
-        CareersResponseDto requestDto = CareersResponseDto.builder()
-                .career_myPic(myPic)
-                .military_sort(career.getMilitary_sort())
-                .military_st_date(career.getMilitary_st_date())
-                .military_ed_date(career.getMilitary_ed_date())
-                .military_class(military_class)
-                .build();
-
-        String url = "http://localhost:" + port + "/careers/update";
-
-        // when
-        restTemplate.put(url, requestDto);
-
-        // then
-        career = careersRepository.findByUser(usersRepository.findById(user_id).get());
-        assertThat(career.getCareer_myPic()).isEqualTo(myPic);
-        assertThat(career.getMilitary_class()).isEqualTo(military_class);
     }
 }

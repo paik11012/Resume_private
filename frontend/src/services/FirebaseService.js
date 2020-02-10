@@ -8,16 +8,16 @@ const PORTFOLIOS = 'portfolios'
 // Setup Firebase
 // Do change to your own firebase configuration
 var firebaseConfig = {
-	apiKey: "AIzaSyCsc33T4aBhNINOam75wez6bb73_RyGpR0",
-	authDomain: "ssafy-personal-project.firebaseapp.com",
-	databaseURL: "https://ssafy-personal-project.firebaseio.com",
-	projectId: "ssafy-personal-project",
-	storageBucket: "ssafy-personal-project.appspot.com",
-	messagingSenderId: "142781324500",
-	appId: "1:142781324500:web:ed8ec498c21177753eaf41",
-	measurementId: "G-LH682SSBNF"
+	apiKey: "AIzaSyAI5eaFNRw48Cu6HxWmer_19EGEOfQCi3Q",
+    authDomain: "web-9to6.firebaseapp.com",
+    databaseURL: "https://web-9to6.firebaseio.com",
+    projectId: "web-9to6",
+    storageBucket: "web-9to6.appspot.com",
+    messagingSenderId: "1089047599945",
+    appId: "1:1089047599945:web:1d2ed7149ef3ecec255898",
+    measurementId: "G-2JF1PT9DQ3"
 };
-firebase.initializeApp(firebaseConfig)
+export const app= firebase.initializeApp(firebaseConfig);
 
 const firestore = firebase.firestore()
 

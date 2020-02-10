@@ -14,7 +14,11 @@
     <div class="text_val">{{ resume_answer.length }}자</div>
     <div class="tags">
       <ul v-if="tag_name.length > 2">
+<<<<<<< HEAD
         <div> #{{tag_name[0]}}  #{{ tag_name[1] }} </div>
+=======
+        <div> #{{tag_name[0]}}  #{{ tag_name[1] }} ··· </div>
+>>>>>>> 9d645d1005662c6771b37e49e1303e057d7020aa
       </ul>
       <ul v-else-if="tag_name.length == 2">
         <div> #{{tag_name[0]}}  #{{ tag_name[1] }} </div>

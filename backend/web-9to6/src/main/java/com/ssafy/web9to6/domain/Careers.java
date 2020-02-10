@@ -40,9 +40,6 @@ public class Careers {
     @OneToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Users user;
-
-//    @OneToMany(mappedBy = "career", orphanRemoval = true, cascade = CascadeType.REMOVE)
-//    private List<Educations> educations;
     // END: 외래키 //
 
 
@@ -59,14 +56,15 @@ public class Careers {
     public void setCareer_id(Long career_id) {
         this.career_id = career_id;
     }
-
     public void setUser(Users user) {
         this.user = user;
     }
+    public void setCareer_myPic(String career_myPic) { this.career_myPic = career_myPic; }
+    public void setMilitary_sort(String military_sort) { this.military_sort = military_sort; }
+    public void setMilitary_st_date(String military_st_date) { this.military_st_date = military_st_date; }
+    public void setMilitary_ed_date(String military_ed_date) { this.military_ed_date = military_ed_date; }
+    public void setMilitary_class(String military_class) { this.military_class = military_class; }
 
-//    public void addEducations(Educations education) {
-//        this.educations.add(education);
-//    }
 
     // setter 역할
 }

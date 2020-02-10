@@ -13,16 +13,14 @@ import java.util.Map;
 @Slf4j
 public class JwtService {
     private String salt = "mysalt";
-    private Long expireMin = 100L;
+    private Long expireMin = 100L; //토큰 만료 시간 설정
 
     public String create(final Users user) {
-        log.trace("time : {}", expireMin);
         final JwtBuilder builder = Jwts.builder();//토큰의 type으로 고정
         builder.setHeaderParam("typ", "JWT");
         builder.setSubject("로그인토큰")
-                .setExpiration(new Date(System.currentTimeMillis() + 1000*60*expireMin))//토큰 유
-                // 효시간 설정
-                .claim("user_id" , user.getUser_id());
+                .setExpiration(new Date(System.currentTimeMillis() + 40000*60*expireMin))//토큰 유효 시간 설정
+                .claim("user_id" , user.getUser_id());//토큰에 들어갈 정보
 
         //secret key를 이용한 암호화
 
@@ -35,16 +33,20 @@ public class JwtService {
         return jwt;
     }
 
-    public String checkValid(final String jwt) {
+    public boolean checkValid(final String jwt, String user_id) {
         log.trace("토큰 점검 : {}", jwt);
         String dd = null;
-        System.out.print("tokdddddn" + jwt);
+        Date now = new Date();
+
+        if(Jwts.parser().setSigningKey(salt.getBytes()).parseClaimsJws(jwt).getBody().getExpiration().before(now)) { return false; }
         if (jwt.length() > 0) {
-            dd = Jwts.parser().setSigningKey(salt.getBytes()).parseClaimsJws(jwt).getBody().get("user_id").toString();
-            Jwts.parser().setSigningKey(salt.getBytes()).parseClaimsJws(jwt);
-            System.out.print("아이디 뽑히니?    " + dd);
+            String decode_user_id = Jwts.parser().setSigningKey(salt.getBytes()).parseClaimsJws(jwt).getBody().get("user_id").toString();
+            System.out.println("프론트" + user_id);
+            System.out.println("백앤드" + decode_user_id);
+            if(decode_user_id.equals(user_id)) return true;
+            else return false;
         }
-        return dd;
+        return false;
     }
 
         public Map<String, Object> get(final String jwt) {

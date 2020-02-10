@@ -1,7 +1,9 @@
 package com.ssafy.web9to6.controller;
 
+import com.ssafy.web9to6.domain.EducationDetails;
 import com.ssafy.web9to6.domain.Educations;
 import com.ssafy.web9to6.domain.EducationsRepository;
+import com.ssafy.web9to6.dto.EducationDetailsResponseDto;
 import com.ssafy.web9to6.dto.EducationsResponseDto;
 import org.junit.After;
 import org.junit.Test;
@@ -14,7 +16,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
@@ -34,34 +38,67 @@ public class EducationsFullControllerTest {
     public void afterTest() throws Exception {}
 
     @Test
-    public void testRegistrationEdu(){
+    public void testUploadEduDetails(){
         // given
-        String edu_school_name = "삼성대학원";
-        String edu_school_st_date = "2017.03.01";
-        String edu_school_ed_date = "2019.02.01";
-        String edu_school_sort = "대학원";
+        // Educations //
+        String edu_school_id = null;
+        String edu_school_name = "삼성대학교";
+        String edu_school_st_date = "2013.03.01";
+        String edu_school_ed_date = "2017.02.01";
+        String edu_school_sort = "대학교";
 
-        EducationsResponseDto requestDto = EducationsResponseDto.builder()
+        EducationsResponseDto requestDtoEdu = EducationsResponseDto.builder()
+                .edu_id(edu_school_id)
                 .edu_school_name(edu_school_name)
                 .edu_school_st_date(edu_school_st_date)
                 .edu_school_ed_date(edu_school_ed_date)
                 .edu_school_sort(edu_school_sort)
                 .build();
+        // END: Educations //
 
-        String url = "http://localhost:" + port + "/edu/registration";
+        // Educations Details //
+        String edu_det_id = null;
+        String edu_det_sort = "복수전공";
+        String edu_det_credit = "20";
+        String edu_det_grade = "2.7";
+
+        EducationDetailsResponseDto requestDtoEduDetail = new EducationDetailsResponseDto();
+        if(edu_det_sort!=null){
+            requestDtoEduDetail = EducationDetailsResponseDto.builder()
+                    .edu_detail_id(edu_det_id)
+                    .edu_detail_major_sort(edu_det_sort)
+                    .edu_detail_credit(Long.parseLong(edu_det_credit))
+                    .edu_detail_grade(Double.parseDouble(edu_det_grade))
+                    .build();
+        }
+        // END: Educations Details //
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("education", requestDtoEdu);
+        map.put("education_detail", requestDtoEduDetail);
+
+        String url = "http://localhost:" + port + "/edu/upload";
 
         // when
-        ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
+        ResponseEntity<Map> responseEntity = restTemplate.postForEntity(url, map, Map.class);
 
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
 
-        Educations education = educationsRepository.findById(responseEntity.getBody()).get();
-
-        assertThat(education.getEdu_school_name()).isEqualTo(edu_school_name);
-        assertThat(education.getEdu_school_st_date()).isEqualTo(edu_school_st_date);
-        assertThat(education.getEdu_school_ed_date()).isEqualTo(edu_school_ed_date);
-        assertThat(education.getEdu_school_sort()).isEqualTo(edu_school_sort);
+//        Map<String, Object> res = (Map) responseEntity.getBody();
+//        Educations res_edu = (Educations) res.get("education");
+//        EducationDetails res_edu_det = (EducationDetails) res.get("education_detail");
+//
+//        // related Educations //
+//        assertThat(res_edu.getEdu_school_name()).isEqualTo(edu_school_name);
+//        assertThat(res_edu.getEdu_school_st_date()).isEqualTo(edu_school_st_date);
+//        assertThat(res_edu.getEdu_school_ed_date()).isEqualTo(edu_school_ed_date);
+//        assertThat(res_edu.getEdu_school_sort()).isEqualTo(edu_school_sort);
+//
+//        // related EducationDetails //
+//        assertThat(res_edu_det.getEdu_detail_major_sort()).isEqualTo(edu_det_sort);
+//        assertThat(res_edu_det.getEdu_detail_credit()).isEqualTo(edu_det_credit);
+//        assertThat(res_edu_det.getEdu_detail_grade()).isEqualTo(edu_det_grade);
     }
 
     @Test
@@ -74,6 +111,7 @@ public class EducationsFullControllerTest {
 
         // then
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(responseEntity.getBody().size()).isEqualTo(5);
 //        for(int i = 0; i < responseEntity.getBody().size(); i++)
 //        System.out.println(responseEntity.getBody().get(i).toString());
     }
@@ -83,7 +121,7 @@ public class EducationsFullControllerTest {
         // given
         int before = educationsRepository.findAll().size();
 
-        String edu_id = "3";
+        String edu_id = "21";
         String url = "http://localhost:" + port + "/edu/deleteOne/" + edu_id;
 
         // when
@@ -92,5 +130,18 @@ public class EducationsFullControllerTest {
         // then
         int after = educationsRepository.findAll().size();
         assertThat(before).isGreaterThan(after);
+    }
+
+    @Test
+    public void testDeleteDetailOneEdu() throws Exception{
+        // given
+        String edu_det_id = "5";
+        String url = "http://localhost:" + port + "/edu/deleteDetailOne/" + edu_det_id;
+
+        // when
+        restTemplate.delete(url);
+
+        // then
+
     }
 }
