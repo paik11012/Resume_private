@@ -39,12 +39,12 @@ public class Application implements WebMvcConfigurer {
        //         .addPathPatterns("/resume")
                 .excludePathPatterns(Arrays.asList("/users/**"));
     }
-
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping(("/**"))
                 .allowedMethods("*")
                 .allowedHeaders("*")
+                .allowedOrigins("*")
                 .exposedHeaders("jwt-auth-token");
     }
 }

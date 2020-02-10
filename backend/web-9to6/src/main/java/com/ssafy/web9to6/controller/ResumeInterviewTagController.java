@@ -1,6 +1,5 @@
 package com.ssafy.web9to6.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.web9to6.domain.Awards;
 import com.ssafy.web9to6.domain.Interview;
 import com.ssafy.web9to6.domain.Resume;
@@ -57,6 +56,28 @@ public class ResumeInterviewTagController {
         return map;
     }
 
+    @ApiOperation("태그별 자소서 조회")
+    @RequestMapping(value = "/resume/{keyword}", method = RequestMethod.GET)
+    public List<ResumeTagResponseDto> findAllResumeByTags(HttpServletRequest request, @PathVariable String keyword) {
+        String user_id =  request.getHeader("user_id");
+        List<ResumeTagResponseDto> map = new ArrayList<>();
+        List<Resume> list = rs.findAll(us.findById("te"));
+
+        label : for(int i=0;i<list.size();i++) {
+            Resume resume = list.get(i);
+            List<String> tags = ts.findAll(resume);
+
+            for(int j=0;j<tags.size();j++) {
+                if(tags.get(j).equals(keyword)) {
+                    ResumeTagResponseDto rtrd = new ResumeTagResponseDto(resume,tags);
+                    map.add(rtrd);
+                    continue label;
+                }
+            }
+        }
+        return map;
+    }
+
     @ApiOperation("자소서 저장")
     @RequestMapping(value = "/resume/save", method = RequestMethod.POST)
     public void saveResume(HttpServletRequest request, @RequestBody Map<String,Object> rrd) throws Exception {
@@ -66,7 +87,7 @@ public class ResumeInterviewTagController {
         String user_id =  request.getHeader("user_id");
         ResumeResponseDto resume = new ResumeResponseDto();
         resume.setResume_answer((String)res.get("resume_answer"));
-        resume.setResume_date((String)res.get("resume_task"));
+        resume.setResume_date((String)res.get("resume_date"));
         resume.setResume_company((String)res.get("resume_company"));
         resume.setResume_question((String)res.get("resume_question"));
         resume.setResume_task((String)res.get("resume_task"));
