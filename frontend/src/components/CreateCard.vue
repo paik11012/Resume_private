@@ -4,9 +4,6 @@
       <thead>
         <tr>
           <th style="position:relative;">
-            <!-- <li v-for="(item, index) in items">
-              {{ parentMessage }} - {{ index }} - {{ item.message }}
-            </li> -->
             <div>
             <ul class="menubar" @click="opendb"> 
                  <!-- eslint-disable -->

@@ -12,7 +12,7 @@
               <myinfo id="rcorners2" v-if="showme" />
             </transition>
             <transition name="bounce">
-              <edu id="rcorners2" v-if="showedu" />
+              <edu v-if="showedu" />
             </transition>
             <transition name="bounce">
               <crecard v-if="showcre" id="rcorners2" />
@@ -41,7 +41,7 @@
 import Navbar from "../components/Navbar";
 import { mapGetters } from "vuex";
 import myinfo from "@/components/MyInfo";
-import edu from "@/components/EduHigh";
+import edu from "@/components/EduList";
 import crecard from "@/components/CreateCard";
 import axios from "axios";
 export default {

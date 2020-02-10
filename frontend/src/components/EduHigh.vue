@@ -68,28 +68,7 @@ export default {
       this.editing = !this.editing
     }
   },
-  mounted() {
-    // const id = window.sessionStorage.getItem('user_id')
-    const SERVER_IP = 'http://70.12.247.99:8080'
-    axios.get(SERVER_IP + `/edu/findAll`, {
-    headers: {
-          token: window.sessionStorage.getItem("jwt-auth-token"),
-          user_id: window.sessionStorage.getItem("user_id")
-    }})
-    .then(response => {
-      // console.log(response.data[0]);
-      for (var [key,value] of Object.entries(response.data)){
-        // console.log(value)
-        for (var [key1, value1] of Object.entries(value)){
-          if (value1[0]["education"]["edu_school_sort"] == "고등학교")
-          this.edu_school_name = value1[0]["education"]["edu_school_name"]
-          this.edu_school_st_date = value1[0]["education"]["edu_school_st_date"]}
-        }
-      })
-    .catch(error => {
-      console.log(error)
-    })
-  }
+  
 }
 </script>
 
