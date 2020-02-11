@@ -24,19 +24,10 @@
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
-            <NaverLogin
-      client-id="oEALeUqtjER7Ufo5R8f7"
-      callback-url="http://localhost:8080/naver"
-      v-bind:is-popup="true"
-      v-bind:button-type="3"
-      v-bind:button-height="50"
-      button-color="green"
-      :callbackFunction=callbackFunction
-      />
-            <a :href="naverLoginUrl" target="_blank"><button class="large-btn github-btn">
+            <button class="large-btn github-btn" @click="loginNaver">
               connect with
               <span>naver</span>
-            </button></a>
+            </button>
             <a href="/home"><button class="large-btn facebook-btn">
               connect with
               <span>google</span>
@@ -69,19 +60,10 @@
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
-            <NaverLogin
-      client-id="oEALeUqtjER7Ufo5R8f7"
-      callback-url="http://localhost:8080/naver"
-      v-bind:is-popup="true"
-      v-bind:button-type="3"
-      v-bind:button-height="50"
-      button-color="green"
-      :callbackFunction=callbackFunction
-      />
-            <a :href="naverLoginUrl" target="_blank"><button class="large-btn github-btn">
+            <button class="large-btn github-btn" @click="loginNaver">
               connect with
               <span>naver</span>
-            </button></a>
+            </button>
             <a href="/home"><button class="large-btn facebook-btn">
               connect with
               <span>google</span>
@@ -106,19 +88,10 @@
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
-            <NaverLogin
-      client-id="oEALeUqtjER7Ufo5R8f7"
-      callback-url="http://localhost:8080/naver"
-      v-bind:is-popup="true"
-      v-bind:button-type="3"
-      v-bind:button-height="50"
-      button-color="green"
-      :callbackFunction=callbackFunction
-      />
-            <a :href="naverLoginUrl" target="_blank"><button class="large-btn github-btn">
+            <button class="large-btn github-btn" @click="loginNaver">
               connect with
               <span>naver</span>
-            </button></a>
+            </button>
             <a href="/home"><button class="large-btn facebook-btn">
               connect with
               <span>google</span>
@@ -150,60 +123,42 @@
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
             <span>Login</span>
             </button>
-            <NaverLogin
-      client-id="oEALeUqtjER7Ufo5R8f7"
-      callback-url="http://localhost:8080/naver"
-      v-bind:is-popup="true"
-      v-bind:button-type="3"
-      v-bind:button-height="50"
-      button-color="green"
-      :callbackFunction=callbackFunction
-      />
-            <a :href="naverLoginUrl" target="_blank"><button class="large-btn github-btn">
+            <button class="large-btn github-btn" @click="loginNaver">
               connect with
               <span>naver</span>
-            </button></a>
+            </button>
             <a href="/home"><button class="large-btn facebook-btn">
               connect with
               <span>google</span>
             </button></a>
           </div>
         </div>
-      </div>  1
+      </div>
     </div>
   </v-dialog>
 </template>
 <script>
 import { mapActions } from 'vuex';
-import NaverLogin from 'vue-naver-login'
-const MODAL_WIDTH = 656;
-let callbackFunction = (status) => {
-    if (status) {
-    /* (5) 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
-    var email = naverLogin.user.getEmail();
-    if( email == undefined || email == null) {
-      alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
-      /* (5-1) 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
-      naverLogin.reprompt();
-      return;
-    }
-  // 여기서 
-    window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/sample/main.html");
-  } else {
-    console.log("callback 처리에 실패하였습니다.");
-  }
-}
+import axios from 'axios'
+import router from '../router'
 
+const MODAL_WIDTH = 656;
 
 export default {
   name: "DemoLoginModal",
-  components: {NaverLogin},
   props: {
     value: {
       required: true
     }
   },
-  created() {},
+  created() {
+    this.naverLoginUrl += '&client_id=' + this.client_id
+    this.naverLoginUrl += '&redirect_uri=' + this.redirectURI
+    this.naverLoginUrl += '&state=' + this.state
+
+    const storage = window.sessionStorage;
+    storage.setItem("n_url", this.naverLoginUrl);
+  },
   computed: {
     show: {
       get() {
@@ -224,7 +179,7 @@ export default {
 
       // naver //
       client_id: 'oEALeUqtjER7Ufo5R8f7',
-      redirectURI: 'http://localhost:8080/users/signinNaver',
+      redirectURI: 'http://localhost:8081/',
       state: 123,
       naverLoginUrl: 'https://nid.naver.com/oauth2.0/authorize?response_type=code'
       // END: naver //
@@ -232,7 +187,10 @@ export default {
   },
   methods: {
   ...mapActions(["login"]),
-  callbackFunction,
+
+    loginNaver(){
+      location.replace(this.naverLoginUrl)
+    }
   },
 };
 </script>
