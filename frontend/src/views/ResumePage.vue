@@ -10,7 +10,6 @@
     </v-flex>
   <!-- resume 작성하기 -->
   <template>
-
   <v-row justify="center">
     <v-dialog v-model="dialog" :persistent="true" max-width="800px" max-height="1000px" style="z-index:999999;">
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
@@ -29,57 +28,46 @@
               <v-text-field v-model="resume_task" label="직무" required
               ></v-text-field>
               </v-col>
-            <v-col cols="12" sm="3" md="3">
-            <v-text-field v-model="resume_date" label="지원시기" required
-            ></v-text-field>
-            </v-col>
+              <v-col cols="12" sm="3" md="3">
+              <v-text-field v-model="resume_date" label="지원시기" required
+              ></v-text-field>
+              </v-col>
             </v-row>
             <div style="margin:0px;">
-            <label>tag</label>
+              <label>Tag</label>
             </div>
-            <div class="dig" style=" margin:0;">
-        <v-row style="height: 60px;"
-        justify="space-around">
-          <!-- <input type="checkbox" name="신뢰" style="width:20px; height:20px; border:2px solid;" label="신뢰" id="신뢰" > -->
-          <v-checkbox
-          v-model="tag_name" class="mx-2" value="신뢰" label="신뢰"></v-checkbox>
-          <v-checkbox
-          v-model="tag_name" class="mx-2" value="혁신" label="혁신"></v-checkbox>
-          <v-checkbox
-          v-model="tag_name" class="mx-2" value="글로벌역량" label="글로벌역량"></v-checkbox>
-          <v-checkbox
-          v-model="tag_name" class="mx-2" value="책임감" label="책임감"></v-checkbox>
-          <v-checkbox
-          v-model="tag_name" class="mx-2" value="열정" label="열정"></v-checkbox>
-          <v-checkbox
-          v-model="tag_name" class="mx-2" value="협력" label="협력"></v-checkbox>
-        </v-row>
-        <v-row style="height: 60px;"
-        justify="space-around" cols="12" sm="4" md="4">
-          <v-checkbox
-          v-model="tag_name" class="mx-2" value="창의성" label="창의성 "></v-checkbox>
-          <v-checkbox
-          v-model="tag_name" class="mx-2" value="도덕성" label="도덕성"></v-checkbox>
-          <v-checkbox
-          v-model="tag_name" class="mx-2" value="전문성" label="전문성"></v-checkbox>
-          <v-checkbox
-          v-model="tag_name" class="mx-2" value="도전정신" label="도전정신"></v-checkbox>
-          <v-checkbox
-          v-model="tag_name" class="mx-2" value="가치창출" label="가치창출"></v-checkbox>
-          <v-checkbox
-          v-model="tag_name" class="mx-2" value="배려" label="배려"></v-checkbox>
-        </v-row>
-      </div>
+            <v-row>
+              <v-col cols="12" sm="3" md="3" style="padding-top:1px">
+                <v-checkbox v-model="tag_name" class="mx-2" value="신뢰" label="신뢰" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name" class="mx-2" value="혁신" label="혁신" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name" class="mx-2" value="글로벌" label="글로벌" hide-details></v-checkbox>
+              </v-col>
+              <v-col cols="12" sm="3" md="3" style="padding-top:1px">
+                <v-checkbox v-model="tag_name" class="mx-2" value="책임감" label="책임감" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name" class="mx-2" value="열정" label="열정" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name" class="mx-2" value="협력" label="협력" hide-details></v-checkbox>
+              </v-col>
+              <v-col cols="12" sm="3" md="3" style="padding-top:1px">
+                <v-checkbox v-model="tag_name" class="mx-2" value="창의성" label="창의성" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name" class="mx-2" value="도덕성" label="도덕성" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name" class="mx-2" value="전문성" label="전문성" hide-details></v-checkbox>
+              </v-col>
+              <v-col cols="12" sm="3" md="3" style="padding-top:1px">
+                <v-checkbox v-model="tag_name" class="mx-2" value="도전정신" label="도전정신" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name" class="mx-2" value="가치창출" label="가치창출" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name" class="mx-2" value="배려" label="배려" hide-details></v-checkbox>
+              </v-col>
+            </v-row>      
             <v-text-field label="질문"
             v-model="resume_question"
             required
             ></v-text-field>
-      <v-textarea label="대답"
-      required
-      v-model="resume_answer"
-      :auto-grow="true"
-      :counter="true"
-      ></v-textarea>
+            <v-textarea label="대답"
+            required
+            v-model="resume_answer"
+            :auto-grow="true"
+            :counter="true"
+            ></v-textarea>
           </v-container>
         </v-card-text>
         <v-card-actions>
@@ -93,19 +81,17 @@
     </v-dialog>
   </v-row>
 </template>
-
     <v-container>
       <!-- Portfolio -->
       <v-layout>
         <v-flex xs12>
-          <ResumeList class="relist" ref="updating" :load-more="true" @load="complete">
+          <ResumeList ref="updating" :load-more="true" @load="complete">
           </ResumeList>
         </v-flex>
       </v-layout>
     </v-container>
   </div>
 </template>
-
 <script>
 import axios from 'axios'
 import ImgBanner from "../components/ImgBanner";
@@ -113,7 +99,6 @@ import ResumeList from "../components/ResumeList";
 import Navbar from "../components/Navbar";
 import { mapActions } from 'vuex';
 import Load from "@/components/Loading";
-
 export default {
   name: "ResumePage",
   components: {
@@ -178,14 +163,13 @@ export default {
       .catch(error=>{
         console.log(error)
       })
+      // location.reload()
     }
   }
 }
 }
-
 </script>
 <style lang="scss">
-
 #write{
   margin-left:85% !important
 }
@@ -197,12 +181,9 @@ export default {
     z-index: 1;
   }
 }
-
-
 .corner{
   position: fixed;
   right:30px;
   bottom:30px;
-  z-index: 1e9
 }
 </style> 
