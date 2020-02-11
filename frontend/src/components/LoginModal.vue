@@ -24,7 +24,7 @@
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
-            <a href="/home"><button class="large-btn github-btn">
+            <a :href="naverLoginUrl"><button class="large-btn github-btn">
               connect with
               <span>naver</span>
             </button></a>
@@ -60,7 +60,7 @@
                         <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
-            <a href="/home"><button class="large-btn github-btn">
+            <a :href="naverLoginUrl"><button class="large-btn github-btn">
               connect with
               <span>naver</span>
             </button></a>
@@ -88,7 +88,7 @@
                         <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
-            <a href="/home"><button class="large-btn github-btn">
+            <a :href="naverLoginUrl"><button class="large-btn github-btn">
               connect with
               <span>naver</span>
             </button></a>
@@ -123,7 +123,7 @@
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
             <span>Login</span>
             </button>
-            <a href="/home"><button class="large-btn github-btn">
+            <a :href="naverLoginUrl"><button class="large-btn github-btn">
               connect with
               <span>naver</span>
             </button></a>
@@ -147,7 +147,13 @@ export default {
       required: true
     }
   },
-  created() {},
+  created() {
+    // naver //
+    this.naverLoginUrl += '&client_id=' + this.client_id
+    this.naverLoginUrl += '&redirect_uri=' + this.redirectURI
+    this.naverLoginUrl += '&state=' + this.state
+    // END: naver //
+  },
   computed: {
     show: {
       get() {
@@ -166,6 +172,13 @@ export default {
 
       user_id : '',
       user_password : '',
+
+      // naver //
+      client_id: 'oEALeUqtjER7Ufo5R8f7',
+      redirectURI: 'http://localhost:8080/users/signinNaver',
+      state: 123,
+      naverLoginUrl: 'https://nid.naver.com/oauth2.0/authorize?response_type=code'
+      // END: naver //
     };
   },
   methods: {
