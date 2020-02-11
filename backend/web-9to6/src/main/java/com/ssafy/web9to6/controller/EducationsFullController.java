@@ -51,6 +51,7 @@ public class EducationsFullController {
             edu_det_save = true;
             educationDetails = EducationDetails.builder()
                     .edu_detail_major_sort((String) map_edu_detail.get("edu_detail_major_sort"))
+                    .edu_detail_major((String) map_edu_detail.get("edu_detail_major"))
                     .edu_detail_credit(Long.valueOf((Integer) map_edu_detail.get("edu_detail_credit")))
                     .edu_detail_grade((Double) map_edu_detail.get("edu_detail_grade"))
                     .build();
