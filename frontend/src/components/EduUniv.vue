@@ -3,7 +3,7 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left" style="font-size:20px">HighSchool</th>
+          <th class="text-left" style="font-size:20px">{{sch_name}}</th>
           <th class="layout justify-end">
             <v-btn v-on:click="editor" v-if="editing" small fab dark color="cyan" id="write">
               <v-icon dark>edit</v-icon>
@@ -16,29 +16,29 @@
       </thead>
       <tbody>
         <tr>
-          <td width="150px">고등학교</td>
+          <td width="150px">학교명</td>
           <td v-if="editing">{{ edu_school_name }}</td>
           <td v-else><input type="text" v-model="edu_school_name" placeholder="highschool name"></td>
         </tr>
         <tr>
           <td width="150px">재학기간</td>
-          <td v-if="editing">{{ edu_school_st_date }}</td>
-          <td v-else><input type="text" v-model="edu_school_st_date" placeholder="education period"></td>
+          <td v-if="editing">{{ period }}</td>
+          <td v-else><input type="text" v-model="period" placeholder="education period"></td>
         </tr>
         <tr>
           <td width="150px">전공여부</td>
-          <td v-if="editing">시작 ~ 끝</td>
-          <td v-else><input type="text" v-model="edu_period" placeholder="edu_period"></td>
+          <td v-if="editing">{{ edu_detail_major_sort }}</td>
+          <td v-else><input type="text" v-model="edu_detail_major_sort" placeholder="edu_detail_major_sort"></td>
         </tr>
         <tr>
           <td width="150px">이수학점</td>
-          <td v-if="editing">시작 ~ 끝</td>
-          <td v-else><input type="text" v-model="edu_period" placeholder="edu_period"></td>
+          <td v-if="editing">{{ edu_detail_credit }}</td>
+          <td v-else><input type="text" v-model="edu_detail_credit" placeholder="edu_detail_credit"></td>
         </tr>
         <tr>
           <td width="150px">총 평점</td>
-          <td v-if="editing">시작 ~ 끝</td>
-          <td v-else><input type="text" v-model="edu_period" placeholder="edu_period"></td>
+          <td v-if="editing"> {{ edu_detail_grade }} </td>
+          <td v-else><input type="text" v-model="edu_detail_grade" placeholder="edu_detail_grade"></td>
         </tr>
       </tbody>
     </template>
@@ -48,16 +48,52 @@
 <script>
 import axios from 'axios'
 export default {
+  computed:{
+    period:{
+      get() {
+        return `${this.edu_school_st_date} ${this.edu_school_ed_date}`;
+      },
+      set(newValue) {
+        const m = newValue.match(/(\S*)\s+(.*)/);
+        this.edu_school_st_date = m[1];
+        this.edu_school_ed_date = m[2];
+      }
+    }
+  },
+  mounted(){
+    console.log(typeof(this.edu_school_sort));
+    if(this.edu_school_sort == 2){
+      this.sch_name = 'University'
+    } else if(this.edu_school_sort == 3){
+      this.sch_name = 'Transfer'
+    } else if(this.edu_school_sort==4){
+      this.sch_name = 'GradSchool'
+    }
+    console.log(this.edu_school_sort, 
+      this.edu_school_name,
+      this.edu_school_st_date,
+      this.edu_school_ed_date,
+      this.edu_detail_major_sort,
+      this.edu_detail_grade,
+      this.edu_detail_credit,
+      this.edu_detail_id);
+    
+  },
+  props:{
+    edu_school_sort:{type:String}, // 1이 고등학교 2가 대학교 3이 대학원 4가 편입
+    edu_school_name:{type:String},
+    edu_school_st_date:{type:String},
+    edu_school_ed_date:{type:String},
+    edu_detail_major_sort:{type:String},
+    edu_detail_grade:{type:Number},
+    edu_detail_credit:{type:Number},
+    edu_detail_id:{type:Number}
+  },
+      
   data(){
     return{
       editing:true,
-      edu_school_sort: null, // 1이 고등학교 2가 대학교 3이 대학원 4가 편입
-      edu_school_name:'',
-      edu_school_st_date:'',
-      edu_school_ed_date:'',
-      edu_school_period:'',
-      edu_school_major:'',
-      edu
+      sch_name:''
     }
   },
   methods:{

@@ -67,8 +67,12 @@ export default {
   data(){
     return{
       editing:true,
-      schoolname:'',
-      edu_period:'',
+      edu_school_name:'',
+      edu_school_st_date:'',
+      edu_school_ed_date:'',
+      edu_detail_major_sort:'',
+      edu_detail_credit:'',
+      edu_detail_grade:'',
       select:2,
       opendrop:false,
       schoolsort:[

@@ -33,12 +33,15 @@
 <script>
 import axios from 'axios'
 export default {
+  props:{
+    edu_school_name:{type:String},
+    edu_school_sort:{type:String}, // 1이 고등학교 2가 대학교 3이 대학원 4가 편입,
+    edu_school_st_date:{type:String},
+    edu_school_ed_date:{type:String}
+  },
   data(){
     return{
-      editing:true,
-      edu_school_sort: null, // 1이 고등학교 2가 대학교 3이 대학원 4가 편입
-      edu_school_name:'',
-      edu_school_st_date:'',
+      editing:true
     }
   },
   methods:{
