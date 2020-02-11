@@ -66,7 +66,7 @@ export default {
       'user_id' : window.sessionStorage.getItem("user_id")}
       })
       .then(response => {
-        this.resumes = response.data
+        this.resumes = response.data 
         console.log(response.data)
         this.$emit("load")
         for (let i = 0; i < this.resumes.length; i++) {

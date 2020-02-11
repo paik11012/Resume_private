@@ -1,5 +1,5 @@
 <template>
-<div class="rsdetail">
+<div class="idetail">
   <div class="modalbox" @click="closing"></div>
   <div class="modal">
   <div class="company">
@@ -7,39 +7,16 @@
   </div>
   <div class="task">
     {{ ta }}
-
   </div>
   <div class="date">
     {{ da }}
-
   </div>
   <br>
-  <!-- <div class="q">
-    Q
-  </div>
-
-  <div class="a">
-    A
-  </div> -->
   <div class="question">
    {{ que }}
-
   </div>
-  <!-- <div class="answer">
-    {{ ans }}
-
-  </div> -->
   <textarea v-model="answer" class="answer" id="" cols="30" rows="10"></textarea>
-  <div class="text_val">
-    {{ tv }} 자
-
-  </div>
-  <div class="tags">
-    <v-btn sm class="tag" color="#92A8D1" v-for="i in tags.length" v-bind:key='i'>
-    {{ tags[i-1] }}
-    </v-btn>
-
-  </div>
+  <textarea v-model="memo" id="" cols="30" rows="10"></textarea>
 
   </div>
 </div>  
@@ -68,14 +45,14 @@ export default {
   },
   methods:{
     closing(){
-      this.$emit('clsrsd')
+      this.$emit('clsid')
     }
   }
 }
 </script>
 
 <style lang="scss">
-.rsdetail{
+.idetail{
   position: relative;
   z-index: 1e9;
   & .modalbox{

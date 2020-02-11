@@ -7,28 +7,14 @@
   </div>
   <div class="task">
     {{ ta }}
-
   </div>
   <div class="date">
     {{ da }}
-
   </div>
   <br>
-  <!-- <div class="q">
-    Q
-  </div>
-
-  <div class="a">
-    A
-  </div> -->
   <div class="question">
    {{ que }}
-
   </div>
-  <!-- <div class="answer">
-    {{ ans }}
-
-  </div> -->
   <textarea v-model="answer" class="answer" id="" cols="30" rows="10"></textarea>
   <div class="text_val">
     {{ tv }} 자

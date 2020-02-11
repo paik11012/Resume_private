@@ -87,6 +87,12 @@ export default {
     //   console.log(this.interview);
 
     // },
+  },
+  computed(){
+    if(this.update){
+      this.$emit('complete')
+      this.getInterview()
+    }
   }
 };
 </script>

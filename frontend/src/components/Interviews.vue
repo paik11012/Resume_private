@@ -1,5 +1,7 @@
 <template>
   <div>
+  <div class="interviewCard layout justify-center" :class="{non_scroll:idt}" @click="opendetail">
+  <transition name="slide">
   <div class="contain" oncontextmenu="return false" @click="show">
     <div class="company">{{interview_company}}</div>
     <hr>
@@ -11,13 +13,27 @@
     <div class="myans">{{interview_answer}}</div>
     <!-- <div class="label">Memo</div>
     <div class="editans">{{interview_memo}}</div> -->
+    </div>
+    </transition>
   </div>
+  <InterviewDetail v-if="idt"
+    :company="interview_company"
+    :task="interview_task"
+    :date="interview_date"
+    :question="interview_question"
+    :memo="interview_momo"
+    @clsid="closedetail"
+   />
   </div>
 </template>
 
 <script>
+import InterviewDetail from "@/components/InterviewDetail"
 export default {
   name: "Interview",
+  components: {
+    InterviewDetail
+  },
   props:{
     interview_company : {type: String},
     interview_answer : {type: String},
@@ -31,7 +47,22 @@ export default {
   data() {
     return {
       showmenu: false,
+      i_cpn: this.interview_company,
+      i_ans: this.interview_answer,
+      i_qst: this.interview_question,
+      i_tsk: this.interview_task,
+      i_dat: this.interview_date,
+      i_mem: this.interview_memo,
+      idt:false,
     };
+  },
+    mounted(){
+    if (this.i_cpn.length > 10){
+      this.i_cpn = this.i_cpn.slice(0, 10) + "..."
+    }
+    if (this.i_tsk.length > 15){
+      this.i_tsk = this.i_tsk.slice(0,15) + '...'
+    }
   },
   methods: {
     show(){
@@ -41,6 +72,18 @@ export default {
     input(value){
       this.showmenu = value
       console.log(this.showmenu);
+    },
+    move(){
+      window.scroll(0,100)
+    },
+    opendetail(){
+      this.scrc = window.scrollY
+      this.idt = true
+      this.$emit('opdt')
+    },
+    closedetail(){
+      this.idt = false
+      this.$emit('cldt')
     }
   }
 
