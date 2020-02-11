@@ -25,10 +25,8 @@
    {{ que }}
 
   </div>
-  <div class="answer">
-    {{ ans }}
 
-  </div>
+  <textarea readonly="readonly" name="" id="" v-model="answer" class="answer"></textarea>
   <div class="text_val">
     {{ tv }} 자
 

@@ -1,22 +1,49 @@
 <template>
-  <div>
-    <v-container>
-        <h3 style="text-align:center; margin-top:5%">네이버 로그인 중입니다</h3>
-        <img width="300px" src="https://lh3.googleusercontent.com/proxy/3tL4f5uedTDh2FjM3fZW7xrXXLG-_cAgPWIWGKho9ZqZP5-vU5OKET_dY6Db2nOl6C7QiSj61UQEngYtwyt_dABpvuaVFoKtsD5W_fwjdomHmRaSFQLGvDR2NGAzGHxPPKB7a4Z37flaR1vcF2--jMFh1Cde_IvSBwqF6-AiCss93FLNEo0uBcty1RK4goUIIAUPrZedoNsaiCC_v6W9FUk9K_uef4schYqkpw-Ny9YHpJpUhrol3SwUPGQxc7eB9R2qqsAV6urhCMdKyVU6FICfGhiJ-Mjo0AKdoux4PyRXczHNh_Qs0bB059Z2yjgEajcuTNfr5KhIzGoE5Sssd4PHD8yDaTHAziBQZBM_SVEdNUNfKzN_gq7_5pU4z-OJWGRfkZSdKt80v5YshI4Y5d7JL7bEFfvu7ZOkJtTxwuB-hGdcES0dE5DBxo5I33mkecFV9zWz6RFOcfHfbA" alt=""> 
-    </v-container>
+  <div id="app">
+    <NaverLogin
+      client-id="oEALeUqtjER7Ufo5R8f7"
+      callback-url="http://localhost:8080/naver"
+      is-popup="false"
+      :callbackFunction=callbackFunction
+      />
   </div>
 </template>
 
 <script>
+import NaverLogin from 'vue-naver-login'
+
+let callbackFunction = (status) => {
+    if (status) {
+    /* (5) 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
+    var email = naverLogin.user.getEmail();
+    if( email == undefined || email == null) {
+      alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
+      /* (5-1) 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
+      naverLogin.reprompt();
+      return;
+    }
+
+    window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/sample/main.html");
+  } else {
+    console.log("callback 처리에 실패하였습니다.");
+  }
+}
 
 export default {
-
-// axios를 이용해서 post
-// 담을 것: token 을
-
+  name: 'App',
+  components: {
+    NaverLogin
+  },
+  methods: {
+    callbackFunction
+  },
+  mounted() {
+    var string = 'http://localhost:8081/naver?code=9AwGr5RRMNou4gXKqo&state=123'
+    var code = string.split('code=');
+    var state = string.split('state=');
+    var codes = code[1].split('&')
+    console.log(codes[0])
+    console.log(state[1])
+  }
 }
 </script>
-
-<style>
-
-</style>

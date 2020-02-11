@@ -90,10 +90,14 @@ export default {
       this.scrc = window.scrollY
       this.rsdt = true
       this.$emit('opdt')
+      // var a = document.querySelector('html')
+      // a.style.overflowY="hidden"
     },
     closedetail(){
       this.rsdt = false
       this.$emit('cldt')
+      // var a = document.querySelector('html')
+      // a.style.overflowY="scroll"
     }
   }
 };
@@ -179,6 +183,8 @@ export default {
     width: 90%;
     top: 56%;
     position: absolute;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
   }
   & .answer{
     width: 90%;

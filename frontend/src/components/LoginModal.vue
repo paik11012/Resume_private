@@ -24,15 +24,6 @@
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
-            <NaverLogin
-      client-id="oEALeUqtjER7Ufo5R8f7"
-      callback-url="http://localhost:8080/naver"
-      v-bind:is-popup="true"
-      v-bind:button-type="3"
-      v-bind:button-height="50"
-      button-color="green"
-      :callbackFunction=callbackFunction
-      />
             <a :href="naverLoginUrl" target="_blank"><button class="large-btn github-btn">
               connect with
               <span>naver</span>
@@ -69,15 +60,6 @@
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
-            <NaverLogin
-      client-id="oEALeUqtjER7Ufo5R8f7"
-      callback-url="http://localhost:8080/naver"
-      v-bind:is-popup="true"
-      v-bind:button-type="3"
-      v-bind:button-height="50"
-      button-color="green"
-      :callbackFunction=callbackFunction
-      />
             <a :href="naverLoginUrl" target="_blank"><button class="large-btn github-btn">
               connect with
               <span>naver</span>
@@ -106,15 +88,7 @@
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
-            <NaverLogin
-      client-id="oEALeUqtjER7Ufo5R8f7"
-      callback-url="http://localhost:8080/naver"
-      v-bind:is-popup="true"
-      v-bind:button-type="3"
-      v-bind:button-height="50"
-      button-color="green"
-      :callbackFunction=callbackFunction
-      />
+        
             <a :href="naverLoginUrl" target="_blank"><button class="large-btn github-btn">
               connect with
               <span>naver</span>
@@ -150,15 +124,6 @@
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
             <span>Login</span>
             </button>
-            <NaverLogin
-      client-id="oEALeUqtjER7Ufo5R8f7"
-      callback-url="http://localhost:8080/naver"
-      v-bind:is-popup="true"
-      v-bind:button-type="3"
-      v-bind:button-height="50"
-      button-color="green"
-      :callbackFunction=callbackFunction
-      />
             <a :href="naverLoginUrl" target="_blank"><button class="large-btn github-btn">
               connect with
               <span>naver</span>
@@ -169,7 +134,7 @@
             </button></a>
           </div>
         </div>
-      </div>  1
+      </div>  
     </div>
   </v-dialog>
 </template>
@@ -189,6 +154,7 @@ let callbackFunction = (status) => {
     }
   // 여기서 
     window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/sample/main.html");
+    
   } else {
     console.log("callback 처리에 실패하였습니다.");
   }

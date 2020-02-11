@@ -85,7 +85,6 @@ export default {
     //     }, 100*i);
     //   }
     //   console.log(this.interview);
-
     // },
   }
 };
