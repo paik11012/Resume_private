@@ -9,6 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -68,8 +72,8 @@ public class UsersService {
     @Transactional
     public boolean checkId(String user_id) {
         Optional<Users> user = usersRepository.findById(user_id);
-        if(user.isPresent()) return false;
-        else return true;
+        if(user.isPresent()) return true;
+        else return false;
     }
 
     @Transactional
@@ -77,5 +81,37 @@ public class UsersService {
         Users user = usersRepository.findById(user_id).get();
         user.setUser_authority("admin");
         return usersRepository.save(user);
+    }
+
+    @Transactional
+    public String getUserInfo(String access_token) {
+        String header = "Bearer " + access_token;
+
+        try {
+            String apiURL = "https://openapi.naver.com/v1/nid/me";
+            URL url = new URL(apiURL);
+            HttpURLConnection con = (HttpURLConnection)url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", header);
+            int responseCode = con.getResponseCode();
+            BufferedReader br;
+
+            if(responseCode==200){ // 정상 호출
+                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            } else {
+                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+            }
+
+            String inputLine;
+            StringBuffer res = new StringBuffer();
+            while ((inputLine = br.readLine()) != null){
+                res.append(inputLine);
+            }
+            br.close();
+            return res.toString();
+        } catch (Exception e){
+            System.err.println(e);
+            return "Err";
+        }
     }
 }

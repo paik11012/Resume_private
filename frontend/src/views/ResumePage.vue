@@ -10,25 +10,25 @@
     </v-flex>
   <!-- resume 작성하기 -->
   <template>
-  <v-row justify="center">
+  <v-row justify="center" style="padding:0">
     <v-dialog v-model="dialog" :persistent="true" max-width="800px" max-height="1000px" style="z-index:999999;">
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
       <v-card>
         <v-card-title class="justify-center">
-          <span class="headline" style="margin-top:20px;">Write a Resume</span>
+          <span class="headline" style="margin-top:0px;">Write a Resume</span>
         </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row justify="center">
-              <v-col cols="12" sm="2" md="2">
+        <v-card-text style="padding-bottom:0;">
+          <v-container style="padding-bottom:0;">
+            <v-row justify="center" >
+              <v-col cols="12" sm="2" md="2" style="padding-bottom:0; padding-top:0">
               <v-text-field v-model="resume_company" label="회사명" required
               ></v-text-field>
               </v-col>
-              <v-col cols="12" sm="2" md="2">
+              <v-col cols="12" sm="2" md="2" style="padding-bottom:0; padding-top:0">
               <v-text-field v-model="resume_task" label="직무" required
               ></v-text-field>
               </v-col>
-              <v-col cols="12" sm="3" md="3">
+              <v-col cols="12" sm="3" md="3" style="padding-bottom:0; padding-top:0">
               <v-text-field v-model="resume_date" label="지원시기" required
               ></v-text-field>
               </v-col>
@@ -36,7 +36,7 @@
             <div style="margin:0px;">
               <label>Tag</label>
             </div>
-            <v-row>
+            <v-row class="dig">
               <v-col cols="12" sm="3" md="3" style="padding-top:1px">
                 <v-checkbox v-model="tag_name" class="mx-2" value="신뢰" label="신뢰" hide-details></v-checkbox>
                 <v-checkbox v-model="tag_name" class="mx-2" value="혁신" label="혁신" hide-details></v-checkbox>
@@ -178,12 +178,15 @@ export default {
     z-index: 0;
   }
   & .v-input--selection-controls__ripple{
-    z-index: 1;
+    z-index: 3;
   }
 }
 .corner{
   position: fixed;
   right:30px;
   bottom:30px;
+}
+i{
+  z-index: 22; 
 }
 </style> 

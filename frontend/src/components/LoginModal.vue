@@ -24,10 +24,10 @@
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
-            <a :href="naverLoginUrl"><button class="large-btn github-btn">
+            <button class="large-btn github-btn" @click="loginNaver">
               connect with
               <span>naver</span>
-            </button></a>
+            </button>
             <a href="/home"><button class="large-btn facebook-btn">
               connect with
               <span>google</span>
@@ -57,13 +57,13 @@
 
             <div style="margin-top: 42px"></div>
             
-                        <button class="large-btn login-btn" @click="login({user_id, user_password})">
+            <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
-            <a :href="naverLoginUrl"><button class="large-btn github-btn">
+            <button class="large-btn github-btn" @click="loginNaver">
               connect with
               <span>naver</span>
-            </button></a>
+            </button>
             <a href="/home"><button class="large-btn facebook-btn">
               connect with
               <span>google</span>
@@ -85,13 +85,13 @@
             </form>
 
             <div style="margin-top: 42px"></div>
-                        <button class="large-btn login-btn" @click="login({user_id, user_password})">
+            <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
-            <a :href="naverLoginUrl"><button class="large-btn github-btn">
+            <button class="large-btn github-btn" @click="loginNaver">
               connect with
               <span>naver</span>
-            </button></a>
+            </button>
             <a href="/home"><button class="large-btn facebook-btn">
               connect with
               <span>google</span>
@@ -123,23 +123,27 @@
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
             <span>Login</span>
             </button>
-            <a :href="naverLoginUrl"><button class="large-btn github-btn">
+            <button class="large-btn github-btn" @click="loginNaver">
               connect with
               <span>naver</span>
-            </button></a>
+            </button>
             <a href="/home"><button class="large-btn facebook-btn">
               connect with
               <span>google</span>
             </button></a>
           </div>
         </div>
-      </div>  1
+      </div>
     </div>
   </v-dialog>
 </template>
 <script>
 import { mapActions } from 'vuex';
+import axios from 'axios'
+import router from '../router'
+
 const MODAL_WIDTH = 656;
+
 export default {
   name: "DemoLoginModal",
   props: {
@@ -169,13 +173,12 @@ export default {
       modalWidth: MODAL_WIDTH,
       autogrow: true,
       dialog: false,
-
       user_id : '',
       user_password : '',
 
       // naver //
       client_id: 'oEALeUqtjER7Ufo5R8f7',
-      redirectURI: 'http://localhost:8080/users/signinNaver',
+      redirectURI: 'http://localhost:8081/',
       state: 123,
       naverLoginUrl: 'https://nid.naver.com/oauth2.0/authorize?response_type=code'
       // END: naver //
@@ -183,6 +186,10 @@ export default {
   },
   methods: {
   ...mapActions(["login"]),
+
+    loginNaver(){
+      location.replace(this.naverLoginUrl)
+    }
   },
 };
 </script>

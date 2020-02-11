@@ -3,16 +3,17 @@
   <div class="modalbox" @click="closing"></div>
   <div class="modal">
   <div class="company">
-    {{ com }} 회사명
+    {{ com }}
   </div>
   <div class="task">
-    {{ ta }} 직무
+    {{ ta }}
 
   </div>
   <div class="date">
-    {{ da }} 지원시기
+    {{ da }}
 
   </div>
+  <br>
   <!-- <div class="q">
     Q
   </div>
@@ -20,21 +21,20 @@
   <div class="a">
     A
   </div> -->
-
   <div class="question">
-    Q {{ que }}
+   {{ que }}
 
   </div>
   <div class="answer">
-    A {{ ans }}
+    {{ ans }}
 
   </div>
   <div class="text_val">
-    {{ tv }} 자수
+    {{ tv }} 자
 
   </div>
   <div class="tags">
-    <v-btn sm class="tag" color="primary" v-for="i in tags.length" v-bind:key='i'>
+    <v-btn sm class="tag" color="#92A8D1" v-for="i in tags.length" v-bind:key='i'>
     {{ tags[i-1] }}
     </v-btn>
 
@@ -94,9 +94,9 @@ export default {
     border-radius: 10px;  
     position: fixed;
     top: 15%;
-    left: 10%;
+    left: 15%;
     background: white;
-    width: 80%;
+    width: 70%;
     height: 80%;
     overflow: hidden;
     & .company{
@@ -138,7 +138,7 @@ export default {
       width: 90%;
       top:26%;
       left:5%;
-      // text-align: center;
+      text-align: center;
       
       }
     & .answer{
@@ -146,11 +146,12 @@ export default {
       font-size:14px;
       color:black;
       width: 90%;
-      top:41%;
+      top:38%;
       left:5%;
       overflow: auto;
-      height: 40%;
-      border: 1px solid;
+      height: 43%;
+      border: 1px solid #92A8D1;
+      border-radius: 5px;
       padding: 1%;
       // text-align: center;
       
@@ -158,7 +159,7 @@ export default {
     & .q{
       font-size: 4vw !important;
       position: absolute;
-      font-size:20px;
+      font-size:22px;
       color:black;
       width: 5%;
       top:22%;
@@ -170,7 +171,7 @@ export default {
       
       color:black;
       position: absolute;
-      font-size:20px;
+      font-size:22px;
       color:black;
       width: 5%;
       top:37%;

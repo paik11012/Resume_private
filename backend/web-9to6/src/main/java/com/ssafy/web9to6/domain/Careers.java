@@ -36,6 +36,9 @@ public class Careers {
     private String military_class; // 계급
     // END: 병역 관련 //
 
+    @Column
+    private String memo; // 메모
+
     // 외래키 //
     @OneToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -44,12 +47,13 @@ public class Careers {
 
 
     @Builder
-    public Careers(String career_myPic, String military_sort, String military_st_date, String military_ed_date, String military_class){
+    public Careers(String career_myPic, String military_sort, String military_st_date, String military_ed_date, String military_class, String memo){
         this.career_myPic = career_myPic;
         this.military_sort = military_sort;
         this.military_st_date = military_st_date;
         this.military_ed_date = military_ed_date;
         this.military_class = military_class;
+        this.memo = memo;
     }
 
     // setter //
@@ -64,7 +68,6 @@ public class Careers {
     public void setMilitary_st_date(String military_st_date) { this.military_st_date = military_st_date; }
     public void setMilitary_ed_date(String military_ed_date) { this.military_ed_date = military_ed_date; }
     public void setMilitary_class(String military_class) { this.military_class = military_class; }
-
-
+    public void setMemo(String memo) { this.memo = memo; }
     // setter 역할
 }
