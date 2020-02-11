@@ -1,5 +1,5 @@
 <template>
-  <v-layout mt-5 wrap justify-space-around>
+  <v-layout mt-5 wrap justify-start>
     <v-flex
       v-for="i in interview.length"
       :key="i"

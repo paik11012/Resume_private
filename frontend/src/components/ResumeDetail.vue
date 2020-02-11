@@ -6,10 +6,10 @@
   <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark color="primary" >
     <v-icon dark>edit</v-icon>
   </v-btn>
-  <v-btn class="edit" v-on:click="distroy" v-else small fab dark color="success" >
+  <v-btn class="edit" v-on:click="editor" v-else small fab dark color="success" >
     <v-icon dark>check</v-icon>
   </v-btn>
-  <v-btn class="delete" v-on:click="editor" small fab color="red" >
+  <v-btn class="delete" v-on:click="destroy(resume_id)" small fab color="red" >
     <v-icon color="white">delete</v-icon>
   </v-btn>
   <div class="company">
@@ -48,8 +48,10 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   props:{
+    resume_id:{type:Number},
     company:{type:String},
     task:{type:String},
     date:{type:String},
@@ -80,7 +82,25 @@ export default {
       this.editing = !this.editing
     },
     destroy(){
-
+      axios.delete(`http://70.12.247.99:8080/resume/del/${this.resume_id}`,
+      {headers : {'token' : window.sessionStorage.getItem("jwt-auth-token"),
+      'user_id' : window.sessionStorage.getItem("user_id")}
+      })
+      .then(response => {
+        this.resumes = response.data
+        console.log(response.data)
+        this.$emit("load")
+        for (let i = 0; i < this.resumes.length; i++) {
+        setTimeout(() => {
+          this.sec ++
+          console.log(this.sec);
+        }, 100*i);
+      }
+      })
+      .catch(error => {
+      console.log(error)
+      })
+    this.$emit('deleteresume')
     }
   }
 }

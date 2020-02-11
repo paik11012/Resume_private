@@ -32,25 +32,25 @@
             </div>
           </td>
 
-          <td v-else style="width:30%;" rowspan="3"><img style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/권응.jpg"/></td>
-          <td>병역구분</td>
+          <td style="width:30%;" rowspan="3"><img style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/권응.jpg"/></td>
+          <td style="width:20%">병역구분</td>
           <td v-if="editing">{{ military_sort }}</td>
           <td v-else><input type="text" v-model="military_sort" placeholder="병역구분"></td>
         </tr>
 
         <tr>
-          <td>계급</td>
+          <td style="width:20%">계급</td>
           <td v-if="editing">{{ military_class }}</td>
           <td v-else><input type="text" v-model="military_class" placeholder="계급"></td>
         </tr>
         <tr>
-          <td>복무기간</td>
+          <td style="width:20%">복무기간</td>
           <td v-if="editing">{{ military_st_date }}</td>
           <td v-else><input type="text" v-model="military_st_date" placeholder="복무기간"></td>
         </tr>
         <tr>
           <td class="layout justify-center"><v-btn style="margin-top:6px;" color="success" outlined><v-icon dark>mdi-cloud-download</v-icon></v-btn></td>
-          <td>메모</td>
+          <td style="width:20%">메모</td>
           <td v-if="editing">하하하</td>
           <td v-else><input type="text" v-model="memo" placeholder="메모"></td>
         </tr>

@@ -1,5 +1,5 @@
 <template>
-  <v-layout mt-5 wrap justify-space-around class="nav">
+  <v-layout mt-5 wrap justify-start class="nav">
     <v-flex
       v-for="i in resumes.length"
       :key="i"
@@ -10,10 +10,11 @@
       xl4
     >
     <transition-group name="list" >
-      <Resume @opdt="noscr" @cldt="scr"
+      <Resume @del="del_detail"
       v-bind:key="i"
       v-if="sec >= i"
         class="ma-3 layout justify-center"
+        :resume_id="resumes[i-1].resume.id"
         :resume_company="resumes[i - 1].resume.resume_company"
         :resume_answer="resumes[i - 1].resume.resume_answer"
         :resume_question="resumes[i - 1].resume.resume_question"
@@ -38,7 +39,6 @@ export default {
     return {
       resumes: [],
       sec : 0,
-      detail:false,
     };
   },
   components: {
@@ -48,11 +48,14 @@ export default {
     this.getResume()
   },
   methods: {
-    noscr(){
-      this.detail = true
-    },
-    scr(){
-      this.detail = false
+    del_detail(){
+      console.log("화면 꺼");
+      
+      var a = document.querySelector('html')
+      a.style.overflowY="scroll"
+      setTimeout(() => {
+        this.getResume()
+      }, 100);
     },
 
     // async getResume() {
