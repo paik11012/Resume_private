@@ -53,8 +53,7 @@ export default {
     date:{type:String},
     question:{type:String},
     answer:{type:String},
-    tags:{type:Array},
-    text_val:{type:Number},
+    memo:{type:String},
   },
   data(){
     return {
@@ -64,9 +63,7 @@ export default {
       da : this.date,
       que : this.question,
       ans : this.answer,
-      tag : this.tags,
-      tv : this.text_val,
-
+      mem: this.memo,
     }
   },
   methods:{

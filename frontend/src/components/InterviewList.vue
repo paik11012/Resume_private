@@ -15,7 +15,7 @@
           class="layout justify-center ma-3"
           v-if="sec >= i"
           :interview_company="interview[i - 1].interview_company"
-          :interview_myans="interview[i - 1].interview_myans"
+          :interview_answer="interview[i - 1].interview_answer"
           :editans="interview[i-1].editans"
           :interview_question="interview[i - 1].interview_question"
           :interview_task="interview[i - 1].interview_task"
