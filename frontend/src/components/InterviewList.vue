@@ -1,13 +1,13 @@
 <template>
   <v-layout mt-5 wrap justify-space-around>
     <v-flex
-      v-for="i in interview.length > lim ? lim : interview.length"
+      v-for="i in interview.length"
       :key="i"
       xs12
       sm12
       md6
-      lg4
-      xl3
+      lg6
+      xl6
     >
       <transition-group name="list">
         <Interview

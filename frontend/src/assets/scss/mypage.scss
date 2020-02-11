@@ -11,11 +11,16 @@
   width: 200px;
 }
 .bounce-enter-active {
-  animation: bounce .3s;
+  animation: bounce .4s;
 }
 .bounce-leave-active {
   animation: bounce .2s reverse;
 }
+
+.bounce_l-leave-active{
+  animation: bounce .2s reverse;
+}
+
 
 .titlebox{
   color:white; 

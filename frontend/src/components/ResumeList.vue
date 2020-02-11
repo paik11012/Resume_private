@@ -1,5 +1,5 @@
 <template>
-  <v-layout mt-5 wrap justify-space-around :class="{not_scroll:detail}" class="nav">
+  <v-layout mt-5 wrap justify-space-around class="nav">
     <v-flex
       v-for="i in resumes.length"
       :key="i"
@@ -53,7 +53,6 @@ export default {
     },
     scr(){
       this.detail = false
-      window.scroll(0,1000)
     },
 
     // async getResume() {
@@ -91,24 +90,4 @@ export default {
 </script>
 <style lang="scss">
 @import "@/assets/scss/mystyle.scss";
-
-.not_scroll{
-  position:fixed;
-  overflow: hidden;
-  @include breakpoint(lg,up){
-    left: 17.5%;
-    width: 65%;
-  }
-  @include breakpoint(md){
-    left: 12.5%;
-    width: 75%;
-  }
-  @include breakpoint(sm,down){
-    left: 2.5%;
-    width: 95%;
-  }
-  height: 90%;
-}
-
-
 </style>

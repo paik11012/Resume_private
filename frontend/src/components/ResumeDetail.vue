@@ -1,7 +1,17 @@
 <template>
 <div class="rsdetail">
   <div class="modalbox" @click="closing"></div>
-  <div class="modal">
+  <div class="modal" >
+  
+  <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark color="primary" >
+    <v-icon dark>edit</v-icon>
+  </v-btn>
+  <v-btn class="edit" v-on:click="distroy" v-else small fab dark color="success" >
+    <v-icon dark>check</v-icon>
+  </v-btn>
+  <v-btn class="delete" v-on:click="editor" small fab color="red" >
+    <v-icon color="white">delete</v-icon>
+  </v-btn>
   <div class="company">
     {{ com }} 회사명
   </div>
@@ -13,13 +23,6 @@
     {{ da }} 지원시기
 
   </div>
-  <!-- <div class="q">
-    Q
-  </div>
-
-  <div class="a">
-    A
-  </div> -->
 
   <div class="question">
     Q {{ que }}
@@ -57,6 +60,7 @@ export default {
   },
   data(){
     return {
+      editing:true,
       modalop: false,
       com: this.company,
       ta : this.task,
@@ -71,6 +75,12 @@ export default {
   methods:{
     closing(){
       this.$emit('clsrsd')
+    },
+    editor(){
+      this.editing = !this.editing
+    },
+    destroy(){
+
     }
   }
 }
@@ -86,10 +96,22 @@ export default {
     top:0;
     left: 0;
     position: fixed;
-    background: gray;
-    opacity: 0.4;
+    background: rgb(33, 33, 33);
+    opacity: 0.46;
   }
   & .modal{
+    & .edit{
+      position: absolute;
+      z-index: 1e9+2;
+      right: 8%;
+      top : 3%;
+    }
+    & .delete{
+      position: absolute;
+      z-index: 1e9+2;
+      right: 3%;
+      top : 3%;
+    }
     animation: bounce 0.3s;
     border-radius: 10px;  
     position: fixed;
