@@ -1,6 +1,6 @@
 <template>
   <div>
-  <div class="resumeCard layout justify-center" :class="{non_scroll:rsdt}" @click="opendetail" >
+  <div class="resumeCard layout justify-center" @click="opendetail" >
   <transition name="slide">
   <div class="full" oncontextmenu="return false">
     <div class="company">{{rs_cpn}}</div>
@@ -28,6 +28,7 @@
   </transition>
   </div>
   <rsd v-if="rsdt"
+    :resume_id="resume_id"
     :company="resume_company"
     :task="resume_task"
     :date="resume_date"
@@ -36,6 +37,7 @@
     :tags="tag_name"
     :text_val="resume_answer.length"
     @clsrsd="closedetail"
+    @deleteresume="reload"
   />
   </div>
 </template>
@@ -49,6 +51,7 @@ export default {
     rsd,
   },
   props:{
+    resume_id:{type:Number},
     resume_company : {type: String},
     resume_answer : {type: String},
     resume_question : {type: String},
@@ -83,18 +86,24 @@ export default {
       this.showmenu = value
       console.log(this.showmenu);
     },
-    move(){
-      window.scroll(0,100)
-    },
     opendetail(){
-      this.scrc = window.scrollY
       this.rsdt = true
+      this.scr_cur = window.scrollY
       this.$emit('opdt')
+      var a = document.querySelector('html')
+      a.style.overflowY="hidden"
+      console.log(this.resume_id);
     },
     closedetail(){
+      var a = document.querySelector('html')
+      a.style.overflowY="scroll"
       this.rsdt = false
       this.$emit('cldt')
-    }
+    },
+    reload(){
+      this.rsdt=false
+      this.$emit('del')
+    },
   }
 };
 </script>

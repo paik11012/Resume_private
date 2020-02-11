@@ -102,7 +102,7 @@ export default {
       width: 90%;
     }
     
-    height: 310px;
+    height: 400px;
     /* border: 1px solid ; */
     text-align: center;
     border: 2px solid #92a8d1;
