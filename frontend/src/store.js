@@ -41,7 +41,14 @@ export default new Vuex.Store({
     },
 
     signup(dispatch, signupObj) {
-      const SERVER_IP = 'http://70.12.247.99:8080'
+      console.log(signupObj)
+      if (signupObj.user_id == null
+        || signupObj.user_name == null
+        || signupObj.user_password == null
+        ) {
+          return alert('전화번호 외에 모든 정보를 입력해주세요')
+        } else {
+          const SERVER_IP = 'http://70.12.247.99:8080'
       axios.post(SERVER_IP + "/users/signup", signupObj)
         .then(res => {
           alert("회원가입이 성공적으로 이루어졌습니다");
@@ -50,6 +57,7 @@ export default new Vuex.Store({
           alert("입력하신 정보를 확인하세요")
           console.log(error)
         })
+        }
     },
 
     login({state, commit, dispatch}, loginObj) {
@@ -70,7 +78,6 @@ export default new Vuex.Store({
           // commit("loginSuccess", user_info)
           router.push('home')
         } else {
-          this.message = "로그인해주세요"
           alert("입력 정보를 확인하세요")
         }
       })

@@ -11,8 +11,8 @@
     <div class="question">{{interview_question}}</div>
     <div class="label">답변</div>
     <div class="myans">{{interview_answer}}</div>
-    <!-- <div class="label">Memo</div>
-    <div class="editans">{{interview_memo}}</div> -->
+    <div class="label">Memo</div>
+    <div class="editans">{{interview_memo}}</div>
     </div>
     </transition>
   </div>
@@ -21,6 +21,7 @@
     :task="interview_task"
     :date="interview_date"
     :question="interview_question"
+    :answer="interview_answer"
     :memo="interview_momo"
     @clsid="closedetail"
    />
@@ -93,7 +94,7 @@ export default {
   @import "@/assets/scss/mystyle.scss";
   .contain{
     @include breakpoint(sm){
-      width: 60%;
+      width: 60% !important;
     }
     @include breakpoint(xs,down){
       width: 90%;
@@ -155,7 +156,7 @@ export default {
     font-size: 16px;
     margin-bottom: 20px;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }

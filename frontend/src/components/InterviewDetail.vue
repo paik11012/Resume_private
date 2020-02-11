@@ -15,7 +15,7 @@
   <div class="question">
    {{ que }}
   </div>
-  <textarea v-model="answer" class="answer" id="" cols="30" rows="10"></textarea>
+  <textarea readonly v-model="answer" class="answer" cols="30" rows="10"></textarea>
   <textarea v-model="memo" id="" cols="30" rows="10"></textarea>
 
   </div>
@@ -34,6 +34,7 @@ export default {
   },
   data(){
     return {
+      editing:true,
       modalop: false,
       com: this.company,
       ta : this.task,
