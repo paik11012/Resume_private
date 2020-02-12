@@ -28,7 +28,7 @@ public class UsersResponseDto {
         this.user_name = user_name;
         this.user_phone = user_phone;
     }
-
+    
     public Users toEntity() {
         return Users.builder()
                 .user_id(user_id)
