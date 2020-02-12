@@ -178,7 +178,7 @@ export default {
 
       // naver //
       client_id: 'oEALeUqtjER7Ufo5R8f7',
-      redirectURI: 'http://15.164.244.244:3000/',
+      redirectURI: 'http://localhost:8080/',
       state: 123,
       naverLoginUrl: 'https://nid.naver.com/oauth2.0/authorize?response_type=code'
       // END: naver //

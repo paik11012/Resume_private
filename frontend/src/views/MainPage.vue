@@ -104,7 +104,7 @@ export default {
       const storage = window.sessionStorage
       window.sessionStorage.setItem("jwt-auth-token", "");
 
-      axios.post("http://15.164.244.244:8080/users/loginNaver", n_data)
+      axios.post("http://70.12.247.99:8080/users/loginNaver", n_data)
       .then(res => {
           if(res.data.status) {
               alert('로그인이 성공적으로 이루어졌습니다')
