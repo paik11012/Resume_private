@@ -74,6 +74,7 @@ public class UsersController {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         Users users = requestDto.toEntity();
         Users res = usersService.signIn(users);
+        System.out.println("iam id" + res.getUser_id());
         Map<String, Object> resultmap = new HashMap<>();
         HttpStatus status = null;
         if(res.getUser_id().equals(users.getUser_id())){
@@ -221,7 +222,7 @@ public class UsersController {
         usersService.delete(user_id);
     }
 
-    @ApiOperation("회원 hello by admin")
+    @ApiOperation("회원 by admin")
     @DeleteMapping("/users/deleteByAdmin/{user_id}")
     public void userDeleteByAdmin(HttpServletRequest request, @PathVariable String user_id){
         String admin_id = "ds@ssafy.com";
@@ -232,10 +233,10 @@ public class UsersController {
     }
 
     @ApiOperation("메일 보내기")
-    @GetMapping("/users/sendmail")
-    public void send(){
+    @GetMapping("/users/sendmail/{user_id}")
+    public void send(@PathVariable String user_id) throws Exception {
 //        emailService.sendSimpleMessage("minju11012@gmail.com","me","dd");
-        emailService.sendSimpleMessage("ojinga0519@gmail.com","me","dd");
+        emailService.sendSimpleMessage( usersService.findById(user_id));
     }
 
     @ApiOperation("회원 관리자 권한 부여")
@@ -243,4 +244,8 @@ public class UsersController {
     public Users userChangeAuth(@PathVariable String user_id){
         return usersService.updateAuth(user_id);
     }
+
+
+
+
 }
