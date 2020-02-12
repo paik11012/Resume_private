@@ -10,7 +10,6 @@ import com.ssafy.web9to6.service.JwtService;
 import com.ssafy.web9to6.service.UsersService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -107,7 +106,6 @@ public class UsersController {
     public ResponseEntity<Map<String, Object>> userSigninNaver(HttpServletResponse response, @RequestBody SocialResponseDto socialResponseDto) throws Exception{
         Map<String, Object> resultmap = new HashMap<>();
         HttpStatus status = null;
-        String client_id = "";
 
         String code = socialResponseDto.getNcode();
         String state = socialResponseDto.getNstate();
@@ -116,19 +114,13 @@ public class UsersController {
         String apiURL;
         HttpURLConnection con = null;
         if(state!=null){ // naver
-            client_id = "oEALeUqtjER7Ufo5R8f7";
-            apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code";
-            apiURL += "&client_id=" + client_id;
-            apiURL += "&client_secret=" + client_secret;
-            apiURL += "&code=" + code;
-            apiURL += "&state=" + state;
+            apiURL = usersService.setNaverUrl(client_secret, code, state);
 
             URL url = new URL(apiURL);
             con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
         }
         else { // kakko
-            client_id = "ae103391c8a497b8820341af6a961a77";
             apiURL = "https://kauth.kakao.com/oauth/token";
 
             URL url = new URL(apiURL);
@@ -137,12 +129,7 @@ public class UsersController {
             con.setDoOutput(true);
 
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(con.getOutputStream()));
-            StringBuilder sb = new StringBuilder();
-            sb.append("grant_type=authorization_code");
-            sb.append("&client_id="+client_id);
-            sb.append("&redirect_uri=http://localhost:8081/");
-            sb.append("&code="+code);
-            bw.write(sb.toString());
+            bw.write(usersService.setKakaoUrl(code));
             bw.flush();
         }
 
@@ -169,13 +156,11 @@ public class UsersController {
 
                 tmp = usersService.getUserInfo(token, state);
                 JsonElement userInfoElement = parser.parse(tmp);
-                if(state!=null){
-                    id = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("id").getAsInt();
+                if(state!=null){ // naver
                     name = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("name").getAsString();
                     email = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
                 }
-                else{
-//                    id = userInfoElement.getAsJsonObject().get("properties").getAsJsonObject().get("id").getAsInt();
+                else{ // kakao
                     name = userInfoElement.getAsJsonObject().get("properties").getAsJsonObject().get("nickname").getAsString();
                     email = userInfoElement.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
                 }
@@ -191,9 +176,7 @@ public class UsersController {
                             .user_authority("user")
                             .build());
                 }
-                else{
-                    user = usersService.findById(email);
-                }
+                else{ user = usersService.findById(email); }
 
                 token = jwtService.create(user);
                 response = jwtService.setHeaders(response, token);
@@ -210,20 +193,10 @@ public class UsersController {
         return new ResponseEntity<Map<String, Object>>(resultmap, status);
     }
 
-    @ApiOperation("회원 로그아웃")
-    @GetMapping("/users/signout")
-    public String userSignOut(HttpServletRequest request){
-        return "false";
-    }
-
     @ApiOperation("모든 회원 조회")
     @GetMapping("/users/findAll")
-    public List<Users> userFindAll(HttpServletRequest request){
-        String user_id = "admin@ssafy.com";
-        if(user_id.equals("admin@ssafy.com")){
-            return usersService.findAll();
-        }
-        return null;
+    public List<Users> userFindAll(){
+        return usersService.findAll();
     }
 
     @ApiOperation("회원 조회")
@@ -235,7 +208,7 @@ public class UsersController {
     @ApiOperation("회원 정보 수정")
     @PutMapping("/users/update")
     public Users userUpdate(HttpServletRequest request, @RequestBody UsersResponseDto requestDto){
-        String user_id = "ds@ssafy.com";
+        String user_id = request.getHeader("user_id");
         Users user = usersService.findById(user_id);
         return usersService.update(user, requestDto.toEntity());
     }
@@ -243,14 +216,14 @@ public class UsersController {
     @ApiOperation("회원 탈퇴")
     @DeleteMapping("/users/delete")
     public void userDelete(HttpServletRequest request){
-        String user_id = "test";
+        String user_id = request.getHeader("user_id");
         usersService.delete(user_id);
     }
 
     @ApiOperation("회원 by admin")
     @DeleteMapping("/users/deleteByAdmin/{user_id}")
     public void userDeleteByAdmin(HttpServletRequest request, @PathVariable String user_id){
-        String admin_id = "ds@ssafy.com";
+        String admin_id = request.getHeader("user_id");
         Users admin = usersService.findById(admin_id);
         if(admin.getUser_authority().equals("admin")){
             usersService.delete(user_id);
@@ -260,7 +233,6 @@ public class UsersController {
     @ApiOperation("메일 보내기")
     @GetMapping("/users/sendmail/{user_id}")
     public void send(@PathVariable String user_id) throws Exception {
-//        emailService.sendSimpleMessage("minju11012@gmail.com","me","dd");
         emailService.sendSimpleMessage( usersService.findById(user_id));
     }
 

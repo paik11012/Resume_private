@@ -124,4 +124,26 @@ public class UsersService {
             return "Err";
         }
     }
+
+    @Transactional
+    public String setNaverUrl(String client_secret, String code, String state) {
+        String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code";
+        apiURL += "&client_id=" + "oEALeUqtjER7Ufo5R8f7";
+        apiURL += "&client_secret=" + client_secret;
+        apiURL += "&code=" + code;
+        apiURL += "&state=" + state;
+
+        return apiURL;
+    }
+
+    @Transactional
+    public String setKakaoUrl(String code) {
+        String apiURL = "";
+        apiURL += "grant_type=authorization_code";
+        apiURL += "&client_id=" + "ae103391c8a497b8820341af6a961a77";
+        apiURL += "&redirect_uri=http://15.164.244.244:3000/";
+        apiURL += "&code="+code;
+
+        return apiURL;
+    }
 }
