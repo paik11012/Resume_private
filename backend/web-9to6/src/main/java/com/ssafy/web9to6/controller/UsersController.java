@@ -88,12 +88,7 @@ public class UsersController {
         if(res.getUser_id().equals(users.getUser_id())){
             if(passwordEncoder.matches(users.getUser_password(),res.getUser_password())) {
                 String token = jwtService.create(res);
-                response.setHeader("jwt-auth-token", token);
-                response.setHeader("Access-Control-Allow-Origin","*");
-                response.setHeader("Access-Control-Allow-Headers","Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
-                response.setHeader("Access-Control-Max-Age","3600 ");
-                response.setHeader("Access-Control-Allow-Methods","*");
-                response.setHeader("Access-Control-Expose-Headers","jwt-auth-token");
+                response = jwtService.setHeaders(response, token);
 
                 resultmap.put("data", res);
                 resultmap.put("status", true);
@@ -201,12 +196,7 @@ public class UsersController {
                 }
 
                 token = jwtService.create(user);
-                response.setHeader("jwt-auth-token", token);
-                response.setHeader("Access-Control-Allow-Origin","*");
-                response.setHeader("Access-Control-Allow-Headers","Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
-                response.setHeader("Access-Control-Max-Age","3600 ");
-                response.setHeader("Access-Control-Allow-Methods","*");
-                response.setHeader("Access-Control-Expose-Headers","jwt-auth-token");
+                response = jwtService.setHeaders(response, token);
 
                 resultmap.put("data", user);
                 resultmap.put("status", true);
@@ -217,7 +207,6 @@ public class UsersController {
             System.out.println(e);
         }
 
-//        return "redirect:http://localhost:8081/home";
         return new ResponseEntity<Map<String, Object>>(resultmap, status);
     }
 
@@ -280,8 +269,4 @@ public class UsersController {
     public Users userChangeAuth(@PathVariable String user_id){
         return usersService.updateAuth(user_id);
     }
-
-
-
-
 }
