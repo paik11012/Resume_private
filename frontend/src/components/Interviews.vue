@@ -8,7 +8,7 @@
     <div class="task">{{interview_task}}</div>
     <div class="date">{{interview_date}}</div>
     <div class="label">질문</div>
-    <div class="question">{{interview_question}}</div>
+    <div id="question">{{interview_question}}</div>
     <div class="label">답변</div>
     <div class="myans">{{interview_answer}}</div>
     <div class="label">Memo</div>
@@ -22,7 +22,7 @@
     :date="interview_date"
     :question="interview_question"
     :answer="interview_answer"
-    :memo="interview_momo"
+    :memo="interview_memo"
     @clsid="closedetail"
    />
   </div>
@@ -136,7 +136,7 @@ export default {
     color: rgb(145,145,145);
     margin-bottom: 10px;
   }
-  .question{
+  #question{
     font-size: 18px;
     margin-bottom: 10px;
     display: -webkit-box;

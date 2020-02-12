@@ -12,11 +12,9 @@
     {{ da }}
   </div>
   <br>
-  <div class="question">
-   {{ que }}
-  </div>
-  <textarea readonly v-model="answer" class="answer" cols="30" rows="10"></textarea>
-  <textarea v-model="memo" id="" cols="30" rows="10"></textarea>
+  <textarea readonly v-model="question" class="question" id=""></textarea>
+  <textarea readonly v-model="answer" class="answer" ></textarea>
+  <textarea readonly v-model="memo" class="memo"  cols="30" rows="10"></textarea>
 
   </div>
 </div>  
@@ -73,7 +71,7 @@ export default {
     left: 15%;
     background: white;
     width: 70%;
-    height: 80%;
+    height:80%;
     overflow: hidden;
     & .company{
       overflow: hidden;
@@ -122,15 +120,14 @@ export default {
       font-size:14px;
       color:black;
       width: 90%;
-      top:38%;
+      top:35%;
       left:5%;
       overflow: auto;
-      height: 43%;
+      height: 30%;
       border: 1px solid #92A8D1;
       border-radius: 5px;
       padding: 1%;
       // text-align: center;
-      
       }
     & .q{
       font-size: 4vw !important;
@@ -142,6 +139,20 @@ export default {
       left:3%;
       text-align: center;
     }
+    & .memo{
+      position: absolute;
+      font-size:14px;
+      color:black;
+      width: 90%;
+      top: 70%;
+      left:5%;
+      overflow: auto;
+      height: 25%;
+      border: 1px solid #92A8D1;
+      border-radius: 5px;
+      padding: 1%;
+      // text-align: center;
+      }
     & .a{
       font-size: 4vw !important;
       

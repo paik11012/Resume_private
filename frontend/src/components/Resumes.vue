@@ -8,7 +8,7 @@
     <div class="task">{{rs_tsk}}</div>
     <div class="date">{{resume_date}}</div>
     <div class="label Q">질문</div>
-    <div class="question">{{resume_question}}</div>
+    <div id="r_question">{{resume_question}}</div>
     <div class="label A">답변</div>
     <div class="answer">{{resume_answer}}</div>
     <div class="text_val">{{ resume_answer.length }}자</div>
@@ -172,7 +172,7 @@ export default {
     position: absolute;
     }
 
-  & .question{
+  & #r_question{
     width: 90%;
     top: 39%;
     position: absolute;

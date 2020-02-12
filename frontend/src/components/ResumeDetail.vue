@@ -22,9 +22,8 @@
     {{ da }}
   </div>
   <br>
-  <div class="question">
-   {{ que }}
-  </div>
+
+  <textarea readonly v-model="question" class="question" id=""></textarea>
   <textarea readonly v-model="answer" class="answer" id="" cols="30" rows="10"></textarea>
   <div class="text_val">
     {{ tv }} 자
