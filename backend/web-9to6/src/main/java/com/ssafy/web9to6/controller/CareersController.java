@@ -25,7 +25,7 @@ public class CareersController {
     @ApiOperation("회원 이력 등록/수정")
     @PostMapping("/careers/upload")
     public Careers uploadCareer(HttpServletRequest request, @RequestBody CareersResponseDto requestDto){
-        String user_id = "test@ssafy.com";
+        String user_id = request.getHeader("user_id");
         Users user = usersService.findById(user_id);
 
         Careers career = requestDto.toEntity();
@@ -41,7 +41,7 @@ public class CareersController {
     @ApiOperation("회원 이력 정보")
     @GetMapping("/careers/findOne")
     public Careers selectCareer(HttpServletRequest request){
-        String user_id = "test@ssafy.com";
+        String user_id = request.getHeader("user_id");
         Users user = usersService.findById(user_id);
         return careersService.findByUser(user);
     }
