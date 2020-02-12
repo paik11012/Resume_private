@@ -41,7 +41,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+
+import API from "../services/Api"
 export default {
   props:{
     resume_id:{type:Number},
@@ -64,7 +65,6 @@ export default {
       ans : this.answer,
       tag : this.tags,
       tv : this.text_val,
-
     }
   },
   methods:{
@@ -75,10 +75,7 @@ export default {
       this.editing = !this.editing
     },
     destroy(){
-      axios.delete(`http://70.12.247.99:8080/resume/del/${this.resume_id}`,
-      {headers : {'token' : window.sessionStorage.getItem("jwt-auth-token"),
-      'user_id' : window.sessionStorage.getItem("user_id")}
-      })
+      API.delete(`/resume/del/${this.resume_id}`)
       .then(response => {
         this.resumes = response.data
         console.log(response.data)

@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import axios from "axios"
 import Router from 'vue-router'
 import router from './router'
-
+import API from "./services/Api"
 
 Vue.use(Vuex)
 Vue.use(Router)
@@ -54,8 +53,7 @@ export default new Vuex.Store({
         ) {
           return alert('전화번호 외에 모든 정보를 입력해주세요')
         } else {
-          const SERVER_IP = 'http://70.12.247.99:8080'
-          axios.post(SERVER_IP + "/users/signup", signupObj)
+          API.post("/users/signup", signupObj)
             .then(res => {
             alert("회원가입이 성공적으로 이루어졌습니다");     
             setTimeout(() => {
@@ -64,7 +62,7 @@ export default new Vuex.Store({
                 user_password: signupObj.user_password
               }
               console.log(loginObj)
-            axios.post(SERVER_IP+'/users/signin', loginObj)
+            API.post('/users/signin', loginObj)
             .then(res => {
               console.log(res)
               if (res.data.status) {
@@ -91,11 +89,10 @@ export default new Vuex.Store({
 
 
     login({state, commit, dispatch}, loginObj) {
-      const SERVER_IP = 'http://70.12.247.99:8080'
       const storage = window.sessionStorage;
       storage.setItem("jwt-auth-token", "");
       storage.setItem("user_id", "");
-      axios.post(SERVER_IP + "/users/signin", loginObj)
+      API.post("/users/signin", loginObj)
       .then(res => {
         if (res.data.status) {
           alert("로그인이 성공적으로 이루어졌습니다");

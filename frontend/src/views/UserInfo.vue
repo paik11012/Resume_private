@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import API from "../services/Api"
 export default {
   data() {
     return {
@@ -36,7 +36,7 @@ export default {
   mounted() {
       let id = sessionStorage.getItem("user_id")
       console.log(id)
-      axios.get(`http://70.12.247.99:8080/users/findOne/${id}`)
+      API.get(`/users/findOne/${id}`)
       .then(res => {
         console.log(res)
         const userInfo = {

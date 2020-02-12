@@ -28,7 +28,7 @@
 </template>
 <script>
 import Interview from "@/components/Interviews";
-import axios from 'axios'
+import API from "../services/Api"
 
 export default {
   name: "InterviewList",
@@ -51,13 +51,7 @@ export default {
   },
   methods: {
     getInterView: function() {
-      axios
-        .get("http://70.12.247.99:8080/interview", {
-          headers: {
-            token: window.sessionStorage.getItem("jwt-auth-token"),
-            user_id: window.sessionStorage.getItem("user_id")
-          }
-        })
+      API.get("/interview")
         .then(resopnse => {
           console.log(resopnse.data);
           this.interview = resopnse.data;

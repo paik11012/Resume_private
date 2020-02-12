@@ -64,7 +64,6 @@ import { app } from "../services/FirebaseService";
 import firebase, { storage } from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
-import axios from 'axios'
 import router from '../router'
 
 export default {
@@ -104,34 +103,34 @@ export default {
           ncode : codes[0], 
           nstate : state[1]
         }
-        axio_url = "http://15.164.244.244:8080/users/loginSocial"
+        axio_url = "/users/loginSocial"
       }
       else{ // kakako (code: O, state: X)
         n_data= { 
           ncode : code[1]
         }
-        axio_url = "http://15.164.244.244:8080/users/loginSocial"
+        axio_url = "/users/loginSocial"
       }
 
       const storage = window.sessionStorage
-        window.sessionStorage.setItem("jwt-auth-token", "");
+      window.sessionStorage.setItem("jwt-auth-token", "");
 
-        axios.post(axio_url, n_data)
-        .then(res => {
-            if(res.data.status) {
-                alert('로그인이 성공적으로 이루어졌습니다')
-                console.log(res.data)
-                storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
-                storage.setItem('user_id',res.data.data.user_id);
-                router.push('home')
-            } else {
-                // alert('입력 정보를 확인해주세요')
-            }
-        })
-        .catch(error => {
-            console.log(error)
-            alert('입력 정보를 확인해주세요')
-        })
+      API.post(axio_url, n_data)
+      .then(res => {
+          if(res.data.status) {
+              alert('로그인이 성공적으로 이루어졌습니다')
+              console.log(res.data)
+              storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
+              storage.setItem('user_id',res.data.data.user_id);
+              router.push('home')
+          } else {
+              // alert('입력 정보를 확인해주세요')
+          }
+      })
+      .catch(error => {
+          console.log(error)
+          alert('입력 정보를 확인해주세요')
+      })
     }
 
     if (document.body.offsetWidth < 480) {

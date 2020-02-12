@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+import API from "../services/Api"
 export default {
   computed:{
     period:{
@@ -113,12 +113,7 @@ export default {
         'edu_detail_credit': this.edu_detail_credit
       }
       var u_data = { education: u_education, education_detail: u_detail }
-      const SERVER_IP = 'http://70.12.247.99:8080'
-      axios.post(SERVER_IP + '/edu/upload', u_data,
-      {headers : {
-      'token' : window.sessionStorage.getItem("jwt-auth-token"),
-      'user_id': window.sessionStorage.getItem("user_id")}}
-      )
+      API.post('/edu/upload', u_data)
       .then(response => {
         console.log(response)
       })
