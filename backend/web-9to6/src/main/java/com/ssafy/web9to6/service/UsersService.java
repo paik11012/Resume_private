@@ -84,14 +84,24 @@ public class UsersService {
     }
 
     @Transactional
-    public String getUserInfo(String access_token) {
+    public String getUserInfo(String access_token, String state) {
         String header = "Bearer " + access_token;
+        String apiURL = "";
+        String method = "";
+
+        if(state != null) {
+            apiURL = "https://openapi.naver.com/v1/nid/me";
+            method = "GET";
+        }
+        else {
+            apiURL = "https://kapi.kakao.com/v2/user/me";
+            method = "POST";
+        }
 
         try {
-            String apiURL = "https://openapi.naver.com/v1/nid/me";
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
-            con.setRequestMethod("GET");
+            con.setRequestMethod(method);
             con.setRequestProperty("Authorization", header);
             int responseCode = con.getResponseCode();
             BufferedReader br;

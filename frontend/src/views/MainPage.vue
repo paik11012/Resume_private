@@ -95,34 +95,44 @@ export default {
     var this_url = window.location.href
     var code = this_url.split('code=');
     var state = this_url.split('state=');
-    if (code.length > 1 & state.length > 1){
-      var codes = code[1].split('&')
-      const n_data= {
-      ncode : codes[0],         
-      nstate : state[1]
+    if (code.length > 1){  // naver (code: O, state: O)
+      var n_data = {}
+      var axio_url = ""
+      if(state.length > 1) {
+        var codes = code[1].split('&')
+        n_data= { 
+          ncode : codes[0], 
+          nstate : state[1]
+        }
+        axio_url = "http://15.164.244.244:8080/users/loginSocial"
       }
+      else{ // kakako (code: O, state: X)
+        n_data= { 
+          ncode : code[1]
+        }
+        axio_url = "http://15.164.244.244:8080/users/loginSocial"
+      }
+
       const storage = window.sessionStorage
-      window.sessionStorage.setItem("jwt-auth-token", "");
+        window.sessionStorage.setItem("jwt-auth-token", "");
 
-      axios.post("http://15.164.244.244:8080/users/loginNaver", n_data)
-      .then(res => {
-          if(res.data.status) {
-              alert('로그인이 성공적으로 이루어졌습니다')
-              console.log(res.data)
-              storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
-              storage.setItem('user_id',res.data.data.user_id);
-              router.push('home')
-          } else {
-              // alert('입력 정보를 확인해주세요')
-          }
-      })
-      .catch(error => {
-          console.log(error)
-          alert('입력 정보를 확인해주세요')
-      })
+        axios.post(axio_url, n_data)
+        .then(res => {
+            if(res.data.status) {
+                alert('로그인이 성공적으로 이루어졌습니다')
+                console.log(res.data)
+                storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
+                storage.setItem('user_id',res.data.data.user_id);
+                router.push('home')
+            } else {
+                // alert('입력 정보를 확인해주세요')
+            }
+        })
+        .catch(error => {
+            console.log(error)
+            alert('입력 정보를 확인해주세요')
+        })
     }
-  
-
 
     if (document.body.offsetWidth < 480) {
       this.phone = true;

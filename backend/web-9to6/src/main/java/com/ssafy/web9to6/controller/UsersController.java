@@ -3,7 +3,7 @@ package com.ssafy.web9to6.controller;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.ssafy.web9to6.domain.Users;
-import com.ssafy.web9to6.dto.NaverResponseDto;
+import com.ssafy.web9to6.dto.SocialResponseDto;
 import com.ssafy.web9to6.dto.UsersResponseDto;
 import com.ssafy.web9to6.service.EmailService;
 import com.ssafy.web9to6.service.JwtService;
@@ -18,21 +18,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
-import java.io.InputStream;
+import java.io.BufferedWriter;
 import java.io.InputStreamReader;
-import java.io.Reader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 
 @PropertySource("classpath:config.properties")
 @CrossOrigin
@@ -50,12 +47,23 @@ public class UsersController {
     @Autowired
     private EmailService emailService;
 
-    // 수정수정
     @ApiOperation("회원 이메일(ID) 중복체크")
     @GetMapping("/users/checkId")
     public boolean userCheckId(@RequestBody UsersResponseDto requestDto){
         String user_id = requestDto.getUser_id();
         return usersService.checkId(user_id);
+    }
+
+    @ApiOperation("비밀번호 체크")
+    @GetMapping("/users/checkPass")
+    public boolean userCheckPass(@RequestBody UsersResponseDto responseDto){
+        String user_id = responseDto.getUser_id();
+        String user_pass = responseDto.getUser_password();
+        Users user = usersService.findById(user_id);
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if(passwordEncoder.matches(user.getUser_password(), user_pass)) return true;
+        else return false;
     }
 
     @ApiOperation("회원 등록")
@@ -98,40 +106,61 @@ public class UsersController {
         return new  ResponseEntity<Map<String, Object>>(resultmap, status);
     }
 
-    @ApiOperation("네이버 로그인")
-    @PostMapping("/users/loginNaver")
-    public ResponseEntity<Map<String, Object>> userSigninNaver(HttpServletResponse response, @RequestBody NaverResponseDto naverResponseDto) throws Exception{
+    @ApiOperation("네이버/카카오 로그인")
+    @PostMapping("/users/loginSocial")
+    public ResponseEntity<Map<String, Object>> userSigninNaver(HttpServletResponse response, @RequestBody SocialResponseDto socialResponseDto) throws Exception{
         Map<String, Object> resultmap = new HashMap<>();
         HttpStatus status = null;
+        String client_id = "";
 
-        // client_id, client_sercret, code, state를 가지고 네이버에 token 요청
-        String cline_id = "oEALeUqtjER7Ufo5R8f7";
+        String code = socialResponseDto.getNcode();
+        String state = socialResponseDto.getNstate();
+
+        // client_id, client_sercret, code, state를 가지고 소셜에 token 요청
         String apiURL;
-        apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code";
-        apiURL += "&client_id=" + cline_id;
-        apiURL += "&client_secret=" + client_secret;
-        apiURL += "&code=" + naverResponseDto.getNcode();
-        apiURL += "&state=" + naverResponseDto.getNstate();
+        HttpURLConnection con = null;
+        if(state!=null){ // naver
+            client_id = "oEALeUqtjER7Ufo5R8f7";
+            apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code";
+            apiURL += "&client_id=" + client_id;
+            apiURL += "&client_secret=" + client_secret;
+            apiURL += "&code=" + code;
+            apiURL += "&state=" + state;
+
+            URL url = new URL(apiURL);
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+        }
+        else { // kakko
+            client_id = "ae103391c8a497b8820341af6a961a77";
+            apiURL = "https://kauth.kakao.com/oauth/token";
+
+            URL url = new URL(apiURL);
+            con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setDoOutput(true);
+
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(con.getOutputStream()));
+            StringBuilder sb = new StringBuilder();
+            sb.append("grant_type=authorization_code");
+            sb.append("&client_id="+client_id);
+            sb.append("&redirect_uri=http://localhost:8081/");
+            sb.append("&code="+code);
+            bw.write(sb.toString());
+            bw.flush();
+        }
 
         String token = "";
         try{
-            URL url = new URL(apiURL);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
             int responseCode = con.getResponseCode();
             BufferedReader br;
 
-            if(responseCode==200){ // 정상호출
-                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            } else {
-                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-            }
+            if(responseCode==200){ br = new BufferedReader(new InputStreamReader(con.getInputStream())); }
+            else { br = new BufferedReader(new InputStreamReader(con.getErrorStream())); }
 
             String inputLine;
             StringBuffer res = new StringBuffer();
-            while ((inputLine = br.readLine()) != null){
-                res.append(inputLine);
-            }
+            while ((inputLine = br.readLine()) != null){ res.append(inputLine); }
             br.close();
 
             if(responseCode==200){ // 성공적으로 토큰을 가져오면
@@ -142,11 +171,18 @@ public class UsersController {
                 JsonElement accessElement = parser.parse(res.toString());
                 token = accessElement.getAsJsonObject().get("access_token").getAsString();
 
-                tmp = usersService.getUserInfo(token);
+                tmp = usersService.getUserInfo(token, state);
                 JsonElement userInfoElement = parser.parse(tmp);
-                id = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("id").getAsInt();
-                name = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("name").getAsString();
-                email = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
+                if(state!=null){
+                    id = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("id").getAsInt();
+                    name = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("name").getAsString();
+                    email = userInfoElement.getAsJsonObject().get("response").getAsJsonObject().get("email").getAsString();
+                }
+                else{
+//                    id = userInfoElement.getAsJsonObject().get("properties").getAsJsonObject().get("id").getAsInt();
+                    name = userInfoElement.getAsJsonObject().get("properties").getAsJsonObject().get("nickname").getAsString();
+                    email = userInfoElement.getAsJsonObject().get("kakao_account").getAsJsonObject().get("email").getAsString();
+                }
 
                 // 기존 회원인지 확인
                 boolean b_find = usersService.checkId(email);
