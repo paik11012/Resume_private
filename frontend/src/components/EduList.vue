@@ -28,7 +28,7 @@
 
 </template>
 <script>
-import axios from 'axios'
+import API from "../services/Api"
 import eduh from './EduHigh'
 import eduu from './EduUniv'
 export default {
@@ -37,12 +37,7 @@ export default {
   },
   mounted() {
       // const id = window.sessionStorage.getItem('user_id')
-      const SERVER_IP = 'http://70.12.247.99:8080'
-      axios.get(SERVER_IP + `/edu/findAll`, {
-      headers: {
-            token: window.sessionStorage.getItem("jwt-auth-token"),
-            user_id: window.sessionStorage.getItem("user_id")
-      }})
+      API.get(SERVER_IP + `/edu/findAll`)
       .then(response => {
         for (var [key,value] of Object.entries(response.data)){
           for (var [key1, value1] of Object.entries(value)){

@@ -139,7 +139,6 @@
 </template>
 <script>
 import { mapActions } from 'vuex';
-import axios from 'axios'
 import router from '../router'
 
 const MODAL_WIDTH = 656;

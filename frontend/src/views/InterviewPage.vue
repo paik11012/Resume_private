@@ -79,7 +79,7 @@ import InterviewList from "../components/InterviewList";
 import Navbar from "../components/Navbar";
 import FirebaseService from '@/services/FirebaseService';
 import Load from '@/components/Loading';
-import axios from 'axios';
+import API from "../services/Api"
 
 export default {
   name: "PostPage",
@@ -116,12 +116,8 @@ export default {
         "interview_answer": this.interview_answer,
         "interview_memo": this.interview_memo,
       }
-      axios.post(
-        'http://70.12.247.99:8080/interview/save', 
-        interview_info,
-        {headers : {
-          'token' : window.sessionStorage.getItem("jwt-auth-token"),
-          'user_id': window.sessionStorage.getItem("user_id")},})
+      API.post('/interview/save', 
+        interview_info)
         .then(response=>{
         console.log(response)
         this.$refs.updating.getInterView()

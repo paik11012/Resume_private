@@ -93,7 +93,7 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
+import API from "../services/Api"
 import ImgBanner from "../components/ImgBanner";
 import ResumeList from "../components/ResumeList";
 import Navbar from "../components/Navbar";
@@ -149,12 +149,8 @@ export default {
           ) {
         return alert('태그와 지원시기 외 정보는 모두 입력해주세요')
       } else {
-        axios.post(
-        'http://70.12.247.99:8080/resume/save', 
-        r_data,
-        {headers : {
-          'token' : window.sessionStorage.getItem("jwt-auth-token"),
-          'user_id': window.sessionStorage.getItem("user_id")},})
+        API.post(
+        '/resume/save', r_data)
       .then(response=>{
         console.log(response.data)
         this.$refs.updating.getResume()

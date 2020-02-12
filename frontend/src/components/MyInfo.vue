@@ -107,11 +107,11 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { app } from "../services/FirebaseService";
 import firebase, { storage } from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
+import API from "../services/Api"
 export default {
   data(){
     return{
@@ -134,12 +134,7 @@ export default {
       'military_sort':this.military_sort,
       'memo' : this.memo
       }
-      const SERVER_IP = 'http://70.12.247.99:8080'
-      axios.post(SERVER_IP + '/careers/upload', career_info, 
-      {headers : {
-        'token' : window.sessionStorage.getItem("jwt-auth-token"),
-        'user_id': window.sessionStorage.getItem("user_id")}}
-      )
+      API.post('/careers/upload', career_info)
       .then(response => {
         console.log(response)
       })
@@ -188,21 +183,16 @@ export default {
         });
     }
   },
+    // 백에 넣은 데이터 가져오기
     mounted() {
-    const SERVER_IP = "http://70.12.247.99:8080";
-    axios
-      .get(SERVER_IP + "/careers/findOne", {
-        headers: {
-          token: window.sessionStorage.getItem("jwt-auth-token"),
-          user_id: window.sessionStorage.getItem("user_id")
-        }})
+    API.get("/careers/findOne")
       .then(response => {
         console.log(response);
         this.military_class = response.data.military_class
         this.military_st_date = response.data.military_st_date
         this.military_sort = response.data.military_sort
         this.career_myPic = response.data.career_myPic
-        this.memo = respose.data.memo
+        this.memo = response.data.memo
       })
       .catch(error => {
         console.log(error);

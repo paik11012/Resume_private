@@ -64,7 +64,6 @@ import { app } from "../services/FirebaseService";
 import firebase, { storage } from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
-import axios from 'axios'
 import router from '../router'
 
 export default {
@@ -104,7 +103,7 @@ export default {
       const storage = window.sessionStorage
       window.sessionStorage.setItem("jwt-auth-token", "");
 
-      axios.post("http://70.12.247.99:8080/users/loginNaver", n_data)
+      API.post("/users/loginNaver", n_data)
       .then(res => {
           if(res.data.status) {
               alert('로그인이 성공적으로 이루어졌습니다')

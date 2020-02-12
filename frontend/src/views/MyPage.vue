@@ -43,7 +43,6 @@ import { mapGetters } from "vuex";
 import myinfo from "@/components/MyInfo";
 import edu from "@/components/EduList";
 import crecard from "@/components/CreateCard";
-import axios from "axios";
 export default {
   name: "HomePage",
   components: {
