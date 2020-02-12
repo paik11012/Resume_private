@@ -10,8 +10,8 @@
     </v-flex>
   <!-- resume 작성하기 -->
   <template>
-  <v-row justify="center" style="padding:0">
-    <v-dialog v-model="dialog" :persistent="true" max-width="800px" max-height="1000px" style="z-index:999999;">
+  <v-row justify="center">
+    <v-dialog v-model="dialog" :persistent="true" max-width="80%" max-height="80%" style="z-index:999999;">
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
       <v-card>
         <v-card-title class="justify-center">
@@ -158,12 +158,17 @@ export default {
       .then(response=>{
         console.log(response.data)
         this.$refs.updating.getResume()
+        this.resume_company = null;
+        this.resume_task = null;
+        this.resume_question = null;
+        this.resume_answer = null;
+        this.resume_date = null;
+        this.tag_name = [];
         return this.dialog = false
       })
       .catch(error=>{
         console.log(error)
       })
-      // location.reload()
     }
   }
 }
@@ -185,6 +190,7 @@ export default {
   position: fixed;
   right:30px;
   bottom:30px;
+  z-index: 9999999999;
 }
 i{
   z-index: 22; 

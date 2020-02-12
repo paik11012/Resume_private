@@ -11,7 +11,7 @@
             <transition name="bounce">
               <myinfo id="rcorners2" v-if="showme" />
             </transition>
-            <transition name="bounce">
+            <transition name="bounce_l">
               <edu v-if="showedu" />
             </transition>
             <transition name="bounce">

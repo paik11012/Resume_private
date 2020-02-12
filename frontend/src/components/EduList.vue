@@ -1,25 +1,30 @@
 <template>
 <div>
-    <eduh v-for="hi in high.length" :key="hi" class="corners2"  
-      :edu_school_name="high[hi-1].edu_school_name"
-      :edu_school_sort="high[hi-1].edu_school_sort"
-      :edu_school_st_date="high[hi-1].edu_school_st_date"
-      :edu_school_ed_date="high[hi-1].edu_school_ed_date"
+    <v-flex v-for="i in school.length" :key="i">
+    <transition name="bounce">
+    <eduh class="corners2" 
+      :edu_school_name="high[i-1].edu_school_name"
+      :edu_school_sort="high[i-1].edu_school_sort"
+      :edu_school_st_date="high[i-1].edu_school_st_date"
+      :edu_school_ed_date="high[i-1].edu_school_ed_date"
+      v-if="sec >= i & i == 1"
     />
-  <eduu v-for="ui in univ.length" :key="ui" class="corners2"
-    :edu_school_name="univ[ui-1].edu_school_name"
-    :edu_school_sort="univ[ui-1].edu_school_sort"
-    :edu_school_st_date="univ[ui-1].edu_school_st_date"
-    :edu_school_ed_date="univ[ui-1].edu_school_ed_date"
-    :edu_detail_major_sort="univ[ui-1].edu_detail_major_sort"
-    :edu_detail_grade="univ[ui-1].edu_detail_grade"
-    :edu_detail_credit="univ[ui-1].edu_detail_credit"
-    :edu_detail_id="univ[ui-1].edu_detail_id"
+    </transition>
+    <transition name="bounce">
+    <eduu  class="corners2"
+    :edu_school_name="univ[i-1].edu_school_name"
+    :edu_school_sort="univ[i-1].edu_school_sort"
+    :edu_school_st_date="univ[i-1].edu_school_st_date"
+    :edu_school_ed_date="univ[i-1].edu_school_ed_date"
+    :edu_detail_major_sort="univ[i-1].edu_detail_major_sort"
+    :edu_detail_grade="univ[i-1].edu_detail_grade"
+    :edu_detail_credit="univ[i-1].edu_detail_credit"
+    :edu_detail_id="univ[i-1].edu_detail_id"
+    v-if="sec >= i+1 & i > 0"
   />
+  </transition>
+  </v-flex>
 </div>
-
-
-
 
 </template>
 <script>
@@ -39,10 +44,7 @@ export default {
             user_id: window.sessionStorage.getItem("user_id")
       }})
       .then(response => {
-        console.log(response)
         for (var [key,value] of Object.entries(response.data)){
-          console.log(value);
-          
           for (var [key1, value1] of Object.entries(value)){
             // console.log(value1)
             this.edu_school_name = value1[0]["education"]["edu_school_name"]
@@ -60,6 +62,13 @@ export default {
             }
           }
         }
+        this.school = this.high.concat(this.univ)
+        for(let i = 0; i < this.school.length; i++){
+          setTimeout(() => {
+          this.sec ++
+        }, 100*i);
+        }
+        console.log(this.school)
       })
       .catch(error => {
         console.log(error)
@@ -78,6 +87,8 @@ export default {
       edu_detail_id:'',
       high:[],
       univ:[],
+      school:[],
+      sec:0,
     }
   },
 }
@@ -90,6 +101,9 @@ export default {
   padding: 15px;
   width: 100%;
   margin-bottom: 25px;
+}
+.bounce-enter-active, .bounce-leave-active {
+  animation: bounce 1s;
 }
 
 </style>
