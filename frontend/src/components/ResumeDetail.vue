@@ -172,6 +172,7 @@ export default {
       color:black;
       width: 90%;
       top:26%;
+      outline-style: none;
       left:5%;
       text-align: center;
       
@@ -181,6 +182,7 @@ export default {
       font-size:14px;
       color:black;
       width: 90%;
+      outline-style: none;
       top:38%;
       left:5%;
       overflow: auto;
@@ -217,6 +219,7 @@ export default {
       position: absolute;
       right: 5%;
       bottom: 5%;
+      margin: 5px;
     }
     & .tag{
       color: white;
@@ -224,7 +227,7 @@ export default {
       width: 80px;
     }
     & .text_val{
-      font-size: 13px;
+      font-size: 16px;
       font-weight: 500;
       position: absolute;
       right:4%;

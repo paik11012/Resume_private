@@ -186,7 +186,7 @@ export default {
     submitted() {
       this.isSubmitted = true;
     },
-    ...mapActions(["signup"])
+    ...mapActions(["signup"]),
   },                        
 }
 </script>

@@ -111,6 +111,7 @@ export default {
       color:black;
       width: 90%;
       top:26%;
+      outline-style: none;
       left:5%;
       text-align: center;
       
@@ -124,7 +125,8 @@ export default {
       left:5%;
       overflow: auto;
       height: 30%;
-      border: 1px solid #92A8D1;
+      border: 1.5px solid rgb(247, 202, 201);
+      outline-style: none;
       border-radius: 5px;
       padding: 1%;
       // text-align: center;
@@ -145,10 +147,11 @@ export default {
       color:black;
       width: 90%;
       top: 70%;
+      outline-style: none;
       left:5%;
       overflow: auto;
       height: 25%;
-      border: 1px solid #92A8D1;
+      border: 1.5px solid rgb(247, 202, 201);
       border-radius: 5px;
       padding: 1%;
       // text-align: center;

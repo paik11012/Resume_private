@@ -158,6 +158,12 @@ export default {
       .then(response=>{
         console.log(response.data)
         this.$refs.updating.getResume()
+        this.resume_company = null;
+        this.resume_task = null;
+        this.resume_question = null;
+        this.resume_answer = null;
+        this.resume_date = null;
+        this.tag_name = [];
         return this.dialog = false
       })
       .catch(error=>{

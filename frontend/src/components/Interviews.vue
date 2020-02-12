@@ -106,17 +106,13 @@ export default {
     height: 400px;
     /* border: 1px solid ; */
     text-align: center;
-    border: 2px solid #92a8d1;
+    // border: 2px solid #92a8d1;
+    border: 2px solid #f7cac9;
     border-radius: 10px; 
     font-size: 13px;
-    box-shadow: 3px 3px rgb(247, 202, 201);
+    // box-shadow: 3px 3px rgb(247, 202, 201);
     padding: 15px;
     background: white;
-  }
-  .tag{
-    margin-left: 20px;
-    font-size: 15px;
-    color: rgb(123,123,255)
   }
   .text_val{
     margin-right: 20px;

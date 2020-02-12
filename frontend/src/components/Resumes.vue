@@ -128,7 +128,7 @@ export default {
   border: 2px solid #92a8d1;
   border-radius: 10px;
   font-size: 13px;
-  box-shadow: 3px 3px rgb(247, 202, 201);
+  // box-shadow: 3px 3px rgb(247, 202, 201);
   padding: 5%;
   background: white;
   &.full{
@@ -183,7 +183,6 @@ export default {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-
   & .A{
     width: 90%;
     top: 56%;

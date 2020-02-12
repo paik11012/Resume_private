@@ -125,6 +125,12 @@ export default {
         .then(response=>{
         console.log(response)
         this.$refs.updating.getInterView()
+        this.interview_company = null;
+        this.interview_task = null;
+        this.interview_question = null;
+        this.interview_memo = null;
+        this.interview_answer = null;
+        this.interview_date = null;
         return this.dialog = false
       })
       .catch(error=>{
