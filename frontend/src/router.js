@@ -8,7 +8,6 @@ import MyPage from './views/MyPage.vue'
 import MainPage from './views/MainPage.vue'
 import SignupPage from './views/SignupPage.vue'
 import UserInfo from './views/UserInfo.vue'
-import Naver from './views/Naver.vue'
 
 Vue.use(Router)
 
@@ -56,11 +55,6 @@ export default new Router({
 			path: '/userinfo',
 			name: 'userinfo',
 			component: UserInfo
-		},
-		{
-			path: '/naver',
-			name: 'naver',
-			component: Naver
 		}
   ]
 })

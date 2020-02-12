@@ -64,6 +64,8 @@ import { app } from "../services/FirebaseService";
 import firebase, { storage } from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
+import axios from 'axios'
+import router from '../router'
 
 export default {
   components: {
@@ -90,7 +92,37 @@ export default {
     window.removeEventListener("resize", this.resizing);
   },
   mounted() {
-    console.log(this.phone);
+    var this_url = window.location.href
+    var code = this_url.split('code=');
+    var state = this_url.split('state=');
+    if (code.length > 1 & state.length > 1){
+      var codes = code[1].split('&')
+      const n_data= {
+      ncode : codes[0],         
+      nstate : state[1]
+      }
+      const storage = window.sessionStorage
+      window.sessionStorage.setItem("jwt-auth-token", "");
+
+      axios.post("http://15.164.244.244:8080/users/loginNaver", n_data)
+      .then(res => {
+          if(res.data.status) {
+              alert('로그인이 성공적으로 이루어졌습니다')
+              console.log(res.data)
+              storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
+              storage.setItem('user_id',res.data.data.user_id);
+              router.push('home')
+          } else {
+              // alert('입력 정보를 확인해주세요')
+          }
+      })
+      .catch(error => {
+          console.log(error)
+          alert('입력 정보를 확인해주세요')
+      })
+    }
+  
+
 
     if (document.body.offsetWidth < 480) {
       this.phone = true;

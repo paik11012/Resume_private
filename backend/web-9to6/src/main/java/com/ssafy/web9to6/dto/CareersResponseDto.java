@@ -17,14 +17,16 @@ public class CareersResponseDto {
     private String military_st_date;
     private String military_ed_date;
     private String military_class;
+    private String memo;
 
     @Builder
-    public CareersResponseDto(String career_myPic, String military_sort, String military_st_date, String military_ed_date, String military_class){
+    public CareersResponseDto(String career_myPic, String military_sort, String military_st_date, String military_ed_date, String military_class, String memo){
         this.career_myPic = career_myPic;
         this.military_sort = military_sort;
         this.military_st_date = military_st_date;
         this.military_ed_date = military_ed_date;
         this.military_class = military_class;
+        this.memo = memo;
     }
 
     public Careers toEntity(){
@@ -34,6 +36,7 @@ public class CareersResponseDto {
                 .military_st_date(military_st_date)
                 .military_ed_date(military_ed_date)
                 .military_class(military_class)
+                .memo(memo)
                 .build();
     }
 }
