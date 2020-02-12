@@ -28,14 +28,17 @@ public class EducationsFullController {
 
     @ApiOperation("학력 정보 등록/수정")
     @PostMapping("/edu/upload")
-    public Map<String, Object> uploadEduDetails(@RequestBody Map<String, Object> requestDto) {
-        String user_id = "mjmj";
+    public Map<String, Object> uploadEduDetails(@RequestBody Map<String, Object> requestDto, HttpServletRequest request) {
+//        String user_id = "te";
+        String user_id = request.getHeader("user_id");
         Users user = usersService.findById(user_id);
 
         Map<String, Object> res = new HashMap<>(); // result object
 
         // request object //
+        System.out.println(requestDto);
         Map map_edu = (Map) requestDto.get("education");
+        System.out.println(map_edu);
         Educations education = Educations.builder()
                 .edu_school_name((String) map_edu.get("edu_school_name"))
                 .edu_school_sort((String) map_edu.get("edu_school_sort"))
@@ -47,12 +50,14 @@ public class EducationsFullController {
         boolean edu_det_save = false;
         Map map_edu_detail = (Map) requestDto.get("education_detail");
         EducationDetails educationDetails = new EducationDetails();
-        if(map_edu_detail.get("edu_detail_major_sort")!=null){ // 고등학교는 상세 정보 X
+        if(map_edu_detail!=null){ // 고등학교는 상세 정보 X
             edu_det_save = true;
             educationDetails = EducationDetails.builder()
                     .edu_detail_major_sort((String) map_edu_detail.get("edu_detail_major_sort"))
-                    .edu_detail_credit(Long.valueOf((Integer) map_edu_detail.get("edu_detail_credit")))
-                    .edu_detail_grade((Double) map_edu_detail.get("edu_detail_grade"))
+//                    .edu_detail_credit(Long.valueOf((Integer) map_edu_detail.get("edu_detail_credit")))
+//                    .edu_detail_grade((Double) map_edu_detail.get("edu_detail_grade"))
+                    .edu_detail_credit(Long.parseLong( (String)map_edu_detail.get("edu_detail_credit")))
+                    .edu_detail_grade(Double.parseDouble((String)map_edu_detail.get("edu_detail_grade")))
                     .build();
             if(map_edu_detail.get("edu_detail_id")!=null) educationDetails.setEduDetail_id(Long.valueOf((String) map_edu_detail.get("edu_detail_id")));
         }
@@ -102,8 +107,8 @@ public class EducationsFullController {
 
     @ApiOperation("모든 학력 정보 조회")
     @GetMapping("/edu/findAll")
-    public List<Map<Educations, List<EducationDetails>>> findAllEdu(){
-        String user_id = "test@ssafy.com";
+    public List<Map<Educations, List<EducationDetails>>> findAllEdu(HttpServletRequest request){
+        String user_id = request.getHeader("user_id");
         Users user = usersService.findById(user_id);
 
         List<Map<Educations, List<EducationDetails>>> mapList = new LinkedList<>();

@@ -75,10 +75,22 @@ dependencies {
     compile('io.springfox:springfox-swagger-ui:2.6.1')
 
     // for spring security
-//    compile('org.springframework.boot:spring-boot-starter-oauth2-client')
+    compile 'org.springframework.security:spring-security-crypto:3.1.0.RELEASE'
 
     //jwt 의존성 추가
     compile group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+    //gmail send 관련
+    //compile 'org.springframework.boot:spring-boot-starter'
+    compile 'org.springframework.boot:spring-boot-starter-mail'
+
+//    compile group: 'com.sun.mail', name: 'javax.mail', version: '1.5.4'
+
+
+
+
+
+
 }
 
 test {

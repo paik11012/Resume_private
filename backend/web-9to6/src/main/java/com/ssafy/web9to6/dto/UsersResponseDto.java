@@ -1,13 +1,11 @@
 package com.ssafy.web9to6.dto;
 
 import com.ssafy.web9to6.domain.Users;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.data.repository.NoRepositoryBean;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class UsersResponseDto {
     private String user_id;

@@ -2,6 +2,7 @@ package com.ssafy.web9to6.controller;
 
 import com.ssafy.web9to6.domain.Users;
 import com.ssafy.web9to6.dto.UsersResponseDto;
+import com.ssafy.web9to6.service.EmailService;
 import com.ssafy.web9to6.service.JwtService;
 import com.ssafy.web9to6.service.UsersService;
 import io.swagger.annotations.ApiOperation;
@@ -11,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @CrossOrigin
 @RequiredArgsConstructor
 @RestController
@@ -26,6 +30,9 @@ public class UsersController {
     private final UsersService usersService;
     @Autowired
     private JwtService jwtService;
+    @Autowired
+    private EmailService emailService;
+
     // 수정수정
     @ApiOperation("회원 이메일(ID) 중복체크")
     @PostMapping("/users/checkId")
@@ -36,7 +43,9 @@ public class UsersController {
 
     @ApiOperation("회원 등록")
     @PostMapping("/users/signup")
-    public Users userSignUp(@RequestBody UsersResponseDto requestDto){
+    public Users userSignUp(@RequestBody UsersResponseDto requestDto) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        requestDto.setUser_password(passwordEncoder.encode(requestDto.getUser_password()));
         Users user = requestDto.toEntity();
         user.setUser_authority("user");
         return usersService.save(user);
@@ -44,26 +53,28 @@ public class UsersController {
 
     @ApiOperation("회원 로그인")
     @PostMapping("/users/signin")
-    public ResponseEntity<Map<String, Object>> userSignIn(HttpServletResponse response, HttpServletRequest request, @RequestBody UsersResponseDto requestDto){
+    public ResponseEntity<Map<String, Object>> userSignIn(HttpServletResponse response, HttpServletRequest request, @RequestBody UsersResponseDto requestDto) throws Exception {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         Users users = requestDto.toEntity();
         Users res = usersService.signIn(users);
         Map<String, Object> resultmap = new HashMap<>();
         HttpStatus status = null;
         if(res.getUser_id().equals(users.getUser_id())){
-//            HttpSession session = request.getSession(true);
-//            session.setAttribute("user_id", users.getUser_id());
-            String token = jwtService.create(res);
-            response.setHeader("jwt-auth-token", token);
-            response.setHeader("Access-Control-Allow-Origin","*");
-            response.setHeader("Access-Control-Allow-Headers","Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
-            response.setHeader("Access-Control-Max-Age","3600 ");
-            response.setHeader("Access-Control-Allow-Methods","*");
-            response.setHeader("Access-Control-Expose-Headers","jwt-auth-token");
+            if(passwordEncoder.matches(users.getUser_password(),res.getUser_password())) {
+                String token = jwtService.create(res);
+                response.setHeader("jwt-auth-token", token);
+                response.setHeader("Access-Control-Allow-Origin","*");
+                response.setHeader("Access-Control-Allow-Headers","Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
+                response.setHeader("Access-Control-Max-Age","3600 ");
+                response.setHeader("Access-Control-Allow-Methods","*");
+                response.setHeader("Access-Control-Expose-Headers","jwt-auth-token");
 
-            resultmap.put("data", res);
-            resultmap.put("status", true);
-            resultmap.put("jwt-auth-token", token);
-            status = HttpStatus.ACCEPTED;
+                resultmap.put("data", res);
+                resultmap.put("status", true);
+                resultmap.put("jwt-auth-token", token);
+                status = HttpStatus.ACCEPTED;
+            } else throw new Exception("비밀번호 오류");
+
             //return res;
         }
         //return res;
@@ -107,7 +118,7 @@ public class UsersController {
         usersService.delete(user_id);
     }
 
-    @ApiOperation("회원 삭제 by admin")
+    @ApiOperation("회원 hello by admin")
     @DeleteMapping("/users/deleteByAdmin/{user_id}")
     public void userDeleteByAdmin(HttpServletRequest request, @PathVariable String user_id){
         String admin_id = "ds@ssafy.com";
@@ -115,6 +126,13 @@ public class UsersController {
         if(admin.getUser_authority().equals("admin")){
             usersService.delete(user_id);
         }
+    }
+
+    @ApiOperation("메일 보내기")
+    @GetMapping("/users/sendmail")
+    public void send(){
+//        emailService.sendSimpleMessage("minju11012@gmail.com","me","dd");
+        emailService.sendSimpleMessage("ojinga0519@gmail.com","me","dd");
     }
 
     @ApiOperation("회원 관리자 권한 부여")
