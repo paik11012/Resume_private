@@ -45,7 +45,7 @@ public class UsersController {
     private String client_secret;
 
     @ApiOperation("회원 이메일(ID) 중복체크")
-    @PostMapping("/users/checkId")
+    @GetMapping("/users/checkId")
     public boolean userCheckId(@RequestBody UsersResponseDto requestDto){
         String user_id = requestDto.getUser_id();
         return usersService.checkId(user_id);
