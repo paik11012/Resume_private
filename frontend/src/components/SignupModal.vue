@@ -191,7 +191,7 @@ export default {
       ],
       user_id: null,
       user_password: null,
-      user_name: '',
+      user_name: null,
       user_email: null,
       user_phone:null,
       storeData: 'Yes',
@@ -204,7 +204,7 @@ export default {
     submitted() {
       this.isSubmitted = true;
     },
-    ...mapActions(["signup"])
+    ...mapActions(["signup"]),
   },                        
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-  <div class="resumeCard layout justify-center" :class="{non_scroll:rsdt}" @click="opendetail" >
+  <div class="resumeCard layout justify-center" @click="opendetail" >
   <transition name="slide">
   <div class="full" oncontextmenu="return false">
     <div class="company">{{rs_cpn}}</div>
@@ -8,7 +8,7 @@
     <div class="task">{{rs_tsk}}</div>
     <div class="date">{{resume_date}}</div>
     <div class="label Q">질문</div>
-    <div class="question">{{resume_question}}</div>
+    <div id="r_question">{{resume_question}}</div>
     <div class="label A">답변</div>
     <div class="answer">{{resume_answer}}</div>
     <div class="text_val">{{ resume_answer.length }}자</div>
@@ -28,6 +28,7 @@
   </transition>
   </div>
   <rsd v-if="rsdt"
+    :resume_id="resume_id"
     :company="resume_company"
     :task="resume_task"
     :date="resume_date"
@@ -36,6 +37,7 @@
     :tags="tag_name"
     :text_val="resume_answer.length"
     @clsrsd="closedetail"
+    @deleteresume="reload"
   />
   </div>
 </template>
@@ -49,6 +51,7 @@ export default {
     rsd,
   },
   props:{
+    resume_id:{type:Number},
     resume_company : {type: String},
     resume_answer : {type: String},
     resume_question : {type: String},
@@ -83,18 +86,24 @@ export default {
       this.showmenu = value
       console.log(this.showmenu);
     },
-    move(){
-      window.scroll(0,100)
-    },
     opendetail(){
-      this.scrc = window.scrollY
       this.rsdt = true
+      this.scr_cur = window.scrollY
       this.$emit('opdt')
+      var a = document.querySelector('html')
+      a.style.overflowY="hidden"
+      console.log(this.resume_id);
     },
     closedetail(){
+      var a = document.querySelector('html')
+      a.style.overflowY="scroll"
       this.rsdt = false
       this.$emit('cldt')
-    }
+    },
+    reload(){
+      this.rsdt=false
+      this.$emit('del')
+    },
   }
 };
 </script>
@@ -119,7 +128,7 @@ export default {
   border: 2px solid #92a8d1;
   border-radius: 10px;
   font-size: 13px;
-  box-shadow: 3px 3px rgb(247, 202, 201);
+  // box-shadow: 3px 3px rgb(247, 202, 201);
   padding: 5%;
   background: white;
   &.full{
@@ -163,7 +172,7 @@ export default {
     position: absolute;
     }
 
-  & .question{
+  & #r_question{
     width: 90%;
     top: 39%;
     position: absolute;
@@ -174,7 +183,6 @@ export default {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-
   & .A{
     width: 90%;
     top: 56%;

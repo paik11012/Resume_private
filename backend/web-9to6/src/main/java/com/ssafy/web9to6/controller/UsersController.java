@@ -230,10 +230,16 @@ public class UsersController {
         }
     }
 
-    @ApiOperation("메일 보내기")
-    @GetMapping("/users/sendmail/{user_id}")
+    @ApiOperation("임시 비밀번호 메일 발송")
+    @GetMapping("/users/sendtmp/{user_id}")
     public void send(@PathVariable String user_id) throws Exception {
         emailService.sendSimpleMessage( usersService.findById(user_id));
+    }
+
+    @ApiOperation("회원가입 시 인증번호 메일 발송")
+    @GetMapping("/users/sendmail/{user_id}")
+    public String sendAuthencationMail(@PathVariable String user_id) throws Exception {
+       return emailService.sendAuthencationMail(user_id);
     }
 
     @ApiOperation("회원 관리자 권한 부여")

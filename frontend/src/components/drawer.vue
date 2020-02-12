@@ -18,7 +18,7 @@
           <a href="/info">
             <v-list-item>
               <v-list-item-action>
-                <v-icon>contact_mail</v-icon>
+                <v-icon>thumb_up</v-icon>
               </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>PROFILE</v-list-item-title>
@@ -28,7 +28,7 @@
           <a href="/resume">
             <v-list-item>
               <v-list-item-action>
-                <v-icon>contact_mail</v-icon>
+                <v-icon>edit</v-icon>
               </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>RESUMES</v-list-item-title>
@@ -38,7 +38,7 @@
           <a href="/interview">
             <v-list-item>
               <v-list-item-action>
-                <v-icon>contact_mail</v-icon>
+                <v-icon>email</v-icon>
               </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>INTERVIEWS</v-list-item-title>

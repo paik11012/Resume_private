@@ -10,9 +10,9 @@
     </div>
     <div class="col-xs-12 col-md-12 col-sm-12">
       <!-- 이름 전화번호 비밀번호 바꾸기 가능 -->
-      <p class="text-center">{{ user_name }}</p>
-      <p class="text-center">{{ user_phone }}</p>
-      <p class="text-center">RESUMES  {{ user_resume_number }} / INTERVIEWS {{ user_interview_number }}</p>
+      <p id="name" class="text-center">Name: {{ user_name }}</p>
+      <p id="name" class="text-center">Phone: {{ user_phone }}</p>
+      <p id="name" class="text-center">Resumes  {{ user_resume_number }}  /  Interviews {{ user_interview_number }}</p>
       <v-btn class="ma-2" tile outlined small color="black" id="infochange">
        <v-icon left>mdi-pencil</v-icon> Edit Info
       </v-btn>
@@ -35,8 +35,10 @@ export default {
   },
   mounted() {
       let id = sessionStorage.getItem("user_id")
+      console.log(id)
       axios.get(`http://70.12.247.99:8080/users/findOne/${id}`)
       .then(res => {
+        console.log(res)
         const userInfo = {
           user_id : res.data.user_id,
           user_phone : res.data.user_phone,
@@ -65,6 +67,10 @@ export default {
   }
   #infochange{
   margin-right: auto !important;
+  }
+  #name{
+   font-family: 'Jua';
+   font-size: 25px;
   }
 }
 
@@ -108,7 +114,7 @@ export default {
   font-size:42px;
 }
   .caption{
-    font-size:14px;
+    font-size:20px;
   }
   .caption:before{
     border:none;

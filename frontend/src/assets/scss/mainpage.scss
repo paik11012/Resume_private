@@ -126,14 +126,14 @@ a{
     }
   }
   @include breakpoint(md,up){
-    font-size: 22vh;
+    font-size: 20vh;
     &.signbtn{
       @include gradient_text(600, $main_degree, $main_gradient);
       text-align: right;
       &on{
         text-align: right;
         animation: fadein 1s;
-        font-weight: 600;
+        font-weight: 500;
         color:white;
         filter: blur(1px);
         left: 15%;

@@ -1,13 +1,13 @@
 <template>
-  <v-layout mt-5 wrap justify-space-around>
+  <v-layout mt-5 wrap justify-start>
     <v-flex
-      v-for="i in interview.length > lim ? lim : interview.length"
+      v-for="i in interview.length"
       :key="i"
       xs12
       sm12
       md6
-      lg4
-      xl3
+      lg6
+      xl6
     >
       <transition-group name="list">
         <Interview
@@ -15,7 +15,7 @@
           class="layout justify-center ma-3"
           v-if="sec >= i"
           :interview_company="interview[i - 1].interview_company"
-          :interview_myans="interview[i - 1].interview_myans"
+          :interview_answer="interview[i - 1].interview_answer"
           :editans="interview[i-1].editans"
           :interview_question="interview[i - 1].interview_question"
           :interview_task="interview[i - 1].interview_task"
@@ -87,6 +87,12 @@ export default {
     //   console.log(this.interview);
 
     // },
+  },
+  computed(){
+    if(this.update){
+      this.$emit('complete')
+      this.getInterview()
+    }
   }
 };
 </script>
@@ -95,4 +101,5 @@ export default {
   max-width: 700px;
   margin: auto;
 }
+
 </style>
