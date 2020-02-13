@@ -15,7 +15,7 @@
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
       <v-card>
         <v-card-title class="justify-center">
-          <span class="headline" style="margin-top:0px;">Write a Resume</span>
+          <span id="headline" style="margin-top:0px;">Write a Resume</span>
         </v-card-title>
         <v-card-text style="padding-bottom:0;">
           <v-container style="padding-bottom:0;">
@@ -82,21 +82,10 @@
   </v-row>
 </template>
     <v-container>
-      <!-- Portfolio -->
+      <!-- Resume -->
       <v-layout>
         <v-row class="mb-6">
-          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>신뢰</v-btn></v-col>
-          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>책임감</v-btn></v-col>
-          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>창의성</v-btn></v-col>
-          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>도전정신</v-btn></v-col>
-          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>혁신</v-btn></v-col>
-          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>열정</v-btn></v-col>
-          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>도덕성</v-btn></v-col>
-          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>가치창출</v-btn></v-col>
-          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>글로벌</v-btn></v-col>
-          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>협력</v-btn></v-col>
-          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>전문성</v-btn></v-col>
-          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>배려</v-btn></v-col>
+          <v-col v-for="tag in tags" lg="2" xs="3" md="2"><v-btn id="tag_button" style="width:70px" depressed @click="changeTag">{{tag.name}}</v-btn></v-col>
         </v-row>
       </v-layout>
       <v-layout>
@@ -138,6 +127,20 @@ export default {
       resumes: [],
       reload:false,
       filter_tag: [],
+      tags: [
+        {name: "신뢰", state: false},
+        {name: "책임감", state: false},
+        {name: "창의성", state: false},
+        {name: "도전정신", state: false},
+        {name: "혁신", state: false},
+        {name: "열정", state: false},
+        {name: "도덕성", state: false},
+        {name: "가치창출", state: false},
+        {name: "글로벌", state: false},
+        {name: "협력", state: false},
+        {name: "전문성", state: false},
+        {name: "배려", state: false},
+      ]
     };
   },
   methods: {
@@ -188,6 +191,9 @@ export default {
     console.log(this.filter_tag)
     
     }
+  },
+  computed() {
+
   }
 }
 </script>
@@ -212,14 +218,22 @@ export default {
 i{
   z-index: 22; 
 }
-v-btn:visited{
-  color:plum;
-  background-color: plum;
-}
+
 .mb-6{
   & v-btn & v-col {
     font-family: 'Jua';
     font-size: 15px;
   }
+}
+#tag_button{
+  color:white;
+  background-color: #92A8D1;
+  border: solid white 1px;
+  font-family: Jua;
+  font-size: 17px;
+}
+#headline{
+  font-family: 'Fredoka One', cursive;
+  font-size: 3vh; 
 }
 </style> 

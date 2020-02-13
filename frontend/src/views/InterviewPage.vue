@@ -15,7 +15,7 @@
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
       <v-card>
         <v-card-title class="justify-center">
-          <span class="headline" style="margin-top:20px;">면접후기 작성하기</span>
+          <span style="margin-top:20px;" id="headline">Write an Interview Note</span>
         </v-card-title>
         <v-card-text>
           <v-container>
