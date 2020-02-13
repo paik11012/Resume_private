@@ -31,8 +31,7 @@
               <img src id="imgtag" />
             </div>
           </td>
-
-          <td style="width:30%;" rowspan="3"><img style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/권응.jpg"/></td>
+          <td v-else style="width:30%;" rowspan="3"><img style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/권응.jpg"/></td>
           <td style="width:20%">병역구분</td>
           <td v-if="editing">{{ military_sort }}</td>
           <td v-else><input type="text" v-model="military_sort" placeholder="병역구분"></td>
@@ -51,7 +50,7 @@
         <tr>
           <td class="layout justify-center"><v-btn style="margin-top:6px;" color="success" outlined><v-icon dark>mdi-cloud-download</v-icon></v-btn></td>
           <td style="width:20%">메모</td>
-          <td v-if="editing">하하하</td>
+          <td v-if="editing">{{ memo }}</td>
           <td v-else><input type="text" v-model="memo" placeholder="메모"></td>
         </tr>
       </tbody>
@@ -98,7 +97,7 @@
         </tr>
         <tr>
           <td style="text-align:center;">메모</td>
-          <td v-if="editing" style="text-align:center;">하하하</td>
+          <td v-if="editing" style="text-align:center;">{{ memo }}</td>
           <td v-else><input style="text-align:center; width:100%;" type="text" v-model="memo" placeholder="메모"></td>
         </tr>
       </tbody>
@@ -107,16 +106,16 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { app } from "../services/FirebaseService";
 import firebase, { storage } from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
+import API from "../services/Api"
 export default {
   data(){
     return{
       editing:true,
-      memo:'',
+      'memo':'',
       'career_myPic':'',
       'military_class':'',
       'military_st_date':'',
@@ -132,13 +131,9 @@ export default {
       'military_class':this.military_class,
       'military_st_date':this.military_st_date,
       'military_sort':this.military_sort,
+      'memo' : this.memo
       }
-      const SERVER_IP = 'http://70.12.247.99:8080'
-      axios.post(SERVER_IP + '/careers/upload', career_info, 
-      {headers : {
-          'token' : window.sessionStorage.getItem("jwt-auth-token"),
-          'user_id': window.sessionStorage.getItem("user_id")}}
-      )
+      API.post('/careers/upload', career_info)
       .then(response => {
         console.log(response)
       })
@@ -187,20 +182,16 @@ export default {
         });
     }
   },
+    // 백에 넣은 데이터 가져오기
     mounted() {
-    const SERVER_IP = "http://70.12.247.99:8080";
-    axios
-      .get(SERVER_IP + "/careers/findOne", {
-        headers: {
-          token: window.sessionStorage.getItem("jwt-auth-token"),
-          user_id: window.sessionStorage.getItem("user_id")
-        }})
+    API.get("/careers/findOne")
       .then(response => {
         console.log(response);
         this.military_class = response.data.military_class
         this.military_st_date = response.data.military_st_date
         this.military_sort = response.data.military_sort
         this.career_myPic = response.data.career_myPic
+        this.memo = response.data.memo
       })
       .catch(error => {
         console.log(error);

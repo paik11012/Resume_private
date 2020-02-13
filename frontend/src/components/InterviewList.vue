@@ -15,7 +15,7 @@
           class="layout justify-center ma-3"
           v-if="sec >= i"
           :interview_company="interview[i - 1].interview_company"
-          :interview_myans="interview[i - 1].interview_myans"
+          :interview_answer="interview[i - 1].interview_answer"
           :editans="interview[i-1].editans"
           :interview_question="interview[i - 1].interview_question"
           :interview_task="interview[i - 1].interview_task"
@@ -28,7 +28,7 @@
 </template>
 <script>
 import Interview from "@/components/Interviews";
-import axios from 'axios'
+import API from "../services/Api"
 
 export default {
   name: "InterviewList",
@@ -51,13 +51,7 @@ export default {
   },
   methods: {
     getInterView: function() {
-      axios
-        .get("http://70.12.247.99:8080/interview", {
-          headers: {
-            token: window.sessionStorage.getItem("jwt-auth-token"),
-            user_id: window.sessionStorage.getItem("user_id")
-          }
-        })
+      API.get("/interview")
         .then(resopnse => {
           console.log(resopnse.data);
           this.interview = resopnse.data;
@@ -87,6 +81,12 @@ export default {
     //   console.log(this.interview);
 
     // },
+  },
+  computed(){
+    if(this.update){
+      this.$emit('complete')
+      this.getInterview()
+    }
   }
 };
 </script>
@@ -95,4 +95,5 @@ export default {
   max-width: 700px;
   margin: auto;
 }
+
 </style>

@@ -15,20 +15,20 @@
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
       <v-card>
         <v-card-title class="justify-center">
-          <span class="headline" style="margin-top:20px;">Write a Resume</span>
+          <span id="headline" style="margin-top:0px;">Write a Resume</span>
         </v-card-title>
-        <v-card-text>
-          <v-container>
-            <v-row justify="center">
-              <v-col cols="12" sm="2" md="2">
+        <v-card-text style="padding-bottom:0;">
+          <v-container style="padding-bottom:0;">
+            <v-row justify="center" >
+              <v-col cols="12" sm="2" md="2" style="padding-bottom:0; padding-top:0">
               <v-text-field v-model="resume_company" label="회사명" required
               ></v-text-field>
               </v-col>
-              <v-col cols="12" sm="2" md="2">
+              <v-col cols="12" sm="2" md="2" style="padding-bottom:0; padding-top:0">
               <v-text-field v-model="resume_task" label="직무" required
               ></v-text-field>
               </v-col>
-              <v-col cols="12" sm="3" md="3">
+              <v-col cols="12" sm="3" md="3" style="padding-bottom:0; padding-top:0">
               <v-text-field v-model="resume_date" label="지원시기" required
               ></v-text-field>
               </v-col>
@@ -36,7 +36,7 @@
             <div style="margin:0px;">
               <label>Tag</label>
             </div>
-            <v-row>
+            <v-row class="dig">
               <v-col cols="12" sm="3" md="3" style="padding-top:1px">
                 <v-checkbox v-model="tag_name" class="mx-2" value="신뢰" label="신뢰" hide-details></v-checkbox>
                 <v-checkbox v-model="tag_name" class="mx-2" value="혁신" label="혁신" hide-details></v-checkbox>
@@ -82,7 +82,12 @@
   </v-row>
 </template>
     <v-container>
-      <!-- Portfolio -->
+      <!-- Resume -->
+      <v-layout>
+        <v-row class="mb-6">
+          <v-col v-for="tag in tags" lg="2" xs="3" md="2"><v-btn id="tag_button" style="width:70px" depressed @click="changeTag">{{tag.name}}</v-btn></v-col>
+        </v-row>
+      </v-layout>
       <v-layout>
         <v-flex xs12>
           <ResumeList ref="updating" :load-more="true" @load="complete">
@@ -93,7 +98,7 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
+import API from "../services/Api"
 import ImgBanner from "../components/ImgBanner";
 import ResumeList from "../components/ResumeList";
 import Navbar from "../components/Navbar";
@@ -121,6 +126,21 @@ export default {
       tag_name: [],
       resumes: [],
       reload:false,
+      filter_tag: [],
+      tags: [
+        {name: "신뢰", state: false},
+        {name: "책임감", state: false},
+        {name: "창의성", state: false},
+        {name: "도전정신", state: false},
+        {name: "혁신", state: false},
+        {name: "열정", state: false},
+        {name: "도덕성", state: false},
+        {name: "가치창출", state: false},
+        {name: "글로벌", state: false},
+        {name: "협력", state: false},
+        {name: "전문성", state: false},
+        {name: "배려", state: false},
+      ]
     };
   },
   methods: {
@@ -149,23 +169,32 @@ export default {
           ) {
         return alert('태그와 지원시기 외 정보는 모두 입력해주세요')
       } else {
-        axios.post(
-        'http://70.12.247.99:8080/resume/save', 
-        r_data,
-        {headers : {
-          'token' : window.sessionStorage.getItem("jwt-auth-token"),
-          'user_id': window.sessionStorage.getItem("user_id")},})
+        API.post(
+        '/resume/save', r_data)
       .then(response=>{
         console.log(response.data)
         this.$refs.updating.getResume()
+        this.resume_company = null;
+        this.resume_task = null;
+        this.resume_question = null;
+        this.resume_answer = null;
+        this.resume_date = null;
+        this.tag_name = [];
         return this.dialog = false
       })
       .catch(error=>{
         console.log(error)
       })
     }
+  },
+  filterTag: function() {
+    console.log(this.filter_tag)
+    
+    }
+  },
+  computed() {
+
   }
-}
 }
 </script>
 <style lang="scss">
@@ -177,7 +206,7 @@ export default {
     z-index: 0;
   }
   & .v-input--selection-controls__ripple{
-    z-index: 1;
+    z-index: 3;
   }
 }
 .corner{
@@ -185,5 +214,26 @@ export default {
   right:30px;
   bottom:30px;
   z-index: 9999999999;
+}
+i{
+  z-index: 22; 
+}
+
+.mb-6{
+  & v-btn & v-col {
+    font-family: 'Jua';
+    font-size: 15px;
+  }
+}
+#tag_button{
+  color:white;
+  background-color: #92A8D1;
+  border: solid white 1px;
+  font-family: Jua;
+  font-size: 17px;
+}
+#headline{
+  font-family: 'Fredoka One', cursive;
+  font-size: 3vh; 
 }
 </style> 

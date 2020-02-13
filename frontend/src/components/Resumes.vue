@@ -8,7 +8,7 @@
     <div class="task">{{rs_tsk}}</div>
     <div class="date">{{resume_date}}</div>
     <div class="label Q">질문</div>
-    <div class="question">{{resume_question}}</div>
+    <div id="r_question">{{resume_question}}</div>
     <div class="label A">답변</div>
     <div class="answer">{{resume_answer}}</div>
     <div class="text_val">{{ resume_answer.length }}자</div>
@@ -128,7 +128,7 @@ export default {
   border: 2px solid #92a8d1;
   border-radius: 10px;
   font-size: 13px;
-  box-shadow: 3px 3px rgb(247, 202, 201);
+  // box-shadow: 3px 3px rgb(247, 202, 201);
   padding: 5%;
   background: white;
   &.full{
@@ -172,7 +172,7 @@ export default {
     position: absolute;
     }
 
-  & .question{
+  & #r_question{
     width: 90%;
     top: 39%;
     position: absolute;
@@ -183,7 +183,6 @@ export default {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-
   & .A{
     width: 90%;
     top: 56%;

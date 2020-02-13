@@ -29,8 +29,7 @@
 </template>
 <script>
 import Resume from "@/components/Resumes";
-import axios from 'axios'
-
+import API from "../services/Api"
 export default {
   name: "ResumeList",
   props: {
@@ -63,12 +62,9 @@ export default {
     //   console.log(this.resumes);
     // },
     getResume: function() {
-      axios.get('http://70.12.247.99:8080/resume',
-      {headers : {'token' : window.sessionStorage.getItem("jwt-auth-token"),
-      'user_id' : window.sessionStorage.getItem("user_id")}
-      })
+      API.get('/resume')
       .then(response => {
-        this.resumes = response.data
+        this.resumes = response.data 
         console.log(response.data)
         this.$emit("load")
         for (let i = 0; i < this.resumes.length; i++) {

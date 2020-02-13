@@ -34,13 +34,14 @@
 
 </template>
 <script>
-import axios from 'axios'
+import API from "../services/Api"
 import eduh from './EduHigh'
 import eduu from './EduUniv'
 export default {
   components:{
     eduh,eduu,
   },
+<<<<<<< HEAD
   methods:{
     pop(i){
       this.school.splice(i-1,1)
@@ -56,6 +57,11 @@ export default {
             token: window.sessionStorage.getItem("jwt-auth-token"),
             user_id: window.sessionStorage.getItem("user_id")
       }})
+=======
+  mounted() {
+      // const id = window.sessionStorage.getItem('user_id')
+      API.get(SERVER_IP + `/edu/findAll`)
+>>>>>>> 0b7c528d7c46dc4e8504749df5b21fb0c33125d2
       .then(response => {
         for (var [key,value] of Object.entries(response.data)){
           for (var [key1, value1] of Object.entries(value)){

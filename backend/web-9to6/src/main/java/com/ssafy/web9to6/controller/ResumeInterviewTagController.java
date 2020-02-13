@@ -61,7 +61,7 @@ public class ResumeInterviewTagController {
     public List<ResumeTagResponseDto> findAllResumeByTags(HttpServletRequest request, @PathVariable String keyword) {
         String user_id =  request.getHeader("user_id");
         List<ResumeTagResponseDto> map = new ArrayList<>();
-        List<Resume> list = rs.findAll(us.findById("te"));
+        List<Resume> list = rs.findAll(us.findById(user_id));
 
         label : for(int i=0;i<list.size();i++) {
             Resume resume = list.get(i);

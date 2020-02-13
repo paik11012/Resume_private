@@ -1,17 +1,7 @@
 <template>
-<div class="rsdetail">
+<div class="idetail">
   <div class="modalbox" @click="closing"></div>
-  <div class="modal" >
-  
-  <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark color="primary" >
-    <v-icon dark>edit</v-icon>
-  </v-btn>
-  <v-btn class="edit" v-on:click="editor" v-else small fab dark color="success" >
-    <v-icon dark>check</v-icon>
-  </v-btn>
-  <v-btn class="delete" v-on:click="destroy(resume_id)" small fab color="red" >
-    <v-icon color="white">delete</v-icon>
-  </v-btn>
+  <div class="modal">
   <div class="company">
     {{ com }}
   </div>
@@ -22,37 +12,23 @@
     {{ da }}
   </div>
   <br>
-
   <textarea readonly v-model="question" class="question" id=""></textarea>
-  <textarea readonly v-model="answer" class="answer" id="" cols="30" rows="10"></textarea>
-  <div class="text_val">
-    {{ tv }} 자
-
-  </div>
-  <div class="tags">
-    <v-btn sm class="tag" color="#92A8D1" v-for="i in tags.length" v-bind:key='i'>
-    {{ tags[i-1] }}
-    </v-btn>
-
-  </div>
+  <textarea readonly v-model="answer" class="answer" ></textarea>
+  <textarea readonly v-model="memo" class="memo"  cols="30" rows="10"></textarea>
 
   </div>
 </div>  
 </template>
 
 <script>
-
-import API from "../services/Api"
 export default {
   props:{
-    resume_id:{type:Number},
     company:{type:String},
     task:{type:String},
     date:{type:String},
     question:{type:String},
     answer:{type:String},
-    tags:{type:Array},
-    text_val:{type:Number},
+    memo:{type:String},
   },
   data(){
     return {
@@ -63,41 +39,19 @@ export default {
       da : this.date,
       que : this.question,
       ans : this.answer,
-      tag : this.tags,
-      tv : this.text_val,
+      mem: this.memo,
     }
   },
   methods:{
     closing(){
-      this.$emit('clsrsd')
-    },
-    editor(){
-      this.editing = !this.editing
-    },
-    destroy(){
-      API.delete(`/resume/del/${this.resume_id}`)
-      .then(response => {
-        this.resumes = response.data
-        console.log(response.data)
-        this.$emit("load")
-        for (let i = 0; i < this.resumes.length; i++) {
-        setTimeout(() => {
-          this.sec ++
-          console.log(this.sec);
-        }, 100*i);
-      }
-      })
-      .catch(error => {
-      console.log(error)
-      })
-    this.$emit('deleteresume')
+      this.$emit('clsid')
     }
   }
 }
 </script>
 
 <style lang="scss">
-.rsdetail{
+.idetail{
   position: relative;
   z-index: 1e9;
   & .modalbox{
@@ -106,22 +60,10 @@ export default {
     top:0;
     left: 0;
     position: fixed;
-    background: rgb(33, 33, 33);
-    opacity: 0.46;
+    background: gray;
+    opacity: 0.4;
   }
   & .modal{
-    & .edit{
-      position: absolute;
-      z-index: 1e9+2;
-      right: 8%;
-      top : 3%;
-    }
-    & .delete{
-      position: absolute;
-      z-index: 1e9+2;
-      right: 3%;
-      top : 3%;
-    }
     animation: bounce 0.3s;
     border-radius: 10px;  
     position: fixed;
@@ -129,7 +71,7 @@ export default {
     left: 15%;
     background: white;
     width: 70%;
-    height: 80%;
+    height:80%;
     overflow: hidden;
     & .company{
       overflow: hidden;
@@ -179,16 +121,15 @@ export default {
       font-size:14px;
       color:black;
       width: 90%;
-      outline-style: none;
-      top:38%;
+      top:35%;
       left:5%;
       overflow: auto;
-      height: 43%;
-      border: 1px solid #92A8D1;
+      height: 30%;
+      border: 1.5px solid rgb(247, 202, 201);
+      outline-style: none;
       border-radius: 5px;
       padding: 1%;
       // text-align: center;
-      
       }
     & .q{
       font-size: 4vw !important;
@@ -200,6 +141,21 @@ export default {
       left:3%;
       text-align: center;
     }
+    & .memo{
+      position: absolute;
+      font-size:14px;
+      color:black;
+      width: 90%;
+      top: 70%;
+      outline-style: none;
+      left:5%;
+      overflow: auto;
+      height: 25%;
+      border: 1.5px solid rgb(247, 202, 201);
+      border-radius: 5px;
+      padding: 1%;
+      // text-align: center;
+      }
     & .a{
       font-size: 4vw !important;
       
@@ -216,7 +172,6 @@ export default {
       position: absolute;
       right: 5%;
       bottom: 5%;
-      margin: 5px;
     }
     & .tag{
       color: white;
@@ -224,7 +179,7 @@ export default {
       width: 80px;
     }
     & .text_val{
-      font-size: 16px;
+      font-size: 13px;
       font-weight: 500;
       position: absolute;
       right:4%;
