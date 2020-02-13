@@ -82,7 +82,6 @@
   </v-row>
 </template>
     <v-container>
-<<<<<<< HEAD
       <!-- Portfolio -->
         <!-- <v-row cols="12" sm="4"> -->
           <v-row>
@@ -103,9 +102,6 @@
         <input type="button" value="검색">
         </v-row>
           <!-- </v-col> -->
-=======
-      <!-- Resume -->
->>>>>>> 78df8650f0b03a69b3f39ea420fa09d97ad42323
       <v-layout>
         <v-row class="mb-6">
           <v-col v-for="tag in tags" lg="2" xs="3" md="2"><v-btn id="tag_button" style="width:85px" depressed @click="changeTag">#{{tag.name}}</v-btn></v-col>
@@ -155,14 +151,12 @@ export default {
       resumes: [],
       reload:false,
       filter_tag: [],
-<<<<<<< HEAD
       items :["전체","회사명","내용"],
       value : "전체",
       option :"전체",
       	result : [],
 					condition : '',
-					word : ''
-=======
+					word : '',
       tags: [
         {name: "신뢰", state: false},
         {name: "책임감", state: false},
@@ -177,7 +171,6 @@ export default {
         {name: "전문성", state: false},
         {name: "배려", state: false},
       ]
->>>>>>> 78df8650f0b03a69b3f39ea420fa09d97ad42323
     };
   },
   methods: {
