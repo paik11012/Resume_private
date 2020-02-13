@@ -181,16 +181,9 @@ export default {
       user_password : '',
 
       // naver //
-<<<<<<< HEAD
       naver_client_id: 'oEALeUqtjER7Ufo5R8f7',
       naver_redirectURI: 'http://15.164.244.244:3000/',
       naverLoginUrl: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
-=======
-      client_id: 'oEALeUqtjER7Ufo5R8f7',
-      redirectURI: 'http://localhost:8080/',
-      state: 123,
-      naverLoginUrl: 'https://nid.naver.com/oauth2.0/authorize?response_type=code'
->>>>>>> temp
       // END: naver //
 
       // kakao //

@@ -66,6 +66,8 @@ import "firebase/firestore";
 import "firebase/storage";
 import router from '../router'
 
+import API from "../services/Api"
+
 export default {
   components: {
     LoginModal,
