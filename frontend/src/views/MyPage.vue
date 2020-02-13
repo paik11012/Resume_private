@@ -64,7 +64,10 @@ import edu from "@/components/EduList";
 import crecarde from "@/components/CreateCard";
 import axios from "axios";
 import awd from "../components/AwardList";
+<<<<<<< HEAD
 import crecarda from '../components/CreateCarda'
+=======
+>>>>>>> 4ca32ce36eb0b46ba3d330617c3c36977509d545
 export default {
   name: "HomePage",
   components: {

@@ -82,12 +82,36 @@
   </v-row>
 </template>
     <v-container>
-      <!-- Resume -->
+      <!-- Portfolio -->
+        <!-- <v-row cols="12" sm="4"> -->
+          <v-row>
+            <v-col cols="12" sm="4"> 
+            <v-select
+              v-model="value"
+              :items="items"
+              attach
+              chips
+              label="검색 조건"
+            ></v-select></v-col>
+             <v-col cols="12" sm="4"> 
+              <v-text-field
+          hide-details
+          prepend-icon="search"
+        ></v-text-field>
+        </v-col>
+        <input type="button" value="검색">
+        </v-row>
+          <!-- </v-col> -->
       <v-layout>
         <v-row class="mb-6">
           <v-col v-for="tag in tags" lg="2" xs="3" md="2"><v-btn id="tag_button" style="width:85px" depressed @click="changeTag">#{{tag.name}}</v-btn></v-col>
         </v-row>
+    
+    
+
       </v-layout>
+    
+
       <v-layout>
         <v-flex xs12>
           <ResumeList ref="updating" :load-more="true" @load="complete">
@@ -127,6 +151,12 @@ export default {
       resumes: [],
       reload:false,
       filter_tag: [],
+      items :["전체","회사명","내용"],
+      value : "전체",
+      option :"전체",
+      	result : [],
+					condition : '',
+					word : '',
       tags: [
         {name: "신뢰", state: false},
         {name: "책임감", state: false},
