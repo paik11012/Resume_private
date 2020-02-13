@@ -83,6 +83,25 @@
 </template>
     <v-container>
       <!-- Portfolio -->
+        <!-- <v-row cols="12" sm="4"> -->
+          <v-row>
+            <v-col cols="12" sm="4"> 
+            <v-select
+              v-model="value"
+              :items="items"
+              attach
+              chips
+              label="검색 조건"
+            ></v-select></v-col>
+             <v-col cols="12" sm="4"> 
+              <v-text-field
+          hide-details
+          prepend-icon="search"
+        ></v-text-field>
+        </v-col>
+        <input type="button" value="검색">
+        </v-row>
+          <!-- </v-col> -->
       <v-layout>
         <v-row class="mb-6">
           <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>신뢰</v-btn></v-col>
@@ -98,7 +117,12 @@
           <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>전문성</v-btn></v-col>
           <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>배려</v-btn></v-col>
         </v-row>
+    
+    
+
       </v-layout>
+    
+
       <v-layout>
         <v-flex xs12>
           <ResumeList ref="updating" :load-more="true" @load="complete">
@@ -138,6 +162,12 @@ export default {
       resumes: [],
       reload:false,
       filter_tag: [],
+      items :["전체","회사명","내용"],
+      value : "전체",
+      option :"전체",
+      	result : [],
+					condition : '',
+					word : ''
     };
   },
   methods: {
