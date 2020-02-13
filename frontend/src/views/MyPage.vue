@@ -16,17 +16,31 @@
             <transition name="bounce">
               <crecarde v-if="showcre" id="rcorners2" @create="upload"/>
             </transition>
+            <transition name="bounce">
+              <crecarda v-if="showcra" id="rcorners2" @createa="uploada"/>
+            </transition>
             <transition name="bounce_l">
               <edu v-if="showedu" ref="reload" />
             </transition>
             <transition name="bounce">
-              <awd v-if="showawd" id="rcorners2"/>
+              <awd v-if="showawd" ref="reawd"/>
             </transition>
 
             <v-btn
               class="insert"
               v-if="showedu"
               @click="create"
+              small
+              fab
+              dark
+              color="#F7CAC9"
+            >
+              <v-icon color="black">mdi-plus</v-icon>
+            </v-btn>
+            <v-btn
+              class="insert"
+              v-if="showawd"
+              @click="createa"
               small
               fab
               dark
@@ -47,13 +61,10 @@ import Navbar from "../components/Navbar";
 import { mapGetters } from "vuex";
 import myinfo from "@/components/MyInfo";
 import edu from "@/components/EduList";
-<<<<<<< HEAD
 import crecarde from "@/components/CreateCard";
 import axios from "axios";
 import awd from "../components/AwardList";
-=======
-import crecard from "@/components/CreateCard";
->>>>>>> 0b7c528d7c46dc4e8504749df5b21fb0c33125d2
+import crecarda from '../components/CreateCarda'
 export default {
   name: "HomePage",
   components: {
@@ -62,6 +73,7 @@ export default {
     edu,
     crecarde,
     awd,
+    crecarda,
   },
   methods: {
     getImgUrl(img) {
@@ -95,9 +107,17 @@ export default {
       this.showcre = !this.showcre;
       window.scroll(0,0)
     },
+    createa() {
+      this.showcra = !this.showcra;
+      window.scroll(0,0)
+    },
     upload(){
       this.$refs.reload.loadDt()
-      this.showcre = !this.showcre;
+      this.showcra = !this.showcra;
+    },
+    uploada(){
+      this.$refs.reawd.loadDt()
+      this.showcra = !this.showcra;
     }
   },
   data() {
@@ -106,6 +126,7 @@ export default {
       showme: false,
       showedu: false,
       showcre: false,
+      showcra:false,
       showawd: false,
     };
   },
