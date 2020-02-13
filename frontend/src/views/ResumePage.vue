@@ -84,6 +84,22 @@
     <v-container>
       <!-- Portfolio -->
       <v-layout>
+        <v-row class="mb-6">
+          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>신뢰</v-btn></v-col>
+          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>책임감</v-btn></v-col>
+          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>창의성</v-btn></v-col>
+          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>도전정신</v-btn></v-col>
+          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>혁신</v-btn></v-col>
+          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>열정</v-btn></v-col>
+          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>도덕성</v-btn></v-col>
+          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>가치창출</v-btn></v-col>
+          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>글로벌</v-btn></v-col>
+          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>협력</v-btn></v-col>
+          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>전문성</v-btn></v-col>
+          <v-col lg="2" xs="3" md="3"><v-btn v-model="filter_tag" style="width:70px" depressed>배려</v-btn></v-col>
+        </v-row>
+      </v-layout>
+      <v-layout>
         <v-flex xs12>
           <ResumeList ref="updating" :load-more="true" @load="complete">
           </ResumeList>
@@ -121,6 +137,7 @@ export default {
       tag_name: [],
       resumes: [],
       reload:false,
+      filter_tag: [],
     };
   },
   methods: {
@@ -166,8 +183,12 @@ export default {
         console.log(error)
       })
     }
+  },
+  filterTag: function() {
+    console.log(this.filter_tag)
+    
+    }
   }
-}
 }
 </script>
 <style lang="scss">
@@ -190,5 +211,15 @@ export default {
 }
 i{
   z-index: 22; 
+}
+v-btn:visited{
+  color:plum;
+  background-color: plum;
+}
+.mb-6{
+  & v-btn & v-col {
+    font-family: 'Jua';
+    font-size: 15px;
+  }
 }
 </style> 
