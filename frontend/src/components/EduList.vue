@@ -37,6 +37,7 @@
 import API from "../services/Api"
 import eduh from './EduHigh'
 import eduu from './EduUniv'
+import axios from 'axios'
 export default {
   components:{
     eduh,eduu,
@@ -78,7 +79,6 @@ export default {
             setTimeout(() => {
             this.sec ++
             console.log(this.sec);
-            
           }, 100*i);
         }
       })

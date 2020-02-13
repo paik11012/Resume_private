@@ -2,15 +2,16 @@
 <div>
     <v-flex v-for="i in awd.length" :key="i">
     <transition name="bounce">
-    <awd class="corners2"
-      :id="awd[i]"
-      :award_org="awd.award_org"
-      :award_title="awd.award_title"
-      :award_date="awd.award_date"
-      :award_prize="awd.award_prize"
-      :award_detail="awd.award_detail"
-
-    />
+      <awd class="corners2"
+        v-if="sec >= i & i-1 < awd.length "
+        :id="awd[i-1].id"
+        :award_org="awd[i-1].award_org"
+        :award_title="awd[i-1].award_title"
+        :award_date="awd[i-1].award_date"
+        :award_prize="awd[i-1].award_prize"
+        :award_detail="awd[i-1].award_detail"
+        @delete="pop(i)"
+      />
     </transition>
   </v-flex>
 </div>
@@ -25,7 +26,7 @@ export default {
   },
   methods:{
     pop(i){
-      this.school.splice(i-1,1)
+      this.awd.splice(i-1,1)
     },
     loadDt(){
       API.get(`/awards`)
@@ -45,6 +46,12 @@ export default {
           array.push(table)
         }
         this.awd = array
+        for(let i = 0; i < this.awd.length; i++){
+            setTimeout(() => {
+            this.sec ++
+            console.log(this.sec);
+          }, 100*i)
+      }
       })
       .catch(error => {
         console.log(error)
