@@ -81,7 +81,7 @@
           <div class="partition-form">
             <form autocomplete="false">
               <input v-model="user_id" type="text" id="id" placeholder="User ID" />
-              <input v-model="user_password" type="password" id="pw" placeholder="Password" />
+              <input v-model="user_password" type="password" id="pw" placeholder="Password" @keydown.enter="login({user_id, user_password})"/>
             </form>
 
             <div style="margin-top: 42px"></div>
@@ -115,7 +115,7 @@
           <div class="partition-form">
             <form autocomplete="false">
               <input v-model="user_id" id="id" type="text" placeholder="User ID" />
-              <input v-model="user_password" id="pw" type="password" placeholder="Password" />
+              <input v-model="user_password" id="pw" type="password" placeholder="Password" @keydown.enter="login({user_id, user_password})"/>
             </form>
 
             <div style="margin-top: 42px"></div>
