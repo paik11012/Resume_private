@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import API from "../services/Api"
+import axios from 'axios'
 export default {
   computed:{
     period:{
@@ -49,12 +49,12 @@ export default {
     }
   },
   props:{
-    education_id:{type:Number},
-    edu_school_name:{type:String},
-    edu_school_sort:{type:String}, // 1이 고등학교 2가 대학교 3이 대학원 4가 편입,
-    edu_school_st_date:{type:String},
-    edu_school_ed_date:{type:String},
-    asd:{type:Number}
+    id : {type:Number},
+    award_org : {type:String},
+    award_title : {type:String},
+    award_date : {type:String},
+    award_prize : {type:String},
+    award_detail : {type:String},
   },
   data(){
     return{
@@ -90,7 +90,11 @@ export default {
       }
       var e_data = { education: education }
       const SERVER_IP = 'http://70.12.247.99:8080'
-      API.post('/edu/upload', e_data)
+      axios.post(SERVER_IP + '/edu/upload', e_data,
+      {headers : {
+      'token' : window.sessionStorage.getItem("jwt-auth-token"),
+      'user_id': window.sessionStorage.getItem("user_id")}}
+      )
       .then(response => {
         console.log(response)
       })
@@ -105,16 +109,4 @@ export default {
 </script>
 
 <style lang="scss">
-.hold{
-  position: relative;
-}
-.edu_write{
-  position: absolute;
-  right: 5px;
-}
-.delkey{
-  position: absolute;
-  right: 55px;
-}
-
 </style>
