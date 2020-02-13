@@ -62,14 +62,9 @@ import { mapGetters } from "vuex";
 import myinfo from "@/components/MyInfo";
 import edu from "@/components/EduList";
 import crecarde from "@/components/CreateCard";
+import axios from "axios";
 import awd from "../components/AwardList";
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 import crecarda from '../components/CreateCarda'
-=======
->>>>>>> 4ca32ce36eb0b46ba3d330617c3c36977509d545
->>>>>>> b5d960900d66d159de5d9dc0361dcce321e9016f
 export default {
   name: "HomePage",
   components: {
@@ -140,7 +135,4 @@ export default {
 
 <style lang="scss">
 @import "@/assets/scss/mypage.scss";
-.title-item{
-  font-size:23px;
-}
 </style>
