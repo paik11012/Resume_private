@@ -182,13 +182,13 @@ export default {
 
       // naver //
       naver_client_id: 'oEALeUqtjER7Ufo5R8f7',
-      naver_redirectURI: 'http://15.164.244.244:3000/',
+      naver_redirectURI: 'http://localhost:8081/',
       naverLoginUrl: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
       // END: naver //
 
       // kakao //
       kakao_client_id: 'ae103391c8a497b8820341af6a961a77',
-      kakao_redirectURI: 'http://15.164.244.244:3000/',
+      kakao_redirectURI: 'http://localhost:8081/',
       kakaoLoginUrl: 'https://kauth.kakao.com/oauth/authorize?response_type=code',
       // END:kakao //
       state: 123,

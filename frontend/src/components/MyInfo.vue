@@ -6,7 +6,7 @@
           <th class="text-left" style="font-size:20px" colspan="2">My Info
           </th>
           <th>
-            <v-btn v-on:click="editor" v-if="editing" small fab dark color="cyan" id="write">
+            <v-btn v-on:click="edit" v-if="editing" small fab dark color="cyan" id="write">
               <v-icon dark>edit</v-icon>
             </v-btn>
             <v-btn v-else v-on:click="editor" small fab id="write" color="success">
@@ -19,7 +19,7 @@
 
         <!-- 사진 업로드하는 부분 -->
         <tr>
-          <td v-if="career_myPic == ''" style="width:30%;" rowspan="3">
+          <!-- <td v-if="career_myPic == ''" style="width:30%;" rowspan="3">
             <div id="testt">
               <input
                 type="file"
@@ -30,7 +30,7 @@
               <button @click="downloadImg">download</button>
               <img src id="imgtag" />
             </div>
-          </td>
+          </td> -->
 
           <td style="width:30%;" rowspan="3"><img style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/권응.jpg"/></td>
           <td style="width:20%">병역구분</td>
@@ -49,7 +49,8 @@
           <td v-else><input type="text" v-model="military_st_date" placeholder="복무기간"></td>
         </tr>
         <tr>
-          <td class="layout justify-center"><v-btn style="margin-top:6px;" color="success" outlined><v-icon dark>mdi-cloud-download</v-icon></v-btn></td>
+          <!-- <td class="layout justify-center"><v-btn style="margin-top:6px;" color="success" outlined><v-icon dark>mdi-cloud-download</v-icon></v-btn></td> -->
+          <td class="layout justify-center"><v-file-input v-model="selectedFile" accept="image/*" prepend-icon="mdi-cloud-download" height="1.8em"></v-file-input></td>
           <td style="width:20%">메모</td>
           <td v-if="editing">{{ memo }}</td>
           <td v-else><input type="text" v-model="memo" placeholder="메모"></td>
@@ -67,7 +68,7 @@
           <th class="text-left" style="font-size:20px" colspan="1">My Info
           </th>
           <th>
-            <v-btn v-on:click="editor" v-if="editing" small fab dark color="cyan" id="write">
+            <v-btn v-on:click="edit" v-if="editing" small fab dark color="cyan" id="write">
               <v-icon dark>edit</v-icon>
             </v-btn>
             <v-btn v-else v-on:click="editor" small fab id="write" color="success">
@@ -79,7 +80,8 @@
       <tbody>
         <tr>
           <td style="width:40%; text-align:center;">사진 URL</td>
-          <td class="layout justify-center"><v-btn style="margin-top:6px;" color="success" outlined><v-icon dark>mdi-cloud-download</v-icon></v-btn></td>
+          <!-- <td class="layout justify-center"><v-btn style="margin-top:6px;" color="success" outlined><v-icon dark>mdi-cloud-download</v-icon></v-btn></td> -->
+          <td class="layout justify-center"><v-file-input v-model="selectedFile" accept="image/*" prepend-icon="mdi-cloud-download" height="1.8em"></v-file-input></td>
         </tr>
         <tr>
           <td style="text-align:center;">병역구분</td>
@@ -111,21 +113,28 @@ import { app } from "../services/FirebaseService";
 import firebase, { storage } from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
+
 import API from "../services/Api"
+
 export default {
   data(){
     return{
       editing:true,
-      'memo':'',
-      'career_myPic':'',
-      'military_class':'',
-      'military_st_date':'',
-      'military_sort':'',
-      file: File,
-      uploadTask: ""
+      
+      career_myPic:'',
+      military_class:'',
+      military_st_date:'',
+      military_sort:'',
+      memo:'',
+      
+      selectedFile: '',
+      uploadTask: "",
     }
   },
   methods:{
+    edit(){
+      this.editing = !this.editing
+    },
     editor(){
       var career_info = {
       'career_myPic':this.career_myPic,
@@ -136,24 +145,16 @@ export default {
       }
       API.post('/careers/upload', career_info)
       .then(response => {
-        console.log(response)
+        this.career_myPic=response.data.career_myPic,
+        this.military_class=response.data.military_class,
+        this.military_st_date=response.data.military_st_date,
+        this.military_sort=response.data.military_sort,
+        this.memo=response.data.memo
       })
       .catch(error => {
         console.log(error)
       })
       this.editing = !this.editing
-    },
-    detectFiles(fileList) {
-      Array.from(Array(fileList.length).keys()).map(x => {
-        // console.log(fileList[x])
-        this.upload(fileList[x]);
-      });
-    },
-    upload(file) {
-      this.uploadTask = firebase
-        .storage(app)
-        .ref(file.name)
-        .put(file);
     },
 
     downloadImg() {
@@ -193,27 +194,25 @@ export default {
         this.military_sort = response.data.military_sort
         this.career_myPic = response.data.career_myPic
         this.memo = response.data.memo
+        console.log(response)
       })
       .catch(error => {
         console.log(error);
       });
   },
   watch: {
-    uploadTask: function() {
-      this.uploadTask.on(
-        "state_changed",
-        sp => {
-          this.progressUpload = Math.floor(
-            (sp.bytesTransferred / sp.totalBytes) * 100
-          );
-        },
-        null,
-        () => {
-          this.uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
-            this.$emit("url", downloadURL);
-          });
-        }
-      );
+    selectedFile: function(selectedFile) {
+      firebase
+      .storage(app)
+      .ref()
+      .child(sessionStorage.getItem('user_id') + '/' + selectedFile.name)
+      .put(selectedFile);
+
+      const data = { career_myPic: selectedFile.name}
+      API.post("/careers/uploadPic", data)
+      .then(response=>{
+        this.career_myPic = response.data.career_myPic
+      });
     }
   }
 }

@@ -28,7 +28,7 @@ public class Application implements WebMvcConfigurer {
         registry.addInterceptor(jwtInterceptor)
                 .addPathPatterns("/resume/**")
                 .addPathPatterns("/interview/**")
-                .addPathPatterns("/careers/**")
+//                .addPathPatterns("/careers/**")
                 .addPathPatterns("/edu/**")
                 .addPathPatterns("/exp/**")
                 .addPathPatterns("/lic/**")
