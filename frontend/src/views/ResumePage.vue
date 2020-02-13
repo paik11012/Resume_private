@@ -85,7 +85,7 @@
       <!-- Resume -->
       <v-layout>
         <v-row class="mb-6">
-          <v-col v-for="tag in tags" lg="2" xs="3" md="2"><v-btn id="tag_button" style="width:70px" depressed @click="changeTag">{{tag.name}}</v-btn></v-col>
+          <v-col v-for="tag in tags" lg="2" xs="3" md="2"><v-btn id="tag_button" style="width:85px" depressed @click="changeTag">#{{tag.name}}</v-btn></v-col>
         </v-row>
       </v-layout>
       <v-layout>
@@ -230,7 +230,7 @@ i{
   background-color: #92A8D1;
   border: solid white 1px;
   font-family: Jua;
-  font-size: 17px;
+  font-size: 16px;
 }
 #headline{
   font-family: 'Fredoka One', cursive;
