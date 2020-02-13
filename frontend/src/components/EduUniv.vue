@@ -94,12 +94,7 @@ export default {
   methods:{
     del(){
       console.log(this.education_id,"삭제예정")
-      const SERVER_IP = 'http://70.12.247.99:8080'
-      axios.delete(SERVER_IP + `/edu/deleteOne/${this.education_id}`,
-      {headers : {
-      'token' : window.sessionStorage.getItem("jwt-auth-token"),
-      'user_id': window.sessionStorage.getItem("user_id")}}
-      )
+      API.delete(`/edu/deleteOne/${this.education_id}`)
       .then(response => {
         console.log(response)
         this.$emit('delete')

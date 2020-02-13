@@ -47,13 +47,8 @@ import Navbar from "../components/Navbar";
 import { mapGetters } from "vuex";
 import myinfo from "@/components/MyInfo";
 import edu from "@/components/EduList";
-<<<<<<< HEAD
 import crecarde from "@/components/CreateCard";
-import axios from "axios";
 import awd from "../components/AwardList";
-=======
-import crecard from "@/components/CreateCard";
->>>>>>> 0b7c528d7c46dc4e8504749df5b21fb0c33125d2
 export default {
   name: "HomePage",
   components: {
@@ -114,4 +109,7 @@ export default {
 
 <style lang="scss">
 @import "@/assets/scss/mypage.scss";
+.title-item{
+  font-size:23px;
+}
 </style>

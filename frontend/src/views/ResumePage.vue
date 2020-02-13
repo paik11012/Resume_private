@@ -90,7 +90,7 @@
       </v-layout>
       <v-layout>
         <v-flex xs12>
-          <ResumeList ref="updating" :load-more="true" @load="complete">
+          <ResumeList ref="updating" @load="complete">
           </ResumeList>
         </v-flex>
       </v-layout>

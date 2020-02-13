@@ -17,8 +17,8 @@
 
 </template>
 <script>
-import axios from 'axios'
 import awd from './Award'
+import API from "../services/Api"
 export default {
   components:{
     awd
@@ -28,12 +28,7 @@ export default {
       this.school.splice(i-1,1)
     },
     loadDt(){
-      const SERVER_IP = 'http://70.12.247.99:8080'
-      axios.get(SERVER_IP + `/awards`, {
-      headers: {
-            token: window.sessionStorage.getItem("jwt-auth-token"),
-            user_id: window.sessionStorage.getItem("user_id")
-      }})
+      API.get(`/awards`)
       .then(response => {
         var array = []
         for(let i=0; i < response.data.length; i++){
