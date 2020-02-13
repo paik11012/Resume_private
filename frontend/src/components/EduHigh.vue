@@ -56,7 +56,6 @@ export default {
         'edu_school_ed_date': '',
       }
       var e_data = { education: education }
-      const SERVER_IP = 'http://70.12.247.99:8080'
       API.post('/edu/upload', e_data)
       .then(response => {
         console.log(response)
