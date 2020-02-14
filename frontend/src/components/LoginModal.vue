@@ -32,6 +32,30 @@
               connect with
               <span>kakao</span>
             </button>
+           <v-dialog v-model="dialog" persistent max-width="290">
+            <template v-slot:activator="{ on }">
+              <!-- <v-btn color="primary" dark v-on="on">Open Dialog</v-btn> -->
+                <button class="large-btn login-btn" v-on="on">
+                  <span>Find password</span>
+                </button>
+            </template>
+            <v-card>
+              <v-card-title class="headline indigo lighten-4">Find Password</v-card-title>
+                <v-col cols="12" sm="11">
+                    <v-text-field
+                      v-model="email"
+                      label="Email"
+                      outlined
+                      shaped
+                    ></v-text-field>
+                  </v-col>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="indigo lighten-2 darken-1" text @click="passwordFind">send</v-btn>
+                    <v-btn color="indigo lighten-2 darken-1" text @click="dialog = false">cancel</v-btn>
+                  </v-card-actions>
+            </v-card>
+          </v-dialog>
           </div>
         </div>
       </div>
@@ -68,6 +92,9 @@
               connect with
               <span>kakao</span>
             </button>
+             <button class="large-btn login-btn" @click="passwordFind">
+              <span>Find password</span>
+            </button>
           </div>
         </div>
       </div>
@@ -95,6 +122,9 @@
             <button class="large-btn facebook-btn" @click="loginKakao">
               connect with
               <span>kakao</span>
+            </button>
+             <button class="large-btn login-btn" @click="passwordFind">
+              <span>Find password</span>
             </button>
           </div>
         </div>
@@ -131,6 +161,9 @@
               connect with
               <span>kakao</span>
             </button>
+              <button class="large-btn login-btn" @click="passwordFind">
+              <span>Find password</span>
+            </button>
           </div>
         </div>
       </div>
@@ -140,7 +173,7 @@
 <script>
 import { mapActions } from 'vuex';
 import router from '../router'
-
+import API from "../services/Api";
 const MODAL_WIDTH = 656;
 
 export default {
@@ -192,7 +225,8 @@ export default {
       kakaoLoginUrl: 'https://kauth.kakao.com/oauth/authorize?response_type=code',
       // END:kakao //
       state: 123,
-
+      dialog: false,
+      email : null
     };
   },
   methods: {
@@ -203,6 +237,19 @@ export default {
     },
     loginKakao(){
       location.replace(this.kakaoLoginUrl)
+    },
+    passwordFind() {
+        console.log("heere")
+        API.get(`/users/sendtmp/${this.email}`)
+      .then(response=>{
+         this.dialog = false;
+         alert("임시 비밀번호를 이메일로 발송했습니다.")
+       
+      })
+      .catch(error=>{
+        if(error.response.data.message == "임시 비밀번호 발송 에러")
+            alert("인증 비밀번호 발송에 실패하였습니다.")
+      })
     }
   },
 };

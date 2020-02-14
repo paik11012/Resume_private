@@ -57,7 +57,8 @@ public class EmailService {
         message.setTo(id);
         message.setSubject("[취뽀냥이]회원가입 인증번호 발송");
         message.setText("안녕하세요 저희는 취뽀냥이 웹페이지 입니다 \n " +
-                "회원님의 인증번호는 [" + temp_pwd + "] 입니다. \n 회원가입을 축하드립니다. ♥♡♥♡");
+                "회원님의 인증번호는 [" + temp_pwd + "] 입니다. \n 회원가입을 축하드립니다. ♡ \n " +
+                "          ฅ^._.^ฅ       ");
         try {
             emailSender.send(message);
             return temp_pwd;
