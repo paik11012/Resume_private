@@ -23,7 +23,9 @@
     :question="interview_question"
     :answer="interview_answer"
     :memo="interview_memo"
+    :interview_id="interview_id"
     @clsid="closedetail"
+    @deleteinterview="reload"
    />
   </div>
 </template>
@@ -36,6 +38,7 @@ export default {
     InterviewDetail
   },
   props:{
+    interview_id:{type:Number},
     interview_company : {type: String},
     interview_answer : {type: String},
     editans:{type:String},
@@ -55,6 +58,7 @@ export default {
       i_dat: this.interview_date,
       i_mem: this.interview_memo,
       idt:false,
+      scrc:0,
     };
   },
     mounted(){
@@ -85,7 +89,11 @@ export default {
     closedetail(){
       this.idt = false
       this.$emit('cldt')
-    }
+    },
+    reload(){
+      this.idt=false
+      this.$emit('del')
+    },
   }
 
 };

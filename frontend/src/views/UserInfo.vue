@@ -1,5 +1,5 @@
 <template>
-<div class="container userinfo" >
+<div class="container userinfo">
   <div class="rowss">
     <div class="col-xs-12 col-md-12 col-sm-12">
       <div class="img-profile pulse">
@@ -89,7 +89,7 @@ export default {
 }
 
 .pulse{
-   box-shadow: 0 0 0 0 rgb(231, 231, 231);
+   box-shadow: 0 0 0 0 #92A8D1;
   -webkit-animation: pulse 1.5s infinite cubic-bezier(0.66, 0, 0, 1);
   -moz-animation: pulse 1.5s infinite cubic-bezier(0.66, 0, 0, 1);
   -ms-animation: pulse 1.5s infinite cubic-bezier(0.66, 0, 0, 1);

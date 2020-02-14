@@ -74,7 +74,6 @@
 </template>
 
 <script>
-import ImgBanner from "../components/ImgBanner";
 import InterviewList from "../components/InterviewList";
 import Navbar from "../components/Navbar";
 import FirebaseService from '@/services/FirebaseService';
