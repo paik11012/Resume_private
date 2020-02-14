@@ -104,8 +104,8 @@
           <!-- </v-col> -->
       <v-layout>
         <v-row class="mb-6">
-          <v-col v-for="i in tags.length" :key="i" lg="2" xs="3" md="2">
-            <v-btn id="tag_button" style="width:85px" :class="{nocheck: tags[i-1]['state'], check: !tags[i-1]['state']}" 
+          <v-col v-for="i in tags.length" :key="i" lg="2" xs="3" md="2" class="layout justify-center">
+            <v-btn id="tag_button"  style="width:85px" :class="{nocheck: tags[i-1]['state'], check: !tags[i-1]['state']}" 
             depressed @click="changeTag(i)">#{{tags[i-1]["name"]}}</v-btn></v-col>
         </v-row>
     
