@@ -62,13 +62,31 @@ export default new Vuex.Store({
                 user_password: signupObj.user_password
               }
               console.log(loginObj)
-            API.post('/users/signin', loginObj)
-            .then(res => {
-              console.log(res)
-              if (res.data.status) {
-                console.log(res.data)
-                storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
-                storage.setItem('user_id',res.data.data.user_id);
+              
+              API.post('/users/signin', loginObj)
+              .then(res => {
+                console.log(res)
+                if (res.data.status) {
+                  console.log(res.data)
+                  storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
+                  storage.setItem('user_id',res.data.data.user_id);
+                  setTimeout(() => {
+                    var career_info = {
+                      'career_myPic':'',
+                      'military_class':'',
+                      'military_st_date':'',
+                      'military_sort':'',
+                      'memo' : ''
+                      }
+                      console.log("dd")
+                      API.post('/careers/upload', career_info)
+                      .then(response => {
+                        console.log(response)
+                      })
+                      .catch(error => {
+                        console.log(error)
+                      })
+                  }, 500);
                 router.push('home')
               } else {
                 alert("입력 정보를 확인하세요")
@@ -78,6 +96,7 @@ export default new Vuex.Store({
               console.log(error)
               alert("로그인 정보를 확인하세요")
             })
+
           }, 500);
         })
         .catch((error) => {
@@ -86,7 +105,6 @@ export default new Vuex.Store({
         })
         }
     },
-
 
     login({state, commit, dispatch}, loginObj) {
       const storage = window.sessionStorage;
