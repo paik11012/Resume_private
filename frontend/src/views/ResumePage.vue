@@ -15,7 +15,7 @@
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
       <v-card>
         <v-card-title class="justify-center">
-          <span class="headline" style="margin-top:0px;">Write a Resume</span>
+          <span id="headline" style="margin-top:0px;">Write a Resume</span>
         </v-card-title>
         <v-card-text style="padding-bottom:0;">
           <v-container style="padding-bottom:0;">
@@ -83,9 +83,38 @@
 </template>
     <v-container>
       <!-- Portfolio -->
+        <!-- <v-row cols="12" sm="4"> -->
+          <v-row>
+            <v-col cols="12" sm="4"> 
+            <v-select
+              v-model="value"
+              :items="items"
+              attach
+              chips
+              label="검색 조건"
+            ></v-select></v-col>
+             <v-col cols="12" sm="4"> 
+              <v-text-field
+          hide-details
+          prepend-icon="search"
+        ></v-text-field>
+        </v-col>
+        <input type="button" value="검색">
+        </v-row>
+          <!-- </v-col> -->
+      <v-layout>
+        <v-row class="mb-6">
+          <v-col v-for="tag in tags" lg="2" xs="3" md="2"><v-btn id="tag_button" style="width:85px" depressed @click="changeTag">#{{tag.name}}</v-btn></v-col>
+        </v-row>
+    
+    
+
+      </v-layout>
+    
+
       <v-layout>
         <v-flex xs12>
-          <ResumeList ref="updating" :load-more="true" @load="complete">
+          <ResumeList ref="updating" @load="complete">
           </ResumeList>
         </v-flex>
       </v-layout>
@@ -121,6 +150,27 @@ export default {
       tag_name: [],
       resumes: [],
       reload:false,
+      filter_tag: [],
+      items :["전체","회사명","내용"],
+      value : "전체",
+      option :"전체",
+      	result : [],
+					condition : '',
+					word : '',
+      tags: [
+        {name: "신뢰", state: false},
+        {name: "책임감", state: false},
+        {name: "창의성", state: false},
+        {name: "도전정신", state: false},
+        {name: "혁신", state: false},
+        {name: "열정", state: false},
+        {name: "도덕성", state: false},
+        {name: "가치창출", state: false},
+        {name: "글로벌", state: false},
+        {name: "협력", state: false},
+        {name: "전문성", state: false},
+        {name: "배려", state: false},
+      ]
     };
   },
   methods: {
@@ -166,8 +216,15 @@ export default {
         console.log(error)
       })
     }
+  },
+  filterTag: function() {
+    console.log(this.filter_tag)
+    
+    }
+  },
+  computed() {
+
   }
-}
 }
 </script>
 <style lang="scss">
@@ -190,5 +247,23 @@ export default {
 }
 i{
   z-index: 22; 
+}
+
+.mb-6{
+  & v-btn & v-col {
+    font-family: 'Jua';
+    font-size: 15px;
+  }
+}
+#tag_button{
+  color:white;
+  background-color: #92A8D1;
+  border: solid white 1px;
+  font-family: Jua;
+  font-size: 16px;
+}
+#headline{
+  font-family: 'Fredoka One', cursive;
+  font-size: 3vh; 
 }
 </style> 

@@ -31,8 +31,7 @@
               <img src id="imgtag" />
             </div>
           </td>
-
-          <td style="width:30%;" rowspan="3"><img style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/권응.jpg"/></td>
+          <td v-else style="width:30%;" rowspan="3"><img style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/권응.jpg"/></td>
           <td style="width:20%">병역구분</td>
           <td v-if="editing">{{ military_sort }}</td>
           <td v-else><input type="text" v-model="military_sort" placeholder="병역구분"></td>

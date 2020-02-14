@@ -3,7 +3,7 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left" style="font-size:20px">HighSchool{{asd}}</th>
+          <th class="text-left" style="font-size:20px">{{award_title}}</th>
           <th class="layout hold">
             <v-btn @click="editor" v-if="editing" small fab dark color="cyan" class="edu_write">
               <v-icon>edit</v-icon>
@@ -19,14 +19,24 @@
       </thead>
       <tbody>
         <tr>
-          <td width="150px">고등학교</td>
-          <td v-if="editing">{{ edu_school_name }}</td>
-          <td v-else><input type="text" v-model="edu_school_name" placeholder="highschool name"></td>
+          <td width="150px">발급기관</td>
+          <td v-if="editing">{{ award_org }}</td>
+          <td v-else><input type="text" v-model="award_org" placeholder="highschool name"></td>
         </tr>
         <tr>
-          <td width="150px">재학기간</td>
-          <td v-if="editing">{{ period }}</td>
-          <td v-else><input type="text" v-model="period" placeholder="education period"></td>
+          <td width="150px">취득일자</td>
+          <td v-if="editing">{{ award_date }}</td>
+          <td v-else><input type="text" v-model="award_date" placeholder="education period"></td>
+        </tr>
+        <tr>
+          <td width="150px">등급</td>
+          <td v-if="editing">{{ award_prize }}</td>
+          <td v-else><input type="text" v-model="award_prize" placeholder="education period"></td>
+        </tr>
+        <tr>
+          <td width="150px">세부내용</td>
+          <td v-if="editing">{{ award_detail }}</td>
+          <td v-else><input type="text" v-model="award_detail" placeholder="education period"></td>
         </tr>
       </tbody>
     </template>
@@ -36,25 +46,17 @@
 <script>
 import API from "../services/Api"
 export default {
-  computed:{
-    period:{
-      get() {
-        return `${this.edu_school_st_date} ${this.edu_school_ed_date}`;
-      },
-      set(newValue) {
-        const m = newValue.match(/(\S*)\s+(.*)/);
-        this.edu_school_st_date = m[1];
-        this.edu_school_ed_date = m[2];
-      }
-    }
-  },
   props:{
-    education_id:{type:Number},
-    edu_school_name:{type:String},
-    edu_school_sort:{type:String}, // 1이 고등학교 2가 대학교 3이 대학원 4가 편입,
-    edu_school_st_date:{type:String},
-    edu_school_ed_date:{type:String},
-    asd:{type:Number}
+    id : {type:Number},
+    award_org : {type:String},
+    award_title : {type:String},
+    award_date : {type:String},
+    award_prize : {type:String},
+    award_detail : {type:String},
+  },
+  mounted(){
+    console.log(this.id);
+    console.log(this.award_org)
   },
   data(){
     return{
@@ -64,7 +66,11 @@ export default {
   methods:{
     del(){
       console.log(this.education_id,"삭제예정")
-      API.delete(`/edu/deleteOne/${this.education_id}`)
+      API.delete(`/awards/del/${this.id}`,
+      {headers : {
+      'token' : window.sessionStorage.getItem("jwt-auth-token"),
+      'user_id': window.sessionStorage.getItem("user_id")}}
+      )
       .then(response => {
         console.log(response)
         this.$emit('delete')
@@ -84,7 +90,11 @@ export default {
         'edu_school_ed_date': '',
       }
       var e_data = { education: education }
-      API.post('/edu/upload', e_data)
+      API.post('/edu/upload', e_data,
+      {headers : {
+      'token' : window.sessionStorage.getItem("jwt-auth-token"),
+      'user_id': window.sessionStorage.getItem("user_id")}}
+      )
       .then(response => {
         console.log(response)
       })
@@ -99,16 +109,4 @@ export default {
 </script>
 
 <style lang="scss">
-.hold{
-  position: relative;
-}
-.edu_write{
-  position: absolute;
-  right: 5px;
-}
-.delkey{
-  position: absolute;
-  right: 55px;
-}
-
 </style>

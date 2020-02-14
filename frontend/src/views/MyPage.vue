@@ -7,16 +7,25 @@
             <v-layout justify-space-around="true" class="titlebox">
               <div class="title-item" @click="myinfo">My info</div>
               <div class="title-item" @click="myedu">Education</div>
+              <div class="title-item" @click="myaward">Award</div>
+
             </v-layout>
             <transition name="bounce">
               <myinfo id="rcorners2" v-if="showme" />
             </transition>
-            <transition name="bounce_l">
-              <edu v-if="showedu" />
+            <transition name="bounce">
+              <crecarde v-if="showcre" id="rcorners2" @create="upload"/>
             </transition>
             <transition name="bounce">
-              <crecard v-if="showcre" id="rcorners2" />
+              <crecarda v-if="showcra" id="rcorners2" @createa="uploada"/>
             </transition>
+            <transition name="bounce_l">
+              <edu v-if="showedu" ref="reload" />
+            </transition>
+            <transition name="bounce">
+              <awd v-if="showawd" ref="reawd"/>
+            </transition>
+
             <v-btn
               class="insert"
               v-if="showedu"
@@ -25,7 +34,17 @@
               fab
               dark
               color="#F7CAC9"
-              id="write"
+            >
+              <v-icon color="black">mdi-plus</v-icon>
+            </v-btn>
+            <v-btn
+              class="insert"
+              v-if="showawd"
+              @click="createa"
+              small
+              fab
+              dark
+              color="#F7CAC9"
             >
               <v-icon color="black">mdi-plus</v-icon>
             </v-btn>
@@ -42,14 +61,19 @@ import Navbar from "../components/Navbar";
 import { mapGetters } from "vuex";
 import myinfo from "@/components/MyInfo";
 import edu from "@/components/EduList";
-import crecard from "@/components/CreateCard";
+import crecarde from "@/components/CreateCard";
+import axios from "axios";
+import awd from "../components/AwardList";
+import crecarda from '../components/CreateCarda'
 export default {
   name: "HomePage",
   components: {
     Navbar,
     myinfo,
     edu,
-    crecard
+    crecarde,
+    awd,
+    crecarda,
   },
   methods: {
     getImgUrl(img) {
@@ -58,18 +82,42 @@ export default {
     myinfo() {
       this.showedu = false;
       this.showcre = false;
+      this.showawd = false;
       setTimeout(() => {
         this.showme = !this.showme;
       }, 300);
     },
     myedu() {
+      this.showcre = false;
+      this.showawd = false;
       this.showme = false;
       setTimeout(() => {
         this.showedu = !this.showedu;
       }, 300);
     },
+    myaward(){
+      this.showedu = false;
+      this.showcre = false;
+      this.showme = false;
+      setTimeout(() => {
+        this.showawd = !this.showawd
+      }, 300);
+    },
     create() {
       this.showcre = !this.showcre;
+      window.scroll(0,0)
+    },
+    createa() {
+      this.showcra = !this.showcra;
+      window.scroll(0,0)
+    },
+    upload(){
+      this.$refs.reload.loadDt()
+      this.showcra = !this.showcra;
+    },
+    uploada(){
+      this.$refs.reawd.loadDt()
+      this.showcra = !this.showcra;
     }
   },
   data() {
@@ -77,7 +125,9 @@ export default {
       drawer: null,
       showme: false,
       showedu: false,
-      showcre: false
+      showcre: false,
+      showcra:false,
+      showawd: false,
     };
   },
 };

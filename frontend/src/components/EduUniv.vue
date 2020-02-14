@@ -3,13 +3,16 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left" style="font-size:20px">{{sch_name}}</th>
-          <th class="layout justify-end">
-            <v-btn v-on:click="editor" v-if="editing" small fab dark color="cyan" id="write">
+          <th class="text-left" style="font-size:20px">{{sch_name}}{{asd}}</th>
+          <th class="layout hold">
+            <v-btn v-on:click="editor" v-if="editing" small fab dark color="cyan" class="edu_write">
               <v-icon dark>edit</v-icon>
             </v-btn>
-            <v-btn v-else v-on:click="addEduUniv" small fab id="write" color="success">
+            <v-btn v-else v-on:click="addEduUniv" small fab class="edu_write" color="success">
               <v-icon>check</v-icon>
+            </v-btn>
+            <v-btn @click="del" v-if="editing" small fab dark color="red" class="delkey">
+              <v-icon dark>delete</v-icon>
             </v-btn>
           </th>
         </tr>
@@ -61,7 +64,6 @@ export default {
     }
   },
   mounted(){
-    console.log(typeof(this.edu_school_sort));
     if(this.edu_school_sort == 2){
       this.sch_name = 'University'
     } else if(this.edu_school_sort == 3){
@@ -69,17 +71,9 @@ export default {
     } else if(this.edu_school_sort==4){
       this.sch_name = 'GradSchool'
     }
-    console.log(this.edu_school_sort, 
-      this.edu_school_name,
-      this.edu_school_st_date,
-      this.edu_school_ed_date,
-      this.edu_detail_major_sort,
-      this.edu_detail_grade,
-      this.edu_detail_credit,
-      this.edu_detail_id);
-    
   },
   props:{
+    education_id:{type:Number},
     edu_school_sort:{type:String}, // 1이 고등학교 2가 대학교 3이 대학원 4가 편입
     edu_school_name:{type:String},
     edu_school_st_date:{type:String},
@@ -87,7 +81,8 @@ export default {
     edu_detail_major_sort:{type:String},
     edu_detail_grade:{type:Number},
     edu_detail_credit:{type:Number},
-    edu_detail_id:{type:Number}
+    edu_detail_id:{type:Number},
+    asd:{type:Number}
   },
       
   data(){
@@ -97,6 +92,17 @@ export default {
     }
   },
   methods:{
+    del(){
+      console.log(this.education_id,"삭제예정")
+      API.delete(`/edu/deleteOne/${this.education_id}`)
+      .then(response => {
+        console.log(response)
+        this.$emit('delete')
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    },
     editor(){
       this.editing = !this.editing
     },
