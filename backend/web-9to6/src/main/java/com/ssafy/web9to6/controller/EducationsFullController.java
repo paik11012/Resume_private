@@ -45,8 +45,9 @@ public class EducationsFullController {
                 .edu_school_st_date((String) map_edu.get("edu_school_st_date"))
                 .edu_school_ed_date((String) map_edu.get("edu_school_ed_date"))
                 .build();
-        if(map_edu.get("edu_id")!=null) education.setEdu_id(Long.valueOf((String) map_edu.get("edu_id")));
+        if(map_edu.get("edu_id")!=null) education.setEdu_id(Long.parseLong((String) map_edu.get("edu_id")));
 
+        
         boolean edu_det_save = false;
         Map map_edu_detail = (Map) requestDto.get("education_detail");
         EducationDetails educationDetails = new EducationDetails();

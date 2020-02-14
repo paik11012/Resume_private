@@ -13,7 +13,8 @@
 
           <div class="partition-form">
             <form autocomplete="false">
-              <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email">
+              <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
+              <input type="text" :placeholder="message">
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -158,7 +159,21 @@ export default {
       set(value) {
         this.$emit("input", value);
       }
+    },
+
+    // 이메일 형식 체크 //
+    emailValidation() {
+      let re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+        if(!re.test(this.user_id)){
+          this.message = "이메일 형식이 올바르지 않습니다."
+          return false;
+        }
+        else {
+          this.message = "올바른 이메일 형식입니다."
+          return true;
+        }
     }
+    // END: 이메일 형식 체크 //
   },
   data() {
     return {
@@ -180,6 +195,9 @@ export default {
       user_email: null,
       user_phone:null,
       storeData: 'Yes',
+
+      // 이메일 형식 체크 메세지 //
+      message: '',
     }; 
   },
   methods: {

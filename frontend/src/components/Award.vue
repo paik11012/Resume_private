@@ -66,7 +66,7 @@ export default {
   methods:{
     del(){
       console.log(this.education_id,"삭제예정")
-      API.delete(`/edu/deleteOne/${this.education_id}`,
+      API.delete(`/awards/del/${this.id}`,
       {headers : {
       'token' : window.sessionStorage.getItem("jwt-auth-token"),
       'user_id': window.sessionStorage.getItem("user_id")}}
