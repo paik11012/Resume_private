@@ -213,6 +213,16 @@ export default {
     submitted() {
       this.isSubmitted = true;
     },
+    sendMail() {
+        API.GET('/users/sendmail/${this.user_id}')
+      .then(response=>{
+        console.log(response.data)
+      })
+      .catch(error=>{
+        console.log(error)
+      })
+
+    },
     ...mapActions(["signup"]),
   },                        
 }
