@@ -33,3 +33,4 @@ out/
 .vscode/
 
 config.properties
+src/main/resources/T02A409.pem
