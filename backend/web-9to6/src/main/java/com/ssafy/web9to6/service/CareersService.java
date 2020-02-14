@@ -32,6 +32,7 @@ public class CareersService {
         career.setMilitary_st_date(new_career.getMilitary_st_date());
         career.setMilitary_ed_date(new_career.getMilitary_ed_date());
         career.setMilitary_class(new_career.getMilitary_class());
+        career.setMemo(new_career.getMemo());
 
         return careersRepository.save(career);
     }

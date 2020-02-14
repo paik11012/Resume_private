@@ -60,11 +60,9 @@
 import LoginModal from "../components/LoginModal.vue";
 import SignupModal from "../components/SignupModal.vue";
 
-import { app } from "../services/FirebaseService";
-import firebase, { storage } from "firebase/app";
-import "firebase/firestore";
-import "firebase/storage";
 import router from '../router'
+
+import API from "../services/Api"
 
 export default {
   components: {
@@ -94,16 +92,27 @@ export default {
     var this_url = window.location.href
     var code = this_url.split('code=');
     var state = this_url.split('state=');
-    if (code.length > 1 & state.length > 1){
-      var codes = code[1].split('&')
-      const n_data= {
-      ncode : codes[0],         
-      nstate : state[1]
+    if (code.length > 1){  // naver (code: O, state: O)
+      var n_data = {}
+      const axio_url = "/users/loginSocial"
+      if(state.length > 1) {
+        var codes = code[1].split('&')
+        n_data= { 
+          ncode : codes[0], 
+          nstate : state[1]
+        }
       }
+      else{ // kakako (code: O, state: X)
+        n_data= { 
+          ncode : code[1]
+        }
+        axio_url = "/users/loginSocial"
+      }
+
       const storage = window.sessionStorage
       window.sessionStorage.setItem("jwt-auth-token", "");
 
-      API.post("/users/loginNaver", n_data)
+      API.post(axio_url, n_data)
       .then(res => {
           if(res.data.status) {
               alert('로그인이 성공적으로 이루어졌습니다')
@@ -120,8 +129,6 @@ export default {
           alert('입력 정보를 확인해주세요')
       })
     }
-  
-
 
     if (document.body.offsetWidth < 480) {
       this.phone = true;
@@ -169,64 +176,8 @@ export default {
       }, 100);
       this.backon = false;
     },
-
-    detectFiles(fileList) {
-      Array.from(Array(fileList.length).keys()).map(x => {
-        // console.log(fileList[x])
-        this.upload(fileList[x]);
-      });
-    },
-    upload(file) {
-      this.uploadTask = firebase
-        .storage(app)
-        .ref(file.name)
-        .put(file);
-    },
-
-    downloadImg() {
-      var storage = firebase.storage();
-      var storageRef = firebase.storage().ref();
-
-      var gsReference = storage.refFromURL(
-        "gs://web-9to6.appspot.com/벼리.jpg"
-      );
-      storageRef
-        .child("벼리.jpg")
-        .getDownloadURL()
-        .then(function(url) {
-          var xhr = new XMLHttpRequest();
-          xhr.open("GET", url);
-
-          xhr.responseType = "blob";
-          xhr.onload = function(event) {
-            var blob = xhr.response;
-            console.log(xhr);
-            var link = document.createElement("a");
-            link.href = window.URL.createObjectURL(blob);
-            link.download = blob;
-            link.click();
-          };
-          xhr.send();
-        });
-    }
   },
   watch: {
-    uploadTask: function() {
-      this.uploadTask.on(
-        "state_changed",
-        sp => {
-          this.progressUpload = Math.floor(
-            (sp.bytesTransferred / sp.totalBytes) * 100
-          );
-        },
-        null,
-        () => {
-          this.uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
-            this.$emit("url", downloadURL);
-          });
-        }
-      );
-    }
   }
 };
 </script>

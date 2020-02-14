@@ -25,7 +25,7 @@ public class EmailService {
         message.setTo(user.getUser_id());
         message.setSubject("[취뽀냥이]" + user.getUser_name() + " 임시 비밀번호 발송");
         message.setText("안녕하세요 저희는 취뽀냥이 웹페이지 입니다 \n " +
-                "회원님의 임시비밀번호는 " + temp_pwd + " 입니다. \n 저희 사이트 많은 이용바랄게요♥♡♥♡");
+                "회원님의 임시비밀번호는 [" + temp_pwd + "] 입니다. \n 저희 사이트 많은 이용바랄게요♥♡♥♡");
        try {
            emailSender.send(message);
            UsersResponseDto urd = new UsersResponseDto(user.getUser_password(),user.getUser_name(),user.getUser_phone());
@@ -48,5 +48,22 @@ public class EmailService {
         }
 
         return sb.toString();
+    }
+
+    public String sendAuthencationMail(String id) throws Exception {
+        SimpleMailMessage message = new SimpleMailMessage();
+        String temp_pwd =  getRamdomPassword();
+        System.out.println(temp_pwd);
+        message.setTo(id);
+        message.setSubject("[취뽀냥이]회원가입 인증번호 발송");
+        message.setText("안녕하세요 저희는 취뽀냥이 웹페이지 입니다 \n " +
+                "회원님의 인증번호는 [" + temp_pwd + "] 입니다. \n 회원가입을 축하드립니다. ♥♡♥♡");
+        try {
+            emailSender.send(message);
+            return temp_pwd;
+        } catch (Exception e) {
+            throw new Exception("인증 번호 발송 에러");
+        }
+
     }
 }

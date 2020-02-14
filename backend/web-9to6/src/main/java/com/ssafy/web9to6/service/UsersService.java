@@ -84,14 +84,24 @@ public class UsersService {
     }
 
     @Transactional
-    public String getUserInfo(String access_token) {
+    public String getUserInfo(String access_token, String state) {
         String header = "Bearer " + access_token;
+        String apiURL = "";
+        String method = "";
+
+        if(state != null) {
+            apiURL = "https://openapi.naver.com/v1/nid/me";
+            method = "GET";
+        }
+        else {
+            apiURL = "https://kapi.kakao.com/v2/user/me";
+            method = "POST";
+        }
 
         try {
-            String apiURL = "https://openapi.naver.com/v1/nid/me";
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
-            con.setRequestMethod("GET");
+            con.setRequestMethod(method);
             con.setRequestProperty("Authorization", header);
             int responseCode = con.getResponseCode();
             BufferedReader br;
@@ -113,5 +123,27 @@ public class UsersService {
             System.err.println(e);
             return "Err";
         }
+    }
+
+    @Transactional
+    public String setNaverUrl(String client_secret, String code, String state) {
+        String apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code";
+        apiURL += "&client_id=" + "oEALeUqtjER7Ufo5R8f7";
+        apiURL += "&client_secret=" + client_secret;
+        apiURL += "&code=" + code;
+        apiURL += "&state=" + state;
+
+        return apiURL;
+    }
+
+    @Transactional
+    public String setKakaoUrl(String code) {
+        String apiURL = "";
+        apiURL += "grant_type=authorization_code";
+        apiURL += "&client_id=" + "ae103391c8a497b8820341af6a961a77";
+        apiURL += "&redirect_uri=http://15.164.244.244:3000/";
+        apiURL += "&code="+code;
+
+        return apiURL;
     }
 }

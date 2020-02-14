@@ -5,7 +5,9 @@ import io.jsonwebtoken.*;
 import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.Map;
 
@@ -59,4 +61,16 @@ public class JwtService {
             log.trace("claims:{}", claims);
             return claims.getBody();
         }
+
+    @Transactional
+    public HttpServletResponse setHeaders(HttpServletResponse response, String token) {
+            response.setHeader("jwt-auth-token", token);
+            response.setHeader("Access-Control-Allow-Origin","*");
+            response.setHeader("Access-Control-Allow-Headers","Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
+            response.setHeader("Access-Control-Max-Age","3600 ");
+            response.setHeader("Access-Control-Allow-Methods","*");
+            response.setHeader("Access-Control-Expose-Headers","jwt-auth-token");
+
+            return response;
     }
+}

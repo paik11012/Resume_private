@@ -25,8 +25,8 @@
         </tr>
         <tr>
           <td width="150px">재학기간</td>
-          <td v-if="editing">{{ period }}</td>
-          <td v-else><input type="text" v-model="period" placeholder="education period"></td>
+          <td v-if="editing">{{ edu_school_st_date }}</td>
+          <td v-else><input type="text" v-model="edu_school_st_date" placeholder="education period"></td>
         </tr>
       </tbody>
     </template>
@@ -78,12 +78,14 @@ export default {
     },
     addEduHigh() {
       var education = {
-        'edu_school_sort': '고등학교',
+        'edu_id': String(this.education_id),
+        'edu_school_sort': this.edu_school_sort,
         'edu_school_name': this.edu_school_name,
         'edu_school_st_date': this.edu_school_st_date,
         'edu_school_ed_date': '',
       }
       var e_data = { education: education }
+      console.log(e_data)
       API.post('/edu/upload', e_data)
       .then(response => {
         console.log(response)

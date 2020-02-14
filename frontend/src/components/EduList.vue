@@ -37,7 +37,6 @@
 import API from "../services/Api"
 import eduh from './EduHigh'
 import eduu from './EduUniv'
-import axios from 'axios'
 export default {
   components:{
     eduh,eduu,
@@ -56,7 +55,6 @@ export default {
         for (var [key,value] of Object.entries(response.data)){
           for (var [key1, value1] of Object.entries(value)){
             console.log(value1);
-            
             this.education_id = value1[0]["education"]["education_id"]
             this.edu_school_name = value1[0]["education"]["edu_school_name"]
             this.edu_school_st_date = value1[0]["education"]["edu_school_st_date"]
@@ -74,7 +72,6 @@ export default {
           }
         }
         this.school = this.high.concat(this.univ)
-        
           for(let i = 0; i < this.school.length; i++){
             setTimeout(() => {
             this.sec ++

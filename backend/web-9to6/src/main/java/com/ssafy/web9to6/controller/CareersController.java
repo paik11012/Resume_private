@@ -45,4 +45,14 @@ public class CareersController {
         Users user = usersService.findById(user_id);
         return careersService.findByUser(user);
     }
+
+    @ApiOperation("회원 사진 등록/수정")
+    @PostMapping("/careers/uploadPic")
+    public Careers uploadPicCareer(HttpServletRequest request, @RequestBody CareersResponseDto requestDto){
+        String user_id = request.getHeader("user_id");
+        Users user = usersService.findById(user_id);
+        Careers career = careersService.findByUser(user);
+        career.setCareer_myPic(requestDto.getCareer_myPic());
+        return careersService.save(career);
+    }
 }
