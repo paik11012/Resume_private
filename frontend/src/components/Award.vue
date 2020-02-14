@@ -3,7 +3,8 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left" style="font-size:20px">{{award_title}}</th>
+          <th colspan="2" v-if="editing" style="font-size:20px">{{award_title}}</th>
+          <th v-else style="font-size:20px" colspan="2"><input type="text" style="width:40%" v-model="award_title"></th>
           <th class="layout hold">
             <v-btn @click="editor" v-if="editing" small fab dark color="cyan" class="edu_write">
               <v-icon>edit</v-icon>
@@ -20,23 +21,23 @@
       <tbody>
         <tr>
           <td width="150px">발급기관</td>
-          <td v-if="editing">{{ award_org }}</td>
-          <td v-else><input type="text" v-model="award_org" placeholder="highschool name"></td>
+          <td v-if="editing" colspan="2">{{ award_org }}</td>
+          <td v-else colspan="2"><input type="text" v-model="award_org" ></td>
         </tr>
         <tr>
           <td width="150px">취득일자</td>
-          <td v-if="editing">{{ award_date }}</td>
-          <td v-else><input type="text" v-model="award_date" placeholder="education period"></td>
+          <td v-if="editing" colspan="2">{{ award_date }}</td>
+          <td v-else colspan="2"><input type="text" v-model="award_date"></td>
         </tr>
         <tr>
           <td width="150px">등급</td>
-          <td v-if="editing">{{ award_prize }}</td>
-          <td v-else><input type="text" v-model="award_prize" placeholder="education period"></td>
+          <td v-if="editing" colspan="2">{{ award_prize }}</td>
+          <td v-else colspan="2"><input type="text" v-model="award_prize"></td>
         </tr>
         <tr>
           <td width="150px">세부내용</td>
-          <td v-if="editing">{{ award_detail }}</td>
-          <td v-else><input type="text" v-model="award_detail" placeholder="education period"></td>
+          <td v-if="editing" colspan="2">{{ award_detail }}</td>
+          <td v-else colspan="2"><input type="text" v-model="award_detail" placeholder="education period"></td>
         </tr>
       </tbody>
     </template>

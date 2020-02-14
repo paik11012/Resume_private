@@ -7,7 +7,7 @@
             <v-layout justify-space-around="true" class="titlebox">
               <div class="title-item" @click="myinfo">My info</div>
               <div class="title-item" @click="myedu">Education</div>
-              <div class="title-item" @click="myaward">Award</div>
+              <div class="title-item" @click="myaward">Licence</div>
 
             </v-layout>
             <transition name="bounce">
@@ -116,7 +116,7 @@ export default {
     },
     upload(){
       this.$refs.reload.loadDt()
-      this.showcra = !this.showcra;
+      this.showcre = !this.showcre;
     },
     uploada(){
       this.$refs.reawd.loadDt()

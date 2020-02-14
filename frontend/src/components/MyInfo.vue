@@ -3,7 +3,7 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left" style="font-size:20px" colspan="2">My Info
+          <th style="font-size:20px" colspan="2">My Info
           </th>
           <th>
             <v-btn v-on:click="edit" v-if="editing" small fab dark color="cyan" id="write">
@@ -16,23 +16,8 @@
         </tr>
       </thead>
       <tbody>
-
-        <!-- 사진 업로드하는 부분 -->
         <tr>
-          <!-- <td v-if="career_myPic == ''" style="width:30%;" rowspan="3">
-            <div id="testt">
-              <input
-                type="file"
-                multiple
-                accept="image/jpeg"
-                @change="detectFiles($event.target.files)"
-              />
-              <button @click="downloadImg">download</button>
-              <img src id="imgtag" />
-            </div>
-          </td> -->
-
-          <td style="width:30%;" rowspan="3"><img style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/권응.jpg"/></td>
+          <td style="width:30%;" rowspan="3"><img id="myp" style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/권응.jpg"/></td>
           <td style="width:20%">병역구분</td>
           <td v-if="editing">{{ military_sort }}</td>
           <td v-else><input type="text" v-model="military_sort" placeholder="병역구분"></td>
@@ -49,7 +34,6 @@
           <td v-else><input type="text" v-model="military_st_date" placeholder="복무기간"></td>
         </tr>
         <tr>
-          <!-- <td class="layout justify-center"><v-btn style="margin-top:6px;" color="success" outlined><v-icon dark>mdi-cloud-download</v-icon></v-btn></td> -->
           <td class="layout justify-center"><v-file-input v-model="selectedFile" accept="image/*" prepend-icon="mdi-cloud-download" height="1.8em"></v-file-input></td>
           <td style="width:20%">메모</td>
           <td v-if="editing">{{ memo }}</td>
@@ -58,9 +42,7 @@
       </tbody>
     </template>
   </v-simple-table>
-
-
-
+  
   <v-simple-table v-else>
     <template v-slot:default>
       <thead>
@@ -80,7 +62,6 @@
       <tbody>
         <tr>
           <td style="width:40%; text-align:center;">사진 URL</td>
-          <!-- <td class="layout justify-center"><v-btn style="margin-top:6px;" color="success" outlined><v-icon dark>mdi-cloud-download</v-icon></v-btn></td> -->
           <td class="layout justify-center"><v-file-input v-model="selectedFile" accept="image/*" prepend-icon="mdi-cloud-download" height="1.8em"></v-file-input></td>
         </tr>
         <tr>
@@ -120,13 +101,11 @@ export default {
   data(){
     return{
       editing:true,
-      
       career_myPic:'',
       military_class:'',
       military_st_date:'',
       military_sort:'',
       memo:'',
-      
       selectedFile: '',
       uploadTask: "",
     }
@@ -145,6 +124,7 @@ export default {
       }
       API.post('/careers/upload', career_info)
       .then(response => {
+        
         this.career_myPic=response.data.career_myPic,
         this.military_class=response.data.military_class,
         this.military_st_date=response.data.military_st_date,
@@ -186,6 +166,12 @@ export default {
   },
     // 백에 넣은 데이터 가져오기
     mounted() {
+      console.log("어디서 오류나?");
+
+      var ac = document.getElementById('myp')
+      console.log(ac.attributes);
+      
+      
     API.get("/careers/findOne")
       .then(response => {
         console.log(response);
@@ -199,6 +185,8 @@ export default {
       .catch(error => {
         console.log(error);
       });
+      console.log("마운트 끝나?");
+      
   },
   watch: {
     selectedFile: function(selectedFile) {

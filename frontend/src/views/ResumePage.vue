@@ -82,43 +82,23 @@
   </v-row>
 </template>
     <v-container>
-      <!-- Portfolio -->
-        <!-- <v-row cols="12" sm="4"> -->
-          <v-row>
-            <v-col cols="12" sm="4"> 
-            <v-select
-              v-model="value"
-              :items="items"
-              attach
-              chips
-              label="검색 조건"
-            ></v-select></v-col>
-             <v-col cols="12" sm="4"> 
-              <v-text-field
-          hide-details
-          prepend-icon="search"
-        ></v-text-field>
-        </v-col>
-        <input type="button" value="검색">
-        </v-row>
-          <!-- </v-col> -->
+      <v-layout class="justify-end"> 
+        <div style="width:18%; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;"><input style="width:100%" v-model="search" type="text"></div><v-btn rounded style="width:50px; height:40px;"><v-icon>mdi-magnify</v-icon></v-btn>
+      </v-layout>
+
       <v-layout>
         <v-row class="mb-6">
           <v-col v-for="i in tags.length" :key="i" lg="2" xs="3" md="2" class="layout justify-center">
             <v-btn id="tag_button"  style="width:85px" :class="{nocheck: tags[i-1]['state'], check: !tags[i-1]['state']}" 
             depressed @click="changeTag(i)">#{{tags[i-1]["name"]}}</v-btn></v-col>
         </v-row>
-    
-    
-
       </v-layout>
-    
-
       <v-layout>
         <v-flex xs12>
           <ResumeList ref="updating" @load="complete"
           :filter_tag="filter_tag"
           :tag_name="tag_name"
+          :search="search"
           >
           </ResumeList>
         </v-flex>
@@ -141,6 +121,10 @@ export default {
     ResumeList,
     Navbar,
   },
+  computed:{
+    
+
+  },
   data() {
     return {
       loading:true,
@@ -157,6 +141,7 @@ export default {
       filter_tag: [false,false,false,false,false,false,false,false,false,false,false,false],
       items :["전체","회사명","내용"],
       value : "전체",
+      search:'',
       option :"전체",
       	result : [],
 					condition : '',
@@ -176,6 +161,12 @@ export default {
         {name: "배려", state: false},
       ],
     };
+  },
+  computed:{
+    keyword:function(){
+      console.log('ghaha')
+      return this.search.split(' ')
+    }
   },
   methods: {
     mounted(){
@@ -260,6 +251,9 @@ i{
     font-family: 'Jua';
     font-size: 15px;
   }
+}
+*:focus{
+  outline: none
 }
 #tag_button{
   color:white;
