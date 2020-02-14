@@ -14,7 +14,15 @@
           <div class="partition-form">
             <form autocomplete="false">
               <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
+                <button @click="signup({user_id, user_email, user_password, user_phone, user_name})" class="large-btn github-btn">
               <input type="text" :placeholder="message">
+               
+              <span>인증 번호 보내기</span>
+            </button>
+             <input required v-model="auth_num" type="text" placeholder="인증번호" />
+              <button @click="signup({user_id, user_email, user_password, user_phone, user_name})" class="large-btn github-btn">
+              <span>인증 번호 보내기</span>
+            </button>
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -198,6 +206,7 @@ export default {
 
       // 이메일 형식 체크 메세지 //
       message: '',
+      auth_num : ''
     }; 
   },
   methods: {
