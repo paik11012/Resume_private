@@ -265,16 +265,17 @@ i{
   color:white;
   border: solid white 1px;
   font-family: Jua;
-  font-size: 16px;
+  font-size: 17px;
+  border-radius: 10px;
 }
 #headline{
   font-family: 'Fredoka One', cursive;
   font-size: 3vh; 
 }
 .nocheck{
-  background-color: #92A8D1 !important;
+  background-color: #ffb3b3 !important;
 }
 .check{
-  background-color: #f7cac9 !important;
+  background-color:  #92A8D1 !important;
 }
 </style> 
