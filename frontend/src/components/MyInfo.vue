@@ -6,7 +6,7 @@
           <th class="text-left" style="font-size:20px" colspan="2">My Info
           </th>
           <th>
-            <v-btn v-on:click="editor" v-if="editing" small fab dark color="cyan" id="write">
+            <v-btn v-on:click="edit" v-if="editing" small fab dark color="cyan" id="write">
               <v-icon dark>edit</v-icon>
             </v-btn>
             <v-btn v-else v-on:click="editor" small fab id="write" color="success">
@@ -66,7 +66,7 @@
           <th class="text-left" style="font-size:20px" colspan="1">My Info
           </th>
           <th>
-            <v-btn v-on:click="editor" v-if="editing" small fab dark color="cyan" id="write">
+            <v-btn v-on:click="edit" v-if="editing" small fab dark color="cyan" id="write">
               <v-icon dark>edit</v-icon>
             </v-btn>
             <v-btn v-else v-on:click="editor" small fab id="write" color="success">
@@ -125,6 +125,9 @@ export default {
     }
   },
   methods:{
+    edit(){
+      this.editing = !this.editing
+    },
     editor(){
       var career_info = {
       'career_myPic':this.career_myPic,
@@ -192,6 +195,7 @@ export default {
         this.military_sort = response.data.military_sort
         this.career_myPic = response.data.career_myPic
         this.memo = response.data.memo
+        console.log(response)
       })
       .catch(error => {
         console.log(error);

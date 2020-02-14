@@ -104,7 +104,9 @@
           <!-- </v-col> -->
       <v-layout>
         <v-row class="mb-6">
-          <v-col v-for="tag in tags" lg="2" xs="3" md="2"><v-btn id="tag_button" style="width:85px" depressed @click="changeTag">#{{tag.name}}</v-btn></v-col>
+          <v-col v-for="i in tags.length" :key="i" lg="2" xs="3" md="2">
+            <v-btn id="tag_button" style="width:85px" :class="{nocheck: tags[i-1]['state'], check: !tags[i-1]['state']}" 
+            depressed @click="changeTag(i)">#{{tags[i-1]["name"]}}</v-btn></v-col>
         </v-row>
     
     
@@ -114,7 +116,10 @@
 
       <v-layout>
         <v-flex xs12>
-          <ResumeList ref="updating" @load="complete">
+          <ResumeList ref="updating" @load="complete"
+          :filter_tag="filter_tag"
+          :tag_name="tag_name"
+          >
           </ResumeList>
         </v-flex>
       </v-layout>
@@ -135,7 +140,6 @@ export default {
     ImgBanner,
     ResumeList,
     Navbar,
-    
   },
   data() {
     return {
@@ -147,10 +151,10 @@ export default {
       resume_answer:null,
       dialog: false,
       drawer: null,
-      tag_name: [],
+      tag_name: ["신뢰","책임감","창의성","도전정신","혁신","열정","도덕성","가치창출","글로벌","협력","전문성","배려"],
       resumes: [],
       reload:false,
-      filter_tag: [],
+      filter_tag: [false,false,false,false,false,false,false,false,false,false,false,false],
       items :["전체","회사명","내용"],
       value : "전체",
       option :"전체",
@@ -170,10 +174,18 @@ export default {
         {name: "협력", state: false},
         {name: "전문성", state: false},
         {name: "배려", state: false},
-      ]
+      ],
     };
   },
   methods: {
+    mounted(){
+    },
+    changeTag(i){
+      console.log(this.tags[i-1]['state']);
+      this.tags[i-1]['state'] = !this.tags[i-1]['state']
+      this.filter_tag[i-1] = this.tags[i-1]['state']
+      this.$refs.updating.filter()
+    },
     showWrite() {
       return this.dialog = true
     },
@@ -217,14 +229,8 @@ export default {
       })
     }
   },
-  filterTag: function() {
-    console.log(this.filter_tag)
-    
-    }
+  
   },
-  computed() {
-
-  }
 }
 </script>
 <style lang="scss">
@@ -257,7 +263,6 @@ i{
 }
 #tag_button{
   color:white;
-  background-color: #92A8D1;
   border: solid white 1px;
   font-family: Jua;
   font-size: 16px;
@@ -265,5 +270,11 @@ i{
 #headline{
   font-family: 'Fredoka One', cursive;
   font-size: 3vh; 
+}
+.nocheck{
+  background-color: #92A8D1 !important;
+}
+.check{
+  background-color: #f7cac9 !important;
 }
 </style> 
