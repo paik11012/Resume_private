@@ -54,7 +54,7 @@ public class UsersController {
     }
 
     @ApiOperation("비밀번호 체크")
-    @GetMapping("/users/checkPass")
+    @PostMapping("/users/checkPass")
     public boolean userCheckPass(@RequestBody UsersResponseDto responseDto){
         String user_id = responseDto.getUser_id();
         String user_pass = responseDto.getUser_password();

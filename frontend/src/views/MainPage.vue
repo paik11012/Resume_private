@@ -60,10 +60,6 @@
 import LoginModal from "../components/LoginModal.vue";
 import SignupModal from "../components/SignupModal.vue";
 
-import { app } from "../services/FirebaseService";
-import firebase, { storage } from "firebase/app";
-import "firebase/firestore";
-import "firebase/storage";
 import router from '../router'
 
 import API from "../services/Api"
@@ -98,14 +94,13 @@ export default {
     var state = this_url.split('state=');
     if (code.length > 1){  // naver (code: O, state: O)
       var n_data = {}
-      var axio_url = ""
+      const axio_url = "/users/loginSocial"
       if(state.length > 1) {
         var codes = code[1].split('&')
         n_data= { 
           ncode : codes[0], 
           nstate : state[1]
         }
-        axio_url = "/users/loginSocial"
       }
       else{ // kakako (code: O, state: X)
         n_data= { 
@@ -181,64 +176,8 @@ export default {
       }, 100);
       this.backon = false;
     },
-
-    detectFiles(fileList) {
-      Array.from(Array(fileList.length).keys()).map(x => {
-        // console.log(fileList[x])
-        this.upload(fileList[x]);
-      });
-    },
-    upload(file) {
-      this.uploadTask = firebase
-        .storage(app)
-        .ref(file.name)
-        .put(file);
-    },
-
-    downloadImg() {
-      var storage = firebase.storage();
-      var storageRef = firebase.storage().ref();
-
-      var gsReference = storage.refFromURL(
-        "gs://web-9to6.appspot.com/벼리.jpg"
-      );
-      storageRef
-        .child("벼리.jpg")
-        .getDownloadURL()
-        .then(function(url) {
-          var xhr = new XMLHttpRequest();
-          xhr.open("GET", url);
-
-          xhr.responseType = "blob";
-          xhr.onload = function(event) {
-            var blob = xhr.response;
-            console.log(xhr);
-            var link = document.createElement("a");
-            link.href = window.URL.createObjectURL(blob);
-            link.download = blob;
-            link.click();
-          };
-          xhr.send();
-        });
-    }
   },
   watch: {
-    uploadTask: function() {
-      this.uploadTask.on(
-        "state_changed",
-        sp => {
-          this.progressUpload = Math.floor(
-            (sp.bytesTransferred / sp.totalBytes) * 100
-          );
-        },
-        null,
-        () => {
-          this.uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
-            this.$emit("url", downloadURL);
-          });
-        }
-      );
-    }
   }
 };
 </script>
