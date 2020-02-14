@@ -18,6 +18,9 @@
             <div class="my-2" v-if="$vuetify.breakpoint.mdAndUp">
               <a href="/interview" class="navitem">Interviews</a>
             </div>
+            <div class="my-2" v-if="$vuetify.breakpoint.mdAndUp">
+              <a href="/team" class="navitem">About Us</a>
+            </div>
             <div class="navitem">
             <v-icon @click="my_menu" class="nav_icon">mdi-account-circle</v-icon>
             </div>
