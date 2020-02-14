@@ -33,6 +33,8 @@ import API from "../services/Api"
 export default {
   name: "ResumeList",
   props: {
+    filter_tag:{type:Array},
+    tag_name:{type:Array}
   },
   data() {
     return {
@@ -45,6 +47,7 @@ export default {
   },
   mounted() {
     this.getResume()
+    console.log(this.filter_tag)
   },
   methods: {
     del_detail(){
@@ -61,6 +64,35 @@ export default {
       // this.resumes = await FirebaseService.getResume();    
     //   console.log(this.resumes);
     // },
+    filter(){
+      const reducer = (accumulator, currentValue) => accumulator + currentValue;
+      console.log(this.filter_tag.reduce(reducer));
+      if(this.filter_tag.reduce(reducer)==0) this.getResume()
+      
+      // this.getResume()
+      var filtering = []
+      for (let i=0; i < this.filter_tag.length; i++){
+        if (this.filter_tag[i]) {filtering.push(this.tag_name[i])}
+      }
+      var rs = []
+      for (let i=0; i < this.resumes.length; i++){
+        // console.log(this.resumes[i].tag_name);
+        var cnt = 0
+        for (let j=0; j < this.resumes[i].tag_name.length; j++){
+          // console.log(this.resumes[i].tag_name[j]);
+          for(let k=0; k < filtering.length; k ++){
+            // console.log(filtering[k]);
+            if(filtering[k] == this.resumes[i].tag_name[j]) cnt += 1;
+          }
+          // console.log(this.resumes[i].tag_name[j]);
+        }
+        if (cnt == filtering.length) rs.push(this.resumes[i])
+      }
+      this.resumes = rs
+      // for (let i=0; i < filtering.length; i++){
+
+      // }
+    },
     getResume: function() {
       API.get('/resume')
       .then(response => {

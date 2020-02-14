@@ -83,25 +83,28 @@ export default {
       this.showedu = false;
       this.showcre = false;
       this.showawd = false;
+      this.showcra = false;
       setTimeout(() => {
         this.showme = !this.showme;
-      }, 300);
+      }, 200);
     },
     myedu() {
       this.showcre = false;
       this.showawd = false;
       this.showme = false;
+      this.showcra = false;
       setTimeout(() => {
         this.showedu = !this.showedu;
-      }, 300);
+      }, 200);
     },
     myaward(){
       this.showedu = false;
       this.showcre = false;
       this.showme = false;
+      this.showcra = false;
       setTimeout(() => {
         this.showawd = !this.showawd
-      }, 300);
+      }, 200);
     },
     create() {
       this.showcre = !this.showcre;
