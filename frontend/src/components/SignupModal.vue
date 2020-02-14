@@ -13,16 +13,11 @@
 
           <div class="partition-form">
             <form autocomplete="false">
-              <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
-                <button @click="signup({user_id, user_email, user_password, user_phone, user_name})" class="large-btn github-btn">
-              <input type="text" :placeholder="message">
-               
-              <span>인증 번호 보내기</span>
-            </button>
-             <input required v-model="auth_num" type="text" placeholder="인증번호" />
-              <button @click="signup({user_id, user_email, user_password, user_phone, user_name})" class="large-btn github-btn">
-              <span>인증 번호 보내기</span>
-            </button>
+            <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
+            <v-btn text small class="sendmail_btn">메일전송</v-btn>
+            <input readonly type="text" :placeholder="message" style="width:180px">
+            <v-btn text small class="sendmail_btn" style="position:float">인증하기</v-btn>
+             <input required v-model="auth_num" type="text" placeholder="인증번호 입력" style="width:180px" />
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -34,7 +29,7 @@
               <input v-model="user_name" type="text" placeholder="Name" />
             </form>
 
-            <div style="margin-top: 42px"></div>
+            <div style="margin-top: 30px"></div>
 
             <button @click="signup({user_id, user_email, user_password, user_phone, user_name})" class="large-btn github-btn">
               <span>Sign Up</span>
@@ -58,7 +53,11 @@
           <div class="partition-title">Sign Up</div>
           <div class="partition-form">
             <form autocomplete="false">
-              <input data-vv-as="email" v-model="user_id" name="email_field" type="text" placeholder="Email">
+              <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
+            <v-btn text small class="sendmail_btn">메일전송</v-btn>
+            <input readonly type="text" :placeholder="message" style="width:180px">
+            <v-btn text small class="sendmail_btn" style="position:float">인증하기</v-btn>
+             <input required v-model="auth_num" type="text" placeholder="인증번호 입력" style="width:180px" />
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -70,7 +69,7 @@
               <input v-model="user_name" type="text" placeholder="Name" />
             </form>
 
-            <div style="margin-top: 42px"></div>
+            <div style="margin-top: 30px"></div>
 
             <button @click="signup({user_id, user_email, user_password, user_phone, user_name})" class="large-btn github-btn">
               <span>Sign Up</span>
@@ -87,7 +86,11 @@
           <div class="partition-title">Sign Up</div>
             <div class="partition-form">
             <form autocomplete="false">
-              <input placeholder="Email" data-vv-as="email" v-model="user_id" name="email_field" type="text">
+              <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
+            <v-btn text small class="sendmail_btn">메일전송</v-btn>
+            <input readonly type="text" :placeholder="message" style="width:180px">
+            <v-btn text small class="sendmail_btn" style="position:float">인증하기</v-btn>
+             <input required v-model="auth_num" type="text" placeholder="인증번호 입력" style="width:180px" />
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -100,7 +103,7 @@
 
             </form>
 
-            <div style="margin-top: 42px"></div>
+            <div style="margin-top: 30px"></div>
 
             <button class="large-btn github-btn" @click="signup({user_id, user_email, user_password, user_phone, user_name})">
               <span>Sign Up</span>
@@ -123,7 +126,11 @@
           <div class="partition-title">Sign Up</div>
           <div class="partition-form">
             <form autocomplete="false">
-              <input placeholder="Email" data-vv-as="email" v-model="user_id" name="email_field" type="text">
+              <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
+            <v-btn text small class="sendmail_btn">메일전송</v-btn>
+            <input readonly type="text" :placeholder="message" style="width:180px">
+            <v-btn text small class="sendmail_btn" style="position:float">인증하기</v-btn>
+             <input required v-model="auth_num" type="text" placeholder="인증번호 입력" style="width:180px" />
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -135,7 +142,7 @@
               <input v-model="user_name" type="text" placeholder="Name" />
             </form>
 
-            <div style="margin-top: 42px"></div>
+            <div style="margin-top: 30px"></div>
 
             <button @click="signup({user_id, user_email, user_password, user_phone, user_name})" class="large-btn github-btn">
               <span>Sign Up</span>
@@ -173,7 +180,7 @@ export default {
     emailValidation() {
       let re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
         if(!re.test(this.user_id)){
-          this.message = "이메일 형식이 올바르지 않습니다."
+          this.message = "이메일이 올바르지 않습니다"
           return false;
         }
         else {
@@ -519,5 +526,10 @@ $facebook_color: rgb(146, 168, 209);
 .pop-out-leave-active {
   opacity: 0;
   transform: translateY(24px);
+}
+.sendmail_btn{
+  position:absolute;
+  margin-left: 200px;
+  margin-top: 3px !important;
 }
 </style>
