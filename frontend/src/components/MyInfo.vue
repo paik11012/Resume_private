@@ -131,7 +131,7 @@ export default {
       'military_class':this.military_class,
       'military_st_date':this.military_st_date,
       'military_sort':this.military_sort,
-      'memo' : this.memo
+      'memo': this.memo
       }
       API.post('/careers/upload', career_info)
       .then(response => {
