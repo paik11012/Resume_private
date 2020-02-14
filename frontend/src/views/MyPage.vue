@@ -116,7 +116,7 @@ export default {
     },
     upload(){
       this.$refs.reload.loadDt()
-      this.showcra = !this.showcra;
+      this.showcre = !this.showcre;
     },
     uploada(){
       this.$refs.reawd.loadDt()
