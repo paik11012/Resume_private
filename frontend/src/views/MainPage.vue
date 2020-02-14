@@ -106,7 +106,6 @@ export default {
         n_data= { 
           ncode : code[1]
         }
-        axio_url = "/users/loginSocial"
       }
 
       const storage = window.sessionStorage
