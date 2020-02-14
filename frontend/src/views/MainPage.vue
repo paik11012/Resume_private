@@ -94,12 +94,24 @@ export default {
     var this_url = window.location.href
     var code = this_url.split('code=');
     var state = this_url.split('state=');
-    if (code.length > 1 & state.length > 1){
-      var codes = code[1].split('&')
-      const n_data= {
-      ncode : codes[0],         
-      nstate : state[1]
+    if (code.length > 1){  // naver (code: O, state: O)
+      var n_data = {}
+      var axio_url = ""
+      if(state.length > 1) {
+        var codes = code[1].split('&')
+        n_data= { 
+          ncode : codes[0], 
+          nstate : state[1]
+        }
+        axio_url = "http://15.164.244.244:8080/users/loginSocial"
       }
+      else{ // kakako (code: O, state: X)
+        n_data= { 
+          ncode : code[1]
+        }
+        axio_url = "http://15.164.244.244:8080/users/loginSocial"
+      }
+
       const storage = window.sessionStorage
       window.sessionStorage.setItem("jwt-auth-token", "");
 
@@ -120,8 +132,6 @@ export default {
           alert('입력 정보를 확인해주세요')
       })
     }
-  
-
 
     if (document.body.offsetWidth < 480) {
       this.phone = true;

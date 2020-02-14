@@ -28,10 +28,10 @@
               connect with
               <span>naver</span>
             </button>
-            <a href="/home"><button class="large-btn facebook-btn">
+            <button class="large-btn facebook-btn" @click="loginKakao">
               connect with
-              <span>google</span>
-            </button></a>
+              <span>kakao</span>
+            </button>
           </div>
         </div>
       </div>
@@ -64,10 +64,10 @@
               connect with
               <span>naver</span>
             </button>
-            <a href="/home"><button class="large-btn facebook-btn">
+            <button class="large-btn facebook-btn" @click="loginKakao">
               connect with
-              <span>google</span>
-            </button></a>
+              <span>kakao</span>
+            </button>
           </div>
         </div>
       </div>
@@ -92,10 +92,10 @@
               connect with
               <span>naver</span>
             </button>
-            <a href="/home"><button class="large-btn facebook-btn">
+            <button class="large-btn facebook-btn" @click="loginKakao">
               connect with
-              <span>google</span>
-            </button></a>
+              <span>kakao</span>
+            </button>
           </div>
         </div>
       </div>
@@ -127,10 +127,10 @@
               connect with
               <span>naver</span>
             </button>
-            <a href="/home"><button class="large-btn facebook-btn">
+            <button class="large-btn facebook-btn" @click="loginKakao">
               connect with
-              <span>google</span>
-            </button></a>
+              <span>kakao</span>
+            </button>
           </div>
         </div>
       </div>
@@ -152,10 +152,15 @@ export default {
   },
   created() {
     // naver //
-    this.naverLoginUrl += '&client_id=' + this.client_id
-    this.naverLoginUrl += '&redirect_uri=' + this.redirectURI
+    this.naverLoginUrl += '&client_id=' + this.naver_client_id
+    this.naverLoginUrl += '&redirect_uri=' + this.naver_redirectURI
     this.naverLoginUrl += '&state=' + this.state
     // END: naver //
+
+    // kakao //
+    this.kakaoLoginUrl += '&client_id=' + this.kakao_client_id
+    this.kakaoLoginUrl += '&redirect_uri=' + this.kakao_redirectURI
+      // END:kakao //
   },
   computed: {
     show: {
@@ -179,8 +184,16 @@ export default {
       client_id: 'oEALeUqtjER7Ufo5R8f7',
       redirectURI: 'http://localhost:8080/',
       state: 123,
-      naverLoginUrl: 'https://nid.naver.com/oauth2.0/authorize?response_type=code'
+      naverLoginUrl: 'https://nid.naver.com/oauth2.0/authorize?response_type=code',
       // END: naver //
+
+      // kakao //
+      kakao_client_id: 'ae103391c8a497b8820341af6a961a77',
+      kakao_redirectURI: 'http://15.164.244.244:3000/',
+      kakaoLoginUrl: 'https://kauth.kakao.com/oauth/authorize?response_type=code',
+      // END:kakao //
+      state: 123,
+
     };
   },
   methods: {
@@ -188,6 +201,9 @@ export default {
 
     loginNaver(){
       location.replace(this.naverLoginUrl)
+    },
+    loginKakao(){
+      location.replace(this.kakaoLoginUrl)
     }
   },
 };

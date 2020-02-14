@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class NaverResponseDto {
+public class SocialResponseDto {
     private String ncode;
     private String nstate;
 
     @Builder
-    public NaverResponseDto(String ncode, String nstate){
+    public SocialResponseDto(String ncode, String nstate){
         this.ncode = ncode;
         this.nstate = nstate;
     }
