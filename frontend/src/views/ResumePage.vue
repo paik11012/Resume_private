@@ -105,7 +105,7 @@
       <v-layout>
         <v-row class="mb-6">
           <v-col v-for="i in tags.length" :key="i" lg="2" xs="3" md="2">
-            <v-btn id="tag_button" style="width:85px" :class="{nocheck: tags[i-1]['state'], check: !tags[i-1]['state']}" 
+            <v-btn id="tag_button" style="width:95px" :class="{nocheck: tags[i-1]['state'], check: !tags[i-1]['state']}" 
             depressed @click="changeTag(i)">#{{tags[i-1]["name"]}}</v-btn></v-col>
         </v-row>
     
@@ -265,16 +265,17 @@ i{
   color:white;
   border: solid white 1px;
   font-family: Jua;
-  font-size: 16px;
+  font-size: 17px;
+  border-radius: 10px;
 }
 #headline{
   font-family: 'Fredoka One', cursive;
   font-size: 3vh; 
 }
 .nocheck{
-  background-color: #92A8D1 !important;
+  background-color: #ffb3b3 !important;
 }
 .check{
-  background-color: #f7cac9 !important;
+  background-color:  #92A8D1 !important;
 }
 </style> 

@@ -9,7 +9,7 @@
       </v-row>
       <v-row class="mb-6" no-gutters>
         <v-col>
-          <img src="@/assets/권응.jpg" alt style="width:25vw; border-radius: 7px" />
+          <img src="@/assets/권응.jpg" alt style="width:25vw; border-radius: 200px" />
         </v-col>
         <v-col id="teamcontent">
           <h3>박권응</h3>
@@ -25,12 +25,12 @@
           <v-row class="mb-6">내용</v-row>
         </v-col>
         <v-col>
-          <img src="@/assets/민주.jpg" alt style="width:25vw; border-radius: 7px" />
+          <img src="@/assets/민주.jpg" alt style="width:25vw; border-radius: 200px" />
         </v-col>
       </v-row>
       <v-row class="mb-6" no-gutters>
         <v-col>
-          <img src="@/assets/규희.jpeg" alt style="width:25vw; border-radius: 7px" />
+          <img src="@/assets/규희.jpeg" alt style="width:25vw; border-radius:200px" />
         </v-col>
         <v-col id="teamcontent">
           <h3>윤규희</h3>
@@ -45,7 +45,7 @@
           <v-row class="mb-6">내용</v-row>
         </v-col>
          <v-col>
-          <img src="@/assets/다슬.jpg" alt style="width:25vw; border-radius: 7px" />
+          <img src="@/assets/다슬.jpg" alt style="width:25vw; border-radius: 200px" />
         </v-col>
       </v-row>
     </v-container>
