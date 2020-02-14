@@ -30,10 +30,9 @@
 
   </div>
   <div class="tags">
-    <v-btn sm class="tag" color="#92A8D1" v-for="i in tags.length" v-bind:key='i'>
+    <v-btn @click="filter_one" xs class="tag" color="#92A8D1" v-for="i in tags.length" v-bind:key='i'>
     {{ tags[i-1] }}
     </v-btn>
-
   </div>
 
   </div>
@@ -65,6 +64,7 @@ export default {
       ans : this.answer,
       tag : this.tags,
       tv : this.text_val,
+      filter_one_tag: null,
     }
   },
   methods:{
@@ -91,6 +91,9 @@ export default {
       console.log(error)
       })
     this.$emit('deleteresume')
+    },
+    filter_one() {
+      
     }
   }
 }
@@ -222,6 +225,7 @@ export default {
       color: white;
       text-align: center;
       width: 80px;
+      margin-right:10px;
     }
     & .text_val{
       font-size: 16px;

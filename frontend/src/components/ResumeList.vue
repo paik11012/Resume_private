@@ -52,7 +52,6 @@ export default {
   methods: {
     del_detail(){
       console.log("화면 꺼");
-      
       var a = document.querySelector('html')
       a.style.overflowY="scroll"
       setTimeout(() => {
