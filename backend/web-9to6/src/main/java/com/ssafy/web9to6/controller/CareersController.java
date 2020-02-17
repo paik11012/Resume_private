@@ -55,4 +55,12 @@ public class CareersController {
         career.setCareer_myPic(requestDto.getCareer_myPic());
         return careersService.save(career);
     }
+
+    @ApiOperation("회원 사진 다운로드")
+    @GetMapping("/careers/downloadFile")
+    public String downloadPicCareer(HttpServletRequest request){
+        String user_id = request.getHeader("user_id");
+        Careers career = careersService.findByUser(usersService.findById(user_id));
+        return career.getCareer_myPic();
+    }
 }

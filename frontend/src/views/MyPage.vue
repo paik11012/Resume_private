@@ -7,7 +7,7 @@
             <v-layout justify-space-around="true" class="titlebox">
               <div class="title-item" @click="myinfo">My info</div>
               <div class="title-item" @click="myedu">Education</div>
-              <div class="title-item" @click="myaward">Licence</div>
+              <div class="title-item" @click="myaward">License</div>
 
             </v-layout>
             <transition name="bounce">
