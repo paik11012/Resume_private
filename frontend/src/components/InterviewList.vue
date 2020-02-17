@@ -33,9 +33,6 @@ import API from "../services/Api"
 
 export default {
   name: "InterviewList",
-  props: {
-    limits: { type: Number, default: 6 },
-  },
   data() {
     return {
       interview: [],
@@ -91,12 +88,6 @@ export default {
 
     // },
   },
-  computed(){
-    if(this.update){
-      this.$emit('complete')
-      this.getInterview()
-    }
-  }
 };
 </script>
 <style lang="scss">

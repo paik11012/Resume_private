@@ -71,7 +71,6 @@ export default {
   },
   methods: {
     show(){
-      console.log(InterviewModal.props.value);
       this.showmenu = true
     },
     input(value){

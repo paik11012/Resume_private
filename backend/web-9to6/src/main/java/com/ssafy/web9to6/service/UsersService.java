@@ -38,7 +38,9 @@ public class UsersService {
     }
 
     public Users update(Users user, Users new_user) {
-        user.setUser_password(new_user.getUser_password());
+        if(new_user.getUser_password()!=""){
+            user.setUser_password(new_user.getUser_password());
+        }
         user.setUser_name(new_user.getUser_name());
         user.setUser_phone(new_user.getUser_phone());
         return usersRepository.save(user);
