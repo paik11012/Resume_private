@@ -128,19 +128,22 @@ export default {
     },
     addEduUniv() {
       var u_education = {
+        'edu_id': String(this.education_id),
         'edu_school_sort': this.edu_school_sort,
         'edu_school_name': this.edu_school_name,
         'edu_school_st_date': this.edu_school_st_date,
         'edu_school_ed_date': '',
       }
       var u_detail = {
-        'edu_detail_grade': this.edu_detail_grade,
+        'edu_detail_id': String(this.edu_detail_id),
+        'edu_detail_grade': String(this.edu_detail_grade),
         'edu_detail_grade_img': this.edu_detail_grade_img,
         'edu_detail_major_sort': this.edu_detail_major_sort,
         'edu_detail_major': this.edu_detail_major,
-        'edu_detail_credit': this.edu_detail_credit
+        'edu_detail_credit': String(this.edu_detail_credit)
       }
       var u_data = { education: u_education, education_detail: u_detail }
+      console.log(u_data)
       API.post('/edu/upload', u_data)
       .then(response => {
         console.log(response)
@@ -218,6 +221,15 @@ export default {
     selectedFile: function(selectedFile) {
       var storageRef = firebase.storage().ref();
       var user_id = sessionStorage.getItem("user_id");
+
+      // firebase storage의 기존 파일 삭제 //
+      if(this.edu_detail_grade_img!=''){
+        console.log(this.edu_detail_grade_img)
+
+        storageRef
+        .child(user_id + "/" + this.edu_detail_grade_img)
+        .delete();
+      }
 
       // firebase storage에 파일 업로드 //
       storageRef

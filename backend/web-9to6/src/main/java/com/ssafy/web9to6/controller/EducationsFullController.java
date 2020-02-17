@@ -29,7 +29,6 @@ public class EducationsFullController {
     @ApiOperation("학력 정보 등록/수정")
     @PostMapping("/edu/upload")
     public Map<String, Object> uploadEduDetails(@RequestBody Map<String, Object> requestDto, HttpServletRequest request) {
-//        String user_id = "te";
         String user_id = request.getHeader("user_id");
         Users user = usersService.findById(user_id);
 

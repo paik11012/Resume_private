@@ -8,6 +8,11 @@ import MyPage from './views/MyPage.vue'
 import MainPage from './views/MainPage.vue'
 import SignupPage from './views/SignupPage.vue'
 import UserInfo from './views/UserInfo.vue'
+<<<<<<< HEAD
+import AdminPage from './views/AdminPage.vue'
+=======
+import EditInfo from './views/EditInfo.vue'
+>>>>>>> d6350b9764c6b7222d0d42ce359ca0e69370bb75
 
 Vue.use(Router)
 
@@ -55,6 +60,17 @@ export default new Router({
 			path: '/userinfo',
 			name: 'userinfo',
 			component: UserInfo
+		},
+		{
+<<<<<<< HEAD
+			path: '/admin',
+			name: 'admin',
+			component: AdminPage
+=======
+			path: '/editinfo',
+			name: 'editinfo',
+			component: EditInfo
+>>>>>>> d6350b9764c6b7222d0d42ce359ca0e69370bb75
 		}
   ]
 })
