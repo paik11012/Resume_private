@@ -71,6 +71,8 @@ export default {
     //   console.log(this.resumes);
     // },
     filter(){
+      console.log(this.filter_tag);
+      
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
       console.log(this.filter_tag.reduce(reducer));
       if(this.filter_tag.reduce(reducer)==0) this.sresumes = this.resumes
@@ -89,6 +91,8 @@ export default {
         }
         if (cnt == filtering.length) rs.push(this.resumes[i])
       }
+      console.log(rs);
+      
       this.sresumes = rs
       console.log("완료");
     },
