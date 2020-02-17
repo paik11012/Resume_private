@@ -3,9 +3,9 @@
   <div class="resumeCard layout justify-center" @click="opendetail" >
   <transition name="slide">
   <div class="full" oncontextmenu="return false">
-    <div class="company">{{rs_cpn}}</div>
+    <div class="company">{{(resume_company.length>10) ? resume_company.slice(0,10)+'...' : resume_company}}</div>
     <hr>
-    <div class="task">{{rs_tsk}}</div>
+    <div class="task">{{(resume_task.length>15) ? resume_task.slice(0,15)+'...' : resume_task}}</div>
     <div class="date">{{resume_date}}</div>
     <div class="label Q">질문</div>
     <div id="r_question">{{resume_question}}</div>
@@ -64,22 +64,11 @@ export default {
   data() {
     return {
       showmenu: false,
-      rs_cpn: this.resume_company,
-      rs_ans: this.resume_answer,
-      rs_qst: this.resume_question,
-      rs_tsk: this.resume_task,
-      rs_dat: this.resume_date,
       rsdt:false,
       scr_cur:0,
     };
   },
   mounted(){
-    if (this.rs_cpn.length > 10){
-      this.rs_cpn = this.rs_cpn.slice(0, 10) + "..."
-    }
-    if (this.rs_tsk.length > 15){
-      this.rs_tsk = this.rs_tsk.slice(0,15) + '...'
-    }
   },
   methods: {
     input(value){

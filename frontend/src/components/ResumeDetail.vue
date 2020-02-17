@@ -116,13 +116,13 @@ export default {
     & .edit{
       position: absolute;
       z-index: 1e9+2;
-      right: 8%;
+      right: 65px;
       top : 3%;
     }
     & .delete{
       position: absolute;
       z-index: 1e9+2;
-      right: 3%;
+      right: 15px;
       top : 3%;
     }
     animation: bounce 0.3s;

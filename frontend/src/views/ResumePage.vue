@@ -82,8 +82,19 @@
   </v-row>
 </template>
     <v-container>
-      <v-layout class="justify-end"> 
-        <div style="width:18%; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;"><input style="width:100%" v-model="search" type="text"></div><v-btn rounded style="width:50px; height:40px;"><v-icon>mdi-magnify</v-icon></v-btn>
+      <v-layout class="justify-end">
+        <div style="position:relative; width:90px; margin-left:55%; height:40px; margin-bottom:20px;">
+        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:999999999; width:100%; height:100%; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;">
+          <p class="keyset">
+          {{ searkey[pickkey] }}
+          </p>
+          </div>
+        <div v-else style="position:absolute; z-index:999999999; background:white; left:0px; width:100%; height:165px; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;">
+          <p v-for="i in searkey.length" :key="i" class="keyset" @click="selkey(i-1)">{{ searkey[i-1] }}</p>
+        </div>
+        </div>
+        <div class="row" style="width: 300px !important; margin-left:20px; height:40px; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;"><v-icon>mdi-magnify</v-icon>
+        <input style="margin-left: 5px;" v-model="search" type="text"></div>
       </v-layout>
 
       <v-layout>
@@ -99,6 +110,7 @@
           :filter_tag="filter_tag"
           :tag_name="tag_name"
           :search="search"
+          :keypick="pickkey"
           >
           </ResumeList>
         </v-flex>
@@ -127,6 +139,7 @@ export default {
   },
   data() {
     return {
+      searchpick:true,
       loading:true,
       resume_company:null,
       resume_task:null,
@@ -140,7 +153,9 @@ export default {
       reload:false,
       filter_tag: [false,false,false,false,false,false,false,false,false,false,false,false],
       items :["전체","회사명","내용"],
+      searkey:["회사명","직무","질문","답변"],
       value : "전체",
+      pickkey:0,
       search:'',
       option :"전체",
       	result : [],
@@ -169,7 +184,12 @@ export default {
     }
   },
   methods: {
-    mounted(){
+    selkey(i){
+      this.pickkey = i
+      this.searchpick = true
+    },
+    searching(){
+      this.searchpick = false
     },
     changeTag(i){
       console.log(this.tags[i-1]['state']);
@@ -271,5 +291,8 @@ i{
 }
 .check{
   background-color:  #92A8D1 !important;
+}
+.keyset{
+  margin:0 !important; height:40px; font-size:18px; text-align:center; padding: 6px 0;
 }
 </style> 
