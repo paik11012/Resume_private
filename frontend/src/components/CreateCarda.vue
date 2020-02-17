@@ -9,7 +9,7 @@
                  <!-- eslint-disable -->
               <li
                 class="layout row" style="font-size:20px;"
-              ><input type="text" v-model="award_title" placeholder="Title">
+              ><input type="text" v-model="award_title" placeholder="Licence / Award">
                 <!-- eslint-disable -->
               </li>
             </ul>

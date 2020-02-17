@@ -1,5 +1,7 @@
 <template>
+
   <v-layout mt-5 wrap justify-start class="nav">
+    <div>{{keyword}}</div>
     <v-flex
       v-for="i in resumes.length"
       :key="i"
@@ -34,7 +36,8 @@ export default {
   name: "ResumeList",
   props: {
     filter_tag:{type:Array},
-    tag_name:{type:Array}
+    tag_name:{type:Array},
+    search:{type:String},
   },
   data() {
     return {
@@ -45,8 +48,10 @@ export default {
   components: {
     Resume
   },
-  mounted() {
+  beforeMount(){
     this.getResume()
+  },
+  mounted() {
     console.log(this.filter_tag)
   },
   methods: {
@@ -110,12 +115,19 @@ export default {
       })
     }
   },
-  computed(){
-    if(this.update){
-      this.$emit('complete')
-      this.getResume()
+  computed:{
+    keyword:function(){
+      for (let i=0; i < this.resumes.length; i++){
+        console.log(this.resumes[i])
+        for (let j=0; j <this.resumes[i].length; j++){
+          console.log(this.resumes[i][j]);
+          
+        }
+      }
+      return this.search.split(' ')
     }
   }
+  
 };
 </script>
 <style lang="scss">
