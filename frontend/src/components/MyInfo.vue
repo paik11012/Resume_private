@@ -171,7 +171,6 @@ export default {
     },
 
     setMyPicFromDB(){
-      console.log(this.career_myPic)
       var storageRef = firebase.storage().ref();
 
         // firebase storage에 파일 업로드되면 사이트에도 반영 //
@@ -188,7 +187,6 @@ export default {
     mounted() {
       API.get("/careers/findOne")
         .then(response => {
-          console.log(response);
           this.military_class = response.data.military_class
           this.military_st_date = response.data.military_st_date
           this.military_sort = response.data.military_sort
@@ -210,8 +208,6 @@ export default {
 
       // firebase storage의 기존 파일 삭제 //
       if(this.career_myPic!=''){
-        console.log(this.career_myPic)
-
         storageRef
         .child(user_id + "/" + this.career_myPic)
         .delete();
