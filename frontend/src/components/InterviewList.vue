@@ -10,10 +10,11 @@
       xl6
     >
       <transition-group name="list">
-        <Interview
+        <Interview  @del="del_detail"
           v-bind:key="i"
           class="layout justify-center ma-3"
           v-if="sec >= i"
+          :interview_id="interview[i - 1].id"
           :interview_company="interview[i - 1].interview_company"
           :interview_answer="interview[i - 1].interview_answer"
           :editans="interview[i-1].editans"
@@ -50,6 +51,14 @@ export default {
     this.getInterView();
   },
   methods: {
+    del_detail(){
+      console.log("삭제");
+      var a = document.querySelector('html')
+      a.style.overflowY="scroll"
+      setTimeout(() => {
+        this.getInterView()
+      }, 100);
+    },
     getInterView: function() {
       API.get("/interview")
         .then(resopnse => {
@@ -66,7 +75,7 @@ export default {
         .catch(error => {
           console.log(error)
         })
-    }
+    },
     // async getInterView() {
     //   console.log("이거라고?");
     //   this.interview = await FirebaseService.getInterView();

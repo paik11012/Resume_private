@@ -18,6 +18,9 @@
             <div class="my-2" v-if="$vuetify.breakpoint.mdAndUp">
               <a href="/interview" class="navitem">Interviews</a>
             </div>
+            <div class="my-2" v-if="$vuetify.breakpoint.mdAndUp">
+              <a href="/team" class="navitem">About Us</a>
+            </div>
             <div class="navitem">
             <v-icon @click="my_menu" class="nav_icon">mdi-account-circle</v-icon>
             </div>
@@ -25,10 +28,10 @@
       </v-layout>
         <div class="mymenu">
           <transition name="slide">
-          <p v-if="show1"><a href="/userinfo" style="text-align:center; color:white; font-family: 'Fredoka One', cursive;">My Page</a></p>
+          <p v-if="show1"><a href="/userinfo" style="text-align:center; color:black !important; font-family: 'Fredoka One', cursive;">My Page</a></p>
           </transition>
           <transition name="slide">
-          <p v-if="show2"><a href="/" @click="logout()" style="text-align:center; color:white; font-family: 'Fredoka One', cursive;">Logout</a></p>
+          <p v-if="show2"><a href="/" @click="logout()" style="text-align:center; color:black !important; font-family: 'Fredoka One', cursive;">Logout</a></p>
           </transition>
         </div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <v-app style="background:none;">
+  <v-app style="background:rgb(244, 249, 255);">
     <div class="backapp" v-if="setting"></div>
     <router-view v-if="setting" class="rout"/>
     <router-view v-else/>
@@ -11,11 +11,9 @@
     </transition>
   </v-app>
 </template>
-
 <script>
 import Navbar from '@/components/Navbar'
 import DrwBtn from '@/components/Drawer'
-
 export default {
   name: 'App',
   components:{
@@ -34,7 +32,6 @@ export default {
   }
 };
 </script>
-
 <style>
   .Nav{
     opacity: 0.8;

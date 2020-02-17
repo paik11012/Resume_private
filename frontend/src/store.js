@@ -18,7 +18,8 @@ export default new Vuex.Store({
     loginObj: {
       user_id : 3,
       user_password: 2,
-    }
+    },
+    isAuth: false,
   },
   mutations: {
     loginSuccess(state, userInfo) {
@@ -52,7 +53,10 @@ export default new Vuex.Store({
         || signupObj.user_password == null
         ) {
           return alert('전화번호 외에 모든 정보를 입력해주세요')
-        } else {
+        } else if(this.state.isAuth == false) {
+            return alert('인증번호를 다시 입력해주세요.')
+        }
+        else {
           API.post("/users/signup", signupObj)
             .then(res => {
             alert("회원가입이 성공적으로 이루어졌습니다");     

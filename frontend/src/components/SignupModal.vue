@@ -14,10 +14,10 @@
           <div class="partition-form">
             <form autocomplete="false">
             <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
-            <v-btn text small class="sendmail_btn">메일전송</v-btn>
+            <v-btn text small class="sendmail_btn" @click="sendMail">메일전송</v-btn>
             <input readonly type="text" :placeholder="message" style="width:180px">
-            <v-btn text small class="sendmail_btn" style="position:float">인증하기</v-btn>
-             <input required v-model="auth_num" type="text" placeholder="인증번호 입력" style="width:180px" />
+            <v-btn text small class="sendmail_btn" @click="confirm" style="position:float">인증하기</v-btn>
+             <input required v-model="myauth_num" type="text" placeholder="인증번호 입력" style="width:180px" />
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -52,12 +52,12 @@
         <div class="partition" id="partition-register">
           <div class="partition-title">Sign Up</div>
           <div class="partition-form">
-            <form autocomplete="false">
-              <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
-            <v-btn text small class="sendmail_btn">메일전송</v-btn>
+           <form autocomplete="false">
+            <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
+            <v-btn text small class="sendmail_btn" @click="sendMail">메일전송</v-btn>
             <input readonly type="text" :placeholder="message" style="width:180px">
-            <v-btn text small class="sendmail_btn" style="position:float">인증하기</v-btn>
-             <input required v-model="auth_num" type="text" placeholder="인증번호 입력" style="width:180px" />
+            <v-btn text small class="sendmail_btn" @click="confirm" style="position:float">인증하기</v-btn>
+             <input required v-model="myauth_num" type="text" placeholder="인증번호 입력" style="width:180px" />
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -85,12 +85,12 @@
         <div class="partition" id="partition-register">
           <div class="partition-title">Sign Up</div>
             <div class="partition-form">
-            <form autocomplete="false">
-              <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
-            <v-btn text small class="sendmail_btn">메일전송</v-btn>
+           <form autocomplete="false">
+            <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
+            <v-btn text small class="sendmail_btn" @click="sendMail">메일전송</v-btn>
             <input readonly type="text" :placeholder="message" style="width:180px">
-            <v-btn text small class="sendmail_btn" style="position:float">인증하기</v-btn>
-             <input required v-model="auth_num" type="text" placeholder="인증번호 입력" style="width:180px" />
+            <v-btn text small class="sendmail_btn" @click="confirm" style="position:float">인증하기</v-btn>
+             <input required v-model="myauth_num" type="text" placeholder="인증번호 입력" style="width:180px" />
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -100,7 +100,6 @@
               />
               <input required v-model="user_phone" type="text" placeholder="Phone Number" />
               <input v-model="user_name" type="text" placeholder="Name" />
-
             </form>
 
             <div style="margin-top: 30px"></div>
@@ -126,11 +125,11 @@
           <div class="partition-title">Sign Up</div>
           <div class="partition-form">
             <form autocomplete="false">
-              <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
-            <v-btn text small class="sendmail_btn">메일전송</v-btn>
+            <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
+            <v-btn text small class="sendmail_btn" @click="sendMail">메일전송</v-btn>
             <input readonly type="text" :placeholder="message" style="width:180px">
-            <v-btn text small class="sendmail_btn" style="position:float">인증하기</v-btn>
-             <input required v-model="auth_num" type="text" placeholder="인증번호 입력" style="width:180px" />
+            <v-btn text small class="sendmail_btn" @click="confirm" style="position:float">인증하기</v-btn>
+             <input required v-model="myauth_num" type="text" placeholder="인증번호 입력" style="width:180px" />
               <input
                 v-model="user_password"
                 id="n-password2"
@@ -156,6 +155,8 @@
 <script>
 
 import { mapActions } from 'vuex';
+import API from "../services/Api";
+import store from '@/store.js';
 
 const MODAL_WIDTH = 656;
 export default {
@@ -213,12 +214,37 @@ export default {
 
       // 이메일 형식 체크 메세지 //
       message: '',
-      auth_num : ''
+      auth_num : null,
+      myauth_num : null,
     }; 
   },
   methods: {
     submitted() {
       this.isSubmitted = true;
+    },
+    sendMail() 
+    {
+      console.log("heere")
+        API.get(`/users/sendmail/${this.user_id}`)
+      .then(response=>{
+         this.auth_num = response.data;
+         alert("인증번호를 이메일로 발송했습니다.")
+       
+      })
+      .catch(error=>{
+        if(error.response.data.message == "인증 번호 발송 에러")
+            alert("인증 번호 발송에 실패하였습니다.")
+      })
+    },
+    confirm() {
+      if(this.auth_num != null && this.myauth_num != null && this.auth_num == this.myauth_num) {
+        alert("인증되었습니다.")
+        this.$store.state.isAuth = true;
+      }
+      else {
+alert("인증번호가 틀렸습니다. 다시 확인해주세요.")
+   this.$store.state.isAuth = false;
+      }
     },
     ...mapActions(["signup"]),
   },                        

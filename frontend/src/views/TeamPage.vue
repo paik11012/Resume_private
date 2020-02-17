@@ -1,8 +1,9 @@
 <template>
   <div>
+    <ImgBanner id="banner"></ImgBanner>
     <v-container>
       <v-row class="mb-6" no-gutters>
-        <h2>Group 9 to 6</h2>
+        <h1>Group 9 to 6</h1>
         <br>
         <span style="font-size:20px">Founded in Amsterdam in 2010, ETQ was created as an answer to the luxury trend of over-abundant branding and excessive pricing. Our designs do not confine to fashion - we simply aspire to provide high quality, well-designed essentials for the right price. We work with a minimalistic philosophy, as we believe sustainability and durability are better for us and our world.</span>
         <br>
@@ -53,8 +54,14 @@
 </template>
 
 <script>
-export default {};
+import ImgBanner from "../components/ImgBanner";
+export default {
+  components: {ImgBanner}
+};
 </script>
 
 <style>
+#banner{
+  margin-top:-80px;
+}
 </style>

@@ -2,6 +2,15 @@
 <div class="idetail">
   <div class="modalbox" @click="closing"></div>
   <div class="modal">
+  <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark color="primary" >
+    <v-icon dark>edit</v-icon>
+  </v-btn>
+  <v-btn class="edit" v-on:click="editor" v-else small fab dark color="success" >
+    <v-icon dark>check</v-icon>
+  </v-btn>
+  <v-btn class="delete" v-on:click="destroy(interview_id)" small fab color="red" >
+    <v-icon color="white">delete</v-icon>
+  </v-btn>
   <div class="company">
     {{ com }}
   </div>
@@ -21,8 +30,10 @@
 </template>
 
 <script>
+import API from "../services/Api"
 export default {
   props:{
+    interview_id:{type:Number},
     company:{type:String},
     task:{type:String},
     date:{type:String},
@@ -45,7 +56,28 @@ export default {
   methods:{
     closing(){
       this.$emit('clsid')
-    }
+    },
+        editor(){
+      this.editing = !this.editing
+    },
+    destroy(){
+      console.log(this.interview_id)
+      API.delete(`/interview/del/${this.interview_id}`)
+      .then(response => {
+        this.interviews = response.data
+        this.$emit("load")
+        for (let i = 0; i < this.interviews.length; i++) {
+        setTimeout(() => {
+          this.sec ++
+          console.log(this.sec);
+        }, 100*i);
+      }
+      })
+      .catch(error => {
+      console.log(error)
+      })
+    this.$emit('deleteinterview')
+    },
   }
 }
 </script>
@@ -64,6 +96,18 @@ export default {
     opacity: 0.4;
   }
   & .modal{
+    & .edit{
+      position: absolute;
+      z-index: 1e9+2;
+      right: 8%;
+      top : 3%;
+    }
+    & .delete{
+      position: absolute;
+      z-index: 1e9+2;
+      right: 3%;
+      top : 3%;
+    }
     animation: bounce 0.3s;
     border-radius: 10px;  
     position: fixed;
@@ -125,7 +169,7 @@ export default {
       left:5%;
       overflow: auto;
       height: 30%;
-      border: 1.5px solid rgb(247, 202, 201);
+      border: 1px solid rgb(247, 202, 201);
       outline-style: none;
       border-radius: 5px;
       padding: 1%;
@@ -151,7 +195,7 @@ export default {
       left:5%;
       overflow: auto;
       height: 25%;
-      border: 1.5px solid rgb(247, 202, 201);
+      border: 1px solid rgb(247, 202, 201);
       border-radius: 5px;
       padding: 1%;
       // text-align: center;
