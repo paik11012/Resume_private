@@ -29,6 +29,9 @@ public class EducationDetails {
     @Column
     private Double edu_detail_grade; // 평점(학점)
 
+    @Column
+    private String edu_detail_grade_img; // 성적표 이미지
+
     // 외래키 //
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -36,11 +39,12 @@ public class EducationDetails {
     // END: 외래키 //
 
     @Builder
-    public EducationDetails(String edu_detail_major_sort, Long edu_detail_credit, Double edu_detail_grade, String edu_detail_major){
+    public EducationDetails(String edu_detail_major_sort, Long edu_detail_credit, Double edu_detail_grade, String edu_detail_major, String edu_detail_grade_img){
         this.edu_detail_major_sort = edu_detail_major_sort;
         this.edu_detail_major = edu_detail_major;
         this.edu_detail_credit = edu_detail_credit;
         this.edu_detail_grade = edu_detail_grade;
+        this.edu_detail_grade_img = edu_detail_grade_img;
     }
 
     // setter //
@@ -50,5 +54,6 @@ public class EducationDetails {
     public void setEdu_detail_major(String edu_detail_major) { this.edu_detail_major = edu_detail_major; }
     public void setEdu_detail_credit(Long edu_detail_credit) { this.edu_detail_credit = edu_detail_credit; }
     public void setEdu_detail_grade(Double edu_detail_grade) { this.edu_detail_grade = edu_detail_grade; }
+    public void setEdu_detail_grade_img(String edu_detail_grade_img) { this.edu_detail_grade_img = edu_detail_grade_img; }
     // END: setter //
 }

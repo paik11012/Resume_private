@@ -35,7 +35,7 @@
           <td v-else><input type="text" v-model="military_st_date" placeholder="복무기간"></td>
         </tr>
         <tr>
-          <td class="layout justify-center"><div><v-file-input id="btn-upload" v-model="selectedFile" accept="image/*" prepend-icon="mdi-cloud-upload" height="1.8em" style="width:30px; overflow:hodden;"></v-file-input></div>
+          <td class="layout justify-center"><div><v-file-input id="btn-upload" v-model="selectedFile" accept="image/*" prepend-icon="mdi-cloud-upload" height="1.8em" style="width:30px; overflow:hidden;"></v-file-input></div>
           <v-btn style="margin-top:6px;" color="success" outlined @click="downloadFile"><v-icon dark>mdi-cloud-download</v-icon></v-btn></td>
           <td style="width:20%">메모</td>
           <td v-if="editing">{{ memo }}</td>
@@ -66,7 +66,7 @@
       <tbody>
         <tr>
           <td style="width:40%; position:relative;" rowspan="3"><img id="myPic" style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/person.jpg"/><div style="position:absolute; left: 23%; top:0px;"><v-icon dark>mdi-close</v-icon></div></td>
-          <td class="layout justify-center"><div><v-file-input id="btn-upload" v-model="selectedFile" accept="image/*" prepend-icon="mdi-cloud-upload" height="1.8em" style="width:30px; overflow:hodden;"></v-file-input></div></td>
+          <td class="layout justify-center"><div><v-file-input id="btn-upload" v-model="selectedFile" accept="image/*" prepend-icon="mdi-cloud-upload" height="1.8em" style="width:30px; overflow:hidden;"></v-file-input></div></td>
           <td class="layout justify-center"><v-btn style="margin-top:6px;" color="success" outlined @click="downloadFile"><v-icon dark>mdi-cloud-download</v-icon></v-btn></td>
         </tr>
         <tr>

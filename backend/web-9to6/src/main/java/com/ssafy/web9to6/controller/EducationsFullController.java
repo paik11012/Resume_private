@@ -9,6 +9,7 @@ import com.ssafy.web9to6.service.CareersService;
 import com.ssafy.web9to6.service.EducationDetailsService;
 import com.ssafy.web9to6.service.EducationsService;
 import com.ssafy.web9to6.service.UsersService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
@@ -58,6 +59,7 @@ public class EducationsFullController {
                     .edu_detail_major((String) map_edu_detail.get("edu_detail_major"))
                     .edu_detail_credit(Long.parseLong( (String)map_edu_detail.get("edu_detail_credit")))
                     .edu_detail_grade(Double.parseDouble((String)map_edu_detail.get("edu_detail_grade")))
+                    .edu_detail_grade_img((String)map_edu_detail.get("edu_detail_grade_img"))
                     .build();
             if(map_edu_detail.get("edu_detail_id")!=null) educationDetails.setEduDetail_id(Long.valueOf((String) map_edu_detail.get("edu_detail_id")));
         }
@@ -145,5 +147,20 @@ public class EducationsFullController {
     @DeleteMapping("/edu/deleteDetailOne/{edu_det_id}")
     public void deleteDetailOneEdu(@PathVariable String edu_det_id){
         educationDetailsService.deleteOne(Long.valueOf(edu_det_id));
+    }
+
+    @ApiOperation("성적표 업로드")
+    @PostMapping("/edu/uploadGradeImg")
+    public EducationDetails uploadGradeImgEdu(HttpServletRequest request, @RequestBody EducationFullResponseDto requestDto){
+        EducationDetails edu_det = educationDetailsService.findById(requestDto.getEdu_detail_id());
+        edu_det.setEdu_detail_grade_img(requestDto.getEdu_detail_grade_img());
+        return educationDetailsService.save(edu_det);
+    }
+
+    @ApiOperation("성적표 다운로드")
+    @PostMapping("/edu/downloadFile")
+    public String downloadGradeImgEdu(HttpServletRequest request, @RequestBody EducationFullResponseDto requestDto){
+        EducationDetails edu_det = educationDetailsService.findById(requestDto.getEdu_detail_id());
+        return edu_det.getEdu_detail_grade_img();
     }
 }
