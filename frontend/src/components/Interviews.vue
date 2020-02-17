@@ -3,16 +3,16 @@
   <div class="interviewCard layout justify-center" :class="{non_scroll:idt}" @click="opendetail">
   <transition name="slide">
   <div class="contain" oncontextmenu="return false" @click="show">
-    <div class="company">{{interview_company}}</div>
-    <hr>
-    <div class="task">{{interview_task}}</div>
-    <div class="date">{{interview_date}}</div>
-    <div class="label">질문</div>
-    <div id="question">{{interview_question}}</div>
-    <div class="label">답변</div>
-    <div class="myans">{{interview_answer}}</div>
-    <div class="label">Memo</div>
-    <div class="editans">{{interview_memo}}</div>
+    <p class="company">{{interview_company.length>10 ? interview_company.slice(0,10)+'...': interview_company }}</p>
+    <hr class="hr">
+    <p class="task">{{interview_task.length >15 ? interview_task.slice(0,15)+'...' : interview_task}}</p>
+    <p class="date">{{interview_date}}</p>
+    <p class="label que">질문</p>
+    <p id="question">{{interview_question}}</p>
+    <p class="label anw">답변</p>
+    <p class="myans">{{interview_answer}}</p>
+    <p class="label mem">Memo</p>
+    <p class="editans">{{interview_memo}}</p>
     </div>
     </transition>
   </div>
@@ -101,6 +101,7 @@ export default {
 <style lang="scss">
   @import "@/assets/scss/mystyle.scss";
   .contain{
+    position: relative;
     @include breakpoint(sm){
       width: 60% !important;
     }
@@ -119,50 +120,79 @@ export default {
     border-radius: 10px; 
     font-size: 13px;
     // box-shadow: 3px 3px rgb(247, 202, 201);
-    padding: 15px;
+    padding: 5%;
     background: white;
   }
-  .text_val{
-    margin-right: 20px;
-    font-size: 15px;
+  .hr{
+    position: absolute;
+    width:90%;
+    top:11%
+  }
+  .que{
+    position: absolute;
+    width: 89%;
+    top: 26%;
+  }
+  .anw{
+    position: absolute;
+    width: 89%;
+    top:47%;
   }
   .company{
+    position: absolute;
     font-size: 24px;
+    top:3%;
+    width: 89%;
+    text-align: center;
     margin-bottom: 2px;
   }
   .task{
-    margin-top: 7px;  
+    position: absolute;
+    width: 89%;
     font-size: 16px;
-    margin-bottom: 3px;
+    top:13%;
   }
   .date{
+    position: absolute;
     font-size: 13px;
+    width: 89%;
+    top:19%;
     color: rgb(145,145,145);
-    margin-bottom: 10px;
   }
   #question{
+    position: absolute;
+    width: 89%;
     font-size: 18px;
-    margin-bottom: 10px;
+    top: 31%;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
   .myans{
+    position: absolute;
+    width: 89%;
+    top: 52%;
     font-size: 16px;
-    margin-bottom: 6px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
   .editans{
+    position: absolute;
+    width: 89%;
+    top:78%;
     font-size: 16px;
-    margin-bottom: 20px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+  .mem{
+    position: absolute;
+    width: 89%;
+    top:73%;
   }
 
 </style>

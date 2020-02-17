@@ -83,18 +83,18 @@
 </template>
     <v-container>
       <v-layout class="justify-end">
-        <div style="position:relative; width:90px; margin-left:55%; height:40px; margin-bottom:20px;">
-        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:999999999; width:100%; height:100%; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;">
+        <div style="position:relative; width:90px; margin-left:60%-200px; height:40px; margin-bottom:20px;">
+        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:999999999; width:90px; height:100%; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;">
           <p class="keyset">
           {{ searkey[pickkey] }}
           </p>
           </div>
-        <div v-else style="position:absolute; z-index:999999999; background:white; left:0px; width:100%; height:165px; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;">
+        <div v-else style="position:absolute; z-index:999999999; background:white; width:90px; height:165px; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;">
           <p v-for="i in searkey.length" :key="i" class="keyset" @click="selkey(i-1)">{{ searkey[i-1] }}</p>
         </div>
         </div>
-        <div class="row" style="width: 300px !important; margin-left:20px; height:40px; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;"><v-icon>mdi-magnify</v-icon>
-        <input style="margin-left: 5px;" v-model="search" type="text"></div>
+        <div style="width: 300px !important; margin-left:20px; height:40px; padding: 6px 12px; border:1px solid; margin-right:10px; border-radius:20px;"><span><v-icon>mdi-magnify</v-icon></span>
+        <input style="margin-left: 5px; width:85%;" v-model="search" type="text"></div>
       </v-layout>
 
       <v-layout>
