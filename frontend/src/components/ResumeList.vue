@@ -10,9 +10,9 @@
       lg4
       xl4
     >
-
     <transition-group name="list" >
       <Resume @del="del_detail"
+        @cldt="rere"
         v-bind:key="i"
         v-if="sec >= i"
         class="ma-3 layout justify-center"
@@ -24,6 +24,7 @@
         :text_val="sresumes[i-1].text_val"
         :resume_date="sresumes[i-1].resume.resume_date"
         :tag_name="sresumes[i-1].tag_name"
+        :tag_names="sresumes[i-1].tag_names"
       ></Resume>
     </transition-group>
     </v-flex>
@@ -42,7 +43,7 @@ export default {
   data() {
     return {
       searkey : ["resume_company","resume_task","resume_question","resume_answer"],
-      tag_name:["신뢰","책임감","창의성","도전정신","혁신","열정","도덕성","가치창출","글로벌","협력","전문성","배려"],
+      tag_names:["신뢰","책임감","창의성","도전정신","혁신","열정","도덕성","가치창출","글로벌","협력","전문성","배려"],
       sresumes:[],
       resumes: [],
       sec : 0,
@@ -57,8 +58,10 @@ export default {
   mounted() {
   },
   methods: {
+    rere(){
+      console.log("고침");
+    },
     del_detail(){
-      console.log("화면 꺼");
       var a = document.querySelector('html')
       a.style.overflowY="scroll"
       setTimeout(() => {
@@ -80,9 +83,9 @@ export default {
 
       var filtering = []
       for (let i=0; i < this.filter_tag.length; i++){
-        if (this.filter_tag[i]) {filtering.push(this.tag_name[i])
+        if (this.filter_tag[i]) {filtering.push(this.tag_names[i])
         console.log("tag_name");
-        console.log(this.tag_name);
+        console.log(this.tag_names);
         console.log(filtering);
         
         }
@@ -105,8 +108,11 @@ export default {
       console.log("완료");
     },
     getResume: function() {
+      console.log("reload");
       API.get('/resume')
       .then(response => {
+        console.log(response);
+        
         this.resumes = response.data 
         this.sresumes = this.resumes
         this.$emit("load")

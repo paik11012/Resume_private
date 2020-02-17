@@ -192,7 +192,6 @@ export default {
       this.searchpick = false
     },
     changeTag(i){
-      console.log(this.tags[i-1]['state']);
       this.tags[i-1]['state'] = !this.tags[i-1]['state']
       this.filter_tag[i-1] = this.tags[i-1]['state']
       this.$refs.updating.filter()
