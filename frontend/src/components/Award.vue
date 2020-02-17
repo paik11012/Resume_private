@@ -60,7 +60,7 @@ export default {
   },
   data(){
     return{
-      editing:true
+      editing:true,
     }
   },
   methods:{
@@ -80,13 +80,15 @@ export default {
     },
     addAward() {  // add and edit awards
       var award = {
+        'id': this.id,
         'award_org' : this.award_org,
         'award_title' : this.award_title,
         'award_date' : this.award_date,
         'award_detail' : this.award_detail,
         'award_prize' : this.award_prize,
       }
-      API.post('/awards/save', award)
+      console.log(award)
+      API.post('/awards/update', award)
       .then(response => {
         console.log(response)
       })
