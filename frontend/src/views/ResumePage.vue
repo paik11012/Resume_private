@@ -38,24 +38,24 @@
             </div>
             <v-row class="dig">
               <v-col cols="12" sm="3" md="3" style="padding-top:1px">
-                <v-checkbox v-model="tag_name" class="mx-2" value="신뢰" label="신뢰" hide-details></v-checkbox>
-                <v-checkbox v-model="tag_name" class="mx-2" value="혁신" label="혁신" hide-details></v-checkbox>
-                <v-checkbox v-model="tag_name" class="mx-2" value="글로벌" label="글로벌" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name[0].value" class="mx-2" value="신뢰" label="신뢰" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name[4].value" class="mx-2" value="혁신" label="혁신" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name[8].value" class="mx-2" value="글로벌" label="글로벌" hide-details></v-checkbox>
               </v-col>
               <v-col cols="12" sm="3" md="3" style="padding-top:1px">
-                <v-checkbox v-model="tag_name" class="mx-2" value="책임감" label="책임감" hide-details></v-checkbox>
-                <v-checkbox v-model="tag_name" class="mx-2" value="열정" label="열정" hide-details></v-checkbox>
-                <v-checkbox v-model="tag_name" class="mx-2" value="협력" label="협력" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name[1].value" class="mx-2" value="책임감" label="책임감" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name[5].value" class="mx-2" value="열정" label="열정" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name[9].value" class="mx-2" value="협력" label="협력" hide-details></v-checkbox>
               </v-col>
               <v-col cols="12" sm="3" md="3" style="padding-top:1px">
-                <v-checkbox v-model="tag_name" class="mx-2" value="창의성" label="창의성" hide-details></v-checkbox>
-                <v-checkbox v-model="tag_name" class="mx-2" value="도덕성" label="도덕성" hide-details></v-checkbox>
-                <v-checkbox v-model="tag_name" class="mx-2" value="전문성" label="전문성" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name[2].value" class="mx-2" value="창의성" label="창의성" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name[6].value" class="mx-2" value="도덕성" label="도덕성" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name[10].value" class="mx-2" value="전문성" label="전문성" hide-details></v-checkbox>
               </v-col>
               <v-col cols="12" sm="3" md="3" style="padding-top:1px">
-                <v-checkbox v-model="tag_name" class="mx-2" value="도전정신" label="도전정신" hide-details></v-checkbox>
-                <v-checkbox v-model="tag_name" class="mx-2" value="가치창출" label="가치창출" hide-details></v-checkbox>
-                <v-checkbox v-model="tag_name" class="mx-2" value="배려" label="배려" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name[3].value" class="mx-2" value="도전정신" label="도전정신" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name[7].value" class="mx-2" value="가치창출" label="가치창출" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name[11].value" class="mx-2" value="배려" label="배려" hide-details></v-checkbox>
               </v-col>
             </v-row>      
             <v-text-field label="질문"
@@ -148,7 +148,8 @@ export default {
       resume_answer:null,
       dialog: false,
       drawer: null,
-      tag_name: ["신뢰","책임감","창의성","도전정신","혁신","열정","도덕성","가치창출","글로벌","협력","전문성","배려"],
+      tag_name: [{"신뢰":false},{"책임감":false},{"창의성":false},{"도전정신":false},{"혁신":false},{"열정":false},{"도덕성":false},
+      {"가치창출":false},{"글로벌":false},{"협력":false},{"전문성":false},{"배려":false}],
       resumes: [],
       reload:false,
       filter_tag: [false,false,false,false,false,false,false,false,false,false,false,false],
@@ -222,6 +223,8 @@ export default {
           ) {
         return alert('태그와 지원시기 외 정보는 모두 입력해주세요')
       } else {
+        console.log(r_data);
+        
         API.post(
         '/resume/save', r_data)
       .then(response=>{
