@@ -3,7 +3,7 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left" style="font-size:20px;font-family:Jua" colspan="2">My Info
+          <th style="font-size:20px;font-family:Jua" colspan="2">My Info
           </th>
           <th>
             <v-btn v-on:click="edit" v-if="editing" small fab dark color="cyan" id="write">

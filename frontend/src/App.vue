@@ -38,7 +38,7 @@ export default {
     position: fixed;
     top:15px;
     width: 100%;
-    z-index: 9995;
+    z-index: 9999999999999999999999999999999999999995;
   }
   .DrwBtn{
     z-index: 9999;
