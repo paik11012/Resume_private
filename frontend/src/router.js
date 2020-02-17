@@ -8,6 +8,7 @@ import MyPage from './views/MyPage.vue'
 import MainPage from './views/MainPage.vue'
 import SignupPage from './views/SignupPage.vue'
 import UserInfo from './views/UserInfo.vue'
+import AdminPage from './views/AdminPage.vue'
 
 Vue.use(Router)
 
@@ -55,6 +56,11 @@ export default new Router({
 			path: '/userinfo',
 			name: 'userinfo',
 			component: UserInfo
+		},
+		{
+			path: '/admin',
+			name: 'admin',
+			component: AdminPage
 		}
   ]
 })
