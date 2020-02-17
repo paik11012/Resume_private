@@ -13,9 +13,10 @@
                 v-if="select==i | opendrop"
                 @click="selectone(i)"
                 class="layout row"
+                style="font-family:Jua"
               >
                 <!-- eslint-disable -->
-              {{ edu_school_sort[i-1] }} <div v-if="!opendrop" style="position:absolute; right:0;"><i class="material-icons">arrow_drop_down</i></div>
+              {{ edu_school_sort[i-1] }} <div v-if="!opendrop" style="position:absolute; right:0;font-family:Jua"><i class="material-icons">arrow_drop_down</i></div>
               </li>
             </ul>
             </div>

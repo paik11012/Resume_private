@@ -3,13 +3,13 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th colspan="2" v-if="editing" style="font-size:20px">{{award_title}}</th>
-          <th v-else style="font-size:20px" colspan="2"><input type="text" style="width:40%" v-model="award_title"></th>
+          <th colspan="2" v-if="editing" style="font-size:20px; font-family:Jua">{{award_title}}</th>
+          <th v-else style="font-size:20px; font-family:Jua" colspan="2"><input type="text" v-model="award_title"></th>
           <th class="layout hold">
             <v-btn @click="editor" v-if="editing" small fab dark color="cyan" class="edu_write">
               <v-icon>edit</v-icon>
             </v-btn>
-            <v-btn v-else @click="addEduHigh" small fab class="edu_write" color="success">
+            <v-btn v-else @click="addAward" small fab class="edu_write" color="success">
               <v-icon>check</v-icon>
             </v-btn>
             <v-btn @click="del" v-if="editing" small fab dark color="red" class="delkey">
@@ -24,7 +24,7 @@
           <td v-if="editing" colspan="2">{{ award_org }}</td>
           <td v-else colspan="2"><input type="text" v-model="award_org" ></td>
         </tr>
-        <tr>
+        <tr> 
           <td width="150px">취득일자</td>
           <td v-if="editing" colspan="2">{{ award_date }}</td>
           <td v-else colspan="2"><input type="text" v-model="award_date"></td>
@@ -57,7 +57,6 @@ export default {
   },
   mounted(){
     console.log(this.id);
-    console.log(this.award_org)
   },
   data(){
     return{
@@ -66,12 +65,8 @@ export default {
   },
   methods:{
     del(){
-      console.log(this.education_id,"삭제예정")
-      API.delete(`/awards/del/${this.id}`,
-      {headers : {
-      'token' : window.sessionStorage.getItem("jwt-auth-token"),
-      'user_id': window.sessionStorage.getItem("user_id")}}
-      )
+      console.log("삭제예정")
+      API.delete(`/awards/del/${this.id}`)
       .then(response => {
         console.log(response)
         this.$emit('delete')
@@ -83,19 +78,15 @@ export default {
     editor(){
       this.editing = !this.editing
     },
-    addEduHigh() {
-      var education = {
-        'edu_school_sort': '고등학교',
-        'edu_school_name': this.edu_school_name,
-        'edu_school_st_date': this.edu_school_st_date,
-        'edu_school_ed_date': '',
+    addAward() {  // add and edit awards
+      var award = {
+        'award_org' : this.award_org,
+        'award_title' : this.award_title,
+        'award_date' : this.award_date,
+        'award_detail' : this.award_detail,
+        'award_prize' : this.award_prize,
       }
-      var e_data = { education: education }
-      API.post('/edu/upload', e_data,
-      {headers : {
-      'token' : window.sessionStorage.getItem("jwt-auth-token"),
-      'user_id': window.sessionStorage.getItem("user_id")}}
-      )
+      API.post('/awards/save', award)
       .then(response => {
         console.log(response)
       })

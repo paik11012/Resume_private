@@ -3,7 +3,7 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left" style="font-size:20px">{{sch_name}}{{asd}}</th>
+          <th class="text-left" style="font-size:20px; font-family:Jua">{{sch_name}}{{asd}}</th>
           <th class="layout hold">
             <v-btn v-on:click="editor" v-if="editing" small fab dark color="cyan" class="edu_write">
               <v-icon dark>edit</v-icon>

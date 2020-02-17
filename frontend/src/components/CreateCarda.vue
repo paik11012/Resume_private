@@ -8,8 +8,8 @@
             <ul class="menubar"> 
                  <!-- eslint-disable -->
               <li
-                class="layout row" style="font-size:20px;"
-              ><input type="text" v-model="award_title" placeholder="Licence / Award">
+                class="layout row" style="font-size:20px;font-family:Jua"
+              ><input type="text" v-model="award_title" style="font-family:Jua" placeholder="License / Award Title">
                 <!-- eslint-disable -->
               </li>
             </ul>
@@ -81,7 +81,8 @@ export default {
       setTimeout(() => {
         this.$emit('createa')
       }, 500);
-    }
+    },
+    
   }
 }
 </script>
