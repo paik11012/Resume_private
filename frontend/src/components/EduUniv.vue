@@ -29,9 +29,14 @@
           <td v-else><input type="text" v-model="period" placeholder="education period"></td>
         </tr>
         <tr>
-          <td width="150px">전공</td>
+          <td width="150px">전공구분</td>
           <td v-if="editing">{{ edu_detail_major_sort }}</td>
-          <td v-else><input type="text" v-model="edu_detail_major_sort" placeholder="major"></td>
+          <td v-else><input type="text" v-model="edu_detail_major_sort" placeholder="major_sort"></td>
+        </tr>
+        <tr>
+          <td width="150px">전공명</td>
+          <td v-if="editing">{{ edu_detail_major }}</td>
+          <td v-else><input type="text" v-model="edu_detail_major" placeholder="major"></td>
         </tr>
         <tr>
           <td width="150px">이수학점</td>
@@ -43,13 +48,24 @@
           <td v-if="editing">{{ edu_detail_grade }}</td>
           <td v-else><input type="text" v-model="edu_detail_grade" placeholder="grade"></td>
         </tr>
+        <tr>
+          <td width="150px">성적표</td>
+          <td v-if="editing"><span id="grade_img" @click="openWindow">{{ edu_detail_grade_img }}</span> <v-btn style="margin-top:6px;" color="success" outlined @click="downloadFile"><v-icon dark medium>mdi-cloud-download</v-icon></v-btn></td>
+          <td v-else><v-file-input v-model="selectedFile" accept="*/*" height="1.8em"/></td>
+        </tr>
       </tbody>
     </template>
   </v-simple-table>
 </template>
 
 <script>
+import { app } from "../services/FirebaseService";
+import firebase, { storage } from "firebase/app";
+import "firebase/firestore";
+import "firebase/storage";
+
 import API from "../services/Api"
+
 export default {
   computed:{
     period:{
@@ -79,7 +95,9 @@ export default {
     edu_school_st_date:{type:String},
     edu_school_ed_date:{type:String},
     edu_detail_major_sort:{type:String},
+    edu_detail_major:{type:String},
     edu_detail_grade:{type:Number},
+    edu_detail_grade_img:{type:String},
     edu_detail_credit:{type:Number},
     edu_detail_id:{type:Number},
     asd:{type:Number}
@@ -88,7 +106,9 @@ export default {
   data(){
     return{
       editing:true,
-      sch_name:''
+      sch_name:'',
+
+      selectedFile: '',
     }
   },
   methods:{
@@ -115,7 +135,9 @@ export default {
       }
       var u_detail = {
         'edu_detail_grade': this.edu_detail_grade,
+        'edu_detail_grade_img': this.edu_detail_grade_img,
         'edu_detail_major_sort': this.edu_detail_major_sort,
+        'edu_detail_major': this.edu_detail_major,
         'edu_detail_credit': this.edu_detail_credit
       }
       var u_data = { education: u_education, education_detail: u_detail }
@@ -127,11 +149,90 @@ export default {
         console.log(error)
       })
       this.editing = !this.editing
+    },
+    downloadFile() {
+      var storageRef = firebase.storage().ref();
+      var data = {edu_detail_id: this.edu_detail_id};
+
+      // firebase storage의 업로드되어 있는 파일 다운로드 //
+      API.post("/edu/downloadFile", data)
+      .then(response=>{
+        var file_path = sessionStorage.getItem("user_id");
+        file_path += "/";
+        file_path += response.data;
+
+        storageRef
+        .child(file_path)
+        .getDownloadURL()
+        .then(function(url) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", url);
+
+          xhr.responseType = "blob";
+          xhr.onload = function(event) {
+            var blob = xhr.response;
+            var link = document.createElement("a");
+            link.href = window.URL.createObjectURL(blob);
+            link.download = response.data; // 다운로드되는 파일명 설정
+            link.click();
+          };
+          xhr.send();
+        });
+      })
+    },
+    openWindow(){
+      console.log("openWidnow")
+
+      var storageRef = firebase.storage().ref();
+      var data = {edu_detail_id: this.edu_detail_id};
+
+      // firebase storage의 업로드되어 있는 파일 다운로드 //
+      API.post("/edu/downloadFile", data)
+      .then(response=>{
+        var file_path = sessionStorage.getItem("user_id");
+        file_path += "/";
+        file_path += response.data;
+
+        storageRef
+        .child(file_path)
+        .getDownloadURL()
+        .then(function(url) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", url);
+
+          xhr.responseType = "blob";
+          xhr.onload = function(event) {
+            var blob = xhr.response;
+            var link = document.createElement("a");
+            link.setAttribute("target", "_new");
+            link.href = window.URL.createObjectURL(blob);
+            link.open = response.data; // 새 탭으로 열기
+            link.click();
+          };
+          xhr.send();
+        });
+      })
     }
   },
+  watch:{
+    selectedFile: function(selectedFile) {
+      var storageRef = firebase.storage().ref();
+      var user_id = sessionStorage.getItem("user_id");
+
+      // firebase storage에 파일 업로드 //
+      storageRef
+      .child(user_id + '/' + selectedFile.name)
+      .put(selectedFile);
+
+      this.edu_detail_grade_img = this.selectedFile.name
+    },
+  }
 }
 </script>
 
 <style lang="scss">
-
+#grade_img:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
 </style>
