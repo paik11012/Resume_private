@@ -135,7 +135,7 @@ export default {
       resume_answer:null,
       dialog: false,
       drawer: null,
-      tag_name: ["신뢰","책임감","창의성","도전정신","혁신","열정","도덕성","가치창출","글로벌","협력","전문성","배려"],
+      tag_name: [],
       resumes: [],
       reload:false,
       filter_tag: [false,false,false,false,false,false,false,false,false,false,false,false],
