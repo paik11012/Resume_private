@@ -36,13 +36,13 @@ export default {
   name: "ResumeList",
   props: {
     filter_tag:{type:Array},
-    tag_name:{type:Array},
     search:{type:String},
     keypick:{type:Number},
   },
   data() {
     return {
       searkey : ["resume_company","resume_task","resume_question","resume_answer"],
+      tag_name:["신뢰","책임감","창의성","도전정신","혁신","열정","도덕성","가치창출","글로벌","협력","전문성","배려"],
       sresumes:[],
       resumes: [],
       sec : 0,
@@ -71,15 +71,21 @@ export default {
     //   console.log(this.resumes);
     // },
     filter(){
-      console.log(this.filter_tag);
+      console.log("filter");
       
+      console.log(this.filter_tag);
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
       console.log(this.filter_tag.reduce(reducer));
-      if(this.filter_tag.reduce(reducer)==0) this.sresumes = this.resumes
-      
+      if(this.filter_tag.reduce(reducer)==0) this.sresumes = this.resumes;
+
       var filtering = []
       for (let i=0; i < this.filter_tag.length; i++){
-        if (this.filter_tag[i]) {filtering.push(this.tag_name[i])}
+        if (this.filter_tag[i]) {filtering.push(this.tag_name[i])
+        console.log("tag_name");
+        console.log(this.tag_name);
+        console.log(filtering);
+        
+        }
       }
       var rs = []
       for (let i=0; i < this.resumes.length; i++){
@@ -91,6 +97,8 @@ export default {
         }
         if (cnt == filtering.length) rs.push(this.resumes[i])
       }
+      console.log("rs");
+      
       console.log(rs);
       
       this.sresumes = rs
