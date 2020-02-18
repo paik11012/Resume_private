@@ -50,4 +50,24 @@ Experiences {
 //    public void setUser(Users user) {
 //        this.user = user;
 //    }
+
+    public void setExp_org_name(String exp_org_name) {
+        this.exp_org_name = exp_org_name;
+    }
+
+    public void setExp_org_period(String exp_org_period) {
+        this.exp_org_period = exp_org_period;
+    }
+
+    public void setExp_org_type(String exp_org_type) {
+        this.exp_org_type = exp_org_type;
+    }
+
+    public void setExp_org_role(String exp_org_role) {
+        this.exp_org_role = exp_org_role;
+    }
+
+    public void setExp_org_detail(String exp_org_detail) {
+        this.exp_org_detail = exp_org_detail;
+    }
 }

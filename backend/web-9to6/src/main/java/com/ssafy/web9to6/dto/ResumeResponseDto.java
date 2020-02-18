@@ -17,6 +17,7 @@ public class ResumeResponseDto {
     private String resume_date;
     private String resume_question;
     private String resume_answer;
+    private Long id;
 
     @Builder
     public ResumeResponseDto(String resume_company,String resume_task,String resume_date,String resume_question,String resume_answer, Users user) {
