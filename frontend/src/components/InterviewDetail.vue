@@ -85,7 +85,7 @@ export default {
 <style lang="scss">
 .idetail{
   position: relative;
-  z-index: 1e9;
+  z-index: 29;
   & .modalbox{
     width: 100%;
     height: 100%;
@@ -98,13 +98,13 @@ export default {
   & .modal{
     & .edit{
       position: absolute;
-      z-index: 1e9+2;
+      z-index: 30;
       right: 8%;
       top : 3%;
     }
     & .delete{
       position: absolute;
-      z-index: 1e9+2;
+      z-index: 30;
       right: 3%;
       top : 3%;
     }

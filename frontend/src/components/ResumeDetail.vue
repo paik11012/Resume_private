@@ -175,7 +175,7 @@ export default {
     text-align: center;
   }
   position: relative;
-  z-index: 1e9;
+  z-index: 29;
   & .bot_tags{
     position: absolute;
     bottom:15px;
@@ -194,13 +194,13 @@ export default {
   & .modal{
     & .edit{
       position: absolute;
-      z-index: 1e9+2;
+      z-index: 30;
       right: 65px;
       top : 3%;
     }
     & .delete{
       position: absolute;
-      z-index: 1e9+2;
+      z-index: 30;
       right: 15px;
       top : 3%;
     }

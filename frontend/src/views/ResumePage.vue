@@ -11,7 +11,7 @@
   <!-- resume 작성하기 -->
   <template>
   <v-row justify="center">
-    <v-dialog v-model="dialog" :persistent="true" max-width="80%" max-height="80%" style="z-index:999999;">
+    <v-dialog v-model="dialog" :persistent="true" max-width="80%" max-height="80%" style="z-index:30;">
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
       <v-card>
         <v-card-title class="justify-center">
@@ -84,16 +84,16 @@
     <v-container>
       <v-layout class="justify-end">
         <div style="position:relative; width:90px; margin-left:50%; hei ght:40px; margin-bottom:20px;">
-        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:999999999; width:100%; height:100%; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;">
+        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:30; width:100%; height:100%; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;">
           <p class="keyset">
           {{ searkey[pickkey] }}
           </p>
           </div>
-        <div v-else style="position:absolute; z-index:999999999; background:white; left:0px; width:100%; height:165px; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;">
+        <div v-else style="position:absolute; z-index:30; background:white; left:0px; width:100%; height:165px; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;">
           <p v-for="i in searkey.length" :key="i" class="keyset" @click="selkey(i-1)">{{ searkey[i-1] }}</p>
         </div>
         </div>
-        <div style="width: 250px !important; margin-left:20px; height:40px; padding: 6px 12px; border:1px solid; margin-right:10px; border-radius:20px;"><v-icon>mdi-magnify</v-icon>
+        <div style="width: 250px !important; z-index:29; margin-left:20px; height:40px; padding: 6px 12px; border:1px solid; margin-right:10px; border-radius:20px;"><v-icon>mdi-magnify</v-icon>
         <input style="width:85%; margin-left:5px;" v-model="search" type="text"></div>
       </v-layout>
 
@@ -261,7 +261,7 @@ export default {
   position: fixed;
   right:30px;
   bottom:30px;
-  z-index: 9999999999;
+  z-index: 30;
 }
 i{
   z-index: 22; 

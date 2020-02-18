@@ -1,56 +1,22 @@
 <template >
   <div
-    class="full layout col align-center"
+    class="full layout col align-center main" style="position:relative;"
     :class="{'justify-end' : phone, 'justify-center' : !phone}"
   >
-    <div style="width:75%">
-      <div class="{layout justify-start:!phone}">
+  
         <transition name="fadein">
           <div class="back" v-if="backon | loginModalOpen | signupModalOpen" @mouseover="back"></div>
         </transition>
-        <div class="locset_log" v-if="logc">
-          <p class="logbtn main_p" @mouseover="logpic" @click="openLoginModal">Login</p>
-        </div>
-        <div class="locset_log" v-else>
-          <p class="logbtnon main_p" @mouseout="back" @click="openLoginModal">Login</p>
-        </div>
-      </div>
+          <p class="logbtn main_p" v-if="logc" @mouseover="logpic" @click="openLoginModal">Login</p>
+          <p class="logbtnon main_p" v-else @mouseout="back" @click="openLoginModal">Login</p>
       <LoginModal v-model="loginModalOpen" @close="openLoginModal"></LoginModal>
-      <div class="layout justify-end">
-        <div class="locset_sign" v-if="signc & phone">
-          <p class="signbtn main_p" @mouseover="signpic" @click="openSignupModal">
-            Sign
-            <br />Up
+      <div>
+      <p class="signbtn main_p" v-if="signc" @mouseover="signpic" @click="openSignupModal">
+            {{ phone ? signn : signbr}}
           </p>
-        </div>
-        <div class="locset_sign" v-else-if="phone">
-          <p class="signbtnon main_p" @mouseout="back" @click="openSignupModal">
-            Sign
-            <br />Up
-          </p>
-        </div>
-
-        <div class="locset_sign" v-if="signc & !phone">
-          <p class="signbtn main_p" @mouseover="signpic" @click="openSignupModal">Sign Up</p>
-        </div>
-        <div class="locset_sign" v-else-if="!phone">
-          <p class="signbtnon main_p" @mouseout="back" @click="openSignupModal">Sign Up</p>
-        </div>
-
-        <!-- 이미지 넣기 예시 -->
-
-        <!-- <div id="testt">
-          <input
-            type="file"
-            multiple
-            accept="image/jpeg"
-            @change="detectFiles($event.target.files)"
-          />
-          <button @click="downloadImg">download</button>
-          <img src id="imgtag" />
-        </div> -->
-
-      </div>
+      <p class="signbtnon main_p" v-else @mouseout="back" @click="openSignupModal">
+        {{ phone ? signn : signbr}}
+      </p>
       <SignupModal v-model="signupModalOpen"></SignupModal>
     </div>
   </div>
@@ -71,6 +37,8 @@ export default {
   },
   data() {
     return {
+      signn:'SignUp',
+      signbr:'Sign\n\Up',
       loginModalOpen: false,
       signupModalOpen: false,
       backon: false,
@@ -183,4 +151,27 @@ export default {
 
 <style lang="scss">
 @import "@/assets/scss/mainpage.scss";
+.main{
+  & .logbtn{
+    position: absolute;
+    top:12%;
+    left: 15%;
+    &on{
+      position: absolute;
+      top:12%;
+      left: 15%;
+    }
+  }
+  & .signbtn{
+    position:absolute;
+    top:53%;
+    right: 15%;
+    &on{
+      position: absolute;
+      top:53%;
+      right: 15%;
+      color:white;
+    }
+  }
+}
 </style>
