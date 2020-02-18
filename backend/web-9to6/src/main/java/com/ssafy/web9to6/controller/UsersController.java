@@ -7,6 +7,7 @@ import com.ssafy.web9to6.dto.SocialResponseDto;
 import com.ssafy.web9to6.dto.UsersResponseDto;
 import com.ssafy.web9to6.service.EmailService;
 import com.ssafy.web9to6.service.JwtService;
+import com.ssafy.web9to6.service.PdfService;
 import com.ssafy.web9to6.service.UsersService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -46,6 +47,9 @@ public class UsersController {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private PdfService pdfService;
 
     @ApiOperation("회원 이메일(ID) 중복체크")
     @GetMapping("/users/checkId")
@@ -94,7 +98,8 @@ public class UsersController {
                 resultmap.put("status", true);
                 resultmap.put("jwt-auth-token", token);
                 status = HttpStatus.ACCEPTED;
-            } else throw new Exception("비밀번호 오류");
+            } else throw
+                    new Exception("비밀번호 오류");
 
             //return res;
         }
@@ -233,9 +238,9 @@ public class UsersController {
     public void userDeleteByAdmin(HttpServletRequest request, @PathVariable String user_id){
         String admin_id = request.getHeader("user_id");
         Users admin = usersService.findById(admin_id);
-        if(admin.getUser_authority().equals("admin")){
+       // if(admin.getUser_authority().equals("admin")){
             usersService.delete(user_id);
-        }
+        //}
     }
 
     @ApiOperation("임시 비밀번호 메일 발송")
@@ -256,6 +261,15 @@ public class UsersController {
         return usersService.updateAuth(user_id);
     }
 
+
+   @ApiOperation("첨부")
+    @GetMapping("/attach/{user_id}")
+    public void attach(@PathVariable String user_id) throws Exception {
+       emailService.sendPdf(usersService.findById(user_id));
+//   pdfService.
+       System.out.println(pdfService.createPdf());
+   }
+   
     @ApiOperation("회원 프로필 사진 업로드")
     @PostMapping("/users/uploadProfileImg")
     public Users userUploadProfileImg(HttpServletRequest request, @RequestBody UsersResponseDto requestDto){
@@ -263,5 +277,6 @@ public class UsersController {
         Users user = usersService.findById(user_id);
         user.setUser_profile_img(requestDto.getUser_profile_img());
         return usersService.save(user);
+
     }
 }

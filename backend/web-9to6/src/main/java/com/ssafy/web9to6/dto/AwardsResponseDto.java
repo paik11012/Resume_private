@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 public class AwardsResponseDto {
     private  Users user;
+    private  Long id;
     private  String award_org;
     private  String award_title;
     private  String award_date;

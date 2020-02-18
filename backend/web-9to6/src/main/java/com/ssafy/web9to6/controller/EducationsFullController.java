@@ -20,7 +20,7 @@ import java.util.*;
 
 @RequiredArgsConstructor
 @RestController
-public class EducationsFullController {
+public class  EducationsFullController {
     private final EducationsService educationsService;
     private final CareersService careersService;
     private final UsersService usersService;
@@ -37,16 +37,17 @@ public class EducationsFullController {
         // request object //
         System.out.println(requestDto);
         Map map_edu = (Map) requestDto.get("education");
-        System.out.println(map_edu);
         Educations education = Educations.builder()
                 .edu_school_name((String) map_edu.get("edu_school_name"))
                 .edu_school_sort((String) map_edu.get("edu_school_sort"))
                 .edu_school_st_date((String) map_edu.get("edu_school_st_date"))
                 .edu_school_ed_date((String) map_edu.get("edu_school_ed_date"))
                 .build();
+        System.out.println(("Dd" + (String) map_edu.get("edu_school_ed_date")));
+        System.out.println(("Dd" + (String) map_edu.get("edu_school_st_date")));
         if(map_edu.get("edu_id")!=null) education.setEdu_id(Long.parseLong((String) map_edu.get("edu_id")));
 
-        
+
         boolean edu_det_save = false;
         Map map_edu_detail = (Map) requestDto.get("education_detail");
         EducationDetails educationDetails = new EducationDetails();

@@ -36,4 +36,10 @@ public class TagService {
         }
         return list2;
     }
+
+    public List<Tag> findAllTag(Resume resume) {
+        List<Tag> list = tr.findByResume(resume);
+
+        return list;
+    }
 }

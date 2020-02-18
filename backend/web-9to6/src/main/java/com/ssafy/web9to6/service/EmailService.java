@@ -1,13 +1,21 @@
 package com.ssafy.web9to6.service;
 
+
 import com.ssafy.web9to6.domain.Users;
 import com.ssafy.web9to6.dto.UsersResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import javax.activation.DataSource;
+import javax.mail.internet.MimeMessage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 
 @RequiredArgsConstructor
 @Service
@@ -16,6 +24,8 @@ public class EmailService {
     private JavaMailSender emailSender;
     @Autowired
     private UsersService usersService;
+    @Autowired
+    private PdfService pdfService;
 
     public void sendSimpleMessage(Users user) throws Exception {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -64,6 +74,32 @@ public class EmailService {
             return temp_pwd;
         } catch (Exception e) {
             throw new Exception("인증 번호 발송 에러");
+        }
+
+    }
+
+    public void sendPdf(Users user) throws Exception {
+//        SimpleMailMessage message = new SimpleMailMessage();
+//        message.setTo(user.getUser_id());
+//        message.setSubject("[취뽀냥이]" + user.getUser_name() + " 임시 비밀번호 발송");
+//        message.setText("");
+//
+//        FileSystemResource file = new FileSystemResource(new File("E:/test.hwp"));
+//        message.addAttachment("test.hwp", file);
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        helper.setTo(user.getUser_id());
+        helper.setSubject("pdf");
+        helper.setText("하아..");
+        FileSystemResource file = new FileSystemResource(new File("file/dd.pdf"));
+//        ByteArrayInputStream dd = pdfService.createPdf();
+//        System.out.println("힝" + dd);
+        helper.addAttachment("Dd", file);
+
+        try {
+            emailSender.send(message);
+        } catch (Exception e) {
+            throw new Exception("임시 비밀번호 발송 에러");
         }
 
     }

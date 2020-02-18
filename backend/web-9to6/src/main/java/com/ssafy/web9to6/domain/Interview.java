@@ -48,4 +48,28 @@ public class Interview {
         this.interview_task = interview_task;
         this.interview_memo = interview_memo;
     }
+
+    public void setInterview_company(String interview_company) {
+        this.interview_company = interview_company;
+    }
+
+    public void setInterview_task(String interview_task) {
+        this.interview_task = interview_task;
+    }
+
+    public void setInterview_date(String interview_date) {
+        this.interview_date = interview_date;
+    }
+
+    public void setInterview_question(String interview_question) {
+        this.interview_question = interview_question;
+    }
+
+    public void setInterview_answer(String interview_answer) {
+        this.interview_answer = interview_answer;
+    }
+
+    public void setInterview_memo(String interview_memo) {
+        this.interview_memo = interview_memo;
+    }
 }
