@@ -46,9 +46,6 @@ export default {
     top: 20px;
     left: 5px;
   }
-  .rout{
-    margin-top:80px;
-  }
   .backapp{
     font-size: 25px;
     text-align: center;
