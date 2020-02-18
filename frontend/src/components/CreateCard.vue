@@ -1,5 +1,5 @@
 <template>
-  <v-simple-table>
+  <v-simple-table class="educard">
     <template v-slot:default>
       <thead>
         <tr>
@@ -191,6 +191,12 @@ export default {
 #write{
   position: relative;
   left: 10px;
+}
+
+.educard{
+  .v-file-input__text{
+    visibility: visible;
+  }
 }
 
 </style>
