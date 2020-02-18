@@ -1,14 +1,8 @@
 import axios from 'axios'
 
 export default axios.create({
-<<<<<<< HEAD
 		baseURL: 'http://70.12.247.99:8080',
 		//baseURL : 'http://15.164.244.244:8080', //회원가입용  url
-=======
-		// baseURL: 'http://70.12.247.99:8080',
-		// baseURL : 'http://15.164.244.244:8080',
-		baseURL : 'http://localhost:8080',
->>>>>>> 376a21622e541a81e4684f3558b089417cb45997
 		withCredentials: false,
 		headers: {
 			'Accept': 'application/json',
