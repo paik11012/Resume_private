@@ -219,7 +219,7 @@ export default {
           || resume_info.resume_question == null
           || resume_info.resume_answer == null
           ) {
-        return alert('태그와 지원시기 외 정보는 모두 입력해주세요')
+        return swal('태그와 지원시기 외 정보는 모두 입력해주세요')
       } else {
         console.log(r_data);
         
