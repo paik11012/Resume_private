@@ -10,6 +10,7 @@
         :award_date="awd[i-1].award_date"
         :award_prize="awd[i-1].award_prize"
         :award_detail="awd[i-1].award_detail"
+        :award_file="awd[i-1].award_file"
         @delete="pop(i)"
       />
     </transition>
@@ -42,6 +43,7 @@ export default {
             award_date : data.award_date,
             award_prize : data.award_prize,
             award_detail : data.award_detail,
+            award_file : data.award_file,
           }
           array.push(table)
         }

@@ -164,9 +164,6 @@ export default {
 
       // firebase storage의 기존 파일 삭제 //
       if(this.edu_detail_grade_img!=''){
-        console.log("this.edu_detail_grade_img")
-        console.log(this.edu_detail_grade_img)
-
         storageRef
         .child(user_id + "/" + this.edu_detail_grade_img)
         .delete();

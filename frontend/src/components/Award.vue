@@ -39,6 +39,11 @@
           <td v-if="editing" colspan="2">{{ award_detail }}</td>
           <td v-else colspan="2"><input type="text" v-model="award_detail" placeholder="education period"></td>
         </tr>
+        <tr>
+          <td width="150px">파일</td>
+          <td v-if="editing" colspan="2">{{ award_file }}</td>
+          <td v-else colspan="2"><input type="text" v-model="award_file" placeholder="education period"></td>
+        </tr>
       </tbody>
     </template>
   </v-simple-table>
@@ -54,6 +59,7 @@ export default {
     award_date : {type:String},
     award_prize : {type:String},
     award_detail : {type:String},
+    award_file : {type:String},
   },
   mounted(){
     console.log(this.id);
@@ -61,6 +67,7 @@ export default {
   data(){
     return{
       editing:true,
+      new_award_file : '',
     }
   },
   methods:{
@@ -86,9 +93,10 @@ export default {
         'award_date' : this.award_date,
         'award_detail' : this.award_detail,
         'award_prize' : this.award_prize,
+        'award_file' : this.award_file,
       }
       console.log(award)
-      API.post('/awards/update', award)
+      API.put('/awards/update', award)
       .then(response => {
         console.log(response)
       })
