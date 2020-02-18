@@ -186,7 +186,6 @@ export default {
 
 <style lang="scss">
 @import "@/assets/scss/mypage.scss";
-.mypage{
-  margin-top: 80px;
-}
+// .mypage{
+// }
 </style>
