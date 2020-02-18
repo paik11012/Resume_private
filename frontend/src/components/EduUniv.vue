@@ -76,6 +76,8 @@ export default {
         const m = newValue.match(/(\S*)\s+(.*)/);
         this.edu_school_st_date = m[1];
         this.edu_school_ed_date = m[2];
+        console.log(this.edu_school_st_date)
+        console.log(this.edu_school_ed_date)
       }
     }
   },
@@ -134,17 +136,18 @@ export default {
         'edu_school_sort': this.edu_school_sort,
         'edu_school_name': this.edu_school_name,
         'edu_school_st_date': this.edu_school_st_date,
-        'edu_school_ed_date': '',
+        'edu_school_ed_date': this.edu_school_ed_date,
       }
       var u_detail = {
         'edu_detail_id': String(this.edu_detail_id),
         'edu_detail_grade': String(this.edu_detail_grade),
-        'edu_detail_grade_img': this.edu_detail_grade_img,
+        'edu_detail_grade_img': this.new_edu_detail_grade_img,
         'edu_detail_major_sort': this.edu_detail_major_sort,
         'edu_detail_major': this.edu_detail_major,
         'edu_detail_credit': String(this.edu_detail_credit)
       }
       var u_data = { education: u_education, education_detail: u_detail }
+      console.log("dddddd")
       console.log(u_data)
       API.post('/edu/upload', u_data)
       .then(response => {
@@ -154,6 +157,26 @@ export default {
         console.log(error)
       })
       this.editing = !this.editing
+
+      // firebase storage에 파일 업로드 //
+      var storageRef = firebase.storage().ref();
+      var user_id = sessionStorage.getItem("user_id");
+
+      // firebase storage의 기존 파일 삭제 //
+      if(this.edu_detail_grade_img!=''){
+        console.log("this.edu_detail_grade_img")
+        console.log(this.edu_detail_grade_img)
+
+        storageRef
+        .child(user_id + "/" + this.edu_detail_grade_img)
+        .delete();
+      }
+
+      // 새로운 파일 업로드 //
+      storageRef
+      .child(user_id + '/' + this.selectedFile.name)
+      .put(this.selectedFile);
+      // END: firebase storage에 파일 업로드 //
     },
     downloadFile() {
       var storageRef = firebase.storage().ref();
@@ -221,23 +244,6 @@ export default {
   },
   watch:{
     selectedFile: function(selectedFile) {
-      var storageRef = firebase.storage().ref();
-      var user_id = sessionStorage.getItem("user_id");
-
-      // firebase storage의 기존 파일 삭제 //
-      if(this.edu_detail_grade_img!=''){
-        console.log(this.edu_detail_grade_img)
-
-        storageRef
-        .child(user_id + "/" + this.edu_detail_grade_img)
-        .delete();
-      }
-
-      // firebase storage에 파일 업로드 //
-      storageRef
-      .child(user_id + '/' + selectedFile.name)
-      .put(selectedFile);
-
       this.new_edu_detail_grade_img = this.selectedFile.name
     },
   }
