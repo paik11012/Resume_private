@@ -19,7 +19,7 @@ $main_font : 'Fredoka One';
 $main_degree : 115deg;
 $main_gradient : rgb(247,202,201), rgb(180, 180, 185), rgb(146,168,209), rgb(230,230,230);
 $black_gradient : rgb(40,40,40), rgb(70,70,70), rgb(52,52,52), rgb(130,130,130);
-$light_grad : rgb(170,170,170), rgb(220,220,220) rgb(200,200,200);
+$light_grad : rgb(170,170,170), rgb(220,220,220), rgb(200,200,200);
 
 // init end -------------------------------------------
 
@@ -135,6 +135,10 @@ $light_grad : rgb(170,170,170), rgb(220,220,220) rgb(200,200,200);
 
 .main_gradient{
   @include gradient($main_degree,$main_gradient)
+}
+
+.light_gradient{
+  @include gradient($main_degree,$light_grad)
 }
 .full{
   width: 100%;
