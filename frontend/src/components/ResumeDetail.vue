@@ -36,9 +36,10 @@
     {{ answer.length }} 자
   </div>
   <div v-if="editing" class="tags">
-    <v-btn xs class="tag" color="#92A8D1" v-for="i in tags.length" v-bind:key='i'>
-    {{ tags[i-1] }}
+    <v-btn small aria-disabled="true" class="tag" outlined color="#92A8D1" v-for="i in tags.length" v-bind:key='i'>
+    #{{ tags[i-1] }}
     </v-btn>
+    <v-btn small class="ma-2" outlined color="success">자소서 내보내기</v-btn>
   </div>
   <div v-else>
     <v-row class="bot_tags justify-space-around dig">
@@ -295,6 +296,7 @@ export default {
       text-align: center;
     }
     & .tags{
+      font-family: Jua;
       position: absolute;
       right: 5%;
       bottom: 5%;
