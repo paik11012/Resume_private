@@ -297,7 +297,5 @@ i{
 .keyset{
   margin:0 !important; height:35px; font-size:16px; font-family:Jua; text-align:center; padding: 6px 0;
 }
-.res_page{
-  margin-top:80px;
-}
+
 </style> 
