@@ -231,6 +231,9 @@
 import { mapActions } from "vuex";
 import router from "../router";
 import API from "../services/Api";
+
+import swal from 'sweetalert';
+
 const MODAL_WIDTH = 656;
 
 export default {
@@ -302,11 +305,11 @@ export default {
       API.get(`/users/sendtmp/${this.email}`)
         .then(response => {
           this.dialog = false;
-          alert("임시 비밀번호를 이메일로 발송했습니다.");
+          swal("임시 비밀번호를 이메일로 발송했습니다.");
         })
         .catch(error => {
           if (error.response.data.message == "임시 비밀번호 발송 에러")
-            alert("인증 비밀번호 발송에 실패하였습니다.");
+            swal("인증 비밀번호 발송에 실패하였습니다.");
         });
     }
   }
@@ -636,4 +639,11 @@ $facebook_color: rgb(146, 168, 209);
   color: white;
   font-family: "Fredoka One", cursive !important;
 }
+
+.swal-button--confirm{
+    background: rgb(146, 168, 209);
+}
+// .swal-button--confirm:not([disabled]):hover {
+//     background: rgb(252, 186, 185);
+// }
 </style>

@@ -82,18 +82,18 @@ export default {
       API.post(axio_url, n_data)
       .then(res => {
           if(res.data.status) {
-              alert('로그인이 성공적으로 이루어졌습니다')
+              swal('로그인이 성공적으로 이루어졌습니다')
               console.log(res.data)
               storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
               storage.setItem('user_id',res.data.data.user_id);
               router.push('home')
           } else {
-              // alert('입력 정보를 확인해주세요')
+              swal('입력 정보를 확인해주세요')
           }
       })
       .catch(error => {
           console.log(error)
-          alert('입력 정보를 확인해주세요')
+          swal('입력 정보를 확인해주세요')
       })
     }
 

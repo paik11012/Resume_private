@@ -16,6 +16,8 @@
 
 <script>
 import API from "../services/Api"
+import swal from 'sweetalert';
+
 export default {
   data() {
     return{
@@ -36,7 +38,7 @@ export default {
     withdraw(user_id) {
       API.delete(`users/deleteByAdmin/${user_id}`)
       .then(response => {
-        alert(`${user_id}가 탈퇴되었습니다.`)
+        swal(`${user_id}가 탈퇴되었습니다.`)
       })
       .catch(error => {
         console.log(error)
@@ -51,4 +53,11 @@ export default {
   font-size:18px !important;
   font-family:Jua;
 }
+
+.swal-button--confirm{
+    background: rgb(146, 168, 209);
+}
+/* .swal-button--confirm:not([disabled]):hover {
+    background: rgb(252, 186, 185);
+} */
 </style>
