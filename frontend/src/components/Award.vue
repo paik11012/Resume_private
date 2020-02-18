@@ -1,5 +1,5 @@
 <template>
-  <v-simple-table>
+  <v-simple-table class="awardcard">
     <template v-slot:default>
       <thead>
         <tr>
@@ -41,8 +41,8 @@
         </tr>
         <tr>
           <td width="150px">파일</td>
-          <td v-if="editing" colspan="2">{{ award_file }}</td>
-          <td v-else colspan="2"><input type="text" v-model="award_file" placeholder="education period"></td>
+          <td v-if="editing" colspan="2"><span id="award_file" @click="openWindow">{{ new_award_file }}</span> <v-btn style="margin-top:6px;" color="success" outlined @click="downloadFile"><v-icon dark medium>mdi-cloud-download</v-icon></v-btn></td>
+          <td v-else colspan="2"><v-file-input v-model="selectedFile" accept="*/*" height="1.8em"/></td>
         </tr>
       </tbody>
     </template>
@@ -51,6 +51,12 @@
 
 <script>
 import API from "../services/Api"
+
+import { app } from "../services/FirebaseService";
+import firebase, { storage } from "firebase/app";
+import "firebase/firestore";
+import "firebase/storage";
+
 export default {
   props:{
     id : {type:Number},
@@ -62,12 +68,13 @@ export default {
     award_file : {type:String},
   },
   mounted(){
-    console.log(this.id);
+    this.new_award_file = this.award_file
   },
   data(){
     return{
       editing:true,
       new_award_file : '',
+      selectedFile: '',
     }
   },
   methods:{
@@ -86,6 +93,10 @@ export default {
       this.editing = !this.editing
     },
     addAward() {  // add and edit awards
+      var filename = '';
+      if(this.selectedFile.name!=null & this.selectedFile.name!='') filename = this.selectedFile.name
+      else filename = this.award_file
+
       var award = {
         'id': this.id,
         'award_org' : this.award_org,
@@ -93,10 +104,9 @@ export default {
         'award_date' : this.award_date,
         'award_detail' : this.award_detail,
         'award_prize' : this.award_prize,
-        'award_file' : this.award_file,
+        'award_file' : filename,
       }
-      console.log(award)
-      API.put('/awards/update', award)
+      API.post('/awards/update', award)
       .then(response => {
         console.log(response)
       })
@@ -104,11 +114,87 @@ export default {
         console.log(error)
       })
       this.editing = !this.editing
+    },
+
+    downloadFile() {
+      var storageRef = firebase.storage().ref();
+      var data = {id: this.id};
+
+      // firebase storage의 업로드되어 있는 파일 다운로드 //
+      API.post("/awards/downloadFile", data)
+      .then(response=>{
+        var file_path = sessionStorage.getItem("user_id");
+        file_path += "/";
+        file_path += response.data;
+
+        storageRef
+        .child(file_path)
+        .getDownloadURL()
+        .then(function(url) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", url);
+
+          xhr.responseType = "blob";
+          xhr.onload = function(event) {
+            var blob = xhr.response;
+            var link = document.createElement("a");
+            link.href = window.URL.createObjectURL(blob);
+            link.download = response.data; // 다운로드되는 파일명 설정
+            link.click();
+          };
+          xhr.send();
+        });
+      })
+    },
+    openWindow(){
+      var storageRef = firebase.storage().ref();
+      var data = {id: this.id};
+
+      // firebase storage의 업로드되어 있는 파일 다운로드 //
+      API.post("/awards/downloadFile", data)
+      .then(response=>{
+        var file_path = sessionStorage.getItem("user_id");
+        file_path += "/";
+        file_path += response.data;
+
+        storageRef
+        .child(file_path)
+        .getDownloadURL()
+        .then(function(url) {
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", url);
+
+          xhr.responseType = "blob";
+          xhr.onload = function(event) {
+            var blob = xhr.response;
+            var link = document.createElement("a");
+            link.setAttribute("target", "_new");
+            link.href = window.URL.createObjectURL(blob);
+            link.open = response.data; // 새 탭으로 열기
+            link.click();
+          };
+          xhr.send();
+        });
+      })
     }
   },
-  
+  watch:{
+    selectedFile:function(selectedFile){
+      this.new_award_file = selectedFile.name
+    }
+  }
 }
 </script>
 
 <style lang="scss">
+.awardcard{
+  .v-file-input__text{
+    visibility: visible;
+  }
+}
+
+#award_file:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
 </style>

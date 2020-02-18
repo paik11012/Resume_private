@@ -1,9 +1,11 @@
 package com.ssafy.web9to6.controller;
 
 import com.ssafy.web9to6.domain.Awards;
+import com.ssafy.web9to6.domain.EducationDetails;
 import com.ssafy.web9to6.domain.Experiences;
 import com.ssafy.web9to6.domain.Licenses;
 import com.ssafy.web9to6.dto.AwardsResponseDto;
+import com.ssafy.web9to6.dto.EducationFullResponseDto;
 import com.ssafy.web9to6.dto.ExperiencesResponseDto;
 import com.ssafy.web9to6.dto.LicensesResponseDto;
 import com.ssafy.web9to6.service.AwardsService;
@@ -62,6 +64,13 @@ public class ExperiencesController {
         if(!old.isPresent()){
             return as.save(awd);
         } else return as.update(old.get(), awd);
+    }
+
+    @ApiOperation("파일 다운로드")
+    @PostMapping("/awards/downloadFile")
+    public String downloadGradeImgEdu(HttpServletRequest request, @RequestBody AwardsResponseDto requestDto){
+        Awards award = as.findById(requestDto.getId()).get();
+        return award.getAward_file();
     }
 
     @ApiOperation("경험 내역 전체 조회")
