@@ -20,7 +20,7 @@ import java.util.*;
 
 @RequiredArgsConstructor
 @RestController
-public class EducationsFullController {
+public class  EducationsFullController {
     private final EducationsService educationsService;
     private final CareersService careersService;
     private final UsersService usersService;
@@ -28,13 +28,14 @@ public class EducationsFullController {
 
     @ApiOperation("학력 정보 등록/수정")
     @PostMapping("/edu/upload")
-    public Map<String, Object> uploadEduDetails(@RequestBody Map<String, Object> requestDto) {
-        String user_id = "mjmj";
+    public Map<String, Object> uploadEduDetails(@RequestBody Map<String, Object> requestDto, HttpServletRequest request) {
+        String user_id = request.getHeader("user_id");
         Users user = usersService.findById(user_id);
 
         Map<String, Object> res = new HashMap<>(); // result object
 
         // request object //
+        System.out.println(requestDto);
         Map map_edu = (Map) requestDto.get("education");
         Educations education = Educations.builder()
                 .edu_school_name((String) map_edu.get("edu_school_name"))
@@ -42,17 +43,22 @@ public class EducationsFullController {
                 .edu_school_st_date((String) map_edu.get("edu_school_st_date"))
                 .edu_school_ed_date((String) map_edu.get("edu_school_ed_date"))
                 .build();
-        if(map_edu.get("edu_id")!=null) education.setEdu_id(Long.valueOf((String) map_edu.get("edu_id")));
+        System.out.println(("Dd" + (String) map_edu.get("edu_school_ed_date")));
+        System.out.println(("Dd" + (String) map_edu.get("edu_school_st_date")));
+        if(map_edu.get("edu_id")!=null) education.setEdu_id(Long.parseLong((String) map_edu.get("edu_id")));
+
 
         boolean edu_det_save = false;
         Map map_edu_detail = (Map) requestDto.get("education_detail");
         EducationDetails educationDetails = new EducationDetails();
-        if(map_edu_detail.get("edu_detail_major_sort")!=null){ // 고등학교는 상세 정보 X
+        if(map_edu_detail!=null){ // 고등학교는 상세 정보 X
             edu_det_save = true;
             educationDetails = EducationDetails.builder()
                     .edu_detail_major_sort((String) map_edu_detail.get("edu_detail_major_sort"))
-                    .edu_detail_credit(Long.valueOf((Integer) map_edu_detail.get("edu_detail_credit")))
-                    .edu_detail_grade((Double) map_edu_detail.get("edu_detail_grade"))
+                    .edu_detail_major((String) map_edu_detail.get("edu_detail_major"))
+                    .edu_detail_credit(Long.parseLong((String)map_edu_detail.get("edu_detail_credit")))
+                    .edu_detail_grade(Double.parseDouble((String)map_edu_detail.get("edu_detail_grade")))
+                    .edu_detail_grade_img((String)map_edu_detail.get("edu_detail_grade_img"))
                     .build();
             if(map_edu_detail.get("edu_detail_id")!=null) educationDetails.setEduDetail_id(Long.valueOf((String) map_edu_detail.get("edu_detail_id")));
         }
@@ -102,8 +108,8 @@ public class EducationsFullController {
 
     @ApiOperation("모든 학력 정보 조회")
     @GetMapping("/edu/findAll")
-    public List<Map<Educations, List<EducationDetails>>> findAllEdu(){
-        String user_id = "test@ssafy.com";
+    public List<Map<Educations, List<EducationDetails>>> findAllEdu(HttpServletRequest request){
+        String user_id = request.getHeader("user_id");
         Users user = usersService.findById(user_id);
 
         List<Map<Educations, List<EducationDetails>>> mapList = new LinkedList<>();
@@ -140,5 +146,20 @@ public class EducationsFullController {
     @DeleteMapping("/edu/deleteDetailOne/{edu_det_id}")
     public void deleteDetailOneEdu(@PathVariable String edu_det_id){
         educationDetailsService.deleteOne(Long.valueOf(edu_det_id));
+    }
+
+    @ApiOperation("성적표 업로드")
+    @PostMapping("/edu/uploadGradeImg")
+    public EducationDetails uploadGradeImgEdu(HttpServletRequest request, @RequestBody EducationFullResponseDto requestDto){
+        EducationDetails edu_det = educationDetailsService.findById(requestDto.getEdu_detail_id());
+        edu_det.setEdu_detail_grade_img(requestDto.getEdu_detail_grade_img());
+        return educationDetailsService.save(edu_det);
+    }
+
+    @ApiOperation("성적표 다운로드")
+    @PostMapping("/edu/downloadFile")
+    public String downloadGradeImgEdu(HttpServletRequest request, @RequestBody EducationFullResponseDto requestDto){
+        EducationDetails edu_det = educationDetailsService.findById(requestDto.getEdu_detail_id());
+        return edu_det.getEdu_detail_grade_img();
     }
 }

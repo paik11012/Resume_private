@@ -6,17 +6,19 @@
     :width="656"
     :height="400"
   >
-
     <div class="box" v-if="$vuetify.breakpoint.mdAndUp">
-      
       <div class="box-part" id="bp-left">
         <div class="partition" id="partition-register">
           <div class="partition-title">LOGIN</div>
           <div class="partition-form">
             <form autocomplete="false">
-              <input v-model="user_id" type="text" placeholder="User ID"/>
-              <input v-model="user_password" type="password" placeholder="Password" @keydown.enter="login({user_id, user_password})"/>
-
+              <input v-model="user_id" type="text" placeholder="User ID" />
+              <input
+                v-model="user_password"
+                type="password"
+                placeholder="Password"
+                @keydown.enter="login({user_id, user_password})"
+              />
             </form>
 
             <div style="margin-top: 42px"></div>
@@ -24,14 +26,32 @@
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
-            <a :href="naverLoginUrl" target="_blank"><button class="large-btn github-btn">
+            <button class="large-btn github-btn" @click="loginNaver">
               connect with
               <span>naver</span>
-            </button></a>
-            <a href="/home"><button class="large-btn facebook-btn">
+            </button>
+            <button class="large-btn facebook-btn" @click="loginKakao">
               connect with
-              <span>google</span>
-            </button></a>
+              <span>kakao</span>
+            </button>
+            <v-dialog v-model="dialog" persistent max-width="290">
+              <template v-slot:activator="{ on }">
+                <button class="large-btn login-btn" v-on="on">
+                  <span>Find password</span>
+                </button>
+              </template>
+              <v-card>
+                <v-card-title class="headline indigo lighten-4" id="find">Find Password</v-card-title>
+                <v-col cols="12" sm="11">
+                  <v-text-field v-model="email" label="Email" outlined shaped></v-text-field>
+                </v-col>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="indigo lighten-2 darken-1" text @click="dialog = false">cancel</v-btn>
+                  <v-btn color="indigo lighten-2 darken-1" text @click="passwordFind">send</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </div>
         </div>
       </div>
@@ -50,24 +70,50 @@
           <div class="partition-title">LOGIN</div>
           <div class="partition-form">
             <form autocomplete="false">
-              <input v-model="user_id" type="text" placeholder="User ID"/>
-              <input v-model="user_password" type="password" placeholder="Password" @keydown.enter="login({user_id,user_password})"/>
-              
+              <input v-model="user_id" type="text" placeholder="User ID" />
+              <input
+                v-model="user_password"
+                type="password"
+                placeholder="Password"
+                @keydown.enter="login({user_id,user_password})"
+              />
             </form>
 
             <div style="margin-top: 42px"></div>
-            
+
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
+<<<<<<< HEAD
             <a :href="naverLoginUrl" target="_blank"><button class="large-btn github-btn">
+=======
+            <button class="large-btn github-btn" @click="loginNaver">
+>>>>>>> temp
               connect with
               <span>naver</span>
-            </button></a>
-            <a href="/home"><button class="large-btn facebook-btn">
+            </button>
+            <button class="large-btn facebook-btn" @click="loginKakao">
               connect with
-              <span>google</span>
-            </button></a>
+              <span>kakao</span>
+            </button>
+            <v-dialog v-model="dialog" persistent max-width="290">
+              <template v-slot:activator="{ on }">
+                <button class="large-btn login-btn" v-on="on">
+                  <span>Find password</span>
+                </button>
+              </template>
+              <v-card>
+                <v-card-title class="headline indigo lighten-4" id="find">Find Password</v-card-title>
+                <v-col cols="12" sm="11">
+                  <v-text-field v-model="email" label="Email" outlined shaped></v-text-field>
+                </v-col>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="indigo lighten-2 darken-1" text @click="dialog = false">cancel</v-btn>
+                  <v-btn color="indigo lighten-2 darken-1" text @click="passwordFind">send</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </div>
         </div>
       </div>
@@ -81,22 +127,50 @@
           <div class="partition-form">
             <form autocomplete="false">
               <input v-model="user_id" type="text" id="id" placeholder="User ID" />
-              <input v-model="user_password" type="password" id="pw" placeholder="Password" />
+              <input
+                v-model="user_password"
+                type="password"
+                id="pw"
+                placeholder="Password"
+                @keydown.enter="login({user_id, user_password})"
+              />
             </form>
 
             <div style="margin-top: 42px"></div>
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
+<<<<<<< HEAD
         
             <a :href="naverLoginUrl" target="_blank"><button class="large-btn github-btn">
+=======
+            <button class="large-btn github-btn" @click="loginNaver">
+>>>>>>> temp
               connect with
               <span>naver</span>
-            </button></a>
-            <a href="/home"><button class="large-btn facebook-btn">
+            </button>
+            <button class="large-btn facebook-btn" @click="loginKakao">
               connect with
-              <span>google</span>
-            </button></a>
+              <span>kakao</span>
+            </button>
+            <v-dialog v-model="dialog" persistent max-width="290">
+              <template v-slot:activator="{ on }">
+                <button class="large-btn login-btn" v-on="on">
+                  <span>Find password</span>
+                </button>
+              </template>
+              <v-card>
+                <v-card-title class="headline indigo lighten-4" id="find">Find Password</v-card-title>
+                <v-col cols="12" sm="11">
+                  <v-text-field v-model="email" label="Email" outlined shaped></v-text-field>
+                </v-col>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="indigo lighten-2 darken-1" text @click="dialog = false">cancel</v-btn>
+                  <v-btn color="indigo lighten-2 darken-1" text @click="passwordFind">send</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </div>
         </div>
       </div>
@@ -116,32 +190,66 @@
           <div class="partition-form">
             <form autocomplete="false">
               <input v-model="user_id" id="id" type="text" placeholder="User ID" />
-              <input v-model="user_password" id="pw" type="password" placeholder="Password" />
+              <input
+                v-model="user_password"
+                id="pw"
+                type="password"
+                placeholder="Password"
+                @keydown.enter="login({user_id, user_password})"
+              />
             </form>
 
             <div style="margin-top: 42px"></div>
 
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
-            <span>Login</span>
+              <span>Login</span>
             </button>
+<<<<<<< HEAD
             <a :href="naverLoginUrl" target="_blank"><button class="large-btn github-btn">
+=======
+            <button class="large-btn github-btn" @click="loginNaver">
+>>>>>>> temp
               connect with
               <span>naver</span>
-            </button></a>
-            <a href="/home"><button class="large-btn facebook-btn">
+            </button>
+            <button class="large-btn facebook-btn" @click="loginKakao">
               connect with
-              <span>google</span>
-            </button></a>
+              <span>kakao</span>
+            </button>
+            <v-dialog v-model="dialog" persistent max-width="290">
+              <template v-slot:activator="{ on }">
+                <button class="large-btn login-btn" v-on="on">
+                  <span>Find password</span>
+                </button>
+              </template>
+              <v-card>
+                <v-card-title class="headline indigo lighten-4" id="find">Find Password</v-card-title>
+                <v-col cols="12" sm="11">
+                  <v-text-field v-model="email" label="Email" outlined shaped></v-text-field>
+                </v-col>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="indigo lighten-2 darken-1" text @click="dialog = false">cancel</v-btn>
+                  <v-btn color="indigo lighten-2 darken-1" text @click="passwordFind">send</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
           </div>
         </div>
+<<<<<<< HEAD
       </div>  
+=======
+      </div>
+>>>>>>> temp
     </div>
   </v-dialog>
 </template>
 <script>
-import { mapActions } from 'vuex';
-import NaverLogin from 'vue-naver-login'
+import { mapActions } from "vuex";
+import router from "../router";
+import API from "../services/Api";
 const MODAL_WIDTH = 656;
+<<<<<<< HEAD
 let callbackFunction = (status) => {
     if (status) {
     /* (5) 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
@@ -160,16 +268,28 @@ let callbackFunction = (status) => {
   }
 }
 
+=======
+>>>>>>> temp
 
 export default {
   name: "DemoLoginModal",
-  components: {NaverLogin},
   props: {
     value: {
       required: true
     }
   },
-  created() {},
+  created() {
+    // naver //
+    this.naverLoginUrl += "&client_id=" + this.naver_client_id;
+    this.naverLoginUrl += "&redirect_uri=" + this.naver_redirectURI;
+    this.naverLoginUrl += "&state=" + this.state;
+    // END: naver //
+
+    // kakao //
+    this.kakaoLoginUrl += "&client_id=" + this.kakao_client_id;
+    this.kakaoLoginUrl += "&redirect_uri=" + this.kakao_redirectURI;
+    // END:kakao //
+  },
   computed: {
     show: {
       get() {
@@ -185,26 +305,54 @@ export default {
       modalWidth: MODAL_WIDTH,
       autogrow: true,
       dialog: false,
-      user_id : '',
-      user_password : '',
+      user_id: "",
+      user_password: "",
 
       // naver //
-      client_id: 'oEALeUqtjER7Ufo5R8f7',
-      redirectURI: 'http://localhost:8080/users/signinNaver',
-      state: 123,
-      naverLoginUrl: 'https://nid.naver.com/oauth2.0/authorize?response_type=code'
+      naver_client_id: "oEALeUqtjER7Ufo5R8f7",
+      naver_redirectURI: "http://i02a409.p.ssafy.io/",
+      naverLoginUrl:
+        "https://nid.naver.com/oauth2.0/authorize?response_type=code",
       // END: naver //
+
+      // kakao //
+      kakao_client_id: "ae103391c8a497b8820341af6a961a77",
+      kakao_redirectURI: "http://i02a409.p.ssafy.io/",
+      kakaoLoginUrl:
+        "https://kauth.kakao.com/oauth/authorize?response_type=code",
+      // END:kakao //
+      state: 123,
+      dialog: false,
+      email: null
     };
   },
   methods: {
-  ...mapActions(["login"]),
-  callbackFunction,
-  },
+    ...mapActions(["login"]),
+
+    loginNaver() {
+      location.replace(this.naverLoginUrl);
+    },
+    loginKakao() {
+      location.replace(this.kakaoLoginUrl);
+    },
+    passwordFind() {
+      console.log("heere");
+      API.get(`/users/sendtmp/${this.email}`)
+        .then(response => {
+          this.dialog = false;
+          alert("임시 비밀번호를 이메일로 발송했습니다.");
+        })
+        .catch(error => {
+          if (error.response.data.message == "임시 비밀번호 발송 에러")
+            alert("인증 비밀번호 발송에 실패하였습니다.");
+        });
+    }
+  }
 };
 </script>
 <style lang="scss">
 $background_color: #404142;
-$login_color: lightgray;
+$login_color: #BDBDBD;
 $github_color: rgb(252, 186, 185);
 $facebook_color: rgb(146, 168, 209);
 .box {
@@ -226,7 +374,7 @@ $facebook_color: rgb(146, 168, 209);
   border-radius: 2px;
   box-sizing: border-box;
   box-shadow: 0 0 40px black;
-  color: #8b8c8d;
+  color: #BDBDBD;
   font-size: 0;
   .box-part {
     display: inline-block;
@@ -301,16 +449,16 @@ $facebook_color: rgb(146, 168, 209);
     font-weight: 400;
     min-width: 140px;
     margin-top: 8px;
-    color: #8b8c8d;
+    color: #757575;
     cursor: pointer;
     border: 1px solid #dddedf;
     text-transform: uppercase;
     transition: 0.1s all;
-    font-size: 10px;
+    font-size: 11px;
     outline: none;
     &:hover {
       border-color: mix(#dddedf, black, 90%);
-      color: mix(#8b8c8d, black, 80%);
+      color: mix(#757575, black, 80%);
     }
   }
   .large-btn {
@@ -346,7 +494,7 @@ $facebook_color: rgb(146, 168, 209);
       background: $github_color;
     }
   }
-    .login-btn {
+  .login-btn {
     border-color: $login_color;
     color: $login_color;
     &:hover {
@@ -373,7 +521,7 @@ $facebook_color: rgb(146, 168, 209);
   border-radius: 2px;
   box-sizing: border-box;
   box-shadow: 0 0 40px black;
-  color: #8b8c8d;
+  color: #757575;
   font-size: 0;
   .box-part {
     display: inline-block;
@@ -448,16 +596,16 @@ $facebook_color: rgb(146, 168, 209);
     font-weight: 400;
     min-width: 140px;
     margin-top: 8px;
-    color: #8b8c8d;
+    color: #757575;
     cursor: pointer;
     border: 1px solid #dddedf;
     text-transform: uppercase;
     transition: 0.1s all;
-    font-size: 10px;
+    font-size: 12px;
     outline: none;
     &:hover {
       border-color: mix(#dddedf, black, 90%);
-      color: mix(#8b8c8d, black, 80%);
+      color: mix(#BDBDBD, black, 80%);
     }
   }
   .large-btn {
@@ -493,7 +641,7 @@ $facebook_color: rgb(146, 168, 209);
       background: $github_color;
     }
   }
-    .login-btn {
+  .login-btn {
     border-color: $login_color;
     color: $login_color;
     &:hover {
@@ -501,7 +649,6 @@ $facebook_color: rgb(146, 168, 209);
       background: $login_color;
     }
   }
-
 
   .autocomplete-fix {
     position: absolute;
@@ -522,5 +669,9 @@ $facebook_color: rgb(146, 168, 209);
 .pop-out-leave-active {
   opacity: 0;
   transform: translateY(24px);
+}
+#find {
+  color: white;
+  font-family: "Fredoka One", cursive !important;
 }
 </style>

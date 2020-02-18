@@ -16,11 +16,13 @@ public class EducationFullResponseDto {
     private String edu_school_ed_date;
 
     private String edu_detail_major_sort;
+    private String edu_detail_major;
     private String edu_detail_credit;
     private Long edu_detail_grade;
+    private String edu_detail_grade_img;
 
     @Builder
-    public EducationFullResponseDto(Long edu_id, Long edu_detail_id, String edu_school_sort, String  edu_school_name, String edu_school_st_date, String edu_school_ed_date, String edu_detail_major_sort, String edu_detail_credit, Long edu_detail_grade){
+    public EducationFullResponseDto(Long edu_id, Long edu_detail_id, String edu_school_sort, String  edu_school_name, String edu_school_st_date, String edu_school_ed_date, String edu_detail_major_sort, String edu_detail_major, String edu_detail_credit, Long edu_detail_grade, String edu_detail_grade_img){
         this.edu_id = edu_id;
         this.edu_detail_id = edu_detail_id;
 
@@ -30,8 +32,10 @@ public class EducationFullResponseDto {
         this.edu_school_ed_date = edu_school_ed_date;
 
         this.edu_detail_major_sort = edu_detail_major_sort;
+        this.edu_detail_major = edu_detail_major;
         this.edu_detail_credit = edu_detail_credit;
         this.edu_detail_grade = edu_detail_grade;
+        this.edu_detail_grade_img = edu_detail_grade_img;
     }
 
 //    public EducationDetails toEntity(){

@@ -17,15 +17,18 @@ public class ResumeResponseDto {
     private String resume_date;
     private String resume_question;
     private String resume_answer;
+    private Long id;
+    private Boolean resume_pass;
 
     @Builder
-    public ResumeResponseDto(String resume_company,String resume_task,String resume_date,String resume_question,String resume_answer, Users user) {
+    public ResumeResponseDto(String resume_company,String resume_task,String resume_date,String resume_question,String resume_answer, Users user, Boolean resume_pass) {
         this.resume_answer = resume_answer;
         this.resume_company = resume_company;
         this.resume_date = resume_date;
         this.resume_question = resume_question;
         this.resume_task = resume_task;
         this.user = user;
+        this.resume_pass = resume_pass;
     }
 
     public Resume toEntity() {
@@ -36,6 +39,7 @@ public class ResumeResponseDto {
                 .resume_task(resume_task)
                 .resume_date(resume_date)
                 .user(user)
+                .resume_pass(resume_pass)
                 .build();
 
     }

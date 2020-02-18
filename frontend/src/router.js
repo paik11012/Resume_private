@@ -8,7 +8,8 @@ import MyPage from './views/MyPage.vue'
 import MainPage from './views/MainPage.vue'
 import SignupPage from './views/SignupPage.vue'
 import UserInfo from './views/UserInfo.vue'
-import Naver from './views/Naver.vue'
+import AdminPage from './views/AdminPage.vue'
+import EditInfo from './views/EditInfo.vue'
 
 Vue.use(Router)
 
@@ -58,9 +59,14 @@ export default new Router({
 			component: UserInfo
 		},
 		{
-			path: '/naver',
-			name: 'naver',
-			component: Naver
+			path: '/admin',
+			name: 'admin',
+			component: AdminPage
+		},
+		{
+			path: '/editinfo',
+			name: 'editinfo',
+			component: EditInfo
 		}
   ]
 })

@@ -19,6 +19,7 @@ $main_font : 'Fredoka One';
 $main_degree : 115deg;
 $main_gradient : rgb(247,202,201), rgb(180, 180, 185), rgb(146,168,209), rgb(230,230,230);
 $black_gradient : rgb(40,40,40), rgb(70,70,70), rgb(52,52,52), rgb(130,130,130);
+$light_grad : rgb(170,170,170), rgb(220,220,220), rgb(200,200,200);
 
 // init end -------------------------------------------
 
@@ -103,6 +104,7 @@ $black_gradient : rgb(40,40,40), rgb(70,70,70), rgb(52,52,52), rgb(130,130,130);
 // mixin 생성 end ------------------------------------------
 
 // 배경 start ----------------------------------------------
+
 .back{
   position: fixed;
   left: 0;
@@ -110,7 +112,6 @@ $black_gradient : rgb(40,40,40), rgb(70,70,70), rgb(52,52,52), rgb(130,130,130);
   width:100%;
   height: 100%;
   background: linear-gradient(115deg, $RoseQuartz, rgb(180, 180, 185), $Serenity, rgb(230,230,230));
-  z-index: -100;
 }
 
 .header{
@@ -126,7 +127,7 @@ $black_gradient : rgb(40,40,40), rgb(70,70,70), rgb(52,52,52), rgb(130,130,130);
   height: 100%;
   background: gray;
   opacity: 0.5;
-  z-index: -99;
+  z-index: -1;
 }
 .list-enter-active{
   animation: slide_r 0.5s;
@@ -134,6 +135,10 @@ $black_gradient : rgb(40,40,40), rgb(70,70,70), rgb(52,52,52), rgb(130,130,130);
 
 .main_gradient{
   @include gradient($main_degree,$main_gradient)
+}
+
+.light_gradient{
+  @include gradient($main_degree,$light_grad)
 }
 .full{
   width: 100%;
@@ -155,6 +160,11 @@ $black_gradient : rgb(40,40,40), rgb(70,70,70), rgb(52,52,52), rgb(130,130,130);
 
 // 글씨 end ----------------------------------------------------------------------------
 
+.input{
+  border-style:none;
+  // border-bottom:solid 1px #cacaca;
+  border-collapse:collapse;
+  width:100%; height:100%;}
 
 // breakpoint mixin 함수
 
@@ -181,7 +191,7 @@ $black_gradient : rgb(40,40,40), rgb(70,70,70), rgb(52,52,52), rgb(130,130,130);
 
 .hovright:hover{
   &:before{
-    z-index: -100;
+    z-index: -2;
     position:absolute;
     bottom: 25%;
     left: 3%;

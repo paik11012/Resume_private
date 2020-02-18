@@ -11,11 +11,11 @@
 
     <template>
   <v-row justify="center">
-    <v-dialog v-model="dialog" persistent max-width="800px" max-height="1000px" style="z-index:999999;">
+    <v-dialog v-model="dialog" persistent max-width="800px" max-height="1000px" style="z-index:30;">
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
       <v-card>
         <v-card-title class="justify-center">
-          <span class="headline" style="margin-top:20px;">면접후기 작성하기</span>
+          <span style="margin-top:20px;" id="headline">Write an Interview Note</span>
         </v-card-title>
         <v-card-text>
           <v-container>
@@ -74,12 +74,11 @@
 </template>
 
 <script>
-import ImgBanner from "../components/ImgBanner";
 import InterviewList from "../components/InterviewList";
 import Navbar from "../components/Navbar";
 import FirebaseService from '@/services/FirebaseService';
 import Load from '@/components/Loading';
-import axios from 'axios';
+import API from "../services/Api"
 
 export default {
   name: "PostPage",
@@ -116,15 +115,17 @@ export default {
         "interview_answer": this.interview_answer,
         "interview_memo": this.interview_memo,
       }
-      axios.post(
-        'http://70.12.247.99:8080/interview/save', 
-        interview_info,
-        {headers : {
-          'token' : window.sessionStorage.getItem("jwt-auth-token"),
-          'user_id': window.sessionStorage.getItem("user_id")},})
+      API.post('/interview/save', 
+        interview_info)
         .then(response=>{
         console.log(response)
         this.$refs.updating.getInterView()
+        this.interview_company = null;
+        this.interview_task = null;
+        this.interview_question = null;
+        this.interview_memo = null;
+        this.interview_answer = null;
+        this.interview_date = null;
         return this.dialog = false
       })
       .catch(error=>{

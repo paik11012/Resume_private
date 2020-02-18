@@ -25,7 +25,7 @@ public class CareersController {
     @ApiOperation("회원 이력 등록/수정")
     @PostMapping("/careers/upload")
     public Careers uploadCareer(HttpServletRequest request, @RequestBody CareersResponseDto requestDto){
-        String user_id = "test@ssafy.com";
+        String user_id = request.getHeader("user_id");
         Users user = usersService.findById(user_id);
 
         Careers career = requestDto.toEntity();
@@ -41,8 +41,26 @@ public class CareersController {
     @ApiOperation("회원 이력 정보")
     @GetMapping("/careers/findOne")
     public Careers selectCareer(HttpServletRequest request){
-        String user_id = "test@ssafy.com";
+        String user_id = request.getHeader("user_id");
         Users user = usersService.findById(user_id);
         return careersService.findByUser(user);
+    }
+
+    @ApiOperation("회원 사진 등록/수정")
+    @PostMapping("/careers/uploadPic")
+    public Careers uploadPicCareer(HttpServletRequest request, @RequestBody CareersResponseDto requestDto){
+        String user_id = request.getHeader("user_id");
+        Users user = usersService.findById(user_id);
+        Careers career = careersService.findByUser(user);
+        career.setCareer_myPic(requestDto.getCareer_myPic());
+        return careersService.save(career);
+    }
+
+    @ApiOperation("회원 사진 다운로드")
+    @GetMapping("/careers/downloadFile")
+    public String downloadPicCareer(HttpServletRequest request){
+        String user_id = request.getHeader("user_id");
+        Careers career = careersService.findByUser(usersService.findById(user_id));
+        return career.getCareer_myPic();
     }
 }

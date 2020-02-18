@@ -11,16 +11,22 @@
   width: 200px;
 }
 .bounce-enter-active {
-  animation: bounce .3s;
+  animation: bounce .4s;
 }
 .bounce-leave-active {
   animation: bounce .2s reverse;
 }
 
+.bounce_l-leave-active{
+  animation: bounce .2s reverse;
+}
+
+
 .titlebox{
-  color:white; 
+  font-size: 20px;
+  color:black; 
   margin-top:50px; 
-  z-index: 99999999;
+  z-index: 28;
   font-family: 'Fredoka One', cursive;
   margin-bottom: 30px;
 }
@@ -28,5 +34,11 @@
   &:hover{
     cursor: pointer;
   }
-  z-index:2000;
+  z-index:28;
+}
+
+.insert{
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
 }

@@ -1,21 +1,22 @@
 <template>
-  <v-layout mt-5 wrap justify-space-around>
+  <v-layout mt-5 wrap justify-start>
     <v-flex
-      v-for="i in interview.length > lim ? lim : interview.length"
+      v-for="i in interview.length"
       :key="i"
       xs12
       sm12
       md6
-      lg4
-      xl3
+      lg6
+      xl6
     >
       <transition-group name="list">
-        <Interview
+        <Interview  @del="del_detail"
           v-bind:key="i"
           class="layout justify-center ma-3"
           v-if="sec >= i"
+          :interview_id="interview[i - 1].id"
           :interview_company="interview[i - 1].interview_company"
-          :interview_myans="interview[i - 1].interview_myans"
+          :interview_answer="interview[i - 1].interview_answer"
           :editans="interview[i-1].editans"
           :interview_question="interview[i - 1].interview_question"
           :interview_task="interview[i - 1].interview_task"
@@ -28,13 +29,10 @@
 </template>
 <script>
 import Interview from "@/components/Interviews";
-import axios from 'axios'
+import API from "../services/Api"
 
 export default {
   name: "InterviewList",
-  props: {
-    limits: { type: Number, default: 6 },
-  },
   data() {
     return {
       interview: [],
@@ -50,14 +48,16 @@ export default {
     this.getInterView();
   },
   methods: {
+    del_detail(){
+      console.log("삭제");
+      var a = document.querySelector('html')
+      a.style.overflowY="scroll"
+      setTimeout(() => {
+        this.getInterView()
+      }, 100);
+    },
     getInterView: function() {
-      axios
-        .get("http://70.12.247.99:8080/interview", {
-          headers: {
-            token: window.sessionStorage.getItem("jwt-auth-token"),
-            user_id: window.sessionStorage.getItem("user_id")
-          }
-        })
+      API.get("/interview")
         .then(resopnse => {
           console.log(resopnse.data);
           this.interview = resopnse.data;
@@ -72,7 +72,7 @@ export default {
         .catch(error => {
           console.log(error)
         })
-    }
+    },
     // async getInterView() {
     //   console.log("이거라고?");
     //   this.interview = await FirebaseService.getInterView();
@@ -86,7 +86,7 @@ export default {
     //   }
     //   console.log(this.interview);
     // },
-  }
+  },
 };
 </script>
 <style lang="scss">
@@ -94,4 +94,5 @@ export default {
   max-width: 700px;
   margin: auto;
 }
+
 </style>

@@ -1,26 +1,26 @@
 <template>
   <div>
-  <div class="resumeCard layout justify-center" :class="{non_scroll:rsdt}" @click="opendetail" >
+  <div class="resumeCard layout justify-center" @click="opendetail" >
   <transition name="slide">
   <div class="full" oncontextmenu="return false">
-    <div class="company">{{rs_cpn}}</div>
+    <div class="company">{{(resume_company.length>10) ? resume_company.slice(0,10)+'...' : resume_company}}</div>
     <hr>
-    <div class="task">{{rs_tsk}}</div>
+    <div class="task">{{(resume_task.length>15) ? resume_task.slice(0,15)+'...' : resume_task}}</div>
     <div class="date">{{resume_date}}</div>
     <div class="label Q">질문</div>
-    <div class="question">{{resume_question}}</div>
+    <div id="r_question">{{resume_question}}</div>
     <div class="label A">답변</div>
     <div class="answer">{{resume_answer}}</div>
     <div class="text_val">{{ resume_answer.length }}자</div>
     <div class="tags">
-      <ul v-if="tag_name.length > 2">
-        <div> #{{tag_name[0]}}  #{{ tag_name[1] }} </div>
+      <ul v-if="tagn.length > 2">
+        <div> #{{tagn[0]}}  #{{ tagn[1] }} ... </div>
       </ul>
-      <ul v-else-if="tag_name.length == 2">
-        <div> #{{tag_name[0]}}  #{{ tag_name[1] }} </div>
+      <ul v-else-if="tagn.length == 2">
+        <div> #{{tagn[0]}}  #{{ tagn[1] }} </div>
       </ul>
       <ul v-else>
-        <div> #{{tag_name[0]}}</div>
+        <div> {{tagn.length>0 ? '#'+tagn[0] : '' }}</div>
       </ul>
     </div>
     <!-- 개인적으로 글자를 오른쪽, 맨 아래 배치하고 싶음 -->
@@ -28,14 +28,17 @@
   </transition>
   </div>
   <rsd v-if="rsdt"
+    :resume_id="resume_id"
     :company="resume_company"
     :task="resume_task"
     :date="resume_date"
     :question="resume_question"
     :answer="resume_answer"
-    :tags="tag_name"
+    :tags="tagn"
     :text_val="resume_answer.length"
+    @upload="hihi"
     @clsrsd="closedetail"
+    @deleteresume="reload"
   />
   </div>
 </template>
@@ -49,11 +52,13 @@ export default {
     rsd,
   },
   props:{
+    resume_id:{type:Number},
     resume_company : {type: String},
     resume_answer : {type: String},
     resume_question : {type: String},
     resume_task : {type: String},
     tag_name : {type: Array},
+    tag_names : {type:Array},
     text_val : {type: Number},
     resume_date : {type: String},
     created_at : {type: String},
@@ -61,44 +66,53 @@ export default {
   data() {
     return {
       showmenu: false,
-      rs_cpn: this.resume_company,
-      rs_ans: this.resume_answer,
-      rs_qst: this.resume_question,
-      rs_tsk: this.resume_task,
-      rs_dat: this.resume_date,
       rsdt:false,
       scr_cur:0,
+      tagn:this.tag_name,
     };
   },
   mounted(){
-    if (this.rs_cpn.length > 10){
-      this.rs_cpn = this.rs_cpn.slice(0, 10) + "..."
-    }
-    if (this.rs_tsk.length > 15){
-      this.rs_tsk = this.rs_tsk.slice(0,15) + '...'
-    }
   },
   methods: {
+    hihi(val){
+      console.log("hihi");
+      console.log(val);
+      this.tagn = val
+      
+    },
     input(value){
       this.showmenu = value
       console.log(this.showmenu);
     },
-    move(){
-      window.scroll(0,100)
-    },
     opendetail(){
-      this.scrc = window.scrollY
       this.rsdt = true
+      this.scr_cur = window.scrollY
       this.$emit('opdt')
+<<<<<<< HEAD
       // var a = document.querySelector('html')
       // a.style.overflowY="hidden"
+=======
+      var a = document.querySelector('html')
+      a.style.overflowY="hidden"
+      console.log(this.resume_id);
+>>>>>>> temp
     },
     closedetail(){
+      var a = document.querySelector('html')
+      a.style.overflowY="scroll"
       this.rsdt = false
       this.$emit('cldt')
+<<<<<<< HEAD
       // var a = document.querySelector('html')
       // a.style.overflowY="scroll"
     }
+=======
+    },
+    reload(){
+      this.rsdt=false
+      this.$emit('del')
+    },
+>>>>>>> temp
   }
 };
 </script>
@@ -123,7 +137,7 @@ export default {
   border: 2px solid #92a8d1;
   border-radius: 10px;
   font-size: 13px;
-  box-shadow: 3px 3px rgb(247, 202, 201);
+  // box-shadow: 3px 3px rgb(247, 202, 201);
   padding: 5%;
   background: white;
   &.full{
@@ -150,7 +164,7 @@ export default {
   & .task{
     width: 90%;
     position: absolute;
-    top: 14%;
+    top: 15%;
     font-size: 16px;
   }
   & .date{
@@ -167,7 +181,7 @@ export default {
     position: absolute;
     }
 
-  & .question{
+  & #r_question{
     width: 90%;
     top: 39%;
     position: absolute;
@@ -178,7 +192,6 @@ export default {
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-
   & .A{
     width: 90%;
     top: 56%;

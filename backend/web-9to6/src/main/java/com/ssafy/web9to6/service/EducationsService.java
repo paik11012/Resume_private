@@ -49,7 +49,7 @@ public class EducationsService {
         edu.setEdu_school_name(new_edu.getEdu_school_name());
         edu.setEdu_school_sort(new_edu.getEdu_school_sort());
         edu.setEdu_school_st_date(new_edu.getEdu_school_st_date());
-        edu.setEdu_school_ed_date(new_edu.getEdu_school_st_date());
+        edu.setEdu_school_ed_date(new_edu.getEdu_school_ed_date());
 
         return educationsRepository.save(edu);
     }

@@ -32,7 +32,7 @@ public class Application implements WebMvcConfigurer {
                 .addPathPatterns("/edu/**")
                 .addPathPatterns("/exp/**")
                 .addPathPatterns("/lic/**")
-                .addPathPatterns("/awards/**")
+//                .addPathPatterns("/awards/**")
 //                .addPathPatterns("/")
                // .addPathPatterns("/hello")
          //       .addPathPatterns("/interview")

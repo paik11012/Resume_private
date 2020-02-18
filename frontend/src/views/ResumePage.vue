@@ -10,12 +10,12 @@
     </v-flex>
   <!-- resume 작성하기 -->
   <template>
-  <v-row justify="center" style="padding:0">
-    <v-dialog v-model="dialog" :persistent="true" max-width="800px" max-height="1000px" style="z-index:999999;">
+  <v-row justify="center">
+    <v-dialog v-model="dialog" :persistent="true" max-width="80%" max-height="80%" style="z-index:30;">
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
       <v-card>
         <v-card-title class="justify-center">
-          <span class="headline" style="margin-top:0px;">Write a Resume</span>
+          <span id="headline" style="margin-top:0px;">Write a Resume</span>
         </v-card-title>
         <v-card-text style="padding-bottom:0;">
           <v-container style="padding-bottom:0;">
@@ -82,10 +82,37 @@
   </v-row>
 </template>
     <v-container>
-      <!-- Portfolio -->
+      <v-layout class="justify-end">
+        <div style="position:relative; width:90px; margin-left:50%; hei ght:40px; margin-bottom:20px;">
+        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:29; width:100%; height:100%; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
+          <p class="keyset">
+          {{ searkey[pickkey] }}
+          </p>
+          </div>
+          <!-- 검색 부분 -->
+        <div v-else style="position:absolute; z-index:30; background:white; left:0px; width:100%; height:140px; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
+          <p v-for="i in searkey.length" :key="i" class="keyset" @click="selkey(i-1)">{{ searkey[i-1] }}</p>
+        </div>
+        </div>
+        <div style="width: 250px !important; z-index:29; margin-left:20px; height:40px; padding: 6px 12px; border:1px solid; margin-right:10px; border-radius:10px;"><v-icon>mdi-magnify</v-icon>
+        <input style="width:85%; margin-left:5px;" v-model="search" type="text"></div>
+      </v-layout>
+
+      <v-layout>
+        <v-row class="mb-6">
+          <v-col v-for="i in tags.length" :key="i" lg="2" xs="3" md="2" class="layout justify-center">
+            <v-btn id="tag_button"  style="width:85px" :class="{nocheck: tags[i-1]['state'], check: !tags[i-1]['state']}" 
+            depressed @click="changeTag(i)">#{{tags[i-1]["name"]}}</v-btn></v-col>
+        </v-row>
+      </v-layout>
       <v-layout>
         <v-flex xs12>
-          <ResumeList ref="updating" :load-more="true" @load="complete">
+          <ResumeList ref="updating" @load="complete"
+          :filter_tag="filter_tag"
+          :tag_name="tag_name"
+          :search="search"
+          :keypick="pickkey"
+          >
           </ResumeList>
         </v-flex>
       </v-layout>
@@ -93,7 +120,7 @@
   </div>
 </template>
 <script>
-import axios from 'axios'
+import API from "../services/Api"
 import ImgBanner from "../components/ImgBanner";
 import ResumeList from "../components/ResumeList";
 import Navbar from "../components/Navbar";
@@ -106,10 +133,14 @@ export default {
     ImgBanner,
     ResumeList,
     Navbar,
+  },
+  computed:{
     
+
   },
   data() {
     return {
+      searchpick:true,
       loading:true,
       resume_company:null,
       resume_task:null,
@@ -121,9 +152,51 @@ export default {
       tag_name: [],
       resumes: [],
       reload:false,
+      filter_tag: [false,false,false,false,false,false,false,false,false,false,false,false],
+      items :["전체","회사명","내용"],
+      searkey:["회사명","직무","질문","답변"],
+      value : "전체",
+      pickkey:0,
+      search:'',
+      option :"전체",
+      	result : [],
+					condition : '',
+					word : '',
+      tags: [
+        {name: "신뢰", state: false},
+        {name: "책임감", state: false},
+        {name: "창의성", state: false},
+        {name: "도전정신", state: false},
+        {name: "혁신", state: false},
+        {name: "열정", state: false},
+        {name: "도덕성", state: false},
+        {name: "가치창출", state: false},
+        {name: "글로벌", state: false},
+        {name: "협력", state: false},
+        {name: "전문성", state: false},
+        {name: "배려", state: false},
+      ],
     };
   },
+  computed:{
+    keyword:function(){
+      console.log('ghaha')
+      return this.search.split(' ')
+    }
+  },
   methods: {
+    selkey(i){
+      this.pickkey = i
+      this.searchpick = true
+    },
+    searching(){
+      this.searchpick = false
+    },
+    changeTag(i){
+      this.tags[i-1]['state'] = !this.tags[i-1]['state']
+      this.filter_tag[i-1] = this.tags[i-1]['state']
+      this.$refs.updating.filter()
+    },
     showWrite() {
       return this.dialog = true
     },
@@ -149,24 +222,28 @@ export default {
           ) {
         return alert('태그와 지원시기 외 정보는 모두 입력해주세요')
       } else {
-        axios.post(
-        'http://70.12.247.99:8080/resume/save', 
-        r_data,
-        {headers : {
-          'token' : window.sessionStorage.getItem("jwt-auth-token"),
-          'user_id': window.sessionStorage.getItem("user_id")},})
+        console.log(r_data);
+        
+        API.post(
+        '/resume/save', r_data)
       .then(response=>{
         console.log(response.data)
         this.$refs.updating.getResume()
+        this.resume_company = null;
+        this.resume_task = null;
+        this.resume_question = null;
+        this.resume_answer = null;
+        this.resume_date = null;
+        this.tag_name = [];
         return this.dialog = false
       })
       .catch(error=>{
         console.log(error)
       })
-      // location.reload()
     }
-  }
-}
+  },
+  
+  },
 }
 </script>
 <style lang="scss">
@@ -185,8 +262,40 @@ export default {
   position: fixed;
   right:30px;
   bottom:30px;
+  z-index: 30;
 }
 i{
   z-index: 22; 
 }
+
+.mb-6{
+  & v-btn & v-col {
+    font-family: 'Jua';
+    font-size: 15px;
+  }
+}
+*:focus{
+  outline: none
+}
+#tag_button{
+  color:white;
+  border: solid white 2px;
+  font-family: Jua;
+  font-size: 17px;
+  border-radius: 10px;
+}
+#headline{
+  font-family: 'Fredoka One', cursive;
+  font-size: 3vh; 
+}
+.nocheck{
+  background-color: #ffb3b3 !important;
+}
+.check{
+  background-color:  #92A8D1 !important;
+}
+.keyset{
+  margin:0 !important; height:35px; font-size:16px; font-family:Jua; text-align:center; padding: 6px 0;
+}
+
 </style> 

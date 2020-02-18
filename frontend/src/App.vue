@@ -1,5 +1,5 @@
 <template>
-  <v-app style="background:none;">
+  <v-app style="background:rgb(244, 249, 255);">
     <div class="backapp" v-if="setting"></div>
     <router-view v-if="setting" class="rout"/>
     <router-view v-else/>
@@ -11,11 +11,9 @@
     </transition>
   </v-app>
 </template>
-
 <script>
 import Navbar from '@/components/Navbar'
 import DrwBtn from '@/components/Drawer'
-
 export default {
   name: 'App',
   components:{
@@ -34,23 +32,19 @@ export default {
   }
 };
 </script>
-
 <style>
   .Nav{
     opacity: 0.8;
     position: fixed;
     top:15px;
     width: 100%;
-    z-index: 9995;
+    z-index: 30
   }
   .DrwBtn{
-    z-index: 9999;
+    z-index: 30;
     position: fixed;
     top: 20px;
     left: 5px;
-  }
-  .rout{
-    margin-top:80px;
   }
   .backapp{
     font-size: 25px;
@@ -60,11 +54,14 @@ export default {
     position:fixed;
     width:100%;
     height:100%;
-    z-index: -1000;
+    z-index: -1;
     background: linear-gradient(115deg, rgb(247,202,201), rgb(180, 180, 185), rgb(146,168,209), rgb(230,230,230));
     filter: blur(4px);
   }
 a{
   text-decoration: none;
+}
+.v-application--wrap{
+  margin-top:80px;
 }
 </style>

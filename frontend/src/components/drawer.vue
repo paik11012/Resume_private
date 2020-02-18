@@ -11,37 +11,47 @@
                 <v-icon>home</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>HOME</v-list-item-title>
+                <v-list-item-title>Home</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </a>
           <a href="/info">
             <v-list-item>
               <v-list-item-action>
-                <v-icon>contact_mail</v-icon>
+                <v-icon>thumb_up</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>PROFILE</v-list-item-title>
+                <v-list-item-title>Profile</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </a>
           <a href="/resume">
             <v-list-item>
               <v-list-item-action>
-                <v-icon>contact_mail</v-icon>
+                <v-icon>edit</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>RESUMES</v-list-item-title>
+                <v-list-item-title>Resumes</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </a>
           <a href="/interview">
             <v-list-item>
               <v-list-item-action>
-                <v-icon>contact_mail</v-icon>
+                <v-icon>email</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>INTERVIEWS</v-list-item-title>
+                <v-list-item-title>Interviews</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </a>
+          <a href="/team">
+            <v-list-item>
+              <v-list-item-action>
+                <v-icon>message</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>About Us</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </a>
