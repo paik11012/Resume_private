@@ -22,22 +22,22 @@
         <tr>
           <td width="150px">발급기관</td>
           <td v-if="editing" colspan="2">{{ award_org }}</td>
-          <td v-else colspan="2"><input type="text" v-model="award_org" ></td>
+          <td v-else colspan="2"><input class="input" type="text" v-model="award_org" ></td>
         </tr>
         <tr> 
           <td width="150px">취득일자</td>
           <td v-if="editing" colspan="2">{{ award_date }}</td>
-          <td v-else colspan="2"><input type="text" v-model="award_date"></td>
+          <td v-else colspan="2"><input class="input" type="text" v-model="award_date"></td>
         </tr>
         <tr>
           <td width="150px">등급</td>
           <td v-if="editing" colspan="2">{{ award_prize }}</td>
-          <td v-else colspan="2"><input type="text" v-model="award_prize"></td>
+          <td v-else colspan="2"><input class="input" type="text" v-model="award_prize"></td>
         </tr>
         <tr>
           <td width="150px">세부내용</td>
           <td v-if="editing" colspan="2">{{ award_detail }}</td>
-          <td v-else colspan="2"><input type="text" v-model="award_detail" placeholder="education period"></td>
+          <td v-else colspan="2"><input class="input" type="text" v-model="award_detail" placeholder="education period"></td>
         </tr>
       </tbody>
     </template>
@@ -103,4 +103,9 @@ export default {
 </script>
 
 <style lang="scss">
+.input{
+  border-style:none;
+  // border-bottom:solid 1px #cacaca;
+  border-collapse:collapse;
+  width:100%; height:100%;}
 </style>

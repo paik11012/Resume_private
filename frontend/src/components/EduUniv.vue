@@ -21,32 +21,32 @@
         <tr>
           <td width="150px">학교명</td>
           <td v-if="editing">{{ edu_school_name }}</td>
-          <td v-else><input type="text" v-model="edu_school_name" placeholder="univ name"></td>
+          <td v-else><input type="text" class="input" v-model="edu_school_name" placeholder="univ name"></td>
         </tr>
         <tr>
           <td width="150px">재학기간</td>
           <td v-if="editing">{{ period }}</td>
-          <td v-else><input type="text" v-model="period" placeholder="education period"></td>
+          <td v-else><input type="text" class="input" v-model="period" placeholder="education period"></td>
         </tr>
         <tr>
           <td width="150px">전공구분</td>
           <td v-if="editing">{{ edu_detail_major_sort }}</td>
-          <td v-else><input type="text" v-model="edu_detail_major_sort" placeholder="major_sort"></td>
+          <td v-else><input type="text" class="input" v-model="edu_detail_major_sort" placeholder="major_sort"></td>
         </tr>
         <tr>
           <td width="150px">전공명</td>
           <td v-if="editing">{{ edu_detail_major }}</td>
-          <td v-else><input type="text" v-model="edu_detail_major" placeholder="major"></td>
+          <td v-else><input type="text" class="input" v-model="edu_detail_major" placeholder="major"></td>
         </tr>
         <tr>
           <td width="150px">이수학점</td>
           <td v-if="editing">{{ edu_detail_credit }}</td>
-          <td v-else><input type="number" v-model="edu_detail_credit" placeholder="credit"></td>
+          <td v-else><input type="number" class="input" v-model="edu_detail_credit" placeholder="credit"></td>
         </tr>
         <tr>
           <td width="150px">총 평점</td>
           <td v-if="editing">{{ edu_detail_grade }}</td>
-          <td v-else><input type="text" v-model="edu_detail_grade" placeholder="grade"></td>
+          <td v-else><input type="text" class="input" v-model="edu_detail_grade" placeholder="grade"></td>
         </tr>
         <tr>
           <td width="150px">성적표</td>
@@ -261,4 +261,9 @@ export default {
     visibility: visible;
   }
 }
+.input{
+  border-style:none;
+  // border-bottom:solid 1px #cacaca;
+  border-collapse:collapse;
+  width:100%; height:100%;}
 </style>

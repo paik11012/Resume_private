@@ -25,19 +25,19 @@
       <tbody>
         <tr>
           <td width="150px">발급기관</td>
-          <td><input type="text" v-model="award_org" placeholder="기관명"></td>
+          <td><input type="text" class="input" v-model="award_org" placeholder="기관명"></td>
         </tr>
         <tr>
           <td width="150px">취득일자</td>
-          <td><input type="text" v-model="award_date" placeholder="취득일자"></td>
+          <td><input type="text" class="input" v-model="award_date" placeholder="취득일자"></td>
         </tr>
         <tr>
           <td width="150px">등급/점수</td>
-          <td><input type="text" v-model="award_prize" placeholder="등급/점수"></td>
+          <td><input type="text" class="input" v-model="award_prize" placeholder="등급/점수"></td>
         </tr>
         <tr>
           <td width="150px">세부내용</td>
-          <td><input type="text" v-model="award_detail" placeholder="세부내용"></td>
+          <td><input type="text" class="input" v-model="award_detail" placeholder="세부내용"></td>
         </tr>
          <tr>
           <td width="150px">파일</td>

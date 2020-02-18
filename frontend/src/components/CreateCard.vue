@@ -31,27 +31,27 @@
       <tbody>
         <tr>
           <td width="150px">학교명</td>
-          <td><input type="text" v-model="edu_school_name" placeholder="학교명"></td>
+          <td><input type="text" class="input" v-model="edu_school_name" placeholder="학교명"></td>
         </tr>
         <tr>
           <td width="150px">재학기간</td>
-          <td><input type="text" v-model="edu_school_st_date" placeholder="재학기간"></td>
+          <td><input type="text" class="input" v-model="edu_school_st_date" placeholder="재학기간"></td>
         </tr>
         <tr v-if="select != 1">
           <td width="150px">전공구분</td>
-          <td><input type="text" v-model="edu_detail_major_sort" placeholder="전공/부전공/복수전공"></td>
+          <td><input type="text" class="input" v-model="edu_detail_major_sort" placeholder="전공/부전공/복수전공"></td>
         </tr>
         <tr v-if="select != 1">
           <td width="150px">전공명</td>
-          <td><input type="text" v-model="edu_detail_major" placeholder="전공명"></td>
+          <td><input type="text" class="input" v-model="edu_detail_major" placeholder="전공명"></td>
         </tr>
         <tr v-if="select != 1">
           <td width="150px">이수학점</td>
-          <td><input type="text" v-model="edu_detail_credit" placeholder="이수학점"></td>
+          <td><input type="text" class="input" v-model="edu_detail_credit" placeholder="이수학점"></td>
         </tr>
         <tr v-if="select != 1">
           <td width="150px">총 평점</td>
-          <td><input type="text" v-model="edu_detail_grade" placeholder="총 평점"></td>
+          <td><input type="text" class="input" v-model="edu_detail_grade" placeholder="총 평점"></td>
         </tr>
         <tr v-if="select != 1">
           <td width="150px">성적표</td>

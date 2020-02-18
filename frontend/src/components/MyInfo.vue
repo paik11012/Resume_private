@@ -21,25 +21,25 @@
           <td style="width:30%; position:relative;" rowspan="3"><img id="myPic" style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/person.jpg"/><div style="position:absolute; left: 23%; top:0px;"><v-icon dark>mdi-close</v-icon></div></td>
           <td style="width:20%">병역구분</td>
           <td v-if="editing">{{ military_sort }}</td>
-          <td v-else><input type="text" v-model="military_sort" placeholder="병역구분"></td>
+          <td v-else><input type="text"  class="input" v-model="military_sort" placeholder="병역구분" width="100%"></td>
         </tr>
 
         <tr>
           <td style="width:20%">계급</td>
           <td v-if="editing">{{ military_class }}</td>
-          <td v-else><input type="text" v-model="military_class" placeholder="계급"></td>
+          <td v-else><input type="text" class="input"  v-model="military_class" placeholder="계급"></td>
         </tr>
         <tr>
           <td style="width:20%">복무기간</td>
           <td v-if="editing">{{ military_st_date }}</td>
-          <td v-else><input type="text" v-model="military_st_date" placeholder="복무기간"></td>
+          <td v-else><input type="text" class="input"  v-model="military_st_date" placeholder="복무기간"></td>
         </tr>
         <tr>
           <td class="layout justify-center"><div><v-file-input id="btn-upload" v-model="selectedFile" accept="image/*" prepend-icon="mdi-cloud-upload" height="1.8em" style="width:30px; overflow:hidden;"></v-file-input></div>
           <v-btn style="margin-top:6px;" color="success" outlined @click="downloadFile"><v-icon dark>mdi-cloud-download</v-icon></v-btn></td>
           <td style="width:20%">메모</td>
           <td v-if="editing">{{ memo }}</td>
-          <td v-else><input type="text" v-model="memo" placeholder="메모"></td>
+          <td v-else><input type="text" class="input"  v-model="memo" placeholder="메모"></td>
         </tr>
       </tbody>
     </template>
@@ -70,22 +70,22 @@
         <tr>
           <td style="text-align:center;">병역구분</td>
           <td v-if="editing" style="text-align:center;">{{ military_sort }}</td>
-          <td v-else><input type="text" style="text-align:center; width:100%;" v-model="military_sort" placeholder="병역구분"></td>
+          <td v-else><input type="text"  class="input" style="text-align:center; width:inherit;" v-model="military_sort" placeholder="병역구분"></td>
         </tr>
         <tr>
           <td style="text-align:center;">계급</td>
-          <td v-if="editing" style="text-align:center;">{{ military_class }}</td>
-          <td v-else><input type="text" style="text-align:center; width:100%;" v-model="military_class" placeholder="계급"></td>
+          <td v-if="editing"  style="text-align:center;">{{ military_class }}</td>
+          <td v-else><input class="input" type="text" style="text-align:center; width:100%;" v-model="military_class" placeholder="계급"></td>
         </tr>
         <tr>
           <td style="text-align:center;">복무기간</td>
           <td v-if="editing" style="text-align:center;">{{ military_st_date }}</td>
-          <td v-else><input style="text-align:center; width:100%;" type="text" v-model="military_st_date" placeholder="복무기간"></td>
+          <td v-else><input class="input"  style="text-align:center; width:100%;" type="text" v-model="military_st_date" placeholder="복무기간"></td>
         </tr>
         <tr>
           <td style="text-align:center;">메모</td>
           <td v-if="editing" style="text-align:center;">{{ memo }}</td>
-          <td v-else><input style="text-align:center; width:100%;" type="text" v-model="memo" placeholder="메모"></td>
+          <td v-else><input class="input" style="text-align:center; width:100%;" type="text" v-model="memo" placeholder="메모"></td>
         </tr>
       </tbody>
     </template>
@@ -246,4 +246,10 @@ export default {
 .v-input__icon--clear{
   visibility:hidden;
 }
+.input{
+  border-style:none;
+  // border-bottom:solid 1px #cacaca;
+  border-collapse:collapse;
+  width:100%; height:100%;}
+
 </style>

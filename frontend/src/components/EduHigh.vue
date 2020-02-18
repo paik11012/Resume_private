@@ -21,12 +21,12 @@
         <tr>
           <td width="150px">고등학교</td>
           <td v-if="editing">{{ edu_school_name }}</td>
-          <td v-else><input type="text" v-model="edu_school_name" placeholder="highschool name"></td>
+          <td v-else><input type="text" class="input" v-model="edu_school_name" placeholder="highschool name"></td>
         </tr>
         <tr>
           <td width="150px">재학기간</td>
           <td v-if="editing">{{ edu_school_st_date }}</td>
-          <td v-else><input type="text" v-model="edu_school_st_date" placeholder="education period"></td>
+          <td v-else><input class="input" type="text" v-model="edu_school_st_date" placeholder="education period"></td>
         </tr>
       </tbody>
     </template>
@@ -112,5 +112,9 @@ export default {
   position: absolute;
   right: 55px;
 }
-
+.input{
+  border-style:none;
+  // border-bottom:solid 1px #cacaca;
+  border-collapse:collapse;
+  width:100%; height:100%;}
 </style>
