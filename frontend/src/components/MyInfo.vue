@@ -240,7 +240,7 @@ export default {
 .myinfo{
 
   #write{
-    position: relative;
+  position: relative;
   left: 10px;
 }
 .v-file-input__text{
@@ -261,8 +261,8 @@ export default {
 
 .mdi-close{
   position: absolute;
-  left: 22px;
-  top: -190px;
+  left: 30px;
+  top: -187px;
 }
 
 .v-text-field__slot{
@@ -279,7 +279,7 @@ export default {
 }
 .mdi-cloud-upload{
   position: absolute;
-  top:-8px;
+  top: 10px;
   left: -20px;
   border-radius: 5px;
   background: #28a745;

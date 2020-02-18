@@ -11,7 +11,7 @@
   <!-- resume 작성하기 -->
   <template>
   <v-row justify="center">
-    <v-dialog v-model="dialog" :persistent="true" max-width="80%" max-height="80%" style="z-index:30; position:relative">
+    <v-dialog v-model="dialog" :persistent="true" max-width="80%" max-height="80%" style="z-index:32; position:relative">
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
       <v-card>
         <v-card-title class="justify-center">
@@ -267,7 +267,7 @@ export default {
   position: fixed;
   right:30px;
   bottom:30px;
-  z-index: 30;
+  z-index: 32;
 }
 i{
   z-index: 22; 

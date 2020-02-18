@@ -199,15 +199,16 @@ export default {
     opacity: 0.46;
   }
   & .modal{
+    z-index: 32;
     & .edit{
       position: absolute;
-      z-index: 30;
+      z-index: 32;
       right: 65px;
       top : 3%;
     }
     & .delete{
       position: absolute;
-      z-index: 30;
+      z-index: 32;
       right: 15px;
       top : 3%;
     }
