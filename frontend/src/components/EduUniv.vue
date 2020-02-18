@@ -1,9 +1,9 @@
 <template>
-  <v-simple-table>
+  <v-simple-table class="educard">
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left" style="font-size:20px; font-family:Jua">{{sch_name}}{{asd}}</th>
+          <th class="text-left" style="font-size:20px; font-family:Jua">{{sch_name}}</th>
           <th class="layout hold">
             <v-btn v-on:click="editor" v-if="editing" small fab dark color="cyan" class="edu_write">
               <v-icon dark>edit</v-icon>
@@ -50,7 +50,7 @@
         </tr>
         <tr>
           <td width="150px">성적표</td>
-          <td v-if="editing"><span id="grade_img" @click="openWindow">{{ edu_detail_grade_img }}</span> <v-btn style="margin-top:6px;" color="success" outlined @click="downloadFile"><v-icon dark medium>mdi-cloud-download</v-icon></v-btn></td>
+          <td v-if="editing"><span id="grade_img" @click="openWindow">{{ new_edu_detail_grade_img }}</span> <v-btn style="margin-top:6px;" color="success" outlined @click="downloadFile"><v-icon dark medium>mdi-cloud-download</v-icon></v-btn></td>
           <td v-else><v-file-input v-model="selectedFile" accept="*/*" height="1.8em"/></td>
         </tr>
       </tbody>
@@ -80,6 +80,8 @@ export default {
     }
   },
   mounted(){
+    this.new_edu_detail_grade_img = this.edu_detail_grade_img;
+
     if(this.edu_school_sort == 2){
       this.sch_name = 'University'
     } else if(this.edu_school_sort == 3){
@@ -100,7 +102,6 @@ export default {
     edu_detail_grade_img:{type:String},
     edu_detail_credit:{type:Number},
     edu_detail_id:{type:Number},
-    asd:{type:Number}
   },
       
   data(){
@@ -108,6 +109,7 @@ export default {
       editing:true,
       sch_name:'',
 
+      new_edu_detail_grade_img: '',
       selectedFile: '',
     }
   },
@@ -233,7 +235,7 @@ export default {
       .child(user_id + '/' + selectedFile.name)
       .put(selectedFile);
 
-      this.edu_detail_grade_img = this.selectedFile.name
+      this.new_edu_detail_grade_img = this.selectedFile.name
     },
   }
 }
@@ -243,5 +245,11 @@ export default {
 #grade_img:hover{
   text-decoration: underline;
   cursor: pointer;
+}
+
+.educard{
+  .v-file-input__text{
+    visibility: visible;
+  }
 }
 </style>
