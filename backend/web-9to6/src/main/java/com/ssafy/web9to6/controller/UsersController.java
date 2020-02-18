@@ -215,6 +215,9 @@ public class UsersController {
     public Users userUpdate(HttpServletRequest request, @RequestBody UsersResponseDto requestDto){
         String user_id = request.getHeader("user_id");
         Users user = usersService.findById(user_id);
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        requestDto.setUser_password(passwordEncoder.encode(requestDto.getUser_password()));
         return usersService.update(user, requestDto.toEntity());
     }
 

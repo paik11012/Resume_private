@@ -56,19 +56,18 @@ export default {
         this.user_name = userInfo.user_name;
         this.user_profile_img = userInfo.user_profile_img;
 
-        setTimeout(() => {
+        if(this.user_profile_img!=null & this.user_profile_img!=''){
+          console.log(this.user_profile_img)
+          setTimeout(() => {
             this.setMyPicFromDB()
           }, 100);
+        }
       });
 
-      API.get("/resume")
+      API.get("/interview/getLength")
       .then(res=>{
-        this.user_resume_number = res.data.length
-      })
-
-      API.get("/interview")
-      .then(res=>{
-        this.user_interview_number = res.data.length
+        this.user_resume_number = res.data.n_resume;
+        this.user_interview_number = res.data.n_interview;
       })
   },
   methods:{
