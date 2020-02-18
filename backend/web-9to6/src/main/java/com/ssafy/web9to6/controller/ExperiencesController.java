@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -53,11 +54,14 @@ public class ExperiencesController {
     }
 
     @ApiOperation("수상 정보 수정")
-    @RequestMapping(value = "/awards/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/awards/update", method = RequestMethod.POST)
     public Awards updateAwards(HttpServletRequest request, @RequestBody AwardsResponseDto awd) {
         String user_id =  request.getHeader("user_id");
         awd.setUser(us.findById(user_id));
-        return as.save(awd);
+        Optional<Awards> old = as.findById(awd.getId());
+        if(!old.isPresent()){
+            return as.save(awd);
+        } else return as.update(old.get(), awd);
     }
 
     @ApiOperation("경험 내역 전체 조회")
@@ -83,11 +87,11 @@ public class ExperiencesController {
     }
 
     @ApiOperation("경험 정보 수정")
-    @RequestMapping(value = "/exp/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/exp/update", method = RequestMethod.POST)
     public Experiences updateExperiences(HttpServletRequest request, @RequestBody ExperiencesResponseDto exp) {
         String user_id =  request.getHeader("user_id");
         exp.setUser(us.findById(user_id));
-        return ex.save(exp);
+        return ex.update(ex.findById(exp.getId()), exp.toEntity());
     }
 
     @ApiOperation("자격내역 조회")
@@ -113,7 +117,7 @@ public class ExperiencesController {
     }
 
     @ApiOperation("자격 정보 수정")
-    @RequestMapping(value = "/lic/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/lic/update", method = RequestMethod.POST)
     public Licenses updateLicenses(HttpServletRequest request, @RequestBody LicensesResponseDto lic) {
         String user_id =  request.getHeader("user_id");
         lic.setUser(us.findById(user_id));

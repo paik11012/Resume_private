@@ -103,7 +103,7 @@ public class ResumeInterviewTagController {
                 ts.save(trd);
             }
         } catch (Exception e) {
-            throw new Exception();
+            throw  new Exception();
         }
     }
     @ApiOperation("자소서 삭제")
@@ -114,11 +114,34 @@ public class ResumeInterviewTagController {
     }
 
     @ApiOperation("자소서 수정")
-    @RequestMapping(value = "/resume/update", method = RequestMethod.PUT)
-    public Resume updateResume(HttpServletRequest request, @RequestBody ResumeResponseDto rrd) {
+    @RequestMapping(value = "/resume/update", method = RequestMethod.POST)
+    public void updateResume(HttpServletRequest request, @RequestBody Map<String,Object> rrd) {
         String user_id =  request.getHeader("user_id");
-        rrd.setUser(us.findById(user_id));
-        return rs.save(rrd);
+        Map res  = (Map)rrd.get("resume_info");
+        ArrayList<String> tags = (ArrayList<String>) rrd.get("tag_name");
+        ResumeResponseDto resume = new ResumeResponseDto();
+        resume.setResume_answer((String)res.get("resume_answer"));
+        resume.setResume_date((String)res.get("resume_date"));
+        resume.setResume_company((String)res.get("resume_company"));
+        resume.setResume_question((String)res.get("resume_question"));
+        resume.setResume_task((String)res.get("resume_task"));
+        resume.setUser(us.findById(user_id));
+        resume.setId(Long.parseLong((String)res.get("id")));
+
+        Resume find = rs.findById(resume.getId());
+        Resume update = rs.update(find,resume.toEntity());
+
+        List<Tag> list = ts.findAllTag(update);
+        for(int i=0;i<list.size();i++) {
+            ts.delete(list.get(i).getId());
+        }
+
+        for(int i=0;i<tags.size();i++) {
+            TagResponseDto trd = new TagResponseDto();
+            trd.setResume(update);
+            trd.setTag_name(tags.get(i));
+            ts.save(trd);
+        }
     }
 
     @ApiOperation("면접 조회")
@@ -141,25 +164,24 @@ public class ResumeInterviewTagController {
     @RequestMapping(value = "/interview/del/{id}", method = RequestMethod.DELETE)
     public void deleteInterview(@PathVariable String id) {
         Long aid = Long.parseLong(id);
-        rs.delete(aid);
+        is.delete(aid);
     }
 
     @ApiOperation("면접 수정")
-    @RequestMapping(value = "/interview/update", method = RequestMethod.PUT)
+    @RequestMapping(value = "/interview/update", method = RequestMethod.POST)
     public Interview updateInterview(HttpServletRequest request, @RequestBody InterviewResponseDto rrd) {
         String user_id =  request.getHeader("user_id");
         rrd.setUser(us.findById(user_id));
         return is.save(rrd);
     }
 
-    @ApiOperation("자소서/이력서 갯수")
-    @GetMapping("/interview/getLength")
-    public Map<String, Integer> getLength(HttpServletRequest request){
-        Map<String, Integer> map = new HashMap<>();
+    @ApiOperation("면접 수정")
+    @RequestMapping(value = "/pdf", method = RequestMethod.GET)
+    public void get() {
+//      PdfService ser = new PdfService();
 
-        String user_id = request.getHeader("user_id");
-        map.put("n_resume", rs.findAll(us.findById(user_id)).size());
-        map.put("n_interview", is.findAll(us.findById(user_id)).size());
-        return map;
+//      ser.createPdf();
     }
+
+
 }

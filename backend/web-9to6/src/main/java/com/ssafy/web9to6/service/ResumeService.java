@@ -34,4 +34,15 @@ public class ResumeService {
     public void delete(Long id) {
         rr.deleteById(id);
     }
+
+    public Resume findById(Long id) {return rr.findById(id).get();}
+
+    public Resume update(Resume old, Resume update) {
+        old.setResume_answer(update.getResume_answer());
+        old.setResume_company(update.getResume_company());
+        old.setResume_date(update.getResume_date());
+        old.setResume_task(update.getResume_task());
+        old.setResume_question(update.getResume_task());
+        return rr.save(old);
+    }
 }
