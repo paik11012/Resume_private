@@ -34,10 +34,9 @@ export default {
   },
   methods: {
     withdraw(user_id) {
-      alert('탈퇴시킵니다')
       API.delete(`users/deleteByAdmin/${user_id}`)
       .then(response => {
-        console.log(response)
+        alert(`${user_id}가 탈퇴되었습니다.`)
       })
       .catch(error => {
         console.log(error)
