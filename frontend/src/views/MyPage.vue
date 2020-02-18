@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="mypage">
     <v-container>
       <v-layout>
         <v-flex>
@@ -186,4 +186,6 @@ export default {
 
 <style lang="scss">
 @import "@/assets/scss/mypage.scss";
+// .mypage{
+// }
 </style>

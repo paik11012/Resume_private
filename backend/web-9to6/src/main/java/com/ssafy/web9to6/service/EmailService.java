@@ -1,6 +1,7 @@
 package com.ssafy.web9to6.service;
 
 
+import com.ssafy.web9to6.domain.Resume;
 import com.ssafy.web9to6.domain.Users;
 import com.ssafy.web9to6.dto.UsersResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -78,23 +79,24 @@ public class EmailService {
 
     }
 
-    public void sendPdf(Users user) throws Exception {
-//        SimpleMailMessage message = new SimpleMailMessage();
-//        message.setTo(user.getUser_id());
-//        message.setSubject("[취뽀냥이]" + user.getUser_name() + " 임시 비밀번호 발송");
-//        message.setText("");
-//
-//        FileSystemResource file = new FileSystemResource(new File("E:/test.hwp"));
-//        message.addAttachment("test.hwp", file);
+    public void sendPdf(Resume resume, Users user) throws Exception {
         MimeMessage message = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setTo(user.getUser_id());
-        helper.setSubject("pdf");
-        helper.setText("하아..");
-        FileSystemResource file = new FileSystemResource(new File("file/dd.pdf"));
+        helper.setSubject("[취뽀냥이]자소서가 배달왔다냥~");
+        helper.setText("안녕하세요 저희는 취뽀냥이 웹페이지 입니다 \n " + user.getUser_name() +
+                " 회원님의 요청하신 자소서가 배달왔다냥~. \n 회원가입을 축하드립니다. ♡ \n " +
+                "          ฅ^._.^ฅ       ");
+     //   FileSystemResource file = new FileSystemResource(new File("file/dd.pdf"));
+        if(pdfService.createPdf(resume, user).equals("pdf 파일 생성 성공")) {
+            FileSystemResource file = new FileSystemResource(new File("file/" +resume.getId().toString()+".pdf"));
+            System.out.println(file.getPath());
 //        ByteArrayInputStream dd = pdfService.createPdf();
 //        System.out.println("힝" + dd);
-        helper.addAttachment("Dd", file);
+            String title = resume.getResume_date() + "_" + resume.getResume_company();
+            helper.addAttachment(title, file);
+        }
+
 
         try {
             emailSender.send(message);

@@ -264,14 +264,6 @@ public class UsersController {
         return usersService.updateAuth(user_id);
     }
 
-
-   @ApiOperation("첨부")
-    @GetMapping("/attach/{user_id}")
-    public void attach(@PathVariable String user_id) throws Exception {
-       emailService.sendPdf(usersService.findById(user_id));
-//   pdfService.
-       System.out.println(pdfService.createPdf());
-   }
    
     @ApiOperation("회원 프로필 사진 업로드")
     @PostMapping("/users/uploadProfileImg")

@@ -1,9 +1,6 @@
 package com.ssafy.web9to6.controller;
 
-import com.ssafy.web9to6.domain.Awards;
-import com.ssafy.web9to6.domain.Interview;
-import com.ssafy.web9to6.domain.Resume;
-import com.ssafy.web9to6.domain.Tag;
+import com.ssafy.web9to6.domain.*;
 import com.ssafy.web9to6.dto.*;
 import com.ssafy.web9to6.service.*;
 import io.swagger.annotations.ApiOperation;
@@ -35,7 +32,9 @@ public class ResumeInterviewTagController {
     @Autowired
     private UsersService us;
     @Autowired
-    private JwtService jwtService;
+    private EmailService emailService;
+    @Autowired
+    private PdfService pdfService;
 
     @ApiOperation("자소서와 태그 조회")
     @RequestMapping(value = "/resume", method = RequestMethod.GET)
@@ -192,6 +191,19 @@ public class ResumeInterviewTagController {
         map.put("n_resume", rs.findAll(us.findById(user_id)).size());
         map.put("n_interview", is.findAll(us.findById(user_id)).size());
         return map;
+    }
+
+
+
+    @ApiOperation("자기소개서 pdf 내보내기")
+    @GetMapping("/attach/{resume_id}")
+    public void attach(@PathVariable String resume_id) throws Exception {
+//       emailService.sendPdf(usersService.findById(user_id, Re);
+        Resume resume = rs.findById(Long.parseLong(resume_id));
+        Users user = us.findById("ojinga0519@naver.com");
+        emailService.sendPdf(resume, user);
+//        System.out.println(pdfService.createPdf());
+        //pdfService.createPdf(resume,user );
     }
 
 }

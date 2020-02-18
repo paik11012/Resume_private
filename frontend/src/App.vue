@@ -1,7 +1,7 @@
 <template>
   <v-app style="background:rgb(244, 249, 255);">
     <div class="backapp" v-if="setting"></div>
-    <router-view v-if="setting" class="rout"/>
+    <router-view v-if="setting"/>
     <router-view v-else/>
     <transition name="slide">
     <Navbar class="Nav" v-if="setting"/>
@@ -60,5 +60,8 @@ export default {
   }
 a{
   text-decoration: none;
+}
+.v-application--wrap{
+  margin-top:80px;
 }
 </style>
