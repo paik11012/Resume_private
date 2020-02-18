@@ -115,7 +115,6 @@ export default {
       file_input.onchange = event => { 
         this.selectedFile = event.target.files[0];
       }
-
       file_input.click();
     },
     setMyPicFromDB(){

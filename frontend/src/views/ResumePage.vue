@@ -247,6 +247,9 @@ export default {
 }
 </script>
 <style lang="scss">
+.res_page{
+  margin-top: 80px;
+}
 #write{
   margin-left:85% !important
 }

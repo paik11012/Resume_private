@@ -62,6 +62,5 @@ a{
   text-decoration: none;
 }
 .v-application--wrap{
-  margin-top:80px;
 }
 </style>

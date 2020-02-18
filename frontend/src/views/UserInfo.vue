@@ -106,6 +106,7 @@ export default {
 
 @import url('https://fonts.googleapis.com/css?family=Clicker+Script|PT+Sans:700');
 .userinfo{
+  margin-top: 80px;
   p{
     font-size: 17px;
     font-family: 'Fredoka One', cursive;
