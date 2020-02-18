@@ -77,7 +77,9 @@ export default {
       'award_detail':this.award_detail,
       'award_prize':this.award_prize,
       'award_date': this.award_date,
+      'award_file' : this.selectedFile.name
       }
+      console.log(set)
 
       API.post('/awards/save', set,
       {headers : {
@@ -90,24 +92,23 @@ export default {
       .catch(error => {
         console.log(error)
       })
+
+      // firebase storage에 파일 업로드 //
+      if(this.selectedFile.name!=null & this.selectedFile.name!=''){
+        var storageRef = firebase.storage().ref();
+        var user_id = sessionStorage.getItem("user_id");
+  
+        storageRef
+        .child(user_id + '/' + this.selectedFile.name)
+        .put(this.selectedFile);
+      }
+      // END: firebase storage에 파일 업로드 //
+
       setTimeout(() => {
         this.$emit('createa')
       }, 500);
     },
   },
-  watch:{
-    selectedFile: function(selectedFile) {
-      var storageRef = firebase.storage().ref();
-      var user_id = sessionStorage.getItem("user_id");
-
-      // firebase storage에 파일 업로드 //
-      storageRef
-      .child(user_id + '/' + selectedFile.name)
-      .put(selectedFile);
-
-      this.edu_detail_grade_img = this.selectedFile.name
-    },
-  }
 }
 </script>
 

@@ -51,7 +51,6 @@ public class ResumeInterviewTagController {
             ResumeTagResponseDto rtrd = new ResumeTagResponseDto(resume,tags);
             System.out.println(rtrd.toString());
             map.add(rtrd);
-
         }
         return map;
     }
