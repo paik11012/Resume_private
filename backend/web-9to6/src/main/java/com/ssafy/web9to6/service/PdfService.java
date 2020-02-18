@@ -6,6 +6,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.ssafy.web9to6.domain.Resume;
+import com.ssafy.web9to6.domain.Users;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,12 +22,12 @@ import java.net.URL;
 
 @Service
 public class PdfService {
-    public String  createPdf() {
+    public String  createPdf(Resume resume, Users user) {
         String result = ""; // 초기값이 null이 들어가면 오류가 발생될수 있기 때문에 공백을 지정
 
         try {
             Document document = new Document(); // pdf문서를 처리하는 객체
-            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("file/dd.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("file/" +resume.getId().toString()+".pdf"));
             document.open(); // 웹페이지에 접근하는 객체를 연다
 //            PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream("classpath:pdf/33"));
 //            URL s = ResourceUtils.getURL("classpath:pdf");
@@ -44,9 +45,10 @@ public class PdfService {
             // createFont메소드에 사용할 폰트의 경로 (malgun.ttf)파일의 경로를 지정해준다.
             // 만약에 이 경로에 없을 경우엔 java파일로 만들어서 집어넣어야 한다.
 
-            Font font = new Font(baseFont, 12); // 폰트의 사이즈를 12픽셀로 한다
-            PdfPTable table = new PdfPTable(4); // 4개의 셀을 가진 테이블 객체를 생성 (pdf파일에 나타날 테이블)
-            Chunk chunk = new Chunk("장바구니", font); // 타이틀 객체를 생성 (타이틀의 이름을 장바구니로 하고 위에 있는 font를 사용)
+            Font font = new Font(baseFont, 15); // 폰트의 사이즈를 12픽셀로 한다
+            Font font2 = new Font(baseFont, 12); // 폰트의 사이즈를 12픽셀로 한다
+
+            Chunk chunk = new Chunk("자기소개서", font); // 타이틀 객체를 생성 (타이틀의 이름을 장바구니로 하고 위에 있는 font를 사용)
             Paragraph ph = new Paragraph(chunk);
             ph.setAlignment(Element.ALIGN_CENTER);
             document.add(ph); // 문단을 만들어서 가운데 정렬 (타이틀의 이름을 가운데 정렬한다는 뜻)
@@ -54,49 +56,18 @@ public class PdfService {
             document.add(Chunk.NEWLINE);
             document.add(Chunk.NEWLINE); // 줄바꿈 (왜냐하면 타이틀에서 두줄을 내린후에 셀(테이블)이 나오기 때문)
 
-//            PdfPCell cell1 = new PdfPCell(new Phrase("상품명", font)); // 셀의 이름과 폰트를 지정해서 셀을 생성한다.
-//            cell1.setHorizontalAlignment(Element.ALIGN_CENTER); // 셀의 정렬방식을 지정한다. (가운데정렬)
-//
-//            PdfPCell cell2 = new PdfPCell(new Phrase("단가", font));
-//            cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
-//
-//            PdfPCell cell3 = new PdfPCell(new Phrase("수량", font));
-//            cell3.setHorizontalAlignment(Element.ALIGN_CENTER);
-//
-//            PdfPCell cell4 = new PdfPCell(new Phrase("금액", font));
-//            cell4.setHorizontalAlignment(Element.ALIGN_CENTER);
-//
-//            table.addCell(cell1); // 그리고 테이블에 위에서 생성시킨 셀을 넣는다.
-//            table.addCell(cell2);
-//            table.addCell(cell3);
-//            table.addCell(cell4);
-//
-//            List<CartDTO> items = cartService.listCart("park"); // 서비스로부터 id값을 매개값으로 주어서 장바구니목록을 가져온다.
-//
-//            for (int i = 0; i < items.size(); i++) {
-//                CartDTO dto = items.get(i); // 레코드에 값들을 꺼내서 dto에 저장
-//                PdfPCell cellProductName = new PdfPCell(new Phrase(dto.getProduct_name(), font)); // 반복문을 사용해서 상품정보를 하나씩
-//                // 출력해서 셀에 넣고 테이블에
-//                // 저장한다.
-//
-//                PdfPCell cellPrice = new PdfPCell(new Phrase("" + dto.getPrice(), font));
-//                // Phrase타입은 숫자형(int형 같은타입)으로 하면 에러가 발생되기 때문에 dto앞에 공백("")주어서 String타입으로 변경한다.
-//
-//                PdfPCell cellAmount = new PdfPCell(new Phrase("" + dto.getAmount(), font));
-//                // Phrase타입은 숫자형(int형 같은타입)으로 하면 에러가 발생되기 때문에 dto앞에 공백("")주어서 String타입으로 변경한다.
-//
-//                PdfPCell cellMoney = new PdfPCell(new Phrase("" + dto.getMoney(), font));
-//                // Phrase타입은 숫자형(int형 같은타입)으로 하면 에러가 발생되기 때문에 dto앞에 공백("")주어서 String타입으로 변경한다.
-//
-//                table.addCell(cellProductName); // 셀의 데이터를 테이블에 저장한다. (장바구니안에 들어있는 갯수만큼 테이블이 만들어진다)
-//                table.addCell(cellPrice);
-//                table.addCell(cellAmount);
-//                table.addCell(cellMoney);
-//            }
+            Chunk chunk2 = new Chunk(resume.getResume_question(), font2); // 타이틀 객체를 생성 (타이틀의 이름을 장바구니로 하고 위에 있는 font를 사용)
+            Paragraph ph2 = new Paragraph(chunk2);
+            ph.setAlignment(Element.ALIGN_LEFT);
+            document.add(ph2); // 문단을 만들어서 가운데 정렬 (타이틀의 이름을 가운데 정렬한다는 뜻)
 
-            document.add(table); // 웹접근 객체에 table를 저장한다.
+            Chunk chunk3 = new Chunk(resume.getResume_answer(), font2); // 타이틀 객체를 생성 (타이틀의 이름을 장바구니로 하고 위에 있는 font를 사용)
+            Paragraph ph3 = new Paragraph(chunk3);
+            ph.setAlignment(Element.ALIGN_LEFT);
+            document.add(ph3); // 문단을 만들어서 가운데 정렬 (타이틀의 이름을 가운데 정렬한다는 뜻)
+
             document.close(); // 저장이 끝났으면 document객체를 닫는다.
-            result = "pdf 파일이 생성되었습니다.";
+            result = "pdf 파일 생성 성공";
 
 
         } catch (Exception e) {
