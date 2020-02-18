@@ -23,9 +23,10 @@
 
 
 .titlebox{
-  color:white; 
+  font-size: 20px;
+  color:black; 
   margin-top:50px; 
-  z-index: 99999999;
+  z-index: 28;
   font-family: 'Fredoka One', cursive;
   margin-bottom: 30px;
 }
@@ -33,7 +34,7 @@
   &:hover{
     cursor: pointer;
   }
-  z-index:2000;
+  z-index:28;
 }
 
 .insert{

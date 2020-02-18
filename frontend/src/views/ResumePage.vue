@@ -11,7 +11,7 @@
   <!-- resume 작성하기 -->
   <template>
   <v-row justify="center">
-    <v-dialog v-model="dialog" :persistent="true" max-width="80%" max-height="80%" style="z-index:999999;">
+    <v-dialog v-model="dialog" :persistent="true" max-width="80%" max-height="80%" style="z-index:30;">
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
       <v-card>
         <v-card-title class="justify-center">
@@ -82,43 +82,35 @@
   </v-row>
 </template>
     <v-container>
-      <!-- Portfolio -->
-        <!-- <v-row cols="12" sm="4"> -->
-          <v-row>
-            <v-col cols="12" sm="4"> 
-            <v-select
-              v-model="value"
-              :items="items"
-              attach
-              chips
-              label="검색 조건"
-            ></v-select></v-col>
-             <v-col cols="12" sm="4"> 
-              <v-text-field
-          hide-details
-          prepend-icon="search"
-        ></v-text-field>
-        </v-col>
-        <input type="button" value="검색">
-        </v-row>
-          <!-- </v-col> -->
+      <v-layout class="justify-end">
+        <div style="position:relative; width:90px; margin-left:50%; hei ght:40px; margin-bottom:20px;">
+        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:30; width:100%; height:100%; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;">
+          <p class="keyset">
+          {{ searkey[pickkey] }}
+          </p>
+          </div>
+        <div v-else style="position:absolute; z-index:30; background:white; left:0px; width:100%; height:165px; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;">
+          <p v-for="i in searkey.length" :key="i" class="keyset" @click="selkey(i-1)">{{ searkey[i-1] }}</p>
+        </div>
+        </div>
+        <div style="width: 250px !important; z-index:29; margin-left:20px; height:40px; padding: 6px 12px; border:1px solid; margin-right:10px; border-radius:20px;"><v-icon>mdi-magnify</v-icon>
+        <input style="width:85%; margin-left:5px;" v-model="search" type="text"></div>
+      </v-layout>
+
       <v-layout>
         <v-row class="mb-6">
           <v-col v-for="i in tags.length" :key="i" lg="2" xs="3" md="2" class="layout justify-center">
             <v-btn id="tag_button"  style="width:85px" :class="{nocheck: tags[i-1]['state'], check: !tags[i-1]['state']}" 
             depressed @click="changeTag(i)">#{{tags[i-1]["name"]}}</v-btn></v-col>
         </v-row>
-    
-    
-
       </v-layout>
-    
-
       <v-layout>
         <v-flex xs12>
           <ResumeList ref="updating" @load="complete"
           :filter_tag="filter_tag"
           :tag_name="tag_name"
+          :search="search"
+          :keypick="pickkey"
           >
           </ResumeList>
         </v-flex>
@@ -141,8 +133,13 @@ export default {
     ResumeList,
     Navbar,
   },
+  computed:{
+    
+
+  },
   data() {
     return {
+      searchpick:true,
       loading:true,
       resume_company:null,
       resume_task:null,
@@ -151,12 +148,15 @@ export default {
       resume_answer:null,
       dialog: false,
       drawer: null,
-      tag_name: ["신뢰","책임감","창의성","도전정신","혁신","열정","도덕성","가치창출","글로벌","협력","전문성","배려"],
+      tag_name: [],
       resumes: [],
       reload:false,
       filter_tag: [false,false,false,false,false,false,false,false,false,false,false,false],
       items :["전체","회사명","내용"],
+      searkey:["회사명","직무","질문","답변"],
       value : "전체",
+      pickkey:0,
+      search:'',
       option :"전체",
       	result : [],
 					condition : '',
@@ -177,11 +177,21 @@ export default {
       ],
     };
   },
+  computed:{
+    keyword:function(){
+      console.log('ghaha')
+      return this.search.split(' ')
+    }
+  },
   methods: {
-    mounted(){
+    selkey(i){
+      this.pickkey = i
+      this.searchpick = true
+    },
+    searching(){
+      this.searchpick = false
     },
     changeTag(i){
-      console.log(this.tags[i-1]['state']);
       this.tags[i-1]['state'] = !this.tags[i-1]['state']
       this.filter_tag[i-1] = this.tags[i-1]['state']
       this.$refs.updating.filter()
@@ -211,6 +221,8 @@ export default {
           ) {
         return alert('태그와 지원시기 외 정보는 모두 입력해주세요')
       } else {
+        console.log(r_data);
+        
         API.post(
         '/resume/save', r_data)
       .then(response=>{
@@ -249,7 +261,7 @@ export default {
   position: fixed;
   right:30px;
   bottom:30px;
-  z-index: 9999999999;
+  z-index: 30;
 }
 i{
   z-index: 22; 
@@ -260,6 +272,9 @@ i{
     font-family: 'Jua';
     font-size: 15px;
   }
+}
+*:focus{
+  outline: none
 }
 #tag_button{
   color:white;
@@ -277,5 +292,8 @@ i{
 }
 .check{
   background-color:  #92A8D1 !important;
+}
+.keyset{
+  margin:0 !important; height:40px; font-size:18px; text-align:center; padding: 6px 0;
 }
 </style> 

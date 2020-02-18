@@ -2,20 +2,22 @@
 <div class="container userinfo">
   <div class="rowss">
     <div class="col-xs-12 col-md-12 col-sm-12">
-      <div class="img-profile pulse" id="profile_img">
+      <div class="img-profile pulse" id="profile_img" @click="uploadProfileImg">
       </div>
     </div>
     <div class="col-xs-12 col-md-12 col-sm-12">
+      <span style="font-size: small;text-align:center">빈 원을 클릭하면 프로필 사진을 업로드 할 수 있습니다.<br></span>
       <h1 id="id" class="text-center">{{ user_id }}</h1>
     </div>
     <div class="col-xs-12 col-md-12 col-sm-12">
-      <!-- 이름 전화번호 비밀번호 바꾸기 가능 -->
-      <p id="name" class="text-center">Name: {{ user_name }}</p>
-      <p id="name" class="text-center">Phone: {{ user_phone }}</p>
-      <p id="name" class="text-center">Resumes  {{ user_resume_number }}  /  Interviews {{ user_interview_number }}</p>
-      <v-btn class="ma-2" tile outlined small color="black" id="infochange" @click="editInfo">
-       <v-icon left>mdi-pencil</v-icon> Edit Info
-      </v-btn>
+      <p id="edit" class="text-center">Name: <input type="text" class="line" required v-model="user_name" placeholder="Name"></p>
+      <p id="edit" class="text-center">Phone: <input type="text" class="line" required v-model="user_phone" placeholder="Phone"></p>
+      <p id="edit" class="text-center"><input type="password" class="line" required v-model="user_password" placeholder="Password"></p>
+      <p id="edit" class="text-center"><input type="password" class="line" required v-model="user_password_re" placeholder="Password Check"></p>
+      <span v-if="verify_password" style="color:green; font-size: small;">비밀번호가 일치합니다.<br></span>
+      <span v-else style="color:red; font-size: small;">비밀번호가 일치하지 않습니다.<br></span>
+      <v-btn class="ma-2" tile outlined small color="black" id="infochange" @click="editDone">Edit Done</v-btn>
+      <v-btn class="ma-2" tile outlined small color="black" id="infochange" @click="cancel">Cancel</v-btn>
     </div>
   </div>
 </div>
@@ -28,17 +30,20 @@ import { app } from "../services/FirebaseService";
 import firebase, { storage } from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
+
 import router from '../router'
 
 export default {
   data() {
     return {
       user_id: "",
-      user_resume_number: 0,
-      user_interview_number: 0,
+      user_password: "",
+      user_password_re: "",
       user_name: "",
       user_phone:"",
       user_profile_img: "",
+      selectedFile: "",
+      verify_password: false,
     };
   },
   mounted() {
@@ -55,30 +60,38 @@ export default {
         this.user_phone = userInfo.user_phone;
         this.user_name = userInfo.user_name;
         this.user_profile_img = userInfo.user_profile_img;
-
-        if(this.user_profile_img!=null & this.user_profile_img!=''){
-          console.log(this.user_profile_img)
-          setTimeout(() => {
+        setTimeout(() => {
             this.setMyPicFromDB()
           }, 100);
-        }
       });
-
-      API.get("/interview/getLength")
-      .then(res=>{
-        this.user_resume_number = res.data.n_resume;
-        this.user_interview_number = res.data.n_interview;
-      })
   },
   methods:{
-    editInfo(){
-      router.push("editinfo")
+    editDone(){
+        if(this.user_password==this.user_password_re){
+            var data = {
+                user_id : this.user_id,
+                user_password : this.user_password,
+                user_name : this.user_name,
+                user_phone : this.user_phone
+            }
+            console.log(data)
+            API.put("/users/update", data)
+            .then(res=>{
+              console.log(res)
+            })
+            router.push("userinfo")
+        }
+        else{
+            alert("비밀번호를 확인하세요.");
+        }
+    },
+    cancel(){
+        router.push("userinfo")
     },
     uploadProfileImg(){
       var file_input = document.createElement("input");
       file_input.type = "file";
       file_input.setAttribute("accept", "image/*");
-
       file_input.onchange = event => { 
         this.selectedFile = event.target.files[0];
       }
@@ -99,6 +112,42 @@ export default {
       });
     }
   },
+  watch:{
+    selectedFile: function(selectedFile) {
+      var storageRef = firebase.storage().ref();
+      var user_id = sessionStorage.getItem("user_id");
+
+      // firebase storage의 기존 파일 삭제 //
+      if(this.user_profile_img!=null & this.user_profile_img!=""){
+        storageRef
+        .child(user_id + "/" + this.user_profile_img)
+        .delete();
+      }
+
+      // firebase storage에 파일 업로드 //
+      storageRef
+      .child(user_id + '/' + selectedFile.name)
+      .put(selectedFile);
+
+      // 업로드된 파일명 DB에 저장 //
+      setTimeout(() => {
+        const data = { user_profile_img: selectedFile.name}
+        API.post("/users/uploadProfileImg", data)
+        .then(response=>{
+          this.user_profile_img = response.data.user_profile_img
+          this.setMyPicFromDB();
+        });
+      }, 3000);
+    },
+    user_password_re: function(user_password_re){
+        if(this.user_password==user_password_re){
+            this.verify_password = true
+        }
+        else{
+            this.verify_password = false
+        }
+    }
+  }
 };
 </script>
 
@@ -112,14 +161,10 @@ export default {
   }
   #id{
     font-family: 'Clicker Script', cursive !important;
-    font-size:72px;
+    font-size:57px;
   }
   #infochange{
   margin-right: auto !important;
-  }
-  #name{
-   font-family: 'Jua';
-   font-size: 25px;
   }
 }
 
@@ -171,6 +216,16 @@ export default {
   .caption:after{
     border:none;
   }
+}
+#edit{
+  font-family: 'Jua';
+  font-size: 18px;
+}
+
+.line{
+  border-style:none;
+  border-bottom:solid 1px #cacaca;
+  border-collapse:collapse;
 }
 
 </style>

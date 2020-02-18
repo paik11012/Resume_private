@@ -28,6 +28,7 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -200,8 +201,12 @@ public class UsersController {
 
     @ApiOperation("모든 회원 조회")
     @GetMapping("/users/findAll")
-    public List<Users> userFindAll(){
-        return usersService.findAll();
+    public List<Users> userFindAll(HttpServletRequest request){
+        String user_id = request.getHeader("user_id");
+        Users user = usersService.findById(user_id);
+        if(user.getUser_authority().equals("admin")) return usersService.findAll();
+
+        return new LinkedList<>();
     }
 
     @ApiOperation("회원 조회")
@@ -218,7 +223,6 @@ public class UsersController {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         requestDto.setUser_password(passwordEncoder.encode(requestDto.getUser_password()));
-
         return usersService.update(user, requestDto.toEntity());
     }
 
@@ -229,7 +233,7 @@ public class UsersController {
         usersService.delete(user_id);
     }
 
-    @ApiOperation("회원 by admin")
+    @ApiOperation("회원 탈퇴 by admin")
     @DeleteMapping("/users/deleteByAdmin/{user_id}")
     public void userDeleteByAdmin(HttpServletRequest request, @PathVariable String user_id){
         String admin_id = request.getHeader("user_id");
@@ -257,11 +261,22 @@ public class UsersController {
         return usersService.updateAuth(user_id);
     }
 
+
    @ApiOperation("첨부")
     @GetMapping("/attach/{user_id}")
     public void attach(@PathVariable String user_id) throws Exception {
        emailService.sendPdf(usersService.findById(user_id));
 //   pdfService.
-    System.out.println(pdfService.createPdf());
+       System.out.println(pdfService.createPdf());
+   }
+   
+    @ApiOperation("회원 프로필 사진 업로드")
+    @PostMapping("/users/uploadProfileImg")
+    public Users userUploadProfileImg(HttpServletRequest request, @RequestBody UsersResponseDto requestDto){
+        String user_id = request.getHeader("user_id");
+        Users user = usersService.findById(user_id);
+        user.setUser_profile_img(requestDto.getUser_profile_img());
+        return usersService.save(user);
+
     }
 }

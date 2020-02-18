@@ -28,6 +28,9 @@ public class Users extends BaseTimeEntity{
     @Column
     private String user_authority; // 회원 권한(관리자, 회원)
 
+    @Column
+    private String user_profile_img; // 회원 프로필 사진
+
     // 외래키 //
 //    @OneToOne(orphanRemoval = true)
 //    private Careers career;
@@ -42,12 +45,13 @@ public class Users extends BaseTimeEntity{
 //    }
 
     @Builder  // 빌더 패턴 클래스 생성. 생성자 상단에 선언 시, 생성자에 포함된 필드만 빌더에 포함
-    public Users(String user_id, String user_password, String user_name, String user_phone, String user_authority) {
+    public Users(String user_id, String user_password, String user_name, String user_phone, String user_authority, String user_profile_img) {
         this.user_id = user_id;
         this.user_password = user_password;
         this.user_name = user_name;
         this.user_phone = user_phone;
         this.user_authority = user_authority;
+        this.user_profile_img = user_profile_img;
     }
 
     // setter //
@@ -64,5 +68,6 @@ public class Users extends BaseTimeEntity{
     public void setUser_password(String user_password) { this.user_password = user_password; }
     public void setUser_name(String user_name) { this.user_name = user_name; }
     public void setUser_phone(String user_phone) { this.user_phone = user_phone; }
+    public void setUser_profile_img(String user_profile_img) { this.user_profile_img = user_profile_img; }
     // setter //
 }

@@ -16,6 +16,7 @@ a{
 }
 
 .locset_log{
+  z-index: 28;
   @include breakpoint(xs,down){
     width: 67vw;
 

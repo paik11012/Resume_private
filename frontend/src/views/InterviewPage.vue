@@ -11,7 +11,7 @@
 
     <template>
   <v-row justify="center">
-    <v-dialog v-model="dialog" persistent max-width="800px" max-height="1000px" style="z-index:999999;">
+    <v-dialog v-model="dialog" persistent max-width="800px" max-height="1000px" style="z-index:30;">
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
       <v-card>
         <v-card-title class="justify-center">

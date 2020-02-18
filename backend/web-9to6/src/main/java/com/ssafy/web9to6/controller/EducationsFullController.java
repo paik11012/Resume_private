@@ -29,7 +29,6 @@ public class  EducationsFullController {
     @ApiOperation("학력 정보 등록/수정")
     @PostMapping("/edu/upload")
     public Map<String, Object> uploadEduDetails(@RequestBody Map<String, Object> requestDto, HttpServletRequest request) {
-//        String user_id = "te";
         String user_id = request.getHeader("user_id");
         Users user = usersService.findById(user_id);
 
@@ -57,8 +56,9 @@ public class  EducationsFullController {
             educationDetails = EducationDetails.builder()
                     .edu_detail_major_sort((String) map_edu_detail.get("edu_detail_major_sort"))
                     .edu_detail_major((String) map_edu_detail.get("edu_detail_major"))
-                    .edu_detail_credit(Long.parseLong( (String)map_edu_detail.get("edu_detail_credit")))
+                    .edu_detail_credit(Long.parseLong((String)map_edu_detail.get("edu_detail_credit")))
                     .edu_detail_grade(Double.parseDouble((String)map_edu_detail.get("edu_detail_grade")))
+                    .edu_detail_grade_img((String)map_edu_detail.get("edu_detail_grade_img"))
                     .build();
             if(map_edu_detail.get("edu_detail_id")!=null) educationDetails.setEduDetail_id(Long.valueOf((String) map_edu_detail.get("edu_detail_id")));
         }
@@ -146,5 +146,20 @@ public class  EducationsFullController {
     @DeleteMapping("/edu/deleteDetailOne/{edu_det_id}")
     public void deleteDetailOneEdu(@PathVariable String edu_det_id){
         educationDetailsService.deleteOne(Long.valueOf(edu_det_id));
+    }
+
+    @ApiOperation("성적표 업로드")
+    @PostMapping("/edu/uploadGradeImg")
+    public EducationDetails uploadGradeImgEdu(HttpServletRequest request, @RequestBody EducationFullResponseDto requestDto){
+        EducationDetails edu_det = educationDetailsService.findById(requestDto.getEdu_detail_id());
+        edu_det.setEdu_detail_grade_img(requestDto.getEdu_detail_grade_img());
+        return educationDetailsService.save(edu_det);
+    }
+
+    @ApiOperation("성적표 다운로드")
+    @PostMapping("/edu/downloadFile")
+    public String downloadGradeImgEdu(HttpServletRequest request, @RequestBody EducationFullResponseDto requestDto){
+        EducationDetails edu_det = educationDetailsService.findById(requestDto.getEdu_detail_id());
+        return edu_det.getEdu_detail_grade_img();
     }
 }

@@ -38,7 +38,7 @@ public class EmailService {
                 "회원님의 임시비밀번호는 [" + temp_pwd + "] 입니다. \n 저희 사이트 많은 이용바랄게요♥♡♥♡");
        try {
            emailSender.send(message);
-           UsersResponseDto urd = new UsersResponseDto(user.getUser_password(),user.getUser_name(),user.getUser_phone());
+           UsersResponseDto urd = new UsersResponseDto(user.getUser_password(),user.getUser_name(),user.getUser_phone(),user.getUser_profile_img());
            urd.setUser_password(passwordEncoder.encode(temp_pwd));
            usersService.update(user,  urd.toEntity());
        } catch (Exception e) {

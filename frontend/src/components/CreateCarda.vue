@@ -1,5 +1,5 @@
 <template>
-  <v-simple-table>
+  <v-simple-table class="awardcard">
     <template v-slot:default>
       <thead>
         <tr>
@@ -8,8 +8,8 @@
             <ul class="menubar"> 
                  <!-- eslint-disable -->
               <li
-                class="layout row" style="font-size:20px;"
-              ><input type="text" v-model="award_title" placeholder="Title">
+                class="layout row" style="font-size:20px;font-family:Jua"
+              ><input type="text" v-model="award_title" style="font-family:Jua" placeholder="License / Award Title">
                 <!-- eslint-disable -->
               </li>
             </ul>
@@ -39,13 +39,23 @@
           <td width="150px">세부내용</td>
           <td><input type="text" v-model="award_detail" placeholder="세부내용"></td>
         </tr>
+         <tr>
+          <td width="150px">파일</td>
+          <td><v-file-input v-model="selectedFile" accept="*/*" height="1.8em"></v-file-input></td>
+        </tr>
       </tbody>
     </template>
   </v-simple-table>
 </template>
 
 <script>
-import axios from 'axios'
+import API from '../services/Api'
+
+import { app } from "../services/FirebaseService";
+import firebase, { storage } from "firebase/app";
+import "firebase/firestore";
+import "firebase/storage";
+
 export default {
   data(){
     return{
@@ -55,6 +65,8 @@ export default {
       award_detail:'',
       award_prize:'',
       award_date:'',
+
+      selectedFile: '',
     }
   },
   methods:{
@@ -66,8 +78,8 @@ export default {
       'award_prize':this.award_prize,
       'award_date': this.award_date,
       }
-      const SERVER_IP = 'http://70.12.247.99:8080'
-      axios.post(SERVER_IP + '/awards/save', set,
+
+      API.post('/awards/save', set,
       {headers : {
       'token' : window.sessionStorage.getItem("jwt-auth-token"),
       'user_id': window.sessionStorage.getItem("user_id")}}
@@ -81,7 +93,20 @@ export default {
       setTimeout(() => {
         this.$emit('createa')
       }, 500);
-    }
+    },
+  },
+  watch:{
+    selectedFile: function(selectedFile) {
+      var storageRef = firebase.storage().ref();
+      var user_id = sessionStorage.getItem("user_id");
+
+      // firebase storage에 파일 업로드 //
+      storageRef
+      .child(user_id + '/' + selectedFile.name)
+      .put(selectedFile);
+
+      this.edu_detail_grade_img = this.selectedFile.name
+    },
   }
 }
 </script>
@@ -94,4 +119,9 @@ export default {
   left: 10px;
 }
 
+.awardcard{
+  .v-file-input__text{
+    visibility: visible;
+  }
+}
 </style>

@@ -22,7 +22,9 @@
     :edu_school_st_date="school[i-1].edu_school_st_date"
     :edu_school_ed_date="school[i-1].edu_school_ed_date"
     :edu_detail_major_sort="school[i-1].edu_detail_major_sort"
+    :edu_detail_major="school[i-1].edu_detail_major"
     :edu_detail_grade="school[i-1].edu_detail_grade"
+    :edu_detail_grade_img="school[i-1].edu_detail_grade_img"
     :edu_detail_credit="school[i-1].edu_detail_credit"
     :edu_detail_id="school[i-1].edu_detail_id"
     :asd="i"
@@ -50,7 +52,7 @@ export default {
       this.school=[]
       this.high=[]
       this.univ=[]
-      API.get(`/edu/findAll`)
+      API.get('edu/findAll')
       .then(response => {
         for (var [key,value] of Object.entries(response.data)){
           for (var [key1, value1] of Object.entries(value)){
@@ -61,13 +63,15 @@ export default {
             this.edu_school_ed_date = value1[0]["education"]["edu_school_ed_date"],
             this.edu_school_sort = value1[0]["education"]["edu_school_sort"], // 1이 고등학교 2가 대학교 3이 대학원 4가 편입
             this.edu_detail_major_sort = value1[0]["edu_detail_major_sort"],
+            this.edu_detail_major = value1[0]["edu_detail_major"],
             this.edu_detail_grade = value1[0]["edu_detail_grade"],
+            this.edu_detail_grade_img = value1[0]["edu_detail_grade_img"],
             this.edu_detail_credit = value1[0]["edu_detail_credit"],
             this.edu_detail_id = value1[0]["edu_detail_id"]
             if(this.edu_school_sort == 1){
               this.high.push({education_id:this.education_id, edu_school_name:this.edu_school_name, edu_school_st_date:this.edu_school_st_date, edu_school_sort:this.edu_school_sort, edu_school_ed_date:this.edu_school_ed_date})
             } else {
-              this.univ.push({education_id:this.education_id, edu_school_name:this.edu_school_name, edu_school_st_date:this.edu_school_st_date, edu_school_sort:this.edu_school_sort, edu_school_ed_date:this.edu_school_ed_date, edu_detail_major_sort:this.edu_detail_major_sort, edu_detail_grade:this.edu_detail_grade, edu_detail_credit:this.edu_detail_credit, edu_detail_id:this.edu_detail_id})
+              this.univ.push({education_id:this.education_id, edu_school_name:this.edu_school_name, edu_school_st_date:this.edu_school_st_date, edu_school_sort:this.edu_school_sort, edu_school_ed_date:this.edu_school_ed_date, edu_detail_major_sort:this.edu_detail_major_sort, edu_detail_major:this.edu_detail_major, edu_detail_grade:this.edu_detail_grade, edu_detail_grade_img:this.edu_detail_grade_img, edu_detail_credit:this.edu_detail_credit, edu_detail_id:this.edu_detail_id})
             }
           }
         }
@@ -95,7 +99,9 @@ export default {
       edu_school_st_date:'',
       edu_school_ed_date:'',
       edu_detail_major_sort:'',
+      edu_detail_major:'',
       edu_detail_grade:'',
+      edu_detail_grade_img:'',
       edu_detail_credit:'',
       edu_detail_id:'',
       high:[],
