@@ -84,11 +84,7 @@
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
-<<<<<<< HEAD
-            <a :href="naverLoginUrl" target="_blank"><button class="large-btn github-btn">
-=======
             <button class="large-btn github-btn" @click="loginNaver">
->>>>>>> temp
               connect with
               <span>naver</span>
             </button>
@@ -140,12 +136,7 @@
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
-<<<<<<< HEAD
-        
-            <a :href="naverLoginUrl" target="_blank"><button class="large-btn github-btn">
-=======
             <button class="large-btn github-btn" @click="loginNaver">
->>>>>>> temp
               connect with
               <span>naver</span>
             </button>
@@ -204,11 +195,7 @@
             <button class="large-btn login-btn" @click="login({user_id, user_password})">
               <span>Login</span>
             </button>
-<<<<<<< HEAD
-            <a :href="naverLoginUrl" target="_blank"><button class="large-btn github-btn">
-=======
             <button class="large-btn github-btn" @click="loginNaver">
->>>>>>> temp
               connect with
               <span>naver</span>
             </button>
