@@ -176,7 +176,7 @@ export default {
     border:0px;
     text-align: left;
     width:100%;
-    z-index:200;
+    z-index:28;
     color:white;
     position: absolute;
     & li {

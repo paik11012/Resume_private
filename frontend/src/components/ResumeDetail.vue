@@ -2,7 +2,6 @@
 <div class="rsdetail">
   <div class="modalbox" @click="closing"></div>
   <div class="modal" >
-  
   <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark color="primary" >
     <v-icon dark>edit</v-icon>
   </v-btn>
@@ -35,7 +34,6 @@
   </div>
   <div class="text_val">
     {{ answer.length }} 자
-
   </div>
   <div v-if="editing" class="tags">
     <v-btn xs class="tag" color="#92A8D1" v-for="i in tags.length" v-bind:key='i'>
@@ -43,25 +41,29 @@
     </v-btn>
   </div>
   <div v-else>
-    <v-row class="dig">
-      <v-col cols="12" sm="3" md="3" style="padding-top:1px">
-        <v-checkbox v-model="s" class="mx-2" value="신뢰" label="신뢰" hide-details></v-checkbox>
-        <v-checkbox v-model="tag_name" class="mx-2" value="혁신" label="혁신" hide-details></v-checkbox>
-        <v-checkbox v-model="tag_name" class="mx-2" value="글로벌" label="글로벌" hide-details></v-checkbox>
+    <v-row class="bot_tags justify-space-around dig">
+      <v-col cols="12" sm="2" md="2" style="padding-top:1px">
+        <v-checkbox v-model="tag_name" class="mx-2" value="신뢰" label="신뢰" hide-details></v-checkbox> 
+        <v-checkbox v-model="tag_name" class="mx-2" value="도덕성" label="도덕성" hide-details></v-checkbox> 
       </v-col>
-      <v-col cols="12" sm="3" md="3" style="padding-top:1px">
-        <v-checkbox v-model="tag_name" class="mx-2" value="책임감" label="책임감" hide-details></v-checkbox>
-        <v-checkbox v-model="tag_name" class="mx-2" value="열정" label="열정" hide-details></v-checkbox>
+      <v-col cols="12" sm="2" md="2" style="padding-top:1px">
+        <v-checkbox v-model="tag_name" class="mx-2" value="책임감" label="책임감" hide-details></v-checkbox> 
+        <v-checkbox v-model="tag_name" class="mx-2" value="가치창출" label="가치창출" hide-details></v-checkbox> 
+      </v-col>
+      <v-col cols="12" sm="2" md="2" style="padding-top:1px">
+        <v-checkbox v-model="tag_name" class="mx-2" value="창의성" label="창의성" hide-details></v-checkbox> 
+        <v-checkbox v-model="tag_name" class="mx-2" value="글로벌" label="글로벌" hide-details></v-checkbox> 
+      </v-col>
+      <v-col cols="12" sm="2" md="2" style="padding-top:1px">
+        <v-checkbox v-model="tag_name" class="mx-2" value="도전정신" label="도전정신" hide-details></v-checkbox> 
         <v-checkbox v-model="tag_name" class="mx-2" value="협력" label="협력" hide-details></v-checkbox>
       </v-col>
-      <v-col cols="12" sm="3" md="3" style="padding-top:1px">
-        <v-checkbox v-model="tag_name" class="mx-2" value="창의성" label="창의성" hide-details></v-checkbox>
-        <v-checkbox v-model="tag_name" class="mx-2" value="도덕성" label="도덕성" hide-details></v-checkbox>
-        <v-checkbox v-model="tag_name" class="mx-2" value="전문성" label="전문성" hide-details></v-checkbox>
+      <v-col cols="12" sm="2" md="2" style="padding-top:1px">
+        <v-checkbox v-model="tag_name" class="mx-2" value="혁신" label="혁신" hide-details></v-checkbox> 
+        <v-checkbox v-model="tag_name" class="mx-2" value="전문성" label="전문성" hide-details></v-checkbox> 
       </v-col>
-      <v-col cols="12" sm="3" md="3" style="padding-top:1px">
-        <v-checkbox v-model="tag_name" class="mx-2" value="도전정신" label="도전정신" hide-details></v-checkbox>
-        <v-checkbox v-model="tag_name" class="mx-2" value="가치창출" label="가치창출" hide-details></v-checkbox>
+      <v-col cols="12" sm="2" md="2" style="padding-top:1px">
+        <v-checkbox v-model="tag_name" class="mx-2" value="열정" label="열정" hide-details></v-checkbox>
         <v-checkbox v-model="tag_name" class="mx-2" value="배려" label="배려" hide-details></v-checkbox>
       </v-col>
     </v-row>      
@@ -128,7 +130,7 @@ export default {
     },
     editResume() {
       var resume_info = {
-        "id": this.resume_id,  // 현재 id가 없다
+        "id": String(this.resume_id),  // 현재 id가 없다
         "resume_company" : this.com,
         "resume_task" : this.ta,
         "resume_date" : this.da,
@@ -140,7 +142,7 @@ export default {
           tag_name : this.tag_name
       }
       console.log(r_data)
-      API.post('resume/save', r_data)
+      API.post('resume/update', r_data)
       .then(response => {
         console.log(response.data)
       })
@@ -148,6 +150,9 @@ export default {
         console.log(error)
       })
       this.editing = !this.editing
+      console.log("before hihi");
+      console.log(r_data.tag_name);
+      this.$emit('upload',r_data.tag_name)
     }
   }
 }
@@ -155,8 +160,28 @@ export default {
 
 <style lang="scss">
 .rsdetail{
+  & .dig{
+    & .v-icon{
+      z-index: 0;
+    }
+    & .v-input--selection-controls__ripple{
+      z-index: 3;
+    }
+  }
+  & textarea{
+    resize: none;
+  }
+  & input {
+    text-align: center;
+  }
   position: relative;
-  z-index: 1e9;
+  z-index: 29;
+  & .bot_tags{
+    position: absolute;
+    bottom:15px;
+    width: 90%;
+    left: 8%;
+  }
   & .modalbox{
     width: 100%;
     height: 100%;
@@ -169,20 +194,20 @@ export default {
   & .modal{
     & .edit{
       position: absolute;
-      z-index: 1e9+2;
+      z-index: 30;
       right: 65px;
       top : 3%;
     }
     & .delete{
       position: absolute;
-      z-index: 1e9+2;
+      z-index: 30;
       right: 15px;
       top : 3%;
     }
     animation: bounce 0.3s;
     border-radius: 10px;  
     position: fixed;
-    top: 15%;
+    top: 10%;
     left: 15%;
     background: white;
     width: 70%;
