@@ -184,4 +184,15 @@ public class ResumeInterviewTagController {
     }
 
 
+    @ApiOperation("자소서/이력서 갯수")
+    @GetMapping("/interview/getLength")
+    public Map<String, Integer> getLength(HttpServletRequest request){
+        Map<String, Integer> map = new HashMap<>();
+
+        String user_id = request.getHeader("user_id");
+        map.put("n_resume", rs.findAll(us.findById(user_id)).size());
+        map.put("n_interview", is.findAll(us.findById(user_id)).size());
+        return map;
+    }
+
 }
