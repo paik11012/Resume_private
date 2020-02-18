@@ -52,6 +52,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/assets/scss/mystyle.scss";
 .team{
   position: relative;
   & .mess{
@@ -70,7 +71,7 @@ export default {
     &on{
       top :10%;
       left : 20%;
-      background: gray;
+      @include gradient(45deg, $light_grad);
     }
   }
   & .lee{
@@ -79,7 +80,7 @@ export default {
     &on{
       top :55%;
       left : 20%;
-      background: gray;
+      @include gradient(45deg, $light_grad);
 
     }
   }
@@ -89,14 +90,14 @@ export default {
     &on{
       top :10%;
       left : 55%;
-      background: gray; 
+      @include gradient(45deg, $light_grad); 
     }
   }
   & .yun{
     top :55%;
     left : 55%;
     &on{
-      background: gray;
+      @include gradient(45deg, $light_grad);
       color:white;
       top :55%;
       left : 55%;
