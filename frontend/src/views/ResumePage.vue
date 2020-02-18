@@ -11,7 +11,7 @@
   <!-- resume 작성하기 -->
   <template>
   <v-row justify="center">
-    <v-dialog v-model="dialog" :persistent="true" max-width="80%" max-height="80%" style="z-index:30;">
+    <v-dialog v-model="dialog" :persistent="true" max-width="80%" max-height="80%" style="z-index:30; position:relative">
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
       <v-card>
         <v-card-title class="justify-center">
@@ -36,6 +36,7 @@
             <div style="margin:0px;">
               <label>Tag</label>
             </div>
+            <v-checkbox v-model="pass" class="mx-2 PF" value="합격" label="서류합격" hide-details></v-checkbox>
             <v-row class="dig">
               <v-col cols="12" sm="3" md="3" style="padding-top:1px">
                 <v-checkbox v-model="tag_name" class="mx-2" value="신뢰" label="신뢰" hide-details></v-checkbox>
@@ -140,6 +141,7 @@ export default {
   },
   data() {
     return {
+      pass:false,
       searchpick:true,
       loading:true,
       resume_company:null,
@@ -299,6 +301,11 @@ i{
 }
 .keyset{
   margin:0 !important; height:35px; font-size:16px; font-family:Jua; text-align:center; padding: 6px 0;
+}
+.PF{
+  position: absolute;
+  left: 30px;
+  top: 15px;
 }
 
 </style> 
