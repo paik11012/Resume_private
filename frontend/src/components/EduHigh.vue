@@ -117,5 +117,9 @@ export default {
   position: absolute;
   right: 55px;
 }
-
+.input{
+  border-style:none;
+  // border-bottom:solid 1px #cacaca;
+  border-collapse:collapse;
+  width:100%; height:100%;}
 </style>

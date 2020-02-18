@@ -8,6 +8,7 @@
               <div class="title-item" @click="myinfo">My info</div>
               <div class="title-item" @click="myedu">Education</div>
               <div class="title-item" @click="myaward">License</div>
+              <div class="title-item" @click="myexp">Experience</div>
 
             </v-layout>
             <transition name="bounce">
@@ -19,11 +20,17 @@
             <transition name="bounce">
               <crecarda v-if="showcra" id="rcorners2" @createa="uploada"/>
             </transition>
+            <transition name="bounce">
+              <creexp v-if="showcree" id="rcorners2" @createe="uploade"/>
+            </transition>
             <transition name="bounce_l">
               <edu v-if="showedu" ref="reload" />
             </transition>
             <transition name="bounce">
               <awd v-if="showawd" ref="reawd"/>
+            </transition>
+            <transition name="bounce">
+              <exp v-if="showexp" ref="reexp"/>
             </transition>
 
             <v-btn
@@ -41,6 +48,16 @@
               class="insert"
               v-if="showawd"
               @click="createa"
+              small
+              fab
+              dark
+              color="#F7CAC9"
+            >
+              <v-icon color="black">mdi-plus</v-icon>
+            </v-btn><v-btn
+              class="insert"
+              v-if="showexp"
+              @click="createe"
               small
               fab
               dark
@@ -65,6 +82,8 @@ import crecarde from "@/components/CreateCard";
 import axios from "axios";
 import awd from "../components/AwardList";
 import crecarda from '../components/CreateCarda'
+import exp from '../components/ExperienceList'
+import creexp from '../components/CreateExperience'
 export default {
   name: "HomePage",
   components: {
@@ -74,6 +93,8 @@ export default {
     crecarde,
     awd,
     crecarda,
+    creexp,
+    exp
   },
   methods: {
     getImgUrl(img) {
@@ -84,6 +105,8 @@ export default {
       this.showcre = false;
       this.showawd = false;
       this.showcra = false;
+      this.showexp = false;
+      this.showcree = false; // experience create
       setTimeout(() => {
         this.showme = !this.showme;
       }, 200);
@@ -93,17 +116,32 @@ export default {
       this.showawd = false;
       this.showme = false;
       this.showcra = false;
+      this.showexp = false;
+      this.showcree = false;
       setTimeout(() => {
         this.showedu = !this.showedu;
       }, 200);
     },
     myaward(){
       this.showedu = false;
+      this.showcree = false;
       this.showcre = false;
       this.showme = false;
       this.showcra = false;
+      this.showexp = false;
       setTimeout(() => {
         this.showawd = !this.showawd
+      }, 200);
+    },
+    myexp(){
+      this.showedu = false;
+      this.showcre = false;
+      this.showme = false;
+      this.showcra = false;
+      this.showawd = false;
+      this.showcree = false;
+      setTimeout(() => {
+        this.showexp = !this.showexp
       }, 200);
     },
     create() {
@@ -121,16 +159,26 @@ export default {
     uploada(){
       this.$refs.reawd.loadDt()
       this.showcra = !this.showcra;
-    }
+    },
+    createe() {
+      this.showcree = !this.showcree
+      window.scroll(0,0)
+    },
+    uploade(){
+      this.$refs.reload.loadDt()
+      this.showexp = !this.showexp;
+    },
   },
   data() {
     return {
+      showcree:false,
       drawer: null,
       showme: false,
       showedu: false,
       showcre: false,
       showcra:false,
       showawd: false,
+      showexp: false,
     };
   },
 };

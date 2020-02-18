@@ -51,7 +51,7 @@ export default {
       this.school=[]
       this.high=[]
       this.univ=[]
-      API.get(`/edu/findAll`)
+      API.get('edu/findAll')
       .then(response => {
         for (var [key,value] of Object.entries(response.data)){
           for (var [key1, value1] of Object.entries(value)){

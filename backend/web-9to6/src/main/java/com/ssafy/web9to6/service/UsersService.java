@@ -43,6 +43,7 @@ public class UsersService {
         }
         user.setUser_name(new_user.getUser_name());
         user.setUser_phone(new_user.getUser_phone());
+        user.setUser_profile_img(new_user.getUser_profile_img());
         return usersRepository.save(user);
     }
 

@@ -155,6 +155,11 @@ $black_gradient : rgb(40,40,40), rgb(70,70,70), rgb(52,52,52), rgb(130,130,130);
 
 // 글씨 end ----------------------------------------------------------------------------
 
+.input{
+  border-style:none;
+  // border-bottom:solid 1px #cacaca;
+  border-collapse:collapse;
+  width:100%; height:100%;}
 
 // breakpoint mixin 함수
 
