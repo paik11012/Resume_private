@@ -147,8 +147,6 @@ export default {
         'edu_detail_credit': String(this.edu_detail_credit)
       }
       var u_data = { education: u_education, education_detail: u_detail }
-      console.log("dddddd")
-      console.log(u_data)
       API.post('/edu/upload', u_data)
       .then(response => {
         console.log(response)
