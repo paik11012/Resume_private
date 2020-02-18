@@ -31,27 +31,27 @@
       <tbody>
         <tr>
           <td width="150px">학교명</td>
-          <td><input type="text" v-model="edu_school_name" placeholder="학교명"></td>
+          <td><input type="text" class="input" v-model="edu_school_name" placeholder="학교명"></td>
         </tr>
         <tr>
           <td width="150px">재학기간</td>
-          <td><input type="text" v-model="edu_school_st_date" placeholder="재학기간"></td>
+          <td><input type="text" v-model="edu_school_st_date"> ~ <input type="text" v-model="edu_school_ed_date"></td>
         </tr>
         <tr v-if="select != 1">
           <td width="150px">전공구분</td>
-          <td><input type="text" v-model="edu_detail_major_sort" placeholder="전공/부전공/복수전공"></td>
+          <td><input type="text" class="input" v-model="edu_detail_major_sort" placeholder="전공/부전공/복수전공"></td>
         </tr>
         <tr v-if="select != 1">
           <td width="150px">전공명</td>
-          <td><input type="text" v-model="edu_detail_major" placeholder="전공명"></td>
+          <td><input type="text" class="input" v-model="edu_detail_major" placeholder="전공명"></td>
         </tr>
         <tr v-if="select != 1">
           <td width="150px">이수학점</td>
-          <td><input type="text" v-model="edu_detail_credit" placeholder="이수학점"></td>
+          <td><input type="text" class="input" v-model="edu_detail_credit" placeholder="이수학점"></td>
         </tr>
         <tr v-if="select != 1">
           <td width="150px">총 평점</td>
-          <td><input type="text" v-model="edu_detail_grade" placeholder="총 평점"></td>
+          <td><input type="text" class="input" v-model="edu_detail_grade" placeholder="총 평점"></td>
         </tr>
         <tr v-if="select != 1">
           <td width="150px">성적표</td>
@@ -82,7 +82,7 @@ export default {
       edu_detail_credit:'',
       edu_detail_grade:'',
       edu_detail_grade_img: '',
-      select:2,
+      select:1,
       opendrop:false,
       edu_school_sort:[
         'HighSchool', 'University', 'Transfer', 'GradSchool'
@@ -97,14 +97,13 @@ export default {
     },
     opendb(){
       this.opendrop = !this.opendrop
-      console.log(this.opendrop);
     },
     selectone(i){
       this.select = i
-      console.log(this.select);
     },
     create(){
       if (this.select == 1){
+        console.log("error찾기");
         var set = {
           "education": {
             "edu_school_sort": String(this.select),

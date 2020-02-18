@@ -9,7 +9,7 @@
                  <!-- eslint-disable -->
               <li
                 class="layout row" style="font-size:20px;font-family:Jua"
-              ><input type="text" v-model="exp_org_name" style="font-family:Jua" placeholder="Experience Title">
+              ><input type="text" class="input" v-model="exp_org_name" style="font-family:Jua" placeholder="Experience Title">
                 <!-- eslint-disable -->
               </li>
             </ul>
@@ -25,19 +25,20 @@
       <tbody>
         <tr>
           <td width="150px">기간</td>
-          <td><input type="text" v-model="exp_org_period" placeholder="기간"></td>
+          <td><input type="text" class="input" v-model="exp_org_period" placeholder="기간"></td>
         </tr>
         <tr>
           <td width="150px">경험/경력 타입</td>
-          <td><input type="text" v-model="exp_org_type" placeholder="동아리/봉사/경력"></td>
+          <td><input type="text" class="input" v-model="exp_org_type" placeholder="동아리/봉사/경력"></td>
         </tr>
         <tr>
           <td width="150px">역할</td>
-          <td><input type="text" v-model="exp_org_role" placeholder="역할"></td>
+          <td><input type="text" class="input" v-model="exp_org_role" placeholder="역할"></td>
         </tr>
         <tr>
           <td width="150px">세부내용</td>
-          <td><input type="text" v-model="exp_org_detail" placeholder="세부내용"></td>
+          <td><textarea name="" id="" v-model="exp_org_detail" cols="20" rows="3"></textarea>
+            </td>
         </tr>
       </tbody>
     </template>

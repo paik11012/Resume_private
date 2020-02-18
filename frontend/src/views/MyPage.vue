@@ -21,7 +21,7 @@
               <crecarda v-if="showcra" id="rcorners2" @createa="uploada"/>
             </transition>
             <transition name="bounce">
-              <creexp v-if="showexp" id="rcorners2" @createe="uploade"/>
+              <creexp v-if="showcree" id="rcorners2" @createe="uploade"/>
             </transition>
             <transition name="bounce_l">
               <edu v-if="showedu" ref="reload" />
@@ -106,6 +106,7 @@ export default {
       this.showawd = false;
       this.showcra = false;
       this.showexp = false;
+      this.showcree = false; // experience create
       setTimeout(() => {
         this.showme = !this.showme;
       }, 200);
@@ -116,12 +117,14 @@ export default {
       this.showme = false;
       this.showcra = false;
       this.showexp = false;
+      this.showcree = false;
       setTimeout(() => {
         this.showedu = !this.showedu;
       }, 200);
     },
     myaward(){
       this.showedu = false;
+      this.showcree = false;
       this.showcre = false;
       this.showme = false;
       this.showcra = false;
@@ -136,6 +139,7 @@ export default {
       this.showme = false;
       this.showcra = false;
       this.showawd = false;
+      this.showcree = false;
       setTimeout(() => {
         this.showexp = !this.showexp
       }, 200);
@@ -157,8 +161,8 @@ export default {
       this.showcra = !this.showcra;
     },
     createe() {
-      this.$refs.reexp.loadDt()
-      this.showexp = !this.showexp;
+      this.showcree = !this.showcree
+      window.scroll(0,0)
     },
     uploade(){
       this.$refs.reload.loadDt()
@@ -167,6 +171,7 @@ export default {
   },
   data() {
     return {
+      showcree:false,
       drawer: null,
       showme: false,
       showedu: false,

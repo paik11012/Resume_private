@@ -21,32 +21,32 @@
         <tr>
           <td width="150px">학교명</td>
           <td v-if="editing">{{ edu_school_name }}</td>
-          <td v-else><input type="text" v-model="edu_school_name" placeholder="univ name"></td>
+          <td v-else><input type="text" class="input" v-model="edu_school_name" placeholder="univ name"></td>
         </tr>
         <tr>
           <td width="150px">재학기간</td>
           <td v-if="editing">{{ period }}</td>
-          <td v-else><input type="text" v-model="period" placeholder="education period"></td>
+          <td v-else><input type="text" class="input" v-model="period" placeholder="education period"></td>
         </tr>
         <tr>
           <td width="150px">전공구분</td>
           <td v-if="editing">{{ edu_detail_major_sort }}</td>
-          <td v-else><input type="text" v-model="edu_detail_major_sort" placeholder="major_sort"></td>
+          <td v-else><input type="text" class="input" v-model="edu_detail_major_sort" placeholder="major_sort"></td>
         </tr>
         <tr>
           <td width="150px">전공명</td>
           <td v-if="editing">{{ edu_detail_major }}</td>
-          <td v-else><input type="text" v-model="edu_detail_major" placeholder="major"></td>
+          <td v-else><input type="text" class="input" v-model="edu_detail_major" placeholder="major"></td>
         </tr>
         <tr>
           <td width="150px">이수학점</td>
           <td v-if="editing">{{ edu_detail_credit }}</td>
-          <td v-else><input type="number" v-model="edu_detail_credit" placeholder="credit"></td>
+          <td v-else><input type="number" class="input" v-model="edu_detail_credit" placeholder="credit"></td>
         </tr>
         <tr>
           <td width="150px">총 평점</td>
           <td v-if="editing">{{ edu_detail_grade }}</td>
-          <td v-else><input type="text" v-model="edu_detail_grade" placeholder="grade"></td>
+          <td v-else><input type="text" class="input" v-model="edu_detail_grade" placeholder="grade"></td>
         </tr>
         <tr>
           <td width="150px">성적표</td>
@@ -147,8 +147,6 @@ export default {
         'edu_detail_credit': String(this.edu_detail_credit)
       }
       var u_data = { education: u_education, education_detail: u_detail }
-      console.log("dddddd")
-      console.log(u_data)
       API.post('/edu/upload', u_data)
       .then(response => {
         console.log(response)
@@ -164,9 +162,6 @@ export default {
 
       // firebase storage의 기존 파일 삭제 //
       if(this.edu_detail_grade_img!=''){
-        console.log("this.edu_detail_grade_img")
-        console.log(this.edu_detail_grade_img)
-
         storageRef
         .child(user_id + "/" + this.edu_detail_grade_img)
         .delete();
@@ -261,4 +256,9 @@ export default {
     visibility: visible;
   }
 }
+.input{
+  border-style:none;
+  // border-bottom:solid 1px #cacaca;
+  border-collapse:collapse;
+  width:100%; height:100%;}
 </style>

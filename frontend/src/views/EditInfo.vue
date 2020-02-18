@@ -68,18 +68,38 @@ export default {
   methods:{
     editDone(){
         if(this.user_password==this.user_password_re){
-            var data = {
-                user_id : this.user_id,
-                user_password : this.user_password,
-                user_name : this.user_name,
-                user_phone : this.user_phone
-            }
-            console.log(data)
-            API.put("/users/update", data)
-            .then(res=>{
-              console.log(res)
-            })
-            router.push("userinfo")
+          var filename = '';
+          if(this.selectedFile.name=='' | this.selectedFile.name==null) filename = this.user_profile_img
+          else filename = this.selectedFile.name
+
+          var data = {
+              user_id : this.user_id,
+              user_password : this.user_password,
+              user_name : this.user_name,
+              user_phone : this.user_phone,
+              user_profile_img : filename
+          }
+          API.put("/users/update", data)
+          .then(res=>{
+            console.log(res)
+          })
+
+          // firebase storage에 파일 업로드 //
+          var storageRef = firebase.storage().ref();
+          var user_id = sessionStorage.getItem("user_id");
+
+          // firebase storage의 기존 파일 삭제 //
+          if(this.selectedFile.name!='' & this.selectedFile.name!=null){
+            storageRef
+            .child(user_id + "/" + this.selectedFile.name)
+            .delete();
+
+            storageRef
+            .child(user_id + '/' + this.selectedFile.name)
+            .put(this.selectedFile);
+          }
+
+          router.replace("userinfo")
         }
         else{
             alert("비밀번호를 확인하세요.");
@@ -114,30 +134,7 @@ export default {
   },
   watch:{
     selectedFile: function(selectedFile) {
-      var storageRef = firebase.storage().ref();
-      var user_id = sessionStorage.getItem("user_id");
-
-      // firebase storage의 기존 파일 삭제 //
-      if(this.user_profile_img!=null & this.user_profile_img!=""){
-        storageRef
-        .child(user_id + "/" + this.user_profile_img)
-        .delete();
-      }
-
-      // firebase storage에 파일 업로드 //
-      storageRef
-      .child(user_id + '/' + selectedFile.name)
-      .put(selectedFile);
-
-      // 업로드된 파일명 DB에 저장 //
-      setTimeout(() => {
-        const data = { user_profile_img: selectedFile.name}
-        API.post("/users/uploadProfileImg", data)
-        .then(response=>{
-          this.user_profile_img = response.data.user_profile_img
-          this.setMyPicFromDB();
-        });
-      }, 3000);
+      // this.new_user_profile_img = selectedFile.name
     },
     user_password_re: function(user_password_re){
         if(this.user_password==user_password_re){

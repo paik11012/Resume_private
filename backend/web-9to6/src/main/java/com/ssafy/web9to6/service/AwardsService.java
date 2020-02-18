@@ -42,6 +42,7 @@ public class AwardsService {
         old.setAward_detail(ard.getAward_detail());
         old.setAward_org(ard.getAward_org());
         old.setAward_prize(ard.getAward_prize());
+        old.setAwardFile(ard.getAward_file());
         return ar.save(old);
 }
 }
