@@ -35,14 +35,18 @@ public class Resume {
     @Column(nullable = true,length=3000)
     private String resume_answer;
 
+    @Column
+    private Boolean resume_pass; // 자소서 합/불 여부
+
     @Builder
-    public Resume(Users user,String resume_company,String resume_task,String resume_date,String resume_question,String resume_answer) {
+    public Resume(Users user,String resume_company,String resume_task,String resume_date,String resume_question,String resume_answer, Boolean resume_pass) {
         this.user = user;
         this.resume_answer = resume_answer;
         this.resume_company = resume_company;
         this.resume_date = resume_date;
         this.resume_question = resume_question;
         this.resume_task = resume_task;
+        this.resume_pass = resume_pass;
     }
 
     public void setResume_company(String resume_company) {
@@ -64,4 +68,6 @@ public class Resume {
     public void setResume_answer(String resume_answer) {
         this.resume_answer = resume_answer;
     }
+
+    public void setResume_pass(Boolean resume_pass) { this.resume_pass = resume_pass; }
 }

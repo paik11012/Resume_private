@@ -84,16 +84,17 @@
     <v-container>
       <v-layout class="justify-end">
         <div style="position:relative; width:90px; margin-left:50%; hei ght:40px; margin-bottom:20px;">
-        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:29; width:100%; height:100%; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;">
+        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:29; width:100%; height:100%; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
           <p class="keyset">
           {{ searkey[pickkey] }}
           </p>
           </div>
-        <div v-else style="position:absolute; z-index:30; background:white; left:0px; width:100%; height:165px; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;">
+          <!-- 검색 부분 -->
+        <div v-else style="position:absolute; z-index:30; background:white; left:0px; width:100%; height:140px; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
           <p v-for="i in searkey.length" :key="i" class="keyset" @click="selkey(i-1)">{{ searkey[i-1] }}</p>
         </div>
         </div>
-        <div style="width: 250px !important; z-index:29; margin-left:20px; height:40px; padding: 6px 12px; border:1px solid; margin-right:10px; border-radius:20px;"><v-icon>mdi-magnify</v-icon>
+        <div style="width: 250px !important; z-index:29; margin-left:20px; height:40px; padding: 6px 12px; border:1px solid; margin-right:10px; border-radius:10px;"><v-icon>mdi-magnify</v-icon>
         <input style="width:85%; margin-left:5px;" v-model="search" type="text"></div>
       </v-layout>
 
@@ -278,7 +279,7 @@ i{
 }
 #tag_button{
   color:white;
-  border: solid white 1px;
+  border: solid white 2px;
   font-family: Jua;
   font-size: 17px;
   border-radius: 10px;
@@ -294,7 +295,7 @@ i{
   background-color:  #92A8D1 !important;
 }
 .keyset{
-  margin:0 !important; height:40px; font-size:18px; text-align:center; padding: 6px 0;
+  margin:0 !important; height:35px; font-size:16px; font-family:Jua; text-align:center; padding: 6px 0;
 }
 .res_page{
   margin-top:80px;
