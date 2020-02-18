@@ -3,9 +3,9 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th colspan="2" v-if="editing" style="font-size:20px; font-family:Jua">{{award_title}}</th>
-          <th v-else style="font-size:20px; font-family:Jua" colspan="2"><input type="text" v-model="award_title"></th>
-          <th class="layout hold">
+          <th colspan="5" v-if="editing" style="font-size:20px; font-family:Jua">{{award_title}}</th>
+          <th v-else style="font-size:20px; font-family:Jua" colspan="6"><input type="text" v-model="award_title"></th>
+          <th class="layout hold" style="padding:0">
             <v-btn @click="editor" v-if="editing" small fab dark color="cyan" class="edu_write">
               <v-icon>edit</v-icon>
             </v-btn>
