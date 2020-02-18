@@ -174,11 +174,7 @@ export default {
     top: 52%;
     font-size: 16px;
     display: -webkit-box;
-<<<<<<< HEAD
-    -webkit-line-clamp: 2;
-=======
     -webkit-line-clamp: 3;
->>>>>>> temp
     -webkit-box-orient: vertical;
     overflow: hidden;
   }

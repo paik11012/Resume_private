@@ -88,31 +88,20 @@ export default {
       this.rsdt = true
       this.scr_cur = window.scrollY
       this.$emit('opdt')
-<<<<<<< HEAD
-      // var a = document.querySelector('html')
-      // a.style.overflowY="hidden"
-=======
       var a = document.querySelector('html')
       a.style.overflowY="hidden"
       console.log(this.resume_id);
->>>>>>> temp
     },
     closedetail(){
       var a = document.querySelector('html')
       a.style.overflowY="scroll"
       this.rsdt = false
       this.$emit('cldt')
-<<<<<<< HEAD
-      // var a = document.querySelector('html')
-      // a.style.overflowY="scroll"
-    }
-=======
     },
     reload(){
       this.rsdt=false
       this.$emit('del')
     },
->>>>>>> temp
   }
 };
 </script>
