@@ -84,7 +84,7 @@
     <v-container>
       <v-layout class="justify-end">
         <div style="position:relative; width:90px; margin-left:50%; hei ght:40px; margin-bottom:20px;">
-        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:30; width:100%; height:100%; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;">
+        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:29; width:100%; height:100%; padding: 0.7% 1.5%; border:1px solid; margin-right:10px; border-radius:20px;">
           <p class="keyset">
           {{ searkey[pickkey] }}
           </p>
@@ -295,5 +295,8 @@ i{
 }
 .keyset{
   margin:0 !important; height:40px; font-size:18px; text-align:center; padding: 6px 0;
+}
+.res_page{
+  margin-top:80px;
 }
 </style> 

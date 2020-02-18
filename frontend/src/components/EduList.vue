@@ -9,7 +9,6 @@
       :edu_school_sort="school[i-1].edu_school_sort"
       :edu_school_st_date="school[i-1].edu_school_st_date"
       :edu_school_ed_date="school[i-1].edu_school_ed_date"
-      :asd="i"
       @delete="pop(i)"
     />
     </transition>
@@ -76,6 +75,7 @@ export default {
           }
         }
         this.school = this.high.concat(this.univ)
+
           for(let i = 0; i < this.school.length; i++){
             setTimeout(() => {
             this.sec ++
@@ -86,6 +86,7 @@ export default {
       .catch(error => {
         console.log(error)
       })
+        console.log("error 4");
     }
   },
   mounted() {
