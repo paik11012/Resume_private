@@ -6,17 +6,18 @@
       </div>
     </div>
     <div class="col-xs-12 col-md-12 col-sm-12">
+      <span style="font-size: small;text-align:center">빈 원을 클릭하면 프로필 사진을 업로드 할 수 있습니다.<br></span>
       <h1 id="id" class="text-center">{{ user_id }}</h1>
     </div>
     <div class="col-xs-12 col-md-12 col-sm-12">
-        이름 <input type="text" required v-model="user_name" placeholder="Name"><br>
-        비밀번호 <input type="password" required v-model="user_password" placeholder="Password"><br>
-        비밀번호 확인 <input type="password" required v-model="user_password_re" placeholder="Password"><br>
-        <span v-if="verify_password" style="color:green; font-size: small;">비밀번호가 일치합니다.<br></span>
-        <span v-else style="color:red; font-size: small;">비밀번호가 일치하지 않습니다.<br></span>
-        핸드폰번호 <input type="text" required v-model="user_phone" placeholder="Phone"><br>
-        <v-btn class="ma-2" tile outlined small color="black" id="infochange" @click="editDone">Edit Done</v-btn>
-        <v-btn class="ma-2" tile outlined small color="black" id="infochange" @click="cancel">Cancel</v-btn>
+      <p id="edit" class="text-center">Name: <input type="text" class="line" required v-model="user_name" placeholder="Name"></p>
+      <p id="edit" class="text-center">Phone: <input type="text" class="line" required v-model="user_phone" placeholder="Phone"></p>
+      <p id="edit" class="text-center"><input type="password" class="line" required v-model="user_password" placeholder="Password"></p>
+      <p id="edit" class="text-center"><input type="password" class="line" required v-model="user_password_re" placeholder="Password Check"></p>
+      <span v-if="verify_password" style="color:green; font-size: small;">비밀번호가 일치합니다.<br></span>
+      <span v-else style="color:red; font-size: small;">비밀번호가 일치하지 않습니다.<br></span>
+      <v-btn class="ma-2" tile outlined small color="black" id="infochange" @click="editDone">Edit Done</v-btn>
+      <v-btn class="ma-2" tile outlined small color="black" id="infochange" @click="cancel">Cancel</v-btn>
     </div>
   </div>
 </div>
@@ -41,7 +42,6 @@ export default {
       user_name: "",
       user_phone:"",
       user_profile_img: "",
-
       selectedFile: "",
       verify_password: false,
     };
@@ -60,7 +60,6 @@ export default {
         this.user_phone = userInfo.user_phone;
         this.user_name = userInfo.user_name;
         this.user_profile_img = userInfo.user_profile_img;
-
         setTimeout(() => {
             this.setMyPicFromDB()
           }, 100);
@@ -75,15 +74,16 @@ export default {
                 user_name : this.user_name,
                 user_phone : this.user_phone
             }
-
+            console.log(data)
             API.put("/users/update", data)
-            .then(res=>{})
+            .then(res=>{
+              console.log(res)
+            })
             router.push("userinfo")
         }
         else{
             alert("비밀번호를 확인하세요.");
         }
-        
     },
     cancel(){
         router.push("userinfo")
@@ -92,7 +92,6 @@ export default {
       var file_input = document.createElement("input");
       file_input.type = "file";
       file_input.setAttribute("accept", "image/*");
-
       file_input.onchange = event => { 
         this.selectedFile = event.target.files[0];
       }
@@ -162,14 +161,10 @@ export default {
   }
   #id{
     font-family: 'Clicker Script', cursive !important;
-    font-size:72px;
+    font-size:57px;
   }
   #infochange{
   margin-right: auto !important;
-  }
-  #name{
-   font-family: 'Jua';
-   font-size: 25px;
   }
 }
 
@@ -221,6 +216,16 @@ export default {
   .caption:after{
     border:none;
   }
+}
+#edit{
+  font-family: 'Jua';
+  font-size: 18px;
+}
+
+.line{
+  border-style:none;
+  border-bottom:solid 1px #cacaca;
+  border-collapse:collapse;
 }
 
 </style>
