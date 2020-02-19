@@ -66,14 +66,10 @@ export default new Vuex.Store({
               const loginObj = {
                 user_id : signupObj.user_id,
                 user_password: signupObj.user_password
-              }
-              console.log(loginObj)
-              
+              }            
               API.post('/users/signin', loginObj)
               .then(res => {
-                console.log(res)
                 if (res.data.status) {
-                  console.log(res.data)
                   storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
                   storage.setItem('user_id',res.data.data.user_id);
                   setTimeout(() => {
@@ -87,7 +83,6 @@ export default new Vuex.Store({
                       console.log("dd")
                       API.post('/careers/upload', career_info)
                       .then(response => {
-                        console.log(response)
                       })
                       .catch(error => {
                         console.log(error)

@@ -136,10 +136,10 @@ export default {
     },
     withdraw() {
       const user_id = this.user_id
-      swal(`${user_id}님 탈퇴할거냐옹?ㅠ(=^･ω･^=)`,{
-        buttons: ['cancel', 'yes']
-      }).then((yes) => {
-        if (yes) {
+      swal(`${this.user_name}님 탈퇴할거냐옹? ( =ノωヽ=)`,{
+        buttons: ['Cancel', 'Yes']
+      }).then((Yes) => {
+        if (Yes) {
           API.delete(`users/deleteByAdmin/${user_id}`)
           .then(response => {
             swal(`$탈퇴가 완료되었습니다.`)

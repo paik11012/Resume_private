@@ -66,10 +66,8 @@ export default {
   },
   methods:{
     del(){
-      console.log(this.education_id,"삭제예정")
       API.delete(`/edu/deleteOne/${this.education_id}`)
       .then(response => {
-        console.log(response)
         this.$emit('delete')
       })
       .catch(error => {
@@ -80,7 +78,6 @@ export default {
       this.editing = !this.editing
     },
     addEduHigh() {
-      console.log(this.sch_std, this.sch_edd);
       var education = {
         'edu_id': String(this.education_id),
         'edu_school_sort': this.edu_school_sort,
@@ -88,12 +85,10 @@ export default {
         'edu_school_st_date': this.sch_std,
         'edu_school_ed_date': this.sch_edd,
       }
-      console.log(education);
       
       var e_data = { education: education }
       API.post('/edu/upload', e_data)
       .then(response => {
-        console.log(response)
       })
       .catch(error => {
         console.log(error)

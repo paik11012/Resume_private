@@ -81,11 +81,7 @@ export default {
       }
       console.log(set)
 
-      API.post('/awards/save', set,
-      {headers : {
-      'token' : window.sessionStorage.getItem("jwt-auth-token"),
-      'user_id': window.sessionStorage.getItem("user_id")}}
-      )
+      API.post('/awards/save', set)
       .then(response => {
         console.log(response)
       })

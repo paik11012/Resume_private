@@ -79,10 +79,8 @@ export default {
   },
   methods:{
     del(){
-      console.log("삭제예정")
       API.delete(`/awards/del/${this.id}`)
       .then(response => {
-        console.log(response)
         this.$emit('delete')
       })
       .catch(error => {
@@ -108,7 +106,6 @@ export default {
       }
       API.post('/awards/update', award)
       .then(response => {
-        console.log(response)
       })
       .catch(error => {
         console.log(error)
