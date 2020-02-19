@@ -44,7 +44,7 @@
     <v-btn small aria-disabled="true" class="tag" outlined color="#92A8D1" v-for="i in tags.length" v-bind:key='i'>
     #{{ tags[i-1] }}
     </v-btn>
-    <v-btn small class="ma-2" outlined color="success">자소서 내보내기</v-btn>
+    <v-btn small class="ma-2" outlined color="success" @click="sendPdf">자소서 내보내기</v-btn>
   </div>
   <div v-else>
     <v-row class="bot_tags justify-space-around dig">
@@ -160,6 +160,15 @@ export default {
       console.log("before hihi");
       console.log(r_data.tag_name);
       this.$emit('upload',r_data.tag_name)
+    },
+    sendPdf() {
+       API.get(`attach/${this.resume_id}`)
+      .then(response => {
+        alert("자소서 Pdf를 메일 전송 했다옹~")
+      })
+      .catch(error => {
+        console.log(error)
+      })
     }
   }
 }

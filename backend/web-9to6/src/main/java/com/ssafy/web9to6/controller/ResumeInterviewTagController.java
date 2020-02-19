@@ -188,7 +188,6 @@ public class ResumeInterviewTagController {
     @GetMapping("/interview/getLength")
     public Map<String, Integer> getLength(HttpServletRequest request){
         Map<String, Integer> map = new HashMap<>();
-
         String user_id = request.getHeader("user_id");
         map.put("n_resume", rs.findAll(us.findById(user_id)).size());
         map.put("n_interview", is.findAll(us.findById(user_id)).size());
@@ -199,13 +198,9 @@ public class ResumeInterviewTagController {
 
     @ApiOperation("자기소개서 pdf 내보내기")
     @GetMapping("/attach/{resume_id}")
-    public void attach(@PathVariable String resume_id) throws Exception {
-//       emailService.sendPdf(usersService.findById(user_id, Re);
+    public void attach(@PathVariable String resume_id, HttpServletRequest request) throws Exception {
         Resume resume = rs.findById(Long.parseLong(resume_id));
-        Users user = us.findById("ojinga0519@naver.com");
+        Users user = us.findById(request.getHeader("user_id"));
         emailService.sendPdf(resume, user);
-//        System.out.println(pdfService.createPdf());
-        //pdfService.createPdf(resume,user );
     }
-
 }
