@@ -18,6 +18,7 @@
       <span v-else style="color:red; font-size: small;">비밀번호가 일치하지 않습니다.<br></span>
       <v-btn class="ma-2" tile outlined small color="black" id="infochange" @click="editDone">Edit Done</v-btn>
       <v-btn class="ma-2" tile outlined small color="black" id="infochange" @click="cancel">Cancel</v-btn>
+      <v-btn class="ma-2" tile outlined small color="black" id="infochange" @click="withdraw">회원탈퇴</v-btn>
     </div>
   </div>
 </div>
@@ -30,11 +31,8 @@ import { app } from "../services/FirebaseService";
 import firebase, { storage } from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
-
 import router from '../router'
-
 import swal from 'sweetalert';
-
 export default {
   data() {
     return {
@@ -46,6 +44,7 @@ export default {
       user_profile_img: "",
       selectedFile: "",
       verify_password: false,
+      confirm:false,
     };
   },
   mounted() {
@@ -137,6 +136,23 @@ export default {
         profile_div.style.backgroundImage = "url('" + img_url + "')";
         // profile_div.style.backgroundSize = "100% 100%";
       });
+    },
+    withdraw() {
+      const user_id = this.user_id
+      swal(`${user_id}님 탈퇴할거냐옹?ㅠ(=^･ω･^=)`,{
+        buttons: ['cancel', 'yes']
+      }).then((yes) => {
+        if (yes) {
+          API.delete(`users/deleteByAdmin/${user_id}`)
+          .then(response => {
+            swal(`$탈퇴가 완료되었습니다.`)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+        location.replace('/')
+        }
+      })
     }
   },
   watch:{

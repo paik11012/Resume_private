@@ -19,6 +19,7 @@ export default {
   components:{
     Navbar, DrwBtn
   },
+
   data: () => ({
     showmenu:false,
     curpath:"",
