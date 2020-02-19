@@ -77,8 +77,8 @@ export default {
     hihi(val){
       console.log("hihi");
       console.log(val);
-      this.tagn = val
-      
+      this.tagn = val.tag_name
+      this.rsdt = false
     },
     input(value){
       this.showmenu = value

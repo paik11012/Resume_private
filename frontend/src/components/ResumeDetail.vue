@@ -2,31 +2,33 @@
 <div class="rsdetail">
   <div class="modalbox" @click="closing"></div>
   <div class="modal" >
-  <v-btn class="PF" v-if="editing" small fab dark color="success" >
+  <img src="@/assets/pets.png" class="PFP" v-if="pass" @click="pass=!pass">
+  <img src="@/assets/no_pets.png" class="PF" v-else @click="pass=!pass">
+  <!-- <v-btn class="PF" v-if="editing" small fab dark color="success" >
     <v-icon dark>check</v-icon>
-  </v-btn>
-  <v-checkbox v-else v-model="pass" class="mx-2 PFC" value="합격" label="서류합격" hide-details></v-checkbox>
+  </v-btn> -->
+  <!-- <v-checkbox v-else v-model="pass" class="mx-2 PFC" value="합격" label="서류합격" hide-details></v-checkbox> -->
 
-  <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark color="primary" >
+  <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark>
     <v-icon dark>edit</v-icon>
   </v-btn>
-  <v-btn class="edit" v-on:click="editResume" v-else small fab dark color="success" >
+  <v-btn class="edit" v-on:click="editResume" v-else small fab dark>
     <v-icon dark>check</v-icon>
   </v-btn>
-  <v-btn class="delete" v-on:click="destroy(resume_id)" small fab color="red" >
+  <v-btn class="delete" v-on:click="destroy(resume_id)" small fab>
     <v-icon color="white">delete</v-icon>
   </v-btn>
   <div>
     <div v-if="editing" class="company">{{ com }}</div>
-    <div v-else class="company"><input type="text" v-model="com"></div>
+    <div v-else class="company"><input type="text" class="input" v-model="com"></div>
   </div>
   <div>
     <div v-if="editing" class="task">{{ ta }}</div>
-    <div v-else class="task"><input type="text" v-model="ta"></div>
+    <div v-else class="task"><input  class="input" type="text" v-model="ta"></div>
   </div>
   <div>
     <div v-if="editing" class="date">{{ da }}</div>
-    <div v-else class="date"><input type="text" v-model="da"></div>
+    <div v-else class="date"><input  class="input" type="text" v-model="da"></div>
   </div>
   <br>
   <div>
@@ -106,7 +108,7 @@ export default {
       ans : this.answer,
       tag : this.tags,
       tv : this.text_val,
-      tag_name: [],
+      tag_name: this.tags, // 수정시 태그 들어가게
       filter_one_tag: null,
     }
   },
@@ -143,6 +145,9 @@ export default {
         "resume_date" : this.da,
         "resume_question" : this.question,
         "resume_answer" : this.answer,
+        // 이부분 확인
+        "resume_pass" : this.pass,
+        //
       };
       var r_data = {
           resume_info : resume_info,
@@ -157,6 +162,10 @@ export default {
         console.log(error)
       })
       this.editing = !this.editing
+<<<<<<< HEAD
+      console.log('ssss');
+      this.$emit('upload',r_data)
+=======
       console.log("before hihi");
       console.log(r_data.tag_name);
       this.$emit('upload',r_data.tag_name)
@@ -169,6 +178,7 @@ export default {
       .catch(error => {
         console.log(error)
       })
+>>>>>>> f40911b746f76b55a450698c795cbaa88400e9ff
     }
   }
 }
@@ -176,6 +186,13 @@ export default {
 
 <style lang="scss">
 .rsdetail{
+  .theme--dark.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined){
+    background-color: #92A8D1;
+  }
+  .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined){
+    background-color: #F7CAC9;
+  }
+
   & .dig{
     & .v-icon{
       z-index: 0;
@@ -332,16 +349,26 @@ export default {
       top: 82%;
     }
     .PF{
+      cursor: pointer;
       position: absolute;
-      top: 20px;
-      left: 20px;
-      &C{
+      width: 45px;
+      height: 45px;
+      top: 15px;
+      left: 15px;
+      &P{
+        cursor: pointer;
         position: absolute;
-        top: 15px;
-        left: 25px;
+        width: 74px;
+        height: 74px;
+        top: 1px;
+        left: 13px;
       }
     }
   }
 } 
-
+.input{
+  border-style:solid;
+  border-bottom:solid 1px #cacaca;
+  border-collapse:collapse;
+  width:100%; height:100%;}
 </style>
