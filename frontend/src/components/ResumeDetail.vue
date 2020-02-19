@@ -18,15 +18,15 @@
   </v-btn>
   <div>
     <div v-if="editing" class="company">{{ com }}</div>
-    <div v-else class="company"><input type="text" v-model="com"></div>
+    <div v-else class="company"><input type="text" class="input" v-model="com"></div>
   </div>
   <div>
     <div v-if="editing" class="task">{{ ta }}</div>
-    <div v-else class="task"><input type="text" v-model="ta"></div>
+    <div v-else class="task"><input  class="input" type="text" v-model="ta"></div>
   </div>
   <div>
     <div v-if="editing" class="date">{{ da }}</div>
-    <div v-else class="date"><input type="text" v-model="da"></div>
+    <div v-else class="date"><input  class="input" type="text" v-model="da"></div>
   </div>
   <br>
   <div>
@@ -106,7 +106,7 @@ export default {
       ans : this.answer,
       tag : this.tags,
       tv : this.text_val,
-      tag_name: [],
+      tag_name: this.tags, // 수정시 태그 들어가게
       filter_one_tag: null,
     }
   },
@@ -343,5 +343,9 @@ export default {
     }
   }
 } 
-
+.input{
+  border-style:solid;
+  border-bottom:solid 1px #cacaca;
+  border-collapse:collapse;
+  width:100%; height:100%;}
 </style>
