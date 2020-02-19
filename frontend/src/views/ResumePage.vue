@@ -24,7 +24,7 @@
         <v-card-text style="padding-bottom:0;">
           <v-container style="padding-bottom:0;">
             <v-row justify="center" >
-              <v-col cols="12" sm="9" md="9" style="padding-bottom:0; padding-top:0">
+              <v-col cols="12" sm="4" md="4" style="padding-bottom:0; padding-top:0">
               <v-text-field v-model="resume_company" label="회사명" required
               ></v-text-field>
               </v-col>
@@ -323,4 +323,7 @@ i{
   top: 2%;
 }
 
+.v-list-item__title{
+  font-size: 1em;
+}
 </style> 
