@@ -9,7 +9,6 @@
               <div class="title-item" @click="myedu">Education</div>
               <div class="title-item" @click="myaward">License</div>
               <div class="title-item" @click="myexp">Experience</div>
-
             </v-layout>
             <transition name="bounce">
               <myinfo id="rcorners2" v-if="showme" />
@@ -121,6 +120,13 @@ export default {
       setTimeout(() => {
         this.showedu = !this.showedu;
       }, 200);
+      setTimeout(() => {
+        if (this.$refs.reload.school < 1){
+          this.showcre = true
+        }
+        console.log(this.$refs.reload);
+      }, 250);
+      
     },
     myaward(){
       this.showedu = false;
@@ -132,6 +138,13 @@ export default {
       setTimeout(() => {
         this.showawd = !this.showawd
       }, 200);
+      setTimeout(() => {
+        if (this.$refs.reawd.awd < 1){
+          this.showcra = true
+        }
+        console.log(this.$refs.reawd.awd);
+        
+      }, 250);
     },
     myexp(){
       this.showedu = false;
@@ -143,10 +156,17 @@ export default {
       setTimeout(() => {
         this.showexp = !this.showexp
       }, 200);
+      setTimeout(() => {
+        console.log(this.$refs.reexp.exp);
+        if (this.$refs.reexp.exp < 1){
+          this.showcree = true
+        }
+      }, 250);
     },
     create() {
       this.showcre = !this.showcre;
       window.scroll(0,0)
+      
     },
     createa() {
       this.showcra = !this.showcra;

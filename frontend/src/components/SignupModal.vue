@@ -259,7 +259,7 @@ swal("인증번호가 틀렸습니다. 다시 확인해주세요.")
       API.post("/users/checkId", data)
     .then(res=>{
       var check = res.data
-      if(check=='true'){
+      if(check){
         swal("이미 가입된 회원입니다.")
       }
       else{
