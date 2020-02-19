@@ -11,34 +11,37 @@
   <!-- resume 작성하기 -->
   <template>
   <v-row justify="center">
+
+    <!-- modal 시작 -->
     <v-dialog v-model="dialog" :persistent="true" max-width="80%" max-height="80%" style="z-index:32; position:relative">
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
-      <v-card>
+      <v-card> <!-- body -->
+      <v-icon @click="dialog = !dialog">mdi-close</v-icon>
         <v-card-title class="justify-center">
           <span id="headline" style="margin-top:0px;">Write a Resume</span>
         </v-card-title>
+          <hr style="width: 100%;">
         <v-card-text style="padding-bottom:0;">
           <v-container style="padding-bottom:0;">
             <v-row justify="center" >
-              <v-col cols="12" sm="2" md="2" style="padding-bottom:0; padding-top:0">
+              <v-col cols="12" sm="9" md="9" style="padding-bottom:0; padding-top:0">
               <v-text-field v-model="resume_company" label="회사명" required
               ></v-text-field>
               </v-col>
-              <v-col cols="12" sm="2" md="2" style="padding-bottom:0; padding-top:0">
+              <v-col cols="12" sm="4" md="4" style="padding-bottom:0; padding-top:0">
               <v-text-field v-model="resume_task" label="직무" required
               ></v-text-field>
               </v-col>
-              <v-col cols="12" sm="3" md="3" style="padding-bottom:0; padding-top:0">
-              <v-text-field v-model="resume_date" label="지원시기" required
-              ></v-text-field>
+              <v-col cols="12" sm="4" md="4" style="padding-bottom:0; padding-top:0">
+              <v-select :items="resume_date_list" placeholder="지원시기"></v-select>
               </v-col>
             </v-row>
             <div style="margin:0px;">
-              <label>Tag</label>
+              <label>Tags</label>
             </div>
             <v-checkbox v-model="pass" class="mx-2 PF" value="합격" label="서류합격" hide-details></v-checkbox>
             <v-row class="dig">
-              <v-col cols="12" sm="3" md="3" style="padding-top:1px">
+              <v-col cols="12" sm="3" md="3" style="padding:1px">
                 <v-checkbox v-model="tag_name" class="mx-2" value="신뢰" label="신뢰" hide-details></v-checkbox>
                 <v-checkbox v-model="tag_name" class="mx-2" value="혁신" label="혁신" hide-details></v-checkbox>
                 <v-checkbox v-model="tag_name" class="mx-2" value="글로벌" label="글로벌" hide-details></v-checkbox>
@@ -147,6 +150,7 @@ export default {
       resume_company:null,
       resume_task:null,
       resume_date:null,
+      resume_date_list:['2017 상반기', '2017 하반기', '2018 상반기', '2018 하반기', '2019 상반기', '2019 하반기', '2020 상반기', '2020 하반기', '2021 상반기', '2021 하반기'],
       resume_question:null,
       resume_answer:null,
       dialog: false,
@@ -252,6 +256,17 @@ export default {
 .res_page{
   margin-top: 80px;
 }
+.v-dialog{
+  .v-input--selection-controls{
+    margin-top: 0px;
+  }
+  .v-icon.v-icon{
+    position: absolute;
+    top:3%;
+    right: 1%;
+    cursor: pointer;
+  }
+}
 #write{
   margin-left:85% !important
 }
@@ -304,8 +319,8 @@ i{
 }
 .PF{
   position: absolute;
-  left: 30px;
-  top: 15px;
+  left: 2%;
+  top: 2%;
 }
 
 </style> 
