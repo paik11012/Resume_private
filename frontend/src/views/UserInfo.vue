@@ -57,7 +57,6 @@ export default {
         this.user_profile_img = userInfo.user_profile_img;
 
         if(this.user_profile_img!=null & this.user_profile_img!=''){
-          console.log(this.user_profile_img)
           setTimeout(() => {
             this.setMyPicFromDB()
           }, 100);
@@ -82,7 +81,6 @@ export default {
       file_input.onchange = event => { 
         this.selectedFile = event.target.files[0];
       }
-
       file_input.click();
     },
     setMyPicFromDB(){
@@ -93,8 +91,6 @@ export default {
       .child(sessionStorage.getItem("user_id") + "/" + this.user_profile_img)
       .getDownloadURL()
       .then(function(img_url) {
-        console.log("img_url")
-        console.log(img_url)
         var profile_div = document.getElementById("profile_img");
         profile_div.style.backgroundImage = "url('" + img_url + "')";
         // profile_div.style.backgroundSize = "100% 100%";
