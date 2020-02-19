@@ -76,8 +76,6 @@ export default {
         const m = newValue.match(/(\S*)\s+(.*)/);
         this.edu_school_st_date = m[1];
         this.edu_school_ed_date = m[2];
-        console.log(this.edu_school_st_date)
-        console.log(this.edu_school_ed_date)
       }
     }
   },
@@ -117,10 +115,8 @@ export default {
   },
   methods:{
     del(){
-      console.log(this.education_id,"삭제예정")
       API.delete(`/edu/deleteOne/${this.education_id}`)
       .then(response => {
-        console.log(response)
         this.$emit('delete')
       })
       .catch(error => {
@@ -149,7 +145,6 @@ export default {
       var u_data = { education: u_education, education_detail: u_detail }
       API.post('/edu/upload', u_data)
       .then(response => {
-        console.log(response)
       })
       .catch(error => {
         console.log(error)
@@ -204,8 +199,6 @@ export default {
       })
     },
     openWindow(){
-      console.log("openWidnow")
-
       var storageRef = firebase.storage().ref();
       var data = {edu_detail_id: this.edu_detail_id};
 

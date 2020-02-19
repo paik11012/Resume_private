@@ -1,8 +1,9 @@
 <template>
   <v-app style="background:rgb(244, 249, 255);">
     <div class="backapp" v-if="setting"></div>
-    <router-view v-if="setting"/>
-    <router-view v-else/>
+    <router-view @modified="editinfo" v-if="setting" ref="editdone"/>
+    <!-- edifinfo 페이지에서 modified로 data보낸 것 받으면 edifinfo실행하기 -->
+    <router-view @modified="editinfo" v-else ref="editdone"/>
     <transition name="slide">
     <Navbar class="Nav" v-if="setting"/>
     </transition>
@@ -19,6 +20,7 @@ export default {
   components:{
     Navbar, DrwBtn
   },
+
   data: () => ({
     showmenu:false,
     curpath:"",
@@ -28,6 +30,17 @@ export default {
     this.curpath = window.location.pathname
     if (this.curpath != '/' & this.curpath != '/home'){
       this.setting = true
+    }
+  },
+  methods: {
+    editinfo(value) { // 위에서 editinfo  실행되면 data를 value로 받는다
+    // refs 이용해  참조 컴포넌트의 value를 editdone.user_phone이라는 자식 컴포넌트에 할당);
+      console.log(value.user_name);
+      setTimeout(() => {
+      this.$refs.editdone.user_phone = value.user_phone
+      this.$refs.editdone.user_name = value.user_name
+      this.$refs.editdone.profile_img = value.profile_img
+      }, 100);
     }
   }
 };
@@ -61,6 +74,5 @@ export default {
 a{
   text-decoration: none;
 }
-.v-application--wrap{
-}
+
 </style>

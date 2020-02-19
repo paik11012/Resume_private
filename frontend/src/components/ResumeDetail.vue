@@ -20,15 +20,15 @@
   </v-btn>
   <div>
     <div v-if="editing" class="company">{{ com }}</div>
-    <div v-else class="company"><input type="text" v-model="com"></div>
+    <div v-else class="company"><input type="text" class="input" v-model="com"></div>
   </div>
   <div>
     <div v-if="editing" class="task">{{ ta }}</div>
-    <div v-else class="task"><input type="text" v-model="ta"></div>
+    <div v-else class="task"><input  class="input" type="text" v-model="ta"></div>
   </div>
   <div>
     <div v-if="editing" class="date">{{ da }}</div>
-    <div v-else class="date"><input type="text" v-model="da"></div>
+    <div v-else class="date"><input  class="input" type="text" v-model="da"></div>
   </div>
   <br>
   <div>
@@ -46,7 +46,7 @@
     <v-btn small aria-disabled="true" class="tag" outlined color="#92A8D1" v-for="i in tags.length" v-bind:key='i'>
     #{{ tags[i-1] }}
     </v-btn>
-    <v-btn small class="ma-2" outlined color="success">자소서 내보내기</v-btn>
+    <v-btn small class="ma-2" outlined color="success" @click="sendPdf">자소서 메일로 내보내기</v-btn>
   </div>
   <div v-else>
     <v-row class="bot_tags justify-space-around dig">
@@ -56,7 +56,7 @@
       </v-col>
       <v-col cols="12" sm="2" md="2" style="padding-top:1px">
         <v-checkbox v-model="tag_name" class="mx-2" value="책임감" label="책임감" hide-details></v-checkbox> 
-        <v-checkbox v-model="tag_name" class="mx-2" value="가치창출" label="가치창출" hide-details></v-checkbox> 
+        <v-checkbox v-model="tag_name" class="mx-2" value="전문성" label="전문성" hide-details></v-checkbox> 
       </v-col>
       <v-col cols="12" sm="2" md="2" style="padding-top:1px">
         <v-checkbox v-model="tag_name" class="mx-2" value="창의성" label="창의성" hide-details></v-checkbox> 
@@ -68,11 +68,11 @@
       </v-col>
       <v-col cols="12" sm="2" md="2" style="padding-top:1px">
         <v-checkbox v-model="tag_name" class="mx-2" value="혁신" label="혁신" hide-details></v-checkbox> 
-        <v-checkbox v-model="tag_name" class="mx-2" value="전문성" label="전문성" hide-details></v-checkbox> 
+        <v-checkbox v-model="tag_name" class="mx-2" value="지원동기" label="지원동기" hide-details></v-checkbox> 
       </v-col>
       <v-col cols="12" sm="2" md="2" style="padding-top:1px">
         <v-checkbox v-model="tag_name" class="mx-2" value="열정" label="열정" hide-details></v-checkbox>
-        <v-checkbox v-model="tag_name" class="mx-2" value="배려" label="배려" hide-details></v-checkbox>
+        <v-checkbox v-model="tag_name" class="mx-2" value="포부" label="포부" hide-details></v-checkbox>
       </v-col>
     </v-row>      
   </div>
@@ -108,7 +108,7 @@ export default {
       ans : this.answer,
       tag : this.tags,
       tv : this.text_val,
-      tag_name: [],
+      tag_name: this.tags, // 수정시 태그 들어가게
       filter_one_tag: null,
     }
   },
@@ -162,8 +162,23 @@ export default {
         console.log(error)
       })
       this.editing = !this.editing
+<<<<<<< HEAD
       console.log('ssss');
       this.$emit('upload',r_data)
+=======
+      console.log("before hihi");
+      console.log(r_data.tag_name);
+      this.$emit('upload',r_data.tag_name)
+    },
+    sendPdf() {
+       API.get(`attach/${this.resume_id}`)
+      .then(response => {
+        alert("자소서 pdf를 메일로 전송 했다옹~")
+      })
+      .catch(error => {
+        console.log(error)
+      })
+>>>>>>> f40911b746f76b55a450698c795cbaa88400e9ff
     }
   }
 }
@@ -351,5 +366,9 @@ export default {
     }
   }
 } 
-
+.input{
+  border-style:solid;
+  border-bottom:solid 1px #cacaca;
+  border-collapse:collapse;
+  width:100%; height:100%;}
 </style>

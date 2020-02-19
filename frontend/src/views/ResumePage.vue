@@ -32,8 +32,7 @@
               ></v-text-field>
               </v-col>
               <v-col cols="12" sm="4" md="4" style="padding-bottom:0; padding-top:0">
-              <v-text-field v-model="resume_date" label="지원시기" required
-              ></v-text-field>
+              <v-select :items="resume_date_list" placeholder="지원시기"></v-select>
               </v-col>
             </v-row>
             <div style="margin:0px;">
@@ -54,12 +53,12 @@
               <v-col cols="12" sm="3" md="3" style="padding-top:1px">
                 <v-checkbox v-model="tag_name" class="mx-2" value="창의성" label="창의성" hide-details></v-checkbox>
                 <v-checkbox v-model="tag_name" class="mx-2" value="도덕성" label="도덕성" hide-details></v-checkbox>
-                <v-checkbox v-model="tag_name" class="mx-2" value="전문성" label="전문성" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name" class="mx-2" value="지원동기" label="지원동기" hide-details></v-checkbox>
               </v-col>
               <v-col cols="12" sm="3" md="3" style="padding-top:1px">
                 <v-checkbox v-model="tag_name" class="mx-2" value="도전정신" label="도전정신" hide-details></v-checkbox>
-                <v-checkbox v-model="tag_name" class="mx-2" value="가치창출" label="가치창출" hide-details></v-checkbox>
-                <v-checkbox v-model="tag_name" class="mx-2" value="배려" label="배려" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name" class="mx-2" value="전문성" label="전문성" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name" class="mx-2" value="포부" label="포부" hide-details></v-checkbox>
               </v-col>
             </v-row>      
             <v-text-field label="질문"
@@ -150,6 +149,7 @@ export default {
       resume_company:null,
       resume_task:null,
       resume_date:null,
+      resume_date_list:['2017 상반기', '2017 하반기', '2018 상반기', '2018 하반기', '2019 상반기', '2019 하반기', '2020 상반기', '2020 하반기', '2021 상반기', '2021 하반기'],
       resume_question:null,
       resume_answer:null,
       dialog: false,
@@ -175,11 +175,11 @@ export default {
         {name: "혁신", state: false},
         {name: "열정", state: false},
         {name: "도덕성", state: false},
-        {name: "가치창출", state: false},
+        {name: "전문성", state: false},
         {name: "글로벌", state: false},
         {name: "협력", state: false},
-        {name: "전문성", state: false},
-        {name: "배려", state: false},
+        {name: "지원동기", state: false},
+        {name: "포부", state: false},
       ],
     };
   },

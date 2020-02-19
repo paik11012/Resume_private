@@ -185,8 +185,8 @@ export default {
       window.scroll(0,0)
     },
     uploade(){
-      this.$refs.reload.loadDt()
-      this.showexp = !this.showexp;
+      this.$refs.reexp.loadDt()
+      this.showcree = !this.showcree;
     },
   },
   data() {

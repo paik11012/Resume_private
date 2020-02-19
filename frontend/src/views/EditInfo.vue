@@ -18,6 +18,7 @@
       <span v-else style="color:red; font-size: small;">비밀번호가 일치하지 않습니다.<br></span>
       <v-btn class="ma-2" tile outlined small color="black" id="infochange" @click="editDone">Edit Done</v-btn>
       <v-btn class="ma-2" tile outlined small color="black" id="infochange" @click="cancel">Cancel</v-btn>
+      <v-btn class="ma-2" tile outlined small color="black" id="infochange" @click="withdraw">회원탈퇴</v-btn>
     </div>
   </div>
 </div>
@@ -30,11 +31,8 @@ import { app } from "../services/FirebaseService";
 import firebase, { storage } from "firebase/app";
 import "firebase/firestore";
 import "firebase/storage";
-
 import router from '../router'
-
 import swal from 'sweetalert';
-
 export default {
   data() {
     return {
@@ -46,6 +44,7 @@ export default {
       user_profile_img: "",
       selectedFile: "",
       verify_password: false,
+      confirm:false,
     };
   },
   mounted() {
@@ -84,13 +83,10 @@ export default {
               user_phone : this.user_phone,
               user_profile_img : filename
           }
-          console.log("보내는 데이터")
-          console.log(data)
           API.put("/users/update", data)
           .then(res=>{
             console.log(res)
           })
-
           // firebase storage에 파일 업로드 //
           var storageRef = firebase.storage().ref();
           var user_id = sessionStorage.getItem("user_id");
@@ -105,7 +101,8 @@ export default {
             .child(user_id + '/' + this.selectedFile.name)
             .put(this.selectedFile);
           }
-
+          this.$emit('modified', data)
+          // data를 app.vue로 보내기
           router.replace("userinfo")
         }
         else{
@@ -123,6 +120,7 @@ export default {
         this.selectedFile = event.target.files[0];
       }
       file_input.click();
+
     },
     setMyPicFromDB(){
       var storageRef = firebase.storage().ref();
@@ -136,11 +134,32 @@ export default {
         profile_div.style.backgroundImage = "url('" + img_url + "')";
         // profile_div.style.backgroundSize = "100% 100%";
       });
+    },
+    withdraw() {
+      const user_id = this.user_id
+      swal(`${this.user_name}님 탈퇴할거냐옹? ( =ノωヽ=)`,{
+        buttons: ['Cancel', 'Yes']
+      }).then((Yes) => {
+        if (Yes) {
+          API.delete(`users/deleteByAdmin/${user_id}`)
+          .then(response => {
+            swal(`$탈퇴가 완료되었습니다.`)
+          })
+          .catch(error => {
+            console.log(error)
+          })
+        location.replace('/')
+        }
+      })
     }
   },
   watch:{
     selectedFile: function(selectedFile) {
       // this.new_user_profile_img = selectedFile.name
+      var tmp = document.querySelector("#profile_img")
+      var img_url = URL.createObjectURL(this.selectedFile)
+
+      tmp.style.backgroundImage =  "url('" + img_url + "')";
     },
     user_password_re: function(user_password_re){
         if(this.user_password==user_password_re){

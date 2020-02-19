@@ -16,7 +16,7 @@
             </div>
           </th>
           <th class="layout justify-end">
-            <v-btn @click="create" small fab id="write" color="success">
+            <v-btn @click="createe" small fab id="write" color="success">
               <v-icon>check</v-icon>
             </v-btn>
           </th>
@@ -59,7 +59,7 @@ export default {
     }
   },
   methods:{
-    create(){
+    createe(){
       var exp_data = {
       'exp_org_name': this.exp_org_name,
       'exp_org_type': this.exp_org_type,
@@ -79,7 +79,7 @@ export default {
       }, 500);
     },
     
-  }
+  },
 }
 </script>
 

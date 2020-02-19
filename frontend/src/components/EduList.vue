@@ -55,7 +55,6 @@ export default {
       .then(response => {
         for (var [key,value] of Object.entries(response.data)){
           for (var [key1, value1] of Object.entries(value)){
-            console.log(value1);
             this.education_id = value1[0]["education"]["education_id"]
             this.edu_school_name = value1[0]["education"]["edu_school_name"]
             this.edu_school_st_date = value1[0]["education"]["edu_school_st_date"]
@@ -79,7 +78,6 @@ export default {
           for(let i = 0; i < this.school.length; i++){
             setTimeout(() => {
             this.sec ++
-            console.log(this.sec);
           }, 100*i);
         }
       })

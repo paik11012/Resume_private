@@ -34,7 +34,6 @@ export default {
       .then(response => {
         var array = []
         for(let i=0; i < response.data.length; i++){
-          console.log(response.data[i]);
           var data = response.data[i]
           var table = {
             id : data.id,
@@ -51,7 +50,6 @@ export default {
         for(let i = 0; i < this.awd.length; i++){
             setTimeout(() => {
             this.sec ++
-            console.log(this.sec);
           }, 100*i)
       }
       })
