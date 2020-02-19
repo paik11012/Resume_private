@@ -202,6 +202,9 @@ export default {
   },
   watch: {
     selectedFile: function(selectedFile) {
+      var img_tag = document.querySelector("#myPic");
+      img_tag.src = URL.createObjectURL(selectedFile)
+
       var storageRef = firebase.storage().ref();
       var user_id = sessionStorage.getItem("user_id");
 
@@ -210,24 +213,20 @@ export default {
         storageRef
         .child(user_id + "/" + this.career_myPic)
         .delete();
-        var img_tag = document.getElementById("myPic");
-        img_tag.src = "/img/person.b60afd50.jpg";
+        // img_tag.src = "/img/person.b60afd50.jpg";
       }
 
       // firebase storage에 파일 업로드 //
       storageRef
       .child(user_id + '/' + selectedFile.name)
       .put(selectedFile);
-      console.log("upload")
 
       // 업로드된 파일명 DB에 저장 //
       setTimeout(() => {
         const data = { career_myPic: selectedFile.name}
         API.post("/careers/uploadPic", data)
         .then(response=>{
-          console.log("reload")
           this.career_myPic = response.data.career_myPic
-          console.log(this.career_myPic)
           this.setMyPicFromDB();
         });
       }, 2000);

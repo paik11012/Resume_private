@@ -33,8 +33,7 @@
               ></v-text-field>
               </v-col>
               <v-col cols="12" sm="4" md="4" style="padding-bottom:0; padding-top:0">
-              <v-text-field v-model="resume_date" label="지원시기" required
-              ></v-text-field>
+              <v-select :items="resume_date_list" placeholder="지원시기"></v-select>
               </v-col>
             </v-row>
             <div style="margin:0px;">
@@ -151,6 +150,7 @@ export default {
       resume_company:null,
       resume_task:null,
       resume_date:null,
+      resume_date_list:['2017 상반기', '2017 하반기', '2018 상반기', '2018 하반기', '2019 상반기', '2019 하반기', '2020 상반기', '2020 하반기', '2021 상반기', '2021 하반기'],
       resume_question:null,
       resume_answer:null,
       dialog: false,
