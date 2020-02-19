@@ -320,4 +320,7 @@ i{
   top: 2%;
 }
 
+.v-list-item__title{
+  font-size: 1em;
+}
 </style> 
