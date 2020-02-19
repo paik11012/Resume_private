@@ -2,6 +2,7 @@
   <v-app style="background:rgb(244, 249, 255);">
     <div class="backapp" v-if="setting"></div>
     <router-view @modified="editinfo" v-if="setting" ref="editdone"/>
+    <!-- edifinfo 페이지에서 modified로 data보낸 것 받으면 edifinfo실행하기 -->
     <router-view @modified="editinfo" v-else ref="editdone"/>
     <transition name="slide">
     <Navbar class="Nav" v-if="setting"/>
@@ -32,7 +33,8 @@ export default {
     }
   },
   methods: {
-    editinfo(value) {
+    editinfo(value) { // 위에서 editinfo  실행되면 data를 value로 받는다
+    // refs 이용해  참조 컴포넌트의 value를 editdone.user_phone이라는 자식 컴포넌트에 할당);
       console.log(value.user_name);
       setTimeout(() => {
       this.$refs.editdone.user_phone = value.user_phone

@@ -101,8 +101,8 @@ export default {
             .child(user_id + '/' + this.selectedFile.name)
             .put(this.selectedFile);
           }
-          console.log(data)
           this.$emit('modified', data)
+          // data를 app.vue로 보내기
           router.replace("userinfo")
         }
         else{
