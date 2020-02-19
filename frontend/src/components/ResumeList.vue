@@ -74,20 +74,11 @@ export default {
     //   console.log(this.resumes);
     // },
     filter(){
-      console.log("filter");
-      
-      console.log(this.filter_tag);
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
-      console.log(this.filter_tag.reduce(reducer));
       if(this.filter_tag.reduce(reducer)==0) this.sresumes = this.resumes;
-
       var filtering = []
       for (let i=0; i < this.filter_tag.length; i++){
-        if (this.filter_tag[i]) {filtering.push(this.tag_names[i])
-        console.log("tag_name");
-        console.log(this.tag_names);
-        console.log(filtering);
-        
+        if (this.filter_tag[i]) {filtering.push(this.tag_names[i])  
         }
       }
       var rs = []
@@ -100,18 +91,11 @@ export default {
         }
         if (cnt == filtering.length) rs.push(this.resumes[i])
       }
-      console.log("rs");
-      
-      console.log(rs);
-      
       this.sresumes = rs
-      console.log("완료");
     },
     getResume: function() {
-      console.log("reload");
       API.get('/resume')
       .then(response => {
-        console.log(response);
         
         this.resumes = response.data 
         this.sresumes = this.resumes
@@ -123,7 +107,6 @@ export default {
       }
       })
       .catch(error => {
-      console.log(error)
       })
     }
   },

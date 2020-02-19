@@ -3,7 +3,6 @@ import Vuex from 'vuex'
 import Router from 'vue-router'
 import router from './router'
 import API from "./services/Api"
-
 import swal from 'sweetalert';
 
 Vue.use(Vuex)
