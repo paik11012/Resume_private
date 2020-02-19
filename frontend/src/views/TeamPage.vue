@@ -8,7 +8,6 @@
             {{ message[sel][i-1] }} {{ sec[team[i-1]][i-1] }} {{ sel }}
           </p>
           </div>
-
       </transition>
     </div>
 
@@ -24,7 +23,7 @@ export default {
         "park":[0,1,3,2],
         "paik":[1,0,2,3],
         "lee":[1,2,0,3],
-        "yun":[3,2,1,0],
+        "yun":[2,3,1,0],
       },
       message:{
         "park":['','박','권','응'],
@@ -62,14 +61,22 @@ export default {
       }
     }
 
+  },
+  mounted(){
+    this.time = 0
+    for (let i=0; i < 5; i++){
+      setTimeout(() => {
+        this.time += 1
+      }, 200*i);
+    }
   }
-
-};
+}
 </script>
 
 <style lang="scss">
 @import "@/assets/scss/mystyle.scss";
 .team{
+  animation: fadein 2s;
   position: relative;
   & .mess{
     position: relative;
@@ -107,18 +114,18 @@ export default {
   }
   & .paik{
     top :10%;
-    left : 55%;
+    left : 60%;
     &on{
       top :10%;
-      left : 55%;
+      left : 60%;
     }
   }
   & .yun{
     top :55%;
-    left : 55%;
+    left : 60%;
     &on{
       top :55%;
-      left : 55%;
+      left : 60%;
     }
   }
 }

@@ -185,6 +185,8 @@ export default {
     width: 90%;
     top: 56%;
     position: absolute;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
   }
   & .answer{
     width: 90%;
