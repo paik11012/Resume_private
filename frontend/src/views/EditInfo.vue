@@ -83,13 +83,10 @@ export default {
               user_phone : this.user_phone,
               user_profile_img : filename
           }
-          console.log("보내는 데이터")
-          console.log(data)
           API.put("/users/update", data)
           .then(res=>{
             console.log(res)
           })
-
           // firebase storage에 파일 업로드 //
           var storageRef = firebase.storage().ref();
           var user_id = sessionStorage.getItem("user_id");
@@ -104,7 +101,8 @@ export default {
             .child(user_id + '/' + this.selectedFile.name)
             .put(this.selectedFile);
           }
-
+          console.log(data)
+          this.$emit('modified', data)
           router.replace("userinfo")
         }
         else{

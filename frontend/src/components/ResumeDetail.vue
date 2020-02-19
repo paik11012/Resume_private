@@ -54,7 +54,7 @@
       </v-col>
       <v-col cols="12" sm="2" md="2" style="padding-top:1px">
         <v-checkbox v-model="tag_name" class="mx-2" value="책임감" label="책임감" hide-details></v-checkbox> 
-        <v-checkbox v-model="tag_name" class="mx-2" value="가치창출" label="가치창출" hide-details></v-checkbox> 
+        <v-checkbox v-model="tag_name" class="mx-2" value="전문성" label="전문성" hide-details></v-checkbox> 
       </v-col>
       <v-col cols="12" sm="2" md="2" style="padding-top:1px">
         <v-checkbox v-model="tag_name" class="mx-2" value="창의성" label="창의성" hide-details></v-checkbox> 
@@ -66,11 +66,11 @@
       </v-col>
       <v-col cols="12" sm="2" md="2" style="padding-top:1px">
         <v-checkbox v-model="tag_name" class="mx-2" value="혁신" label="혁신" hide-details></v-checkbox> 
-        <v-checkbox v-model="tag_name" class="mx-2" value="전문성" label="전문성" hide-details></v-checkbox> 
+        <v-checkbox v-model="tag_name" class="mx-2" value="지원동기" label="지원동기" hide-details></v-checkbox> 
       </v-col>
       <v-col cols="12" sm="2" md="2" style="padding-top:1px">
         <v-checkbox v-model="tag_name" class="mx-2" value="열정" label="열정" hide-details></v-checkbox>
-        <v-checkbox v-model="tag_name" class="mx-2" value="배려" label="배려" hide-details></v-checkbox>
+        <v-checkbox v-model="tag_name" class="mx-2" value="포부" label="포부" hide-details></v-checkbox>
       </v-col>
     </v-row>      
   </div>

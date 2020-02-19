@@ -51,12 +51,12 @@
               <v-col cols="12" sm="3" md="3" style="padding-top:1px">
                 <v-checkbox v-model="tag_name" class="mx-2" value="창의성" label="창의성" hide-details></v-checkbox>
                 <v-checkbox v-model="tag_name" class="mx-2" value="도덕성" label="도덕성" hide-details></v-checkbox>
-                <v-checkbox v-model="tag_name" class="mx-2" value="전문성" label="전문성" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name" class="mx-2" value="지원동기" label="지원동기" hide-details></v-checkbox>
               </v-col>
               <v-col cols="12" sm="3" md="3" style="padding-top:1px">
                 <v-checkbox v-model="tag_name" class="mx-2" value="도전정신" label="도전정신" hide-details></v-checkbox>
-                <v-checkbox v-model="tag_name" class="mx-2" value="가치창출" label="가치창출" hide-details></v-checkbox>
-                <v-checkbox v-model="tag_name" class="mx-2" value="배려" label="배려" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name" class="mx-2" value="전문성" label="전문성" hide-details></v-checkbox>
+                <v-checkbox v-model="tag_name" class="mx-2" value="포부" label="포부" hide-details></v-checkbox>
               </v-col>
             </v-row>      
             <v-text-field label="질문"
@@ -172,11 +172,11 @@ export default {
         {name: "혁신", state: false},
         {name: "열정", state: false},
         {name: "도덕성", state: false},
-        {name: "가치창출", state: false},
+        {name: "전문성", state: false},
         {name: "글로벌", state: false},
         {name: "협력", state: false},
-        {name: "전문성", state: false},
-        {name: "배려", state: false},
+        {name: "지원동기", state: false},
+        {name: "포부", state: false},
       ],
     };
   },

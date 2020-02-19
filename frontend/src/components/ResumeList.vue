@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       searkey : ["resume_company","resume_task","resume_question","resume_answer"],
-      tag_names:["신뢰","책임감","창의성","도전정신","혁신","열정","도덕성","가치창출","글로벌","협력","전문성","배려"],
+      tag_names:["신뢰","책임감","창의성","도전정신","혁신","열정","도덕성","전문성","글로벌","협력","지원동기","포부"],
       sresumes:[],
       resumes: [],
       sec : 0,
