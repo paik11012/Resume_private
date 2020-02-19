@@ -2,18 +2,20 @@
 <div class="rsdetail">
   <div class="modalbox" @click="closing"></div>
   <div class="modal" >
-  <v-btn class="PF" v-if="editing" small fab dark color="success" >
+  <img src="@/assets/pets.png" class="PFP" v-if="pass" @click="pass=!pass">
+  <img src="@/assets/no_pets.png" class="PF" v-else @click="pass=!pass">
+  <!-- <v-btn class="PF" v-if="editing" small fab dark color="success" >
     <v-icon dark>check</v-icon>
-  </v-btn>
-  <v-checkbox v-else v-model="pass" class="mx-2 PFC" value="합격" label="서류합격" hide-details></v-checkbox>
+  </v-btn> -->
+  <!-- <v-checkbox v-else v-model="pass" class="mx-2 PFC" value="합격" label="서류합격" hide-details></v-checkbox> -->
 
-  <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark color="primary" >
+  <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark>
     <v-icon dark>edit</v-icon>
   </v-btn>
-  <v-btn class="edit" v-on:click="editResume" v-else small fab dark color="success" >
+  <v-btn class="edit" v-on:click="editResume" v-else small fab dark>
     <v-icon dark>check</v-icon>
   </v-btn>
-  <v-btn class="delete" v-on:click="destroy(resume_id)" small fab color="red" >
+  <v-btn class="delete" v-on:click="destroy(resume_id)" small fab>
     <v-icon color="white">delete</v-icon>
   </v-btn>
   <div>
@@ -143,6 +145,9 @@ export default {
         "resume_date" : this.da,
         "resume_question" : this.question,
         "resume_answer" : this.answer,
+        // 이부분 확인
+        "resume_pass" : this.pass,
+        //
       };
       var r_data = {
           resume_info : resume_info,
@@ -157,9 +162,8 @@ export default {
         console.log(error)
       })
       this.editing = !this.editing
-      console.log("before hihi");
-      console.log(r_data.tag_name);
-      this.$emit('upload',r_data.tag_name)
+      console.log('ssss');
+      this.$emit('upload',r_data)
     }
   }
 }
@@ -167,6 +171,13 @@ export default {
 
 <style lang="scss">
 .rsdetail{
+  .theme--dark.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined){
+    background-color: #92A8D1;
+  }
+  .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined){
+    background-color: #F7CAC9;
+  }
+
   & .dig{
     & .v-icon{
       z-index: 0;
@@ -323,13 +334,19 @@ export default {
       top: 82%;
     }
     .PF{
+      cursor: pointer;
       position: absolute;
-      top: 20px;
-      left: 20px;
-      &C{
+      width: 45px;
+      height: 45px;
+      top: 15px;
+      left: 15px;
+      &P{
+        cursor: pointer;
         position: absolute;
-        top: 15px;
-        left: 25px;
+        width: 74px;
+        height: 74px;
+        top: 1px;
+        left: 13px;
       }
     }
   }
