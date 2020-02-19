@@ -164,7 +164,7 @@ export default {
     sendPdf() {
        API.get(`attach/${this.resume_id}`)
       .then(response => {
-        alert("자소서 Pdf를 메일 전송 했다옹~")
+        alert("자소서 pdf를 메일로 전송 했다옹~")
       })
       .catch(error => {
         console.log(error)
