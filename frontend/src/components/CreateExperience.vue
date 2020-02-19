@@ -37,7 +37,7 @@
         </tr>
         <tr>
           <td width="150px">세부내용</td>
-          <td><textarea name="" id="" v-model="exp_org_detail" cols="20" rows="3"></textarea>
+          <td><textarea name="" id="" v-model="exp_org_detail" cols="120" rows="3"></textarea>
             </td>
         </tr>
       </tbody>
