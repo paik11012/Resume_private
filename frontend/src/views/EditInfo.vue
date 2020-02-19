@@ -120,6 +120,7 @@ export default {
         this.selectedFile = event.target.files[0];
       }
       file_input.click();
+
     },
     setMyPicFromDB(){
       var storageRef = firebase.storage().ref();
@@ -155,6 +156,10 @@ export default {
   watch:{
     selectedFile: function(selectedFile) {
       // this.new_user_profile_img = selectedFile.name
+      var tmp = document.querySelector("#profile_img")
+      var img_url = URL.createObjectURL(this.selectedFile)
+
+      tmp.style.backgroundImage =  "url('" + img_url + "')";
     },
     user_password_re: function(user_password_re){
         if(this.user_password==user_password_re){

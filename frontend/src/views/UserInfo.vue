@@ -93,6 +93,8 @@ export default {
       .child(sessionStorage.getItem("user_id") + "/" + this.user_profile_img)
       .getDownloadURL()
       .then(function(img_url) {
+        console.log("img_url")
+        console.log(img_url)
         var profile_div = document.getElementById("profile_img");
         profile_div.style.backgroundImage = "url('" + img_url + "')";
         // profile_div.style.backgroundSize = "100% 100%";
