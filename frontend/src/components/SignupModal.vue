@@ -13,7 +13,8 @@
 
           <div class="partition-form">
             <form autocomplete="false">
-            <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
+            <v-btn text small class="sendmail_btn" @click="checkEmail">중복확인</v-btn>
+            <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation" style="width:180px">
             <v-btn text small class="sendmail_btn" @click="sendMail">메일전송</v-btn>
             <input readonly type="text" :placeholder="message" style="width:180px">
             <v-btn text small class="sendmail_btn" @click="confirm" style="position:float">인증하기</v-btn>
@@ -53,7 +54,8 @@
           <div class="partition-title">Sign Up</div>
           <div class="partition-form">
            <form autocomplete="false">
-            <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
+            <v-btn text small class="sendmail_btn" @click="checkEmail">중복확인</v-btn>
+            <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation" style="width:180px">
             <v-btn text small class="sendmail_btn" @click="sendMail">메일전송</v-btn>
             <input readonly type="text" :placeholder="message" style="width:180px">
             <v-btn text small class="sendmail_btn" @click="confirm" style="position:float">인증하기</v-btn>
@@ -86,7 +88,8 @@
           <div class="partition-title">Sign Up</div>
             <div class="partition-form">
            <form autocomplete="false">
-            <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
+            <v-btn text small class="sendmail_btn" @click="checkEmail">중복확인</v-btn>
+            <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation" style="width:180px">
             <v-btn text small class="sendmail_btn" @click="sendMail">메일전송</v-btn>
             <input readonly type="text" :placeholder="message" style="width:180px">
             <v-btn text small class="sendmail_btn" @click="confirm" style="position:float">인증하기</v-btn>
@@ -125,7 +128,8 @@
           <div class="partition-title">Sign Up</div>
           <div class="partition-form">
             <form autocomplete="false">
-            <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation">
+            <v-btn text small class="sendmail_btn" @click="checkEmail">중복확인</v-btn>
+            <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation" style="width:180px">
             <v-btn text small class="sendmail_btn" @click="sendMail">메일전송</v-btn>
             <input readonly type="text" :placeholder="message" style="width:180px">
             <v-btn text small class="sendmail_btn" @click="confirm" style="position:float">인증하기</v-btn>
@@ -157,6 +161,8 @@
 import { mapActions } from 'vuex';
 import API from "../services/Api";
 import store from '@/store.js';
+
+import swal from 'sweetalert';
 
 const MODAL_WIDTH = 656;
 export default {
@@ -228,26 +234,42 @@ export default {
         API.get(`/users/sendmail/${this.user_id}`)
       .then(response=>{
          this.auth_num = response.data;
-         alert("인증번호를 이메일로 발송했습니다.")
+         swal("인증번호를 이메일로 발송했습니다.")
        
       })
       .catch(error=>{
-        if(error.response.data.message == "인증 번호 발송 에러")
-            alert("인증 번호 발송에 실패하였습니다.")
+        if(error.response.data.message == "인증 번호 발송 에러") {
+          swal("인증 번호 발송에 실패하였습니다.");
+        }
+          
       })
     },
     confirm() {
       if(this.auth_num != null && this.myauth_num != null && this.auth_num == this.myauth_num) {
-        alert("인증되었습니다.")
+        swal("인증되었습니다.")
         this.$store.state.isAuth = true;
       }
       else {
-alert("인증번호가 틀렸습니다. 다시 확인해주세요.")
+swal("인증번호가 틀렸습니다. 다시 확인해주세요.")
    this.$store.state.isAuth = false;
       }
     },
+    checkEmail(){
+      var data = {user_id: this.user_id}
+      API.post("/users/checkId", data)
+    .then(res=>{
+      var check = res.data
+      if(check=='true'){
+        swal("이미 가입된 회원입니다.")
+      }
+      else{
+        swal("사용하셔도 좋은 아이디입니다.")
+      }
+    })
+  },  
     ...mapActions(["signup"]),
-  },                        
+  },
+                      
 }
 </script>
 <style lang="scss">
@@ -558,4 +580,11 @@ $facebook_color: rgb(146, 168, 209);
   margin-left: 200px;
   margin-top: 3px !important;
 }
+
+.swal-button--confirm{
+    background: rgb(146, 168, 209);
+}
+// .swal-button--confirm:not([disabled]):hover {
+//     background: rgb(252, 186, 185);
+// }
 </style>

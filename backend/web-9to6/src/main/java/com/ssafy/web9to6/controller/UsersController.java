@@ -52,7 +52,7 @@ public class UsersController {
     private PdfService pdfService;
 
     @ApiOperation("회원 이메일(ID) 중복체크")
-    @GetMapping("/users/checkId")
+    @PostMapping("/users/checkId")
     public boolean userCheckId(@RequestBody UsersResponseDto requestDto){
         String user_id = requestDto.getUser_id();
         return usersService.checkId(user_id);
@@ -221,8 +221,11 @@ public class UsersController {
         String user_id = request.getHeader("user_id");
         Users user = usersService.findById(user_id);
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        requestDto.setUser_password(passwordEncoder.encode(requestDto.getUser_password()));
+        if(requestDto.getUser_password()!=""){
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            requestDto.setUser_password(passwordEncoder.encode(requestDto.getUser_password()));
+        }
+
         return usersService.update(user, requestDto.toEntity());
     }
 

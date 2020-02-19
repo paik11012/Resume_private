@@ -4,6 +4,8 @@ import Router from 'vue-router'
 import router from './router'
 import API from "./services/Api"
 
+import swal from 'sweetalert';
+
 Vue.use(Vuex)
 Vue.use(Router)
 export default new Vuex.Store({
@@ -52,14 +54,14 @@ export default new Vuex.Store({
         || signupObj.user_name == null
         || signupObj.user_password == null
         ) {
-          return alert('전화번호 외에 모든 정보를 입력해주세요')
+          return swal('전화번호 외에 모든 정보를 입력해주세요')
         } else if(this.state.isAuth == false) {
-            return alert('인증번호를 다시 입력해주세요.')
+            return swal('인증번호를 다시 입력해주세요.')
         }
         else {
           API.post("/users/signup", signupObj)
             .then(res => {
-            alert("회원가입이 성공적으로 이루어졌습니다");     
+            swal("회원가입이 성공적으로 이루어졌습니다");     
             setTimeout(() => {
               const loginObj = {
                 user_id : signupObj.user_id,
@@ -93,18 +95,18 @@ export default new Vuex.Store({
                   }, 500);
                 router.push('home')
               } else {
-                alert("입력 정보를 확인하세요")
+                swal("입력 정보를 확인하세요")
               }
             })
             .catch((error) => {
               console.log(error)
-              alert("로그인 정보를 확인하세요")
+              swal("로그인 정보를 확인하세요")
             })
 
           }, 500);
         })
         .catch((error) => {
-          alert("입력하신 정보를 확인하세요")
+          swal("입력하신 정보를 확인하세요")
           console.log(error)
         })
         }
@@ -117,7 +119,7 @@ export default new Vuex.Store({
       API.post("/users/signin", loginObj)
       .then(res => {
         if (res.data.status) {
-          alert("로그인이 성공적으로 이루어졌습니다");
+          swal("로그인이 성공적으로 이루어졌습니다");
           console.log(res.data)
           storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
           storage.setItem('user_id',res.data.data.user_id);
@@ -126,13 +128,13 @@ export default new Vuex.Store({
           // commit("loginSuccess", user_info)
           router.push('home')
         } else {
-          alert("입력 정보를 확인하세요")
+          swal("입력 정보를 확인하세요")
         }
       })
       .catch((error) => {
         console.log(error)
         commit('loginError')
-        alert("입력 정보를 확인하세요")
+        swal("입력 정보를 확인하세요")
       })
     },
   }, // action  끝  

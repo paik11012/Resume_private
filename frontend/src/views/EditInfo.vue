@@ -33,6 +33,8 @@ import "firebase/storage";
 
 import router from '../router'
 
+import swal from 'sweetalert';
+
 export default {
   data() {
     return {
@@ -60,9 +62,12 @@ export default {
         this.user_phone = userInfo.user_phone;
         this.user_name = userInfo.user_name;
         this.user_profile_img = userInfo.user_profile_img;
-        setTimeout(() => {
+
+        if(this.user_profile_img!=null & this.user_profile_img!=''){
+          setTimeout(() => {
             this.setMyPicFromDB()
           }, 100);
+        }
       });
   },
   methods:{
@@ -79,6 +84,8 @@ export default {
               user_phone : this.user_phone,
               user_profile_img : filename
           }
+          console.log("보내는 데이터")
+          console.log(data)
           API.put("/users/update", data)
           .then(res=>{
             console.log(res)
@@ -102,7 +109,7 @@ export default {
           router.replace("userinfo")
         }
         else{
-            alert("비밀번호를 확인하세요.");
+            swal("비밀번호를 확인하세요.");
         }
     },
     cancel(){
@@ -225,4 +232,10 @@ export default {
   border-collapse:collapse;
 }
 
+.swal-button--confirm{
+    background: rgb(146, 168, 209);
+}
+// .swal-button--confirm:not([disabled]):hover {
+//     background: rgb(252, 186, 185);
+// }
 </style>
