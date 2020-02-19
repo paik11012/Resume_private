@@ -42,7 +42,7 @@ public class ResumeService {
         old.setResume_company(update.getResume_company());
         old.setResume_date(update.getResume_date());
         old.setResume_task(update.getResume_task());
-        old.setResume_question(update.getResume_task());
+        old.setResume_question(update.getResume_question());
         old.setResume_pass(update.getResume_pass());
         return rr.save(old);
     }
