@@ -117,6 +117,7 @@ export default new Vuex.Store({
           console.log(res.data)
           storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
           storage.setItem('user_id',res.data.data.user_id);
+          storage.setItem('user_authority', res.data.data.user_authority);
           // 새로고침시 state 날라가는 경우
           // 토큰만 갖고 멤버정보 요청 가능 , session
           // commit("loginSuccess", user_info)

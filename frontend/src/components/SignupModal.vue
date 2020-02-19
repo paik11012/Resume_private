@@ -16,7 +16,7 @@
             <v-btn text small class="sendmail_btn" @click="checkEmail">중복확인</v-btn>
             <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation" style="width:180px">
             <v-btn text small class="sendmail_btn" @click="sendMail">메일전송</v-btn>
-            <input readonly type="text" :placeholder="message" style="width:180px">
+            <input readonly type="text" class="valid" value="이메일을 입력해주세요" style="width:180px; height:33px; border:none; font-size:10px; padding-top:0px;">
             <v-btn text small class="sendmail_btn" @click="confirm" style="position:float">인증하기</v-btn>
              <input required v-model="myauth_num" type="text" placeholder="인증번호 입력" style="width:180px" />
               <input
@@ -57,7 +57,7 @@
             <v-btn text small class="sendmail_btn" @click="checkEmail">중복확인</v-btn>
             <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation" style="width:180px">
             <v-btn text small class="sendmail_btn" @click="sendMail">메일전송</v-btn>
-            <input readonly type="text" :placeholder="message" style="width:180px">
+            <input readonly type="text" class="valid" value="이메일을 입력해주세요" style="width:180px; height:33px; border:none; font-size:10px; padding-top:0px;">
             <v-btn text small class="sendmail_btn" @click="confirm" style="position:float">인증하기</v-btn>
              <input required v-model="myauth_num" type="text" placeholder="인증번호 입력" style="width:180px" />
               <input
@@ -91,7 +91,7 @@
             <v-btn text small class="sendmail_btn" @click="checkEmail">중복확인</v-btn>
             <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation" style="width:180px">
             <v-btn text small class="sendmail_btn" @click="sendMail">메일전송</v-btn>
-            <input readonly type="text" :placeholder="message" style="width:180px">
+            <input readonly type="text" class="valid" value="이메일을 입력해주세요" style="width:180px; height:33px; border:none; font-size:10px; padding-top:0px;">
             <v-btn text small class="sendmail_btn" @click="confirm" style="position:float">인증하기</v-btn>
              <input required v-model="myauth_num" type="text" placeholder="인증번호 입력" style="width:180px" />
               <input
@@ -131,7 +131,7 @@
             <v-btn text small class="sendmail_btn" @click="checkEmail">중복확인</v-btn>
             <input type="text" required :rules="emailRules" v-model="user_id" placeholder="Email" :state="emailValidation" style="width:180px">
             <v-btn text small class="sendmail_btn" @click="sendMail">메일전송</v-btn>
-            <input readonly type="text" :placeholder="message" style="width:180px">
+            <input readonly type="text" class="valid" value="이메일을 입력해주세요" style="width:180px; height:33px; border:none; font-size:10px; padding-top:0px;">
             <v-btn text small class="sendmail_btn" @click="confirm" style="position:float">인증하기</v-btn>
              <input required v-model="myauth_num" type="text" placeholder="인증번호 입력" style="width:180px" />
               <input
@@ -187,11 +187,19 @@ export default {
     emailValidation() {
       let re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
         if(!re.test(this.user_id)){
-          this.message = "이메일이 올바르지 않습니다"
+          var valid = document.querySelector(".valid")
+          if (valid != null){
+            valid.value="이메일이 올바르지 않습니다"
+            valid.style.color = 'red'
+          }
           return false;
         }
         else {
-          this.message = "올바른 이메일 형식입니다."
+          var valid = document.querySelector(".valid")
+          if (valid != null){
+            valid.value="올바른 이메일 형식입니다."
+            valid.style.color = 'green'
+          }
           return true;
         }
     }
@@ -329,6 +337,7 @@ $facebook_color: rgb(146, 168, 209);
     color: white;
     background: #f38181;
   }
+
   .partition {
     width: 100%;
     height: 100%;

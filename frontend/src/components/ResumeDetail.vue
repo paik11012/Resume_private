@@ -162,10 +162,6 @@ export default {
         console.log(error)
       })
       this.editing = !this.editing
-<<<<<<< HEAD
-      console.log('ssss');
-      this.$emit('upload',r_data)
-=======
       console.log("before hihi");
       console.log(r_data.tag_name);
       this.$emit('upload',r_data.tag_name)
@@ -178,7 +174,6 @@ export default {
       .catch(error => {
         console.log(error)
       })
->>>>>>> f40911b746f76b55a450698c795cbaa88400e9ff
     }
   }
 }

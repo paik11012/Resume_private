@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="user_authority == 'admin'" class="admin">
     <v-container>
       <h1 style="font-family:Jua">Users</h1>
       <br>
@@ -28,6 +28,15 @@ export default {
       user_authority: null
     }
   },
+  created(){
+    var person = window.sessionStorage.getItem("user_authority")
+    if (person != "admin"){
+      alert("관리자만 접근할 수 있습니다.")
+      location.replace('/')
+    } else {
+      this.user_authority = person
+    }
+  },
   mounted() {
     API.get('/users/findAll')
     .then(res => {
@@ -52,6 +61,7 @@ export default {
 #users{
   font-size:18px !important;
   font-family:Jua;
+  margin-top: 5px;
 }
 
 .swal-button--confirm{
@@ -60,4 +70,7 @@ export default {
 /* .swal-button--confirm:not([disabled]):hover {
     background: rgb(252, 186, 185);
 } */
+.admin{
+  margin-top: 80px; 
+}
 </style>
