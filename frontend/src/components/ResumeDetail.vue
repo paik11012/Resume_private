@@ -2,6 +2,11 @@
 <div class="rsdetail">
   <div class="modalbox" @click="closing"></div>
   <div class="modal" >
+  <v-btn class="PF" v-if="editing" small fab dark color="success" >
+    <v-icon dark>check</v-icon>
+  </v-btn>
+  <v-checkbox v-else v-model="pass" class="mx-2 PFC" value="합격" label="서류합격" hide-details></v-checkbox>
+
   <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark color="primary" >
     <v-icon dark>edit</v-icon>
   </v-btn>
@@ -90,6 +95,7 @@ export default {
   },
   data(){
     return {
+      pass:false,
       editing:true,
       modalop: false,
       id: this.resume_id,
@@ -193,15 +199,16 @@ export default {
     opacity: 0.46;
   }
   & .modal{
+    z-index: 32;
     & .edit{
       position: absolute;
-      z-index: 30;
+      z-index: 32;
       right: 65px;
       top : 3%;
     }
     & .delete{
       position: absolute;
-      z-index: 30;
+      z-index: 32;
       right: 15px;
       top : 3%;
     }
@@ -314,6 +321,16 @@ export default {
       position: absolute;
       right:4%;
       top: 82%;
+    }
+    .PF{
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      &C{
+        position: absolute;
+        top: 15px;
+        left: 25px;
+      }
     }
   }
 } 

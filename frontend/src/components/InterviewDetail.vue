@@ -96,9 +96,10 @@ export default {
     opacity: 0.4;
   }
   & .modal{
+    z-index: 32;
     & .edit{
       position: absolute;
-      z-index: 30;
+      z-index: 32;
       right: 8%;
       top : 3%;
     }

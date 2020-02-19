@@ -104,4 +104,8 @@ export default {
   // border-bottom:solid 1px #cacaca;
   border-collapse:collapse;
   width:100%; height:100%;} 
+textarea{
+  width:100%;
+  // resize: none;
+}
 </style> 

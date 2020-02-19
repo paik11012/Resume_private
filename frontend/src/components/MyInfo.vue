@@ -1,5 +1,5 @@
 <template>
-  <v-simple-table v-if="$vuetify.breakpoint.mdAndUp">
+  <v-simple-table v-if="$vuetify.breakpoint.mdAndUp" class="myinfo">
     <template v-slot:default>
       <thead>
         <tr>
@@ -18,7 +18,7 @@
       <tbody>
 
         <tr>
-          <td style="width:30%; position:relative;" rowspan="3"><img id="myPic" style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/person.jpg"/><div style="position:absolute; left: 23%; top:0px;"><v-icon dark>mdi-close</v-icon></div></td>
+          <td style="width:200px; position:relative;" rowspan="3"><img id="myPic" style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/person.jpg"/></td>
           <td style="width:20%">병역구분</td>
           <td v-if="editing">{{ military_sort }}</td>
           <td v-else><input type="text"  class="input" v-model="military_sort" placeholder="병역구분" width="100%"></td>
@@ -35,8 +35,8 @@
           <td v-else><input type="text" class="input"  v-model="military_st_date" placeholder="복무기간"></td>
         </tr>
         <tr>
-          <td class="layout justify-center"><div><v-file-input id="btn-upload" v-model="selectedFile" accept="image/*" prepend-icon="mdi-cloud-upload" height="1.8em" style="width:30px; overflow:hidden;"></v-file-input></div>
-          <v-btn style="margin-top:6px;" color="success" outlined @click="downloadFile"><v-icon dark>mdi-cloud-download</v-icon></v-btn></td>
+          <td class="layout justify-center"><div class="bound"><v-file-input id="btn-upload" v-model="selectedFile" accept="image/*" prepend-icon="mdi-cloud-upload" height="1.8em" style="width:150px;" dark></v-file-input></div>
+          <div class="download" @click="downloadFile"><v-icon dark>mdi-cloud-download</v-icon></div></td>
           <td style="width:20%">메모</td>
           <td v-if="editing">{{ memo }}</td>
           <td v-else><input type="text" class="input"  v-model="memo" placeholder="메모"></td>
@@ -45,7 +45,7 @@
     </template>
   </v-simple-table>
   
-  <v-simple-table v-else>
+  <v-simple-table v-else class="myinfo">
     <template v-slot:default>
       <thead>
         <tr>
@@ -63,9 +63,9 @@
       </thead>
       <tbody>
         <tr>
-          <td style="width:40%; position:relative;" rowspan="3"><img id="myPic" style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/person.jpg"/><div style="position:absolute; left: 23%; top:0px;"><v-icon dark>mdi-close</v-icon></div></td>
-          <td class="layout justify-center"><div><v-file-input id="btn-upload" v-model="selectedFile" accept="image/*" prepend-icon="mdi-cloud-upload" height="1.8em" style="width:30px; overflow:hidden;"></v-file-input></div></td>
-          <td class="layout justify-center"><v-btn style="margin-top:6px;" color="success" outlined @click="downloadFile"><v-icon dark>mdi-cloud-download</v-icon></v-btn></td>
+          <td style="width:200px; position:relative;" rowspan="3"><img id="myPic" style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/person.jpg"/><div style="position:absolute; left: 23%; top:0px;"><v-icon dark>mdi-close</v-icon></div></td>
+          <td class="layout justify-center"><div><v-file-input id="btn-upload" v-model="selectedFile" accept="image/*" prepend-icon="mdi-cloud-upload" height="1.8em" style="width:150px;"></v-file-input></div></td>
+          <td class="layout justify-center"><div style="margin-top:6px;" @click="downloadFile"><v-icon>mdi-cloud-download</v-icon></div></td>
         </tr>
         <tr>
           <td style="text-align:center;">병역구분</td>
@@ -127,7 +127,6 @@ export default {
       }
       API.post('/careers/upload', career_info)
       .then(response => {
-        
         this.career_myPic=response.data.career_myPic,
         this.military_class=response.data.military_class,
         this.military_st_date=response.data.military_st_date,
@@ -211,6 +210,8 @@ export default {
         storageRef
         .child(user_id + "/" + this.career_myPic)
         .delete();
+        var img_tag = document.getElementById("myPic");
+        img_tag.src = "/img/person.b60afd50.jpg";
       }
 
       // firebase storage에 파일 업로드 //
@@ -236,20 +237,58 @@ export default {
 </script>
 
 <style lang="scss" >
-#write{
+.myinfo{
+
+  #write{
   position: relative;
   left: 10px;
 }
 .v-file-input__text{
   visibility: hidden;
 }
-.v-input__icon--clear{
-  visibility:hidden;
+#btn-upload{
+  width: 150px;
 }
+
+.download{
+  position: absolute;
+  top: 245px;
+  left: 125px;
+  cursor: pointer;
+  background: #007bff;
+  border-radius: 5px;
+}
+
+.mdi-close{
+  position: absolute;
+  left: 30px;
+  top: -187px;
+}
+
+.v-text-field__slot{
+  visibility: hidden;
+  width: 0px;
+}
+
+.v-input__control{
+  // visibility: hidden;
+}
+.bound{
+  position: relative;
+  width: 33px;
+}
+.mdi-cloud-upload{
+  position: absolute;
+  top: 10px;
+  left: -20px;
+  border-radius: 5px;
+  background: #28a745;
+}
+
 .input{
   border-style:none;
   // border-bottom:solid 1px #cacaca;
   border-collapse:collapse;
   width:100%; height:100%;}
-
+}
 </style>
