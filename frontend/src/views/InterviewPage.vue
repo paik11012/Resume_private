@@ -1,5 +1,5 @@
 <template>
-  <div class="full">
+  <div class="full interpage">
     <v-layout justify-center align-center style="height:100%;" v-if="loading">
       <Load />
     </v-layout>
@@ -143,5 +143,8 @@ export default {
   position: fixed;
   right:30px;
   bottom:30px;
+}
+.interpage{
+  margin-top: 80px;
 }
 </style>

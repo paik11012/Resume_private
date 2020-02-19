@@ -89,6 +89,7 @@ public class ResumeInterviewTagController {
         resume.setResume_company((String)res.get("resume_company"));
         resume.setResume_question((String)res.get("resume_question"));
         resume.setResume_task((String)res.get("resume_task"));
+        resume.setResume_pass((Boolean) res.get("resume_pass"));
         resume.setUser(us.findById(user_id));
 
         try {
@@ -124,6 +125,7 @@ public class ResumeInterviewTagController {
         resume.setResume_question((String)res.get("resume_question"));
         resume.setResume_task((String)res.get("resume_task"));
         resume.setUser(us.findById(user_id));
+        resume.setResume_pass((Boolean) res.get("resume_pass"));
         resume.setId(Long.parseLong((String)res.get("id")));
 
         Resume find = rs.findById(resume.getId());

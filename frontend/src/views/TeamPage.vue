@@ -96,36 +96,36 @@ export default {
     position: absolute;
   }
   & .park{
-    top :10%;
+    top :12%;
     left : 20%;
     &on{
-      top :10%;
+      top :12%;
       left : 20%;
     }
   }
   & .lee{
-    top :55%;
+    top :57%;
     left : 20%;
     &on{
-      top :55%;
+      top :57%;
       left : 20%;
 
     }
   }
   & .paik{
-    top :10%;
-    left : 60%;
+    top :12%;
+    left : 55%;
     &on{
-      top :10%;
-      left : 60%;
+      top :12%;
+      left : 55%;
     }
   }
   & .yun{
-    top :55%;
-    left : 60%;
+    top :57%;
+    left : 55%;
     &on{
-      top :55%;
-      left : 60%;
+      top :57%;
+      left : 55%;
     }
   }
 }
