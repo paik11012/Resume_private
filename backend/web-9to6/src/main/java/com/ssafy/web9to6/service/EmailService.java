@@ -12,10 +12,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.activation.DataSource;
 import javax.mail.internet.MimeMessage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 
 @RequiredArgsConstructor
@@ -34,9 +31,9 @@ public class EmailService {
         String temp_pwd =  getRamdomPassword();
         System.out.println(temp_pwd);
         message.setTo(user.getUser_id());
-        message.setSubject("[취뽀냥이]" + user.getUser_name() + " 임시 비밀번호 발송");
+        message.setSubject("[취뽀냥이]" + user.getUser_name() + " 회원님의 임시 비밀번호 발송");
         message.setText("안녕하세요 저희는 취뽀냥이 웹페이지 입니다 \n " +
-                "회원님의 임시비밀번호는 [" + temp_pwd + "] 입니다. \n 저희 사이트 많은 이용바랄게요♥♡♥♡");
+                "회원님의 임시비밀번호는 [" + temp_pwd + "] 입니다. \n 저희 사이트 많은 사용 바란다냥♥♡♥♡");
        try {
            emailSender.send(message);
            UsersResponseDto urd = new UsersResponseDto(user.getUser_password(),user.getUser_name(),user.getUser_phone(),user.getUser_profile_img());
@@ -68,8 +65,8 @@ public class EmailService {
         message.setTo(id);
         message.setSubject("[취뽀냥이]회원가입 인증번호 발송");
         message.setText("안녕하세요 저희는 취뽀냥이 웹페이지 입니다 \n " +
-                "회원님의 인증번호는 [" + temp_pwd + "] 입니다. \n 회원가입을 축하드립니다. ♡ \n " +
-                "          ฅ^._.^ฅ       ");
+                "회원님의 인증번호는 [" + temp_pwd + "] 입니다. \n 회원가입을 축하드립니다옹~♡ \n " +
+                "ฅ^._.^ฅ");
         try {
             emailSender.send(message);
             return temp_pwd;
@@ -85,23 +82,16 @@ public class EmailService {
         helper.setTo(user.getUser_id());
         helper.setSubject("[취뽀냥이]자소서가 배달왔다냥~");
         helper.setText("안녕하세요 저희는 취뽀냥이 웹페이지 입니다 \n " + user.getUser_name() +
-                " 회원님의 요청하신 자소서가 배달왔다냥~. \n 회원가입을 축하드립니다. ♡ \n " +
-                "          ฅ^._.^ฅ       ");
-     //   FileSystemResource file = new FileSystemResource(new File("file/dd.pdf"));
-        if(pdfService.createPdf(resume, user).equals("pdf 파일 생성 성공")) {
+                " 회원님의 요청하신 자소서가 배달왔다냥~.~ \n 취뽀 화이팅 냥♡");
+        if(pdfService.createPdf(resume).equals("pdf 파일 생성 성공")) {
             FileSystemResource file = new FileSystemResource(new File("file/" +resume.getId().toString()+".pdf"));
-            System.out.println(file.getPath());
-//        ByteArrayInputStream dd = pdfService.createPdf();
-//        System.out.println("힝" + dd);
             String title = resume.getResume_date() + "_" + resume.getResume_company();
             helper.addAttachment(title, file);
         }
-
-
         try {
             emailSender.send(message);
         } catch (Exception e) {
-            throw new Exception("임시 비밀번호 발송 에러");
+            throw new Exception("PDF 발송 에러");
         }
 
     }

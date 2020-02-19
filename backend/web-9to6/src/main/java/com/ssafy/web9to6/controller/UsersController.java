@@ -2,13 +2,10 @@ package com.ssafy.web9to6.controller;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.ssafy.web9to6.domain.Resume;
 import com.ssafy.web9to6.domain.Users;
-import com.ssafy.web9to6.dto.SocialResponseDto;
-import com.ssafy.web9to6.dto.UsersResponseDto;
-import com.ssafy.web9to6.service.EmailService;
-import com.ssafy.web9to6.service.JwtService;
-import com.ssafy.web9to6.service.PdfService;
-import com.ssafy.web9to6.service.UsersService;
+import com.ssafy.web9to6.dto.*;
+import com.ssafy.web9to6.service.*;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +24,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @PropertySource("classpath:config.properties")
 @CrossOrigin
@@ -38,6 +32,9 @@ import java.util.Map;
 @RestController
 public class UsersController {
     private final UsersService usersService;
+    private final ResumeService resumeService;
+    private final InterviewService interviewService;
+    private final TagService tagService;
 
     @Autowired
     private JwtService jwtService;
@@ -72,12 +69,48 @@ public class UsersController {
 
     @ApiOperation("회원 등록")
     @PostMapping("/users/signup")
-    public Users userSignUp(@RequestBody UsersResponseDto requestDto) {
+    public Users userSignUp(@RequestBody UsersResponseDto requestDto) throws Exception {
+        // DB에 회원 등록 //
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         requestDto.setUser_password(passwordEncoder.encode(requestDto.getUser_password()));
         Users user = requestDto.toEntity();
         user.setUser_authority("user");
-        return usersService.save(user);
+        user = usersService.save(user);
+        // END: DB에 회원 등록 //
+
+        // Resume, Interview 샘플 데이터 생성 //
+        // Resume //
+        ResumeResponseDto resumeDto = ResumeResponseDto.builder()
+                .resume_company("냥회사")
+                .resume_task("SW개발")
+                .resume_date("2019 하반기")
+                .resume_question("OO기업에 지원한 동기를 작성해주세요.")
+                .resume_answer("돈 벌고 싶어냥")
+                .build();
+        resumeDto.setUser(user);
+        Resume resume = resumeService.save(resumeDto);
+
+        TagResponseDto tagDto = TagResponseDto.builder()
+                .tag_name("지원동기")
+                .build();
+        tagDto.setResume(resume);
+        tagService.save(tagDto);
+        // END: Resume //
+
+        // Interview //
+        InterviewResponseDto interviewDto = InterviewResponseDto.builder()
+                .interview_company("냥회사")
+                .interview_task("SW 개발")
+                .interview_date("2019 하반기")
+                .interview_answer("본인의 강점은 무엇인가요?")
+                .interview_question("냥냥")
+                .interview_memo("코딩 잘 한다고 할걸,,")
+                .build();
+        interviewDto.setUser(user);
+        interviewService.save(interviewDto);
+        // END: Interview //
+        // END: Resume, Interview 샘플 데이터 생성 //
+        return user;
     }
 
     @ApiOperation("회원 로그인")
