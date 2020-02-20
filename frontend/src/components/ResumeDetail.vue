@@ -2,8 +2,15 @@
 <div class="rsdetail">
   <div class="modalbox" @click="closing"></div>
   <div class="modal" >
-  <img src="@/assets/pets.png" class="PFP" v-if="pass" @click="editing ? pass = pass : pass = !pass">
-  <img src="@/assets/no_pets.png" class="PF" v-else @click="editing ? pass = pass : pass = !pass">
+    <!-- 수정할 때만 바꿀 수 있다 -->
+    <div v-if="editing">
+      <img disabled src="@/assets/pets.png" class="PFP" v-if="pass">
+      <img src="@/assets/no_pets.png" class="PF" v-else>  
+    </div>
+    <div v-else>
+      <img src="@/assets/pets.png" class="PFP" v-if="pass" @click="editing ? pass = pass : pass = !pass">
+      <img src="@/assets/no_pets.png" class="PF" v-else @click="editing ? pass = pass : pass = !pass"> 
+    </div>
   <!-- <v-btn class="PF" v-if="editing" small fab dark color="success" >
     <v-icon dark>check</v-icon>
   </v-btn> -->

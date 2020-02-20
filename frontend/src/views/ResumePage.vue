@@ -93,7 +93,7 @@
           </p>
           </div>
           <!-- 검색 부분 -->
-        <div v-else style="position:absolute; z-index:30; background:white; left:0px; width:100%; height:140px; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
+        <div v-else style="position:absolute; z-index:30; background:white; left:0px; width:100%; height:178px; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
           <p v-for="i in searkey.length" :key="i" class="keyset" @click="selkey(i-1)">{{ searkey[i-1] }}</p>
         </div>
         </div>
@@ -159,7 +159,7 @@ export default {
       reload:false,
       filter_tag: [false,false,false,false,false,false,false,false,false,false,false,false],
       items :["전체","회사명","내용"],
-      searkey:["회사명","직무","질문","답변"],
+      searkey:["회사명","직무","질문","답변", "지원시기"],
       value : "전체",
       pickkey:0,
       search:'',

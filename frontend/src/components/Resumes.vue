@@ -149,6 +149,9 @@ export default {
     position: absolute;
     bottom: 5%;
   }
+  & .stamp{
+    position: absolute;
+  }
   & .company{
     width: 90%;
     position: absolute;
