@@ -4,10 +4,7 @@
       <transition name="teams" >
         <img :src="imgsrc[i-1]" :class="team[i-1]" class="circle" v-if="(sel == team[i-1] | all) & sec[sel][i-1] < time" @click="select(team[i-1])" style="z-index:20;">
         <div v-else-if="sec[sel][i-1] < time" :class="team[i-1]+'on'" class="circle mess light_gradient" @click="select(team[i-1])">
-          <!-- <p class="fonts">
-            {{ message[sel][i-1] }}<br><br>
-          </p> -->
-          <img :class="team[i-1]+'1'" :src="message[sel][i-1]">
+          <img :class="team[i-1]+'1'" :src="message[sel][i-1]" @click="link(sel, i-1)">
           </div>
       </transition>
     </div>
@@ -21,16 +18,22 @@ export default {
     return{
       time:5,
       sec:{
-        "park":[0,1,3,2],
+        "park":[0,1,2,3],
         "paik":[1,0,2,3],
         "lee":[1,2,0,3],
-        "yun":[2,3,1,0],
+        "yun":[2,1,3,0],
       },
       message:{
-        "park":['','박권응','기술스택','Github'],
-        "paik":['백민주','','기술스택','Github'],
-        "lee":[require("../assets/team_lee_1.png"),'기술스택','','Github'],
-        "yun":['윤규희','기술스택','Github',''],
+        "park":['', require("../assets/team_park_1.png"), require("../assets/team_park_2.png"), require("../assets/GitHub.png")],
+        "paik":[require("../assets/team_paik_1.png"),'', require("../assets/team_paik_2.png"), require("../assets/GitHub.png")],
+        "lee":[require("../assets/team_lee_1.png"), require("../assets/team_lee_2.png"),'', require("../assets/GitHub.png")],
+        "yun":[require("../assets/team_yun_1.png"), require("../assets/team_yun_2.png"), require("../assets/GitHub.png"),''],
+      },
+      github_link:{
+        "park": "https://github.com/kwoneyng",
+        "paik": "https://github.com/paik11012",
+        "lee": "https://github.com/daseul-lee99",
+        "yun": "https://github.com/yunkyuhee",
       },
       all : true,
       sel : "park",
@@ -40,6 +43,11 @@ export default {
     }
   },
   methods:{
+    link(name, i){
+      if(this.sec[this.sel][i] == 3){
+        window.open(this.github_link[name], '_blank')
+      }
+    },
     select(i){
       this.time = 0
       for (let i=0; i < 5; i++){
@@ -115,7 +123,10 @@ export default {
     &on{
       top :57%;
       left : 20%;
-
+    }
+    &1{
+      width: 100%;
+      height: 100%;
     }
   }
   & .paik{
@@ -125,6 +136,10 @@ export default {
       top :12%;
       left : 55%;
     }
+    &1{
+      width: 100%;
+      height: 100%;
+    }
   }
   & .yun{
     top :57%;
@@ -132,6 +147,10 @@ export default {
     &on{
       top :57%;
       left : 55%;
+    }
+    &1{
+      width: 100%;
+      height: 100%;
     }
   }
 }
