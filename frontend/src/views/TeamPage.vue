@@ -149,7 +149,8 @@ export default {
 .teams-enter-active{
   animation: spin .8s reverse;
 }
-// .teams-leave-active{
-//   animation: spin .6s;
-// }
+
+.teams-leave-active{
+  animation: spin .8s;
+}
 </style>

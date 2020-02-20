@@ -58,6 +58,7 @@ export default {
 </script>
 
 <style>
+
 #users{
   font-size:18px !important;
   font-family:Jua;
@@ -67,10 +68,12 @@ export default {
 .swal-button--confirm{
     background: rgb(146, 168, 209);
 }
+
 /* .swal-button--confirm:not([disabled]):hover {
     background: rgb(252, 186, 185);
 } */
 .admin{
   margin-top: 80px; 
 }
+
 </style>

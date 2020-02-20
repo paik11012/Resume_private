@@ -26,6 +26,7 @@
     :interview_id="interview_id"
     @clsid="closedetail"
     @deleteinterview="reload"
+    @upload="upload"
    />
   </div>
 </template>
@@ -93,6 +94,10 @@ export default {
       this.idt=false
       this.$emit('del')
     },
+    upload(){
+      this.idt = false
+      this.$emit('reload')
+    }
   }
 
 };
