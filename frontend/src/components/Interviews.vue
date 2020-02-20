@@ -130,7 +130,7 @@ export default {
   .hr{
     position: absolute;
     width:90%;
-    top:11%
+    top:11.4%
   }
   .que{
     position: absolute;

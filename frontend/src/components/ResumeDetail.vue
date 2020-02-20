@@ -27,7 +27,7 @@
   <div>
     <div class="titleback"></div>
     <div v-if="editing" class="company">{{ com }}</div>
-    <div v-else class="company"><input type="text" class="input" v-model="com"></div>
+    <div v-else class="company"><input type="text" class="input" style="text-align:center;" v-model="com"></div>
     <hr class="hr1">
     <hr class="hr2">
     <hr class="hr3">
@@ -419,14 +419,14 @@ export default {
       position: absolute;
       width: 45px;
       height: 45px;
-      top: 15px;
+      top: 1.5%;
       left: 15px;
       &P{
         cursor: pointer;
         position: absolute;
         width: 74px;
         height: 74px;
-        top: 0px;
+        top: -1%;
         left: 11px;
       }
     }

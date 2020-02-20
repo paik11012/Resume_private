@@ -11,6 +11,14 @@
   <v-btn class="delete" v-on:click="destroy(interview_id)" small fab color="red" >
     <v-icon color="white">delete</v-icon>
   </v-btn>
+  <div class="titleback"></div>
+  <hr class="hr1">
+  <hr class="hr2">
+  <p class="p1">질문</p>
+  <p class="p2">답변</p>
+  <p class="p3">메모</p>
+
+
   <div class="company" v-if="editing">
     {{ com }}
   </div>
@@ -110,6 +118,48 @@ export default {
 
 <style lang="scss">
 .idetail{
+  position: relative;
+  .hr{
+    &1{
+      position: absolute;
+      width:100%;
+      top:10%;
+    }
+    &2{
+      position: absolute;
+      width:100%;
+      top:19%;
+      }
+  }
+  .p{
+    &1{
+      position: absolute;
+      font-size: 11px; 
+      width:100%;
+      text-align: center;
+      top:21%;
+    }
+    &2{
+      position: absolute;
+      font-size: 11px; 
+      width:100%;
+      text-align: center;
+      top:31.5%;
+    }
+    &3{
+      position: absolute;
+      font-size: 11px; 
+      width:100%;
+      text-align: center;
+      top:66%;
+    }
+  }
+  .titleback{
+    width: 100%;
+    height: 62px;
+    background-color: #FAD1D1;
+  }
+
   textarea{
     resize: none;
     font-family: 'NanumSquare', sans-serif;
@@ -131,13 +181,13 @@ export default {
       position: absolute;
       z-index: 32;
       right: 65px;
-      top : 3%;
+      top : 1.5%;
     }
     & .delete{
       position: absolute;
       z-index: 30;
       right: 15px;
-      top : 3%;
+      top : 1.5%;
     }
     animation: bounce 0.3s;
     border-radius: 10px;  
@@ -154,7 +204,7 @@ export default {
       position: absolute;
       font-size:32px;
       width: 80%;
-      top:3%;
+      top:1%;
       left:10%;
       text-align: center;
     }
@@ -165,9 +215,9 @@ export default {
       font-size:20px;
       width: 30%;
       color: black;
-      top:14%;
-      left:10%;
-      text-align: center;
+      top:12%;
+      left:3%;
+      text-align: left;
     }
     & .date{
       overflow: hidden;
@@ -176,18 +226,22 @@ export default {
       font-size:20px;
       color:black;
       width: 30%;
-      top:14%;
-      left:60%;
-      text-align: center;
+      top:12%;
+      left:50%;
+      text-align: left;
+      padding-left:3%;
+      border-left: 1.5px solid;
+      border-color: #EEEEEE;
     }
     & .question{
       position: absolute;
       font-size:14px;
       color:black;
       width: 90%;
-      top:26%;
+      top:24%;
       outline-style: none;
       left:5%;
+      text-align: center;
       }
     & .answer{
       position: absolute;
@@ -197,7 +251,7 @@ export default {
       top:35%;
       left:5%;
       overflow: auto;
-      height: 30%;
+      height: 26%;
       border: 1px solid rgb(247, 202, 201);
       outline-style: none;
       border-radius: 5px;
@@ -223,7 +277,7 @@ export default {
       outline-style: none;
       left:5%;
       overflow: auto;
-      height: 25%;
+      height: 26%;
       border: 1px solid rgb(247, 202, 201);
       border-radius: 5px;
       padding: 1%;
