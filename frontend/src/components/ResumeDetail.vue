@@ -4,18 +4,17 @@
   <div class="modal" >
     <!-- 수정할 때만 바꿀 수 있다 -->
     <div v-if="editing">
-      <img disabled src="@/assets/pets.png" class="PFP" v-if="pass">
+      <img src="@/assets/pass(2).png" class="PFP" v-if="pass">
       <img src="@/assets/no_pets.png" class="PF" v-else>  
     </div>
     <div v-else>
-      <img src="@/assets/pets.png" class="PFP" v-if="pass" @click="editing ? pass = pass : pass = !pass">
+      <img src="@/assets/pass(2).png" class="PFP" v-if="pass" @click="editing ? pass = pass : pass = !pass">
       <img src="@/assets/no_pets.png" class="PF" v-else @click="editing ? pass = pass : pass = !pass"> 
     </div>
   <!-- <v-btn class="PF" v-if="editing" small fab dark color="success" >
     <v-icon dark>check</v-icon>
   </v-btn> -->
   <!-- <v-checkbox v-else v-model="pass" class="mx-2 PFC" value="합격" label="서류합격" hide-details></v-checkbox> -->
-
   <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark>
     <v-icon dark>edit</v-icon>
   </v-btn>
@@ -26,8 +25,13 @@
     <v-icon color="white">delete</v-icon>
   </v-btn>
   <div>
+    <div class="titleback"></div>
     <div v-if="editing" class="company">{{ com }}</div>
     <div v-else class="company"><input type="text" class="input" v-model="com"></div>
+    <hr class="hr1">
+    <hr class="hr2">
+    <hr class="hr3">
+    <hr class="hr4">
   </div>
   <div>
     <div v-if="editing" class="task">{{ ta }}</div>
@@ -36,10 +40,11 @@
   <div>
     <div v-if="editing" class="date">{{ da }}</div>
     <div v-else class="date"><v-select :items="resume_date_list" v-model="date"></v-select></div>
+  <p class="p1">질문</p>
+  <p class="p2">답변</p>
   </div>
-  <br>
   <div>
-    <div v-if="editing"><textarea readonly v-model="question" class="question" id=""></textarea></div>
+    <div v-if="editing"><textarea readonly v-model="question" class="question"></textarea></div>
     <div v-else><textarea v-model="que" class="question"></textarea></div>
   </div>
   <div>
@@ -186,11 +191,61 @@ export default {
 
 <style lang="scss">
 .rsdetail{
+  position: relative;
+  .p{
+    &1{
+      width: 100%;
+      font-size: 12px;
+      padding-left: 1%;
+      text-align: left;
+      position: absolute;
+      top:22%;
+    }
+    &2{
+      width: 100%;
+      font-size: 12px;
+      left: 1%;
+      text-align: left;
+      position: absolute;
+      top:35%;
+
+    }
+  }
   .theme--dark.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined){
     background-color: #92A8D1;
   }
   .theme--light.v-btn:not(.v-btn--flat):not(.v-btn--text):not(.v-btn--outlined){
     background-color: #F7CAC9;
+  }
+  .hr{
+    &1{
+      position: absolute;
+      width: 100%;
+      top:11.2%;
+    }
+    &2{
+      position:absolute;
+      width: 100%;
+      top:21%;
+      color: #cacaca;
+    }
+    &3{
+      position:absolute;
+      width: 100%;
+      top:34%;
+      color: #cacaca;
+    }
+    &4{
+      position:absolute;
+      width: 100%;
+      top:82%;
+      color: #cacaca;
+    }
+  }
+  .titleback{
+    width: 100%;
+    height: 72px;
+    background: #E8F5FF;
   }
 
   & .dig{
@@ -205,7 +260,7 @@ export default {
     resize: none;
   }
   & input {
-    text-align: center;
+    text-align: left;
   }
   position: relative;
   z-index: 29;
@@ -230,22 +285,22 @@ export default {
       position: absolute;
       z-index: 32;
       right: 65px;
-      top : 3%;
+      top : 2%;
     }
     & .delete{
       position: absolute;
       z-index: 32;
       right: 15px;
-      top : 3%;
+      top : 2%;
     }
     animation: bounce 0.3s;
     border-radius: 10px;  
     position: fixed;
-    top: 10%;
+    top: 12.5%;
     left: 15%;
     background: white;
     width: 70%;
-    height: 80%;
+    height: 75%;
     overflow: hidden;
     & .company{
       overflow: hidden;
@@ -253,7 +308,7 @@ export default {
       position: absolute;
       font-size:32px;
       width: 80%;
-      top:3%;
+      top:2%;
       left:10%;
       text-align: center;
     }
@@ -264,9 +319,9 @@ export default {
       font-size:20px;
       width: 30%;
       color: black;
-      top:14%;
-      left:10%;
-      text-align: center;
+      top:13.5%;
+      left:3%;
+      text-align: left;
     }
     & .date{
       overflow: hidden;
@@ -275,33 +330,34 @@ export default {
       font-size:20px;
       color:black;
       width: 30%;
-      top:14%;
-      left:60%;
-      text-align: center;
+      top:13.5%;
+      left:52%;
+      text-align: left;
+      padding-left:3%;
+      border-left: 1.5px solid;
+      border-color: #EEEEEE;
     }
     & .question{
       position: absolute;
       font-size:14px;
       color:black;
-      width: 90%;
+      width: 95%;
       top:26%;
       outline-style: none;
-      left:5%;
-      text-align: center;
+      left:2%;
+      text-align: left;
       
       }
     & .answer{
       position: absolute;
       font-size:14px;
       color:black;
-      width: 90%;
+      width: 97%;
       outline-style: none;
-      top:38%;
-      left:5%;
+      top:37%;
+      left:1%;
       overflow: auto;
       height: 43%;
-      border: 1px solid #92A8D1;
-      border-radius: 5px;
       padding: 1%;
       // text-align: center;
       
@@ -332,7 +388,7 @@ export default {
       font-family: Jua;
       position: absolute;
       right: 5%;
-      bottom: 5%;
+      bottom: 4%;
       margin: 5px;
     }
     & .tag{
@@ -342,11 +398,11 @@ export default {
       margin-right:10px;
     }
     & .text_val{
-      font-size: 16px;
+      font-size: 11px;
       font-weight: 500;
       position: absolute;
-      right:4%;
-      top: 82%;
+      right:1%;
+      top: 83%;
     }
     .PF{
       cursor: pointer;
@@ -360,8 +416,8 @@ export default {
         position: absolute;
         width: 74px;
         height: 74px;
-        top: 1px;
-        left: 13px;
+        top: 0px;
+        left: 11px;
       }
     }
   }
@@ -371,6 +427,7 @@ export default {
   border-bottom:solid 1px #cacaca;
   border-collapse:collapse;
   width:100%; height:100%;}
+  
 .v-input{
   padding-top:0px;
 }
