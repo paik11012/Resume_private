@@ -136,9 +136,11 @@ export default {
     position: absolute;
     width: 89%;
     top: 26%;
+    font-family:'Nanum Square';
   }
   .anw{
     position: absolute;
+    font-family:'Nanum Square';
     width: 89%;
     top:47%;
   }
@@ -149,12 +151,14 @@ export default {
     width: 89%;
     text-align: center;
     margin-bottom: 2px;
+    font-family:'Nanum Square';
   }
   .task{
     position: absolute;
     width: 89%;
     font-size: 16px;
     top:13%;
+    font-family:'Nanum Square';
   }
   .date{
     position: absolute;
@@ -162,6 +166,7 @@ export default {
     width: 89%;
     top:19%;
     color: rgb(145,145,145);
+    font-family:'Nanum Square';
   }
   #question{
     position: absolute;
@@ -172,6 +177,7 @@ export default {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    font-family:'Nanum Square';
   }
   .myans{
     position: absolute;
@@ -182,6 +188,7 @@ export default {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    font-family:'Nanum Square';
   }
   .editans{
     position: absolute;
@@ -192,11 +199,13 @@ export default {
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    font-family:'Nanum Square';
   }
   .mem{
     position: absolute;
     width: 89%;
     top:73%;
+    font-family:'Nanum Square';
   }
 
 </style>

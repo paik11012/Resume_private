@@ -105,8 +105,6 @@ export default {
       this.rsdt = false
       var a = document.querySelector('html')
       a.style.overflowY="scroll"
-      console.log("닫혀라");
-      console.log(this.rsdt);
       this.$emit('cldt')
     },
     reload(){
@@ -156,6 +154,7 @@ export default {
     width: 90%;
     position: absolute;
     top:4%;
+    font-family:'Nanum Square';
     font-size: 20px;
     margin-bottom: 2px;
   }
@@ -167,6 +166,7 @@ export default {
   & .task{
     width: 90%;
     position: absolute;
+    font-family:'Nanum Square';
     top: 15%;
     font-size: 16px;
   }
@@ -175,6 +175,7 @@ export default {
     top: 23%;
     position: absolute;
     font-size: 13px;
+    font-family:'Nanum Square';
     color: rgb(145,145,145);
     margin-bottom: 10px;
   }
@@ -182,6 +183,7 @@ export default {
     width: 90%;
     top: 32%;
     position: absolute;
+    font-family:'Nanum Square';
     }
 
   & #r_question{
@@ -194,11 +196,13 @@ export default {
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    font-family:'Nanum Square';
   }
   & .A{
     width: 90%;
     top: 56%;
     position: absolute;
+    font-family:'Nanum Square';
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
   }
@@ -208,6 +212,7 @@ export default {
     position: absolute;
     font-size: 15px;
     margin-bottom: 10px;
+    font-family:'Nanum Square';
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -218,6 +223,7 @@ export default {
     right: 2%;
     position: absolute;
     font-size: 15px;
+    font-family:'Nanum Square';
   }
   .passcheck{
     width: 30px;

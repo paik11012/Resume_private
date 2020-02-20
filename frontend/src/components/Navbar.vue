@@ -73,4 +73,9 @@ export default {
 
 <style lang="scss">
   @import "@/assets/scss/navbar.scss";
+  .passcheck{
+    width:11%;
+    height: 11%;
+    margin-left:50px;
+  }
 </style>

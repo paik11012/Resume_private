@@ -192,11 +192,13 @@ export default {
   border-style:none;
   // border-bottom:solid 1px #cacaca;
   border-collapse:collapse;
+  font-family:'Nanum Square';
   width:100%; height:100%;}
   
 .awardcard{
   .v-file-input__text{
     visibility: visible;
+    font-family:'Nanum Square';
   }
 }
 
