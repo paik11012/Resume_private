@@ -25,6 +25,7 @@
         :resume_date="sresumes[i-1].resume.resume_date"
         :tag_name="sresumes[i-1].tag_name"
         :tag_names="sresumes[i-1].tag_names"
+        :pass="sresumes[i-1].resume.resume_pass"
       ></Resume>
     </transition-group>
     </v-flex>
@@ -100,6 +101,7 @@ export default {
     getResume: function() {
       API.get('/resume')
       .then(response => {
+        console.log(response);
         
         this.resumes = response.data 
         this.sresumes = this.resumes

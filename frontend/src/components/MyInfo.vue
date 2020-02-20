@@ -195,6 +195,7 @@ export default {
           setTimeout(() => {
             this.setMyPicFromDB()
           }, 100);
+          this.$emit('myinfo')
         })
         .catch(error => {
           console.log(error);

@@ -11,7 +11,7 @@
               <div class="title-item" @click="myexp">Experience</div>
             </v-layout>
             <transition name="bounce">
-              <myinfo id="rcorners2" v-if="showme" />
+              <myinfo id="rcorners2" v-if="showme" @myinfo="mypage = true" />
             </transition>
             <transition name="bounce">
               <crecarde v-if="showcre" id="rcorners2" @create="upload"/>
@@ -191,6 +191,7 @@ export default {
   },
   data() {
     return {
+      mypage:false,
       showcree:false,
       drawer: null,
       showme: false,
