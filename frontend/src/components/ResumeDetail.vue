@@ -267,12 +267,8 @@ export default {
     font-family:'Nanum Square';
   }
   & input {
-<<<<<<< HEAD
     text-align: left;
-=======
-    text-align: center;
     font-family:'Nanum Square';
->>>>>>> 871a3656ead7dc1be01a391a42d073bf218f003f
   }
   position: relative;
   z-index: 29;
@@ -332,16 +328,10 @@ export default {
       font-size:20px;
       width: 30%;
       color: black;
-<<<<<<< HEAD
       top:13.5%;
       left:3%;
       text-align: left;
-=======
       font-family:'Nanum Square';
-      top:14%;
-      left:10%;
-      text-align: center;
->>>>>>> 871a3656ead7dc1be01a391a42d073bf218f003f
     }
     & .date{
       overflow: hidden;
