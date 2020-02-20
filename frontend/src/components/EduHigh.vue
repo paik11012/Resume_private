@@ -114,7 +114,11 @@ export default {
 }
 .input{
   border-style:none;
+  font-family:'Nanum Square';
   // border-bottom:solid 1px #cacaca;
   border-collapse:collapse;
   width:100%; height:100%;}
+td{
+  font-family:'Nanum Square';
+}
 </style>

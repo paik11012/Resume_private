@@ -209,9 +209,11 @@ export default {
   }
   & textarea{
     resize: none;
+    font-family:'Nanum Square';
   }
   & input {
     text-align: center;
+    font-family:'Nanum Square';
   }
   position: relative;
   z-index: 29;
@@ -258,6 +260,7 @@ export default {
       height: 9%;
       position: absolute;
       font-size:32px;
+      font-family:'Nanum Square';
       width: 80%;
       top:3%;
       left:10%;
@@ -270,6 +273,7 @@ export default {
       font-size:20px;
       width: 30%;
       color: black;
+      font-family:'Nanum Square';
       top:14%;
       left:10%;
       text-align: center;
@@ -278,6 +282,7 @@ export default {
       overflow: hidden;
       height: 5%;
       position: absolute;
+      font-family:'Nanum Square';
       font-size:20px;
       color:black;
       width: 30%;

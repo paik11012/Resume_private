@@ -38,7 +38,7 @@
             <div style="margin:0px;">
               <label>Tags</label>
             </div>
-            <v-checkbox v-model="pass" class="mx-2 PF" value="합격" label="서류합격" hide-details></v-checkbox>
+            <v-checkbox v-model="pass" class="mx-2 PF" value="true" label="서류합격" hide-details></v-checkbox>
             <v-row class="dig">
               <v-col cols="12" sm="3" md="3" style="padding:1px">
                 <v-checkbox v-model="tag_name" class="mx-2" value="신뢰" label="신뢰" hide-details></v-checkbox>
@@ -143,7 +143,7 @@ export default {
   },
   data() {
     return {
-      pass:false,
+      pass: false,
       searchpick:true,
       loading:true,
       resume_company:null,
@@ -210,6 +210,7 @@ export default {
     },
     writeResume() {
       var resume_info = {
+        "resume_pass": Boolean(this.pass),
         "resume_company" : this.resume_company,
         "resume_task" : this.resume_task,
         "resume_date" : this.resume_date,
@@ -247,7 +248,11 @@ export default {
       })
     }
   },
-  
+  pass() {
+    if (this.pass == false) {
+      return this.pass = true;
+    }
+   }
   },
 }
 </script>
@@ -287,7 +292,9 @@ export default {
 i{
   z-index: 22; 
 }
-
+ label{
+  font-family:'Nanum Square';
+ }
 .mb-6{
   & v-btn & v-col {
     font-family: 'Jua';

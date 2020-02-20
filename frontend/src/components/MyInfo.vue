@@ -245,6 +245,7 @@ export default {
 }
 .v-file-input__text{
   visibility: hidden;
+  font-family:'Nanum Square';
 }
 #btn-upload{
   width: 150px;
@@ -258,7 +259,9 @@ export default {
   background: #007bff;
   border-radius: 5px;
 }
-
+td{
+  font-family:'Nanum Square';
+}
 .mdi-close{
   position: absolute;
   left: 30px;
@@ -287,6 +290,7 @@ export default {
 
 .input{
   border-style:none;
+  font-family:'Nanum Square';
   // border-bottom:solid 1px #cacaca;
   border-collapse:collapse;
   width:100%; height:100%;}
