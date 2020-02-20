@@ -137,7 +137,6 @@ a{
         animation: fadein 1s;
         font-weight: 500;
         color:white;
-        filter: blur(1px);
         left: 15%;
         bottom: 10%;
       }
@@ -149,7 +148,6 @@ a{
       top : 10%;
       &on{  
         width: 60vh;
-        filter: blur(1px);
         animation: fadein 1s;
         color: white;
         font-weight: 600;

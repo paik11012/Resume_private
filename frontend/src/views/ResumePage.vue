@@ -13,18 +13,17 @@
   <v-row justify="center">
 
     <!-- modal 시작 -->
-    <v-dialog v-model="dialog" :persistent="true" max-width="80%" max-height="80%" style="z-index:32; position:relative">
+    <v-dialog v-model="dialog" :persistent="true" max-width="70%" max-height="80%" style="z-index:32; position:relative">
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
       <v-card> <!-- body -->
       <v-icon @click="dialog = !dialog">mdi-close</v-icon>
         <v-card-title class="justify-center">
           <span id="headline" style="margin-top:0px;">Write a Resume</span>
         </v-card-title>
-          <hr style="width: 100%;">
         <v-card-text style="padding-bottom:0;">
           <v-container style="padding-bottom:0;">
             <v-row justify="center" >
-              <v-col cols="12" sm="9" md="9" style="padding-bottom:0; padding-top:0">
+              <v-col cols="12" sm="4" md="4" style="padding-bottom:0; padding-top:0">
               <v-text-field v-model="resume_company" label="회사명" required
               ></v-text-field>
               </v-col>
@@ -33,7 +32,7 @@
               ></v-text-field>
               </v-col>
               <v-col cols="12" sm="4" md="4" style="padding-bottom:0; padding-top:0">
-              <v-select :items="resume_date_list" placeholder="지원시기"></v-select>
+              <v-select :items="resume_date_list" v-model="resume_date" placeholder="지원시기"></v-select>
               </v-col>
             </v-row>
             <div style="margin:0px;">
@@ -258,7 +257,7 @@ export default {
 }
 .v-dialog{
   .v-input--selection-controls{
-    margin-top: 0px;
+    margin-top: 2px;
   }
   .v-icon.v-icon{
     position: absolute;
@@ -266,17 +265,15 @@ export default {
     right: 1%;
     cursor: pointer;
   }
+  .v-icon{
+    z-index: 0;
+  }
+  .v-input--selection-controls__ripple{
+    z-index: 3;
+  }
 }
 #write{
   margin-left:85% !important
-}
-.dig{
-  & .v-icon{
-    z-index: 0;
-  }
-  & .v-input--selection-controls__ripple{
-    z-index: 3;
-  }
 }
 .corner{
   position: fixed;
@@ -323,4 +320,7 @@ i{
   top: 2%;
 }
 
+.v-list-item__title{
+  font-size: 1em;
+}
 </style> 

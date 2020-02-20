@@ -36,6 +36,7 @@
     :answer="resume_answer"
     :tags="tagn"
     :text_val="resume_answer.length"
+    :res_pass="pass"
     @upload="hihi"
     @clsrsd="closedetail"
     @deleteresume="reload"
@@ -62,7 +63,13 @@ export default {
     text_val : {type: Number},
     resume_date : {type: String},
     created_at : {type: String},
+    pass : {type:Boolean},
   },
+  created(){
+    console.log("이력서 시작");
+    
+  }
+  ,
   data() {
     return {
       showmenu: false,
@@ -72,13 +79,15 @@ export default {
     };
   },
   mounted(){
+    console.log(this.pass);
+    
   },
   methods: {
     hihi(val){
       console.log("hihi");
       console.log(val);
       this.tagn = val
-      
+      this.rsdt = false
     },
     input(value){
       this.showmenu = value
@@ -93,9 +102,11 @@ export default {
       console.log(this.resume_id);
     },
     closedetail(){
+      this.rsdt = false
       var a = document.querySelector('html')
       a.style.overflowY="scroll"
-      this.rsdt = false
+      console.log("닫혀라");
+      console.log(this.rsdt);
       this.$emit('cldt')
     },
     reload(){

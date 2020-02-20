@@ -11,6 +11,7 @@
     >
       <transition-group name="list">
         <Interview  @del="del_detail"
+        @reload="reload"
           v-bind:key="i"
           class="layout justify-center ma-3"
           v-if="sec >= i"
@@ -52,6 +53,10 @@ export default {
       console.log("삭제");
       var a = document.querySelector('html')
       a.style.overflowY="scroll"
+      this.getInterView()
+    },
+    
+    reload(){
       setTimeout(() => {
         this.getInterView()
       }, 100);
