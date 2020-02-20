@@ -1,9 +1,13 @@
 <template >
   <div
-    class="full layout col align-center main" style="position:relative;"
+    class="full layout col align-center main"
     :class="{'justify-end' : phone, 'justify-center' : !phone}"
   >
-  
+  <img src="../assets/p.png" class="cat">
+  <img src="../assets/speech-bubble.png" class="chat">
+  <img src="../assets/title.png" class="title">
+  <img src="../assets/menta.png" class="ment">
+  <div class="light_box" v-if="backon"></div>
         <transition name="fadein">
           <div class="back" v-if="backon | loginModalOpen | signupModalOpen" @mouseover="back"></div>
         </transition>
@@ -152,25 +156,64 @@ export default {
 <style lang="scss">
 @import "@/assets/scss/mainpage.scss";
 .main{
-  & .logbtn{
-    position: absolute;
-    top:12%;
+  // .light_box{
+  //   position: fixed;
+  //   z-index: 999;
+  //   top:30%;
+  //   left:62%;
+  //   background-color: white;
+  //   width: 29%;
+  //   height: 45%;
+  //   border-radius: 10%;
+  //   filter: blur(5px);
+  //   animation: fadein 1s;
+  // }
+  .ment{
+    position: fixed;
+    top:-2%;
+    width: 60%;
+    height: 70%;
+    left: 8%;
+  }
+  .title{
+    z-index: 29;
+    position: fixed;
+    top: -3%;
+    right: 7%;
+  }
+  .chat{
+    position:fixed;
+    width:50%;
+    height: 35%;
+    top: 5%;
     left: 15%;
+    transform: scale3d(-1,1,1)
+  }
+  .cat{
+    z-index: 29;
+    position: fixed;
+    top:15%;
+    right:12%;
+  }
+  position: relative;
+  & .logbtn{
+    position: fixed;
+    top:30%;
+    left: 22%;
     &on{
-      position: absolute;
-      top:12%;
-      left: 15%;
+      position: fixed;
+      top:30%;
+    left: 22%;
     }
   }
   & .signbtn{
-    position:absolute;
-    top:53%;
-    right: 15%;
+    position:fixed;
+    top:55%;
+    left: 22%;
     &on{
-      position: absolute;
-      top:53%;
-      right: 15%;
-      color:white;
+      position: fixed;
+       top:55%;
+    left: 22%;
     }
   }
 }
