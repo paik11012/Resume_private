@@ -231,6 +231,7 @@ export default {
     position: absolute;
     top:2%;
     left:2%;
+    margin: 0;
 
   }
   .slide{

@@ -250,9 +250,9 @@ export default {
   }
   .titleback{
     width: 100%;
-    height: 72px;
+    height: 64px;
     background: #E8F5FF;
-  }
+  }d
 
   & .dig{
     & .v-icon{
@@ -331,7 +331,6 @@ export default {
       top:13.5%;
       left:3%;
       text-align: left;
-      font-family:'Nanum Square';
     }
     & .date{
       overflow: hidden;
