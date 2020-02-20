@@ -3,6 +3,7 @@
   <div class="resumeCard layout justify-center" @click="opendetail" >
   <transition name="slide">
   <div class="full" oncontextmenu="return false">
+
     <div class="company">{{(resume_company.length>10) ? resume_company.slice(0,10)+'...' : resume_company}}</div>
     <hr>
     <div class="task">{{(resume_task.length>15) ? resume_task.slice(0,15)+'...' : resume_task}}</div>
@@ -148,6 +149,9 @@ export default {
     padding: 0;
     position: absolute;
     bottom: 5%;
+  }
+  & .stamp{
+    position: absolute;
   }
   & .company{
     width: 90%;
