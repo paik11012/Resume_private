@@ -156,8 +156,8 @@ export default {
   }
   .titleback{
     width: 100%;
-    height: 62px;
-    background-color: #FAD1D1;
+    height: 58px;
+    background-color: rgb(245,246,251);
   }
 
   textarea{
