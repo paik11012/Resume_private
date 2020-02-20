@@ -36,6 +36,7 @@
     :answer="resume_answer"
     :tags="tagn"
     :text_val="resume_answer.length"
+    :res_pass="pass"
     @upload="hihi"
     @clsrsd="closedetail"
     @deleteresume="reload"
@@ -62,6 +63,7 @@ export default {
     text_val : {type: Number},
     resume_date : {type: String},
     created_at : {type: String},
+    pass : {type:Boolean},
   },
   created(){
     console.log("이력서 시작");
@@ -77,6 +79,8 @@ export default {
     };
   },
   mounted(){
+    console.log(this.pass);
+    
   },
   methods: {
     hihi(val){

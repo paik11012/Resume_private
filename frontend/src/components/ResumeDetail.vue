@@ -2,8 +2,8 @@
 <div class="rsdetail">
   <div class="modalbox" @click="closing"></div>
   <div class="modal" >
-  <img src="@/assets/pets.png" class="PFP" v-if="pass" @click="pass=!pass">
-  <img src="@/assets/no_pets.png" class="PF" v-else @click="pass=!pass">
+  <img src="@/assets/pets.png" class="PFP" v-if="pass" @click="editing ? pass = pass : pass = !pass">
+  <img src="@/assets/no_pets.png" class="PF" v-else @click="editing ? pass = pass : pass = !pass">
   <!-- <v-btn class="PF" v-if="editing" small fab dark color="success" >
     <v-icon dark>check</v-icon>
   </v-btn> -->
@@ -94,11 +94,12 @@ export default {
     answer:{type:String},
     tags:{type:Array},
     text_val:{type:Number},
+    res_pass:{type:Boolean},
   },
 
   data(){
     return {
-      pass:false,
+      pass:this.res_pass,
       editing:true,
       modalop: false,
       id: this.resume_id,
