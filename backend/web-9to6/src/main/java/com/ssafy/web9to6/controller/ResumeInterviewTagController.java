@@ -172,17 +172,8 @@ public class ResumeInterviewTagController {
     public Interview updateInterview(HttpServletRequest request, @RequestBody InterviewResponseDto rrd) {
         String user_id =  request.getHeader("user_id");
         rrd.setUser(us.findById(user_id));
-        return is.save(rrd);
+        return is.update(is.findById(rrd.getId()), rrd.toEntity());
     }
-
-    @ApiOperation("면접 수정")
-    @RequestMapping(value = "/pdf", method = RequestMethod.GET)
-    public void get() {
-//      PdfService ser = new PdfService();
-
-//      ser.createPdf();
-    }
-
 
     @ApiOperation("자소서/이력서 갯수")
     @GetMapping("/interview/getLength")

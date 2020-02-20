@@ -3,7 +3,7 @@
   <div class="resumeCard layout justify-center" @click="opendetail" >
   <transition name="slide">
   <div class="full" oncontextmenu="return false">
-
+    <img src="../assets/pass.png" class="passcheck" v-if="pass">
     <div class="company">{{(resume_company.length>10) ? resume_company.slice(0,10)+'...' : resume_company}}</div>
     <hr>
     <div class="task">{{(resume_task.length>15) ? resume_task.slice(0,15)+'...' : resume_task}}</div>
@@ -85,10 +85,9 @@ export default {
   },
   methods: {
     hihi(val){
-      console.log("hihi");
-      console.log(val);
       this.tagn = val
       this.rsdt = false
+      this.$emit('reload')
     },
     input(value){
       this.showmenu = value
@@ -220,8 +219,14 @@ export default {
     position: absolute;
     font-size: 15px;
   }
-  
-  
+  .passcheck{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top:2%;
+    left:2%;
+
+  }
   .slide{
     animation: slide_l 0.6s
   }

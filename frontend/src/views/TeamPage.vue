@@ -168,14 +168,27 @@ export default {
 
 @keyframes spin {
     0%  {transform: scale3d(1,1,1);}
+    50%  {transform: scale3d(0,1,1);}
     100%  {transform: scale3d(0,1,1);}
 }
+@keyframes spin_re{
+  0%{
+    transform: scale3d(0,1,1)
+  }
+  50%{
+    transform: scale3d(0,1,1)
+  }
+  100%{
+    transform: scale3d(1,1,1)
+  }
+}
+
 
 .teams-enter-active{
-  animation: spin .8s reverse;
+  animation: spin_re .6s;
 }
 
 .teams-leave-active{
-  animation: spin .8s;
+  animation: spin .6s;
 }
 </style>

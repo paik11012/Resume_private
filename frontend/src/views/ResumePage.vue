@@ -252,6 +252,9 @@ export default {
 }
 </script>
 <style lang="scss">
+.v-btn__content{
+  top:2px;
+}
 .res_page{
   margin-top: 80px;
 }

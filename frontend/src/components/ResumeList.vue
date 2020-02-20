@@ -13,6 +13,7 @@
     <transition-group name="list" >
       <Resume @del="del_detail"
         @cldt="rere"
+        @reload="getResume()"
         v-bind:key="i"
         v-if="sec >= i"
         class="ma-3 layout justify-center"
@@ -102,7 +103,6 @@ export default {
       API.get('/resume')
       .then(response => {
         console.log(response);
-        
         this.resumes = response.data 
         this.sresumes = this.resumes
         this.$emit("load")

@@ -4,7 +4,7 @@
       <thead>
         <tr>
           <th colspan="5" v-if="editing" style="font-size:20px; font-family:Jua">{{award_title}}</th>
-          <th v-else style="font-size:20px; font-family:Jua" colspan="6"><input type="text" v-model="award_title"></th>
+          <th v-else style="font-size:20px; font-family:Jua" colspan="6"><input type="text" v-model="award_title" placeholder="Award/Licence"></th>
           <th class="layout hold" style="padding:0">
             <v-btn @click="editor" v-if="editing" small fab dark color="cyan" class="edu_write">
               <v-icon>edit</v-icon>
@@ -22,22 +22,22 @@
         <tr>
           <td width="150px">발급기관</td>
           <td v-if="editing" colspan="2">{{ award_org }}</td>
-          <td v-else colspan="2"><input class="input" type="text" v-model="award_org" ></td>
+          <td v-else colspan="2"><input class="input" type="text" v-model="award_org" placeholder="발급기관명"></td>
         </tr>
         <tr> 
           <td width="150px">취득일자</td>
           <td v-if="editing" colspan="2">{{ award_date }}</td>
-          <td v-else colspan="2"><input class="input" type="text" v-model="award_date"></td>
+          <td v-else colspan="2"><input class="input" type="text" v-model="award_date" placeholder="ex) 2020-02-20"></td>
         </tr>
         <tr>
           <td width="150px">등급</td>
           <td v-if="editing" colspan="2">{{ award_prize }}</td>
-          <td v-else colspan="2"><input class="input" type="text" v-model="award_prize"></td>
+          <td v-else colspan="2"><input class="input" type="text" v-model="award_prize" placeholder="급/점수"></td>
         </tr>
         <tr>
           <td width="150px">세부내용</td>
           <td v-if="editing" colspan="2">{{ award_detail }}</td>
-          <td v-else colspan="2"><input class="input" type="text" v-model="award_detail" placeholder="education period"></td>
+          <td v-else colspan="2"><input class="input" type="text" v-model="award_detail" placeholder="세부내용"></td>
         </tr>
         <tr>
           <td width="150px">파일</td>

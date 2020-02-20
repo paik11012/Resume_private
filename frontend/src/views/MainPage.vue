@@ -130,12 +130,14 @@ export default {
       this.backon = true;
       setTimeout(() => {
         this.logc = false;
+        this.signc = true;
       }, 300);
     },
     signpic() {
       this.backon = true;
       setTimeout(() => {
         this.signc = false;
+        this.logc = true;
       }, 300);
     },
     back() {

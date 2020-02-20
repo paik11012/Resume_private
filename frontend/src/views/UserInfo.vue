@@ -51,6 +51,8 @@ export default {
           user_name : res.data.user_name,
           user_profile_img : res.data.user_profile_img
         }
+        console.log(userInfo);
+        
         this.user_id = userInfo.user_id;
         this.user_phone = userInfo.user_phone;
         this.user_name = userInfo.user_name;
