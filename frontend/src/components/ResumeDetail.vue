@@ -250,8 +250,8 @@ export default {
   }
   .titleback{
     width: 100%;
-    height: 72px;
-    background: #E8F5FF;
+    height: 62px;
+    background: rgb(245,246,251);
   }
 
   & .dig{
@@ -409,7 +409,7 @@ export default {
       margin-right:10px;
     }
     & .text_val{
-      font-size: 11px;
+      font-size: 15px;
       font-weight: 500;
       position: absolute;
       right:1%;
@@ -420,14 +420,14 @@ export default {
       position: absolute;
       width: 45px;
       height: 45px;
-      top: 15px;
+      top: 8px;
       left: 15px;
       &P{
         cursor: pointer;
         position: absolute;
         width: 74px;
         height: 74px;
-        top: 0px;
+        top: -7px;
         left: 11px;
       }
     }
