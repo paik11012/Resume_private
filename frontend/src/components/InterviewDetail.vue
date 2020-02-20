@@ -14,6 +14,8 @@
   <div class="titleback"></div>
   <hr class="hr1">
   <hr class="hr2">
+  <hr class="hr3">
+  <hr class="hr4">
   <p class="p1">질문</p>
   <p class="p2">답변</p>
   <p class="p3">메모</p>
@@ -130,28 +132,41 @@ export default {
       width:100%;
       top:19%;
       }
+    &3{      
+      position: absolute;
+      width:100%;
+      top:32%;
+    }
+    &4{      
+      position: absolute;
+      width:100%;
+      top:62%;
+    }
   }
   .p{
     &1{
       position: absolute;
       font-size: 11px; 
       width:100%;
-      text-align: center;
+      text-align: left;
       top:21%;
+      left: 2%;
     }
     &2{
       position: absolute;
       font-size: 11px; 
       width:100%;
-      text-align: center;
-      top:31.5%;
+      text-align: left;
+      top:34%;
+      left: 2%;
     }
     &3{
       position: absolute;
       font-size: 11px; 
       width:100%;
-      text-align: center;
-      top:66%;
+      text-align: left;
+      top:64%;
+      left: 2%;
     }
   }
   .titleback{
@@ -240,19 +255,18 @@ export default {
       width: 90%;
       top:24%;
       outline-style: none;
-      left:5%;
-      text-align: center;
+      left:3.5%;
+      text-align: left;
       }
     & .answer{
       position: absolute;
       font-size:14px;
       color:black;
-      width: 90%;
-      top:35%;
-      left:5%;
+      width: 95%;
+      top:35.5%;
+      left:2.5%;
       overflow: auto;
       height: 26%;
-      border: 1px solid rgb(247, 202, 201);
       outline-style: none;
       border-radius: 5px;
       padding: 1%;
@@ -272,14 +286,12 @@ export default {
       position: absolute;
       font-size:14px;
       color:black;
-      width: 90%;
-      top: 70%;
+      width: 95%;
+      top: 65.5%;
       outline-style: none;
-      left:5%;
+      left:2.5%;
       overflow: auto;
       height: 26%;
-      border: 1px solid rgb(247, 202, 201);
-      border-radius: 5px;
       padding: 1%;
       // text-align: center;
       }

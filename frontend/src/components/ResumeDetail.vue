@@ -227,25 +227,22 @@ export default {
     &1{
       position: absolute;
       width: 100%;
-      top:11.2%;
+      top:11.1%;
     }
     &2{
       position:absolute;
       width: 100%;
       top:21%;
-      color: #cacaca;
     }
     &3{
       position:absolute;
       width: 100%;
       top:34%;
-      color: #cacaca;
     }
     &4{
       position:absolute;
       width: 100%;
       top:82%;
-      color: #cacaca;
     }
   }
   .titleback{
@@ -419,22 +416,14 @@ export default {
       position: absolute;
       width: 45px;
       height: 45px;
-<<<<<<< HEAD
       top: 1.5%;
-=======
-      top: 8px;
->>>>>>> 7c6e6eaa7047aba0df55f1e6d217268c97889ddf
       left: 15px;
       &P{
         cursor: pointer;
         position: absolute;
         width: 74px;
         height: 74px;
-<<<<<<< HEAD
         top: -1%;
-=======
-        top: -7px;
->>>>>>> 7c6e6eaa7047aba0df55f1e6d217268c97889ddf
         left: 11px;
       }
     }
