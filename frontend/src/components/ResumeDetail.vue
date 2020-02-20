@@ -227,25 +227,22 @@ export default {
     &1{
       position: absolute;
       width: 100%;
-      top:11.2%;
+      top:11.1%;
     }
     &2{
       position:absolute;
       width: 100%;
       top:21%;
-      color: #cacaca;
     }
     &3{
       position:absolute;
       width: 100%;
       top:34%;
-      color: #cacaca;
     }
     &4{
       position:absolute;
       width: 100%;
       top:82%;
-      color: #cacaca;
     }
   }
   .titleback{
