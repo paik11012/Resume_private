@@ -72,21 +72,23 @@ export default {
   },
   methods:{
     editDone(){
-        if(this.user_password==this.user_password_re){
-          var filename = '';
+      if(this.user_password==this.user_password_re){
+        var filename = '';
           if(this.selectedFile.name=='' | this.selectedFile.name==null) filename = this.user_profile_img
           else filename = this.selectedFile.name
 
           var data = {
-              user_id : this.user_id,
+            user_id : this.user_id,
               user_password : this.user_password,
               user_name : this.user_name,
               user_phone : this.user_phone,
-              user_profile_img : filename
+              user_profile_img : filename,
+              picture: this.picture,
           }
+          this.$emit('modified', data)
           API.put("/users/update", data)
           .then(res=>{
-            console.log(res)
+            
           })
           // firebase storage에 파일 업로드 //
           var storageRef = firebase.storage().ref();
@@ -102,7 +104,6 @@ export default {
             .child(user_id + '/' + this.selectedFile.name)
             .put(this.selectedFile);
           }
-          this.$emit('modified', data)
           // data를 app.vue로 보내기
           router.replace("userinfo")
         }
@@ -159,8 +160,8 @@ export default {
       // this.new_user_profile_img = selectedFile.name
       var tmp = document.querySelector("#profile_img")
       var img_url = URL.createObjectURL(this.selectedFile)
-
       tmp.style.backgroundImage =  "url('" + img_url + "')";
+      this.picture = "url('" + img_url + "')";
     },
     user_password_re: function(user_password_re){
         if(this.user_password==user_password_re){
