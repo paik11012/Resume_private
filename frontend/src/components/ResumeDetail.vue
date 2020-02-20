@@ -28,7 +28,7 @@
   </div>
   <div>
     <div v-if="editing" class="date">{{ da }}</div>
-    <div v-else class="date"><input  class="input" type="text" v-model="da"></div>
+    <div v-else class="date"><v-select :items="resume_date_list" v-model="date"></v-select></div>
   </div>
   <br>
   <div>
@@ -111,6 +111,7 @@ export default {
       tv : this.text_val,
       tag_name: this.tags, // 수정시 태그 들어가게
       filter_one_tag: null,
+      resume_date_list:['2017 상반기', '2017 하반기', '2018 상반기', '2018 하반기', '2019 상반기', '2019 하반기', '2020 상반기', '2020 하반기', '2021 상반기', '2021 하반기'],
     }
   },
   methods:{
@@ -143,12 +144,10 @@ export default {
         "id": String(this.resume_id),  // 현재 id가 없다
         "resume_company" : this.com,
         "resume_task" : this.ta,
-        "resume_date" : this.da,
-        "resume_question" : this.question,
-        "resume_answer" : this.answer,
-        // 이부분 확인
+        "resume_date" : this.date,
+        "resume_question" : this.que,
+        "resume_answer" : this.ans,
         "resume_pass" : this.pass,
-        //
       };
       var r_data = {
           resume_info : resume_info,
@@ -163,8 +162,6 @@ export default {
         console.log(error)
       })
       this.editing = !this.editing
-      console.log("before hihi");
-      console.log(r_data.tag_name);
       this.$emit('upload',r_data.tag_name)
     },
     sendPdf() {
@@ -367,4 +364,7 @@ export default {
   border-bottom:solid 1px #cacaca;
   border-collapse:collapse;
   width:100%; height:100%;}
+.v-input{
+  padding-top:0px;
+}
 </style>
