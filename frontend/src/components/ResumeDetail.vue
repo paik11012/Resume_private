@@ -158,18 +158,15 @@ export default {
       console.log(r_data)
       API.post('resume/update', r_data)
       .then(response => {
-        console.log(response.data)
+        this.$emit('upload',r_data.tag_name)
+        this.editing = !this.editing
       })
       .catch(error => {
         console.log(error)
       })
-      this.editing = !this.editing
-      console.log("before hihi");
-      console.log(r_data.tag_name);
-      this.$emit('upload',r_data.tag_name)
     },
     sendPdf() {
-       API.get(`attach/${this.resume_id}`)
+      API.get(`attach/${this.resume_id}`)
       .then(response => {
         alert("자소서 pdf를 메일로 전송 했다옹~")
       })

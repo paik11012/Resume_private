@@ -37,10 +37,10 @@ export default {
     // refs 이용해  참조 컴포넌트의 value를 editdone.user_phone이라는 자식 컴포넌트에 할당);
       console.log(value.user_name);
       setTimeout(() => {
-      this.$refs.editdone.user_phone = value.user_phone
-      this.$refs.editdone.user_name = value.user_name
-      this.$refs.editdone.profile_img = value.profile_img
-      }, 100);
+        this.$refs.editdone.user_phone = value.user_phone
+        this.$refs.editdone.user_name = value.user_name
+        this.$refs.editdone.profile_img = value.profile_img
+      }, 2000);
     }
   }
 };
@@ -51,12 +51,12 @@ export default {
     position: fixed;
     top:15px;
     width: 100%;
-    z-index: 28;
+    z-index: 29;
   }
   .DrwBtn{
-    z-index: 28;
+    z-index: 29;
     position: fixed;
-    top: 20px;
+    top: 17px;
     left: 5px;
   }
   .backapp{

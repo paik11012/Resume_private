@@ -45,6 +45,7 @@ export default {
       selectedFile: "",
       verify_password: false,
       confirm:false,
+      picture:"",
     };
   },
   mounted() {
