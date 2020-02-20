@@ -176,8 +176,6 @@ export default {
       .catch(error => {
         console.log(error)
       })
-      this.editing = !this.editing
-      this.$emit('upload',r_data.tag_name)
     },
     sendPdf() {
       API.get(`attach/${this.resume_id}`)

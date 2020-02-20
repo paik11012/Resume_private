@@ -39,9 +39,11 @@ export default {
       user_name: "",
       user_phone:"",
       user_profile_img: "",
+      changepic:0,
     };
   },
   mounted() {
+    this.changepic = 0
       let id = sessionStorage.getItem("user_id")
       API.get(`/users/findOne/${id}`)
       .then(res => {
@@ -51,7 +53,6 @@ export default {
           user_name : res.data.user_name,
           user_profile_img : res.data.user_profile_img
         }
-        console.log(userInfo);
         
         this.user_id = userInfo.user_id;
         this.user_phone = userInfo.user_phone;
@@ -86,17 +87,29 @@ export default {
       file_input.click();
     },
     setMyPicFromDB(){
-      var storageRef = firebase.storage().ref();
-
-      // firebase storage에 파일 업로드되면 사이트에도 반영 //
-      storageRef
-      .child(sessionStorage.getItem("user_id") + "/" + this.user_profile_img)
-      .getDownloadURL()
-      .then(function(img_url) {
-        var profile_div = document.getElementById("profile_img");
-        profile_div.style.backgroundImage = "url('" + img_url + "')";
-        // profile_div.style.backgroundSize = "100% 100%";
-      });
+      console.log("DB에서 사진 가져온다");
+      if (this.changepic == 0){
+        var storageRef = firebase.storage().ref();
+  
+        // firebase storage에 파일 업로드되면 사이트에도 반영 //
+        storageRef
+        .child(sessionStorage.getItem("user_id") + "/" + this.user_profile_img)
+        .getDownloadURL()
+        .then(function(img_url) {
+          var profile_div = document.getElementById("profile_img");
+          profile_div.style.backgroundImage = "url('" + img_url + "')";
+        });
+      } else {
+        console.log("바뀌는 사진 있음!");
+        var profile_div = document.querySelector(".img-profile");
+        console.log(profile_div.style);
+        
+      }
+    },
+    ealry_load(picture){
+      this.changepic = 1
+      var profile_div = document.querySelector(".img-profile");
+      profile_div.style.backgroundImage = picture
     }
   },
 };
@@ -125,7 +138,6 @@ export default {
 }
 
 .img-profile{
-  // background:url(https://thechive.com/wp-content/uploads/2018/04/cats-sleeping-in-perfect-circles-19.jpg?quality=85&strip=info&w=600);
   background-size: 100% 100%;
   height: 200px;
   width: 200px;

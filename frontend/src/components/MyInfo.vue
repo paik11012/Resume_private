@@ -262,7 +262,7 @@ export default {
 .mdi-close{
   position: absolute;
   left: 30px;
-  top: -187px;
+  top: -176px;
 }
 
 .v-text-field__slot{

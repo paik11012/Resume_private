@@ -65,7 +65,6 @@ export default {
       award_detail:'',
       award_prize:'',
       award_date:'',
-
       selectedFile: '',
     }
   },

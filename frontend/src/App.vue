@@ -35,12 +35,14 @@ export default {
   methods: {
     editinfo(value) { // 위에서 editinfo  실행되면 data를 value로 받는다
     // refs 이용해  참조 컴포넌트의 value를 editdone.user_phone이라는 자식 컴포넌트에 할당);
-      console.log(value.user_name);
+      console.log("app에서 받음");
+      console.log("그림");
       setTimeout(() => {
         this.$refs.editdone.user_phone = value.user_phone
         this.$refs.editdone.user_name = value.user_name
-        this.$refs.editdone.profile_img = value.profile_img
-      }, 2000);
+        console.log("pic",value.picture);
+        this.$refs.editdone.ealry_load(value.picture)
+      }, 100);
     }
   }
 };
