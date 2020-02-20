@@ -250,9 +250,9 @@ export default {
   }
   .titleback{
     width: 100%;
-    height: 64px;
-    background: #E8F5FF;
-  }d
+    height: 62px;
+    background: rgb(245,246,251);
+  }
 
   & .dig{
     & .v-icon{
@@ -408,7 +408,7 @@ export default {
       margin-right:10px;
     }
     & .text_val{
-      font-size: 11px;
+      font-size: 15px;
       font-weight: 500;
       position: absolute;
       right:1%;
@@ -419,14 +419,22 @@ export default {
       position: absolute;
       width: 45px;
       height: 45px;
+<<<<<<< HEAD
       top: 1.5%;
+=======
+      top: 8px;
+>>>>>>> 7c6e6eaa7047aba0df55f1e6d217268c97889ddf
       left: 15px;
       &P{
         cursor: pointer;
         position: absolute;
         width: 74px;
         height: 74px;
+<<<<<<< HEAD
         top: -1%;
+=======
+        top: -7px;
+>>>>>>> 7c6e6eaa7047aba0df55f1e6d217268c97889ddf
         left: 11px;
       }
     }
