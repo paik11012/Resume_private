@@ -112,6 +112,7 @@ export default {
 .idetail{
   textarea{
     resize: none;
+    font-family: 'NanumSquare', sans-serif;
   }
   position: relative;
   z-index: 29;

@@ -89,7 +89,7 @@
 </template>
 
 <script>
-
+import swal from 'sweetalert';
 import API from "../services/Api"
 export default {
   props:{
@@ -129,24 +129,30 @@ export default {
     editor(){
       this.editing = !this.editing
     },
-    destroy(){
-      API.delete(`/resume/del/${this.resume_id}`)
-      .then(response => {
-        this.resumes = response.data
-        this.$emit("load")
-        for (let i = 0; i < this.resumes.length; i++) {
-          console.log("for문");
-          setTimeout(() => {
-            this.sec ++
-            console.log(this.sec);
-          }, 100*i);
+    destroy(){ 
+      swal('삭제하시겠습니까?',
+      {buttons: ['Cancel', 'Delete']})
+      .then((Delete) => {
+        if (Delete) {
+          API.delete(`/resume/del/${this.resume_id}`)
+          .then(response => {
+            this.resumes = response.data
+            this.$emit("load")
+            for (let i = 0; i < this.resumes.length; i++) {
+              console.log("for문");
+              setTimeout(() => {
+                this.sec ++
+                console.log(this.sec);
+              }, 100*i);
+            }
+          })
+          .catch(error => {
+          console.log(error)
+          })
+        this.$emit('deleteresume')
         }
       })
-      .catch(error => {
-      console.log(error)
-      })
-    this.$emit('deleteresume')
-    },
+    }, 
     editResume() {
       var resume_info = {
         "id": String(this.resume_id),  // 현재 id가 없다

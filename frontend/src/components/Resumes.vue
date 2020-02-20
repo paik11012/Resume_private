@@ -105,8 +105,6 @@ export default {
       this.rsdt = false
       var a = document.querySelector('html')
       a.style.overflowY="scroll"
-      console.log("닫혀라");
-      console.log(this.rsdt);
       this.$emit('cldt')
     },
     reload(){
