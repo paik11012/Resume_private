@@ -121,11 +121,14 @@ export default {
         this.showedu = !this.showedu;
       }, 200);
       setTimeout(() => {
-        if (this.$refs.reload.school < 1){
-          this.showcre = true
+        if(this.$refs.reload){
+          var high = JSON.parse(JSON.stringify(this.$refs.reload.high))
+          var univ = JSON.parse(JSON.stringify(this.$refs.reload.univ))
+          if (high.length + univ.length < 1){
+            this.showcre = true
+          }
         }
-        console.log(this.$refs.reload);
-      }, 250);
+      }, 400);
       
     },
     myaward(){
@@ -139,12 +142,14 @@ export default {
         this.showawd = !this.showawd
       }, 200);
       setTimeout(() => {
-        if (this.$refs.reawd.awd < 1){
-          this.showcra = true
+        if(this.$refs.reawd){
+          console.log(this.$refs.reawd.awd);
+          var awd = JSON.parse(JSON.stringify(this.$refs.reawd.awd))
+          if (awd.length < 1){
+            this.showcra = true
+          }
         }
-        console.log(this.$refs.reawd.awd);
-        
-      }, 250);
+      }, 400);
     },
     myexp(){
       this.showedu = false;
@@ -157,11 +162,14 @@ export default {
         this.showexp = !this.showexp
       }, 200);
       setTimeout(() => {
-        console.log(this.$refs.reexp.exp);
-        if (this.$refs.reexp.exp < 1){
-          this.showcree = true
-        }
-      }, 250);
+        if(this.$refs.reexp){
+          
+          var exp = JSON.parse(JSON.stringify(this.$refs.reexp.exp))
+            if (exp.length < 1){
+              this.showcree = true
+            }
+          }
+        }, 400);
     },
     create() {
       this.showcre = !this.showcre;

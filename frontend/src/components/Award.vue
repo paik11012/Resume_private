@@ -3,8 +3,8 @@
     <template v-slot:default>
       <thead>
         <tr>
-          <th colspan="5" v-if="editing" style="font-size:20px; font-family:Jua">{{award_title}}</th>
-          <th v-else style="font-size:20px; font-family:Jua" colspan="6"><input type="text" v-model="award_title" placeholder="Award/Licence"></th>
+          <th colspan="5" v-if="editing" style="font-size:20px; font-family:Jua">{{awti}}</th>
+          <th v-else style="font-size:20px; font-family:Jua" colspan="6"><input type="text" v-model="awti" placeholder="Award/Licence"></th>
           <th class="layout hold" style="padding:0">
             <v-btn @click="editor" v-if="editing" small fab dark color="cyan" class="edu_write">
               <v-icon>edit</v-icon>
@@ -21,27 +21,27 @@
       <tbody>
         <tr>
           <td width="150px">발급기관</td>
-          <td v-if="editing" colspan="2">{{ award_org }}</td>
-          <td v-else colspan="2"><input class="input" type="text" v-model="award_org" placeholder="발급기관명"></td>
+          <td v-if="editing" colspan="2">{{ awor }}</td>
+          <td v-else colspan="2"><input class="input" type="text" v-model="awor" placeholder="발급기관명"></td>
         </tr>
         <tr> 
           <td width="150px">취득일자</td>
-          <td v-if="editing" colspan="2">{{ award_date }}</td>
-          <td v-else colspan="2"><input class="input" type="text" v-model="award_date" placeholder="ex) 2020-02-20"></td>
+          <td v-if="editing" colspan="2">{{ awdt }}</td>
+          <td v-else colspan="2"><input class="input" type="text" v-model="awdt" placeholder="ex) 2020-02-20"></td>
         </tr>
         <tr>
           <td width="150px">등급</td>
-          <td v-if="editing" colspan="2">{{ award_prize }}</td>
-          <td v-else colspan="2"><input class="input" type="text" v-model="award_prize" placeholder="급/점수"></td>
+          <td v-if="editing" colspan="2">{{ awpr }}</td>
+          <td v-else colspan="2"><input class="input" type="text" v-model="awpr" placeholder="급/점수"></td>
         </tr>
         <tr>
           <td width="150px">세부내용</td>
-          <td v-if="editing" colspan="2">{{ award_detail }}</td>
-          <td v-else colspan="2"><input class="input" type="text" v-model="award_detail" placeholder="세부내용"></td>
+          <td v-if="editing" colspan="2">{{ awdet }}</td>
+          <td v-else colspan="2"><input class="input" type="text" v-model="awdet" placeholder="세부내용"></td>
         </tr>
         <tr>
           <td width="150px">파일</td>
-          <td v-if="editing" colspan="2"><span id="award_file" @click="openWindow">{{ new_award_file }}</span> <v-btn style="margin-top:6px;" color="success" outlined @click="downloadFile"><v-icon dark medium>mdi-cloud-download</v-icon></v-btn></td>
+          <td v-if="editing" colspan="2"><span id="award_file" @click="openWindow">{{ awfi }}</span> <v-btn style="margin-top:6px;" color="success" outlined @click="downloadFile"><v-icon dark medium>mdi-cloud-download</v-icon></v-btn></td>
           <td v-else colspan="2"><v-file-input v-model="selectedFile" accept="*/*" height="1.8em"/></td>
         </tr>
       </tbody>
@@ -59,7 +59,7 @@ import "firebase/storage";
 
 export default {
   props:{
-    id : {type:Number},
+    id : {type:String},
     award_org : {type:String},
     award_title : {type:String},
     award_date : {type:String},
@@ -68,13 +68,17 @@ export default {
     award_file : {type:String},
   },
   mounted(){
-    this.new_award_file = this.award_file
   },
   data(){
     return{
       editing:true,
-      new_award_file : '',
       selectedFile: '',
+      awti:this.award_title,
+      awor:this.award_org,
+      awdt:this.award_date,
+      awpr:this.award_prize,
+      awdet:this.award_detail,
+      awfi:this.award_file,
     }
   },
   methods:{
@@ -93,15 +97,15 @@ export default {
     addAward() {  // add and edit awards
       var filename = '';
       if(this.selectedFile.name!=null & this.selectedFile.name!='') filename = this.selectedFile.name
-      else filename = this.award_file
+      else filename = this.awfi
 
       var award = {
         'id': this.id,
-        'award_org' : this.award_org,
-        'award_title' : this.award_title,
-        'award_date' : this.award_date,
-        'award_detail' : this.award_detail,
-        'award_prize' : this.award_prize,
+        'award_org' : this.awor,
+        'award_title' : this.awti,
+        'award_date' : this.awdt,
+        'award_detail' : this.awdet,
+        'award_prize' : this.awpr,
         'award_file' : filename,
       }
       API.post('/awards/update', award)
