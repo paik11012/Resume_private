@@ -102,8 +102,8 @@ public class UsersController {
                 .interview_company("냥회사")
                 .interview_task("SW 개발")
                 .interview_date("2019 하반기")
-                .interview_answer("본인의 강점은 무엇인가요?")
-                .interview_question("냥냥")
+                .interview_answer("냥냥")
+                .interview_question("본인의 강점은 무엇인가요?")
                 .interview_memo("코딩 잘 한다고 할걸,,")
                 .build();
         interviewDto.setUser(user);

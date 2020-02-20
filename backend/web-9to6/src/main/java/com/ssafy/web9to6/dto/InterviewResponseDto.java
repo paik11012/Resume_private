@@ -17,6 +17,7 @@ public class InterviewResponseDto {
     private String interview_question;
     private String interview_answer;
     private String interview_memo;
+    private Long id;
 
     @Builder
     public InterviewResponseDto(Users user,String interview_memo, String interview_company, String interview_task, String interview_date, String interview_question, String interview_answer) {

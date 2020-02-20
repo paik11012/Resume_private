@@ -13,6 +13,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeUtility;
 import java.io.File;
 
 @RequiredArgsConstructor
@@ -74,19 +75,23 @@ public class EmailService {
             throw new Exception("인증 번호 발송 에러");
         }
 
+
     }
 
     public void sendPdf(Resume resume, Users user) throws Exception {
         MimeMessage message = emailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
         helper.setTo(user.getUser_id());
         helper.setSubject("[취뽀냥이]자소서가 배달왔다냥~");
         helper.setText("안녕하세요 저희는 취뽀냥이 웹페이지 입니다 \n " + user.getUser_name() +
                 " 회원님의 요청하신 자소서가 배달왔다냥~.~ \n 취뽀 화이팅 냥♡");
         if(pdfService.createPdf(resume).equals("pdf 파일 생성 성공")) {
             FileSystemResource file = new FileSystemResource(new File("file/" +resume.getId().toString()+".pdf"));
-            String title = resume.getResume_date() + "_" + resume.getResume_company();
-            helper.addAttachment(title, file);
+            String title = resume.getResume_date() + "_" + resume.getResume_company() + ".pdf";
+         //   helper.addAttachment(new String(title.getBytes("UTF-8"),"8859_1"), file);
+               helper.addAttachment( MimeUtility.encodeWord(title), file);
+
+
         }
         try {
             emailSender.send(message);

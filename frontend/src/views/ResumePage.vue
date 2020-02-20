@@ -32,7 +32,7 @@
               ></v-text-field>
               </v-col>
               <v-col cols="12" sm="4" md="4" style="padding-bottom:0; padding-top:0">
-              <v-select :items="resume_date_list" placeholder="지원시기"></v-select>
+              <v-select :items="resume_date_list" v-model="resume_date" placeholder="지원시기"></v-select>
               </v-col>
             </v-row>
             <div style="margin:0px;">

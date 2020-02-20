@@ -28,4 +28,18 @@ public class InterviewService {
     public void delete(Long id) {
         ir.deleteById(id);
     }
+
+    public Interview update(Interview old, Interview update) {
+        old.setInterview_answer(update.getInterview_answer());
+        old.setInterview_company(update.getInterview_company());
+        old.setInterview_date(update.getInterview_date());
+        old.setInterview_memo(update.getInterview_memo());
+        old.setInterview_task(update.getInterview_task());
+        old.setInterview_question(update.getInterview_question());
+        return ir.save(old);
+    }
+
+    public Interview findById(Long id) {
+        return ir.findById(id).get();
+    }
 }
