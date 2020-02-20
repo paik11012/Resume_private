@@ -5,25 +5,31 @@
   <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark color="primary" >
     <v-icon dark>edit</v-icon>
   </v-btn>
-  <v-btn class="edit" v-on:click="editor" v-else small fab dark color="success" >
+  <v-btn class="edit" v-on:click="editInterview" v-else small fab dark color="success" >
     <v-icon dark>check</v-icon>
   </v-btn>
   <v-btn class="delete" v-on:click="destroy(interview_id)" small fab color="red" >
     <v-icon color="white">delete</v-icon>
   </v-btn>
-  <div class="company">
+  <div class="company" v-if="editing">
     {{ com }}
   </div>
-  <div class="task">
+  <input type="text" class="company" v-else v-model="com">  
+  <div class="task" v-if="editing">
     {{ ta }}
   </div>
-  <div class="date">
+  <input type="text" class="task" v-else v-model="ta">
+  <div class="date" v-if="editing">
     {{ da }}
   </div>
+  <input type="text" class="date" v-else v-model="da">
   <br>
-  <textarea readonly v-model="question" class="question" id=""></textarea>
-  <textarea readonly v-model="answer" class="answer" ></textarea>
-  <textarea readonly v-model="memo" class="memo"  cols="30" rows="10"></textarea>
+  <textarea readonly v-model="que" class="question" v-if="editing"></textarea>
+  <textarea v-model="que" class="question" v-else></textarea>
+  <textarea readonly v-model="ans" class="answer" v-if="editing" ></textarea>
+  <textarea v-model="ans" class="answer" v-else></textarea>
+  <textarea readonly v-model="mem" class="memo"  cols="30" rows="10" v-if="editing"></textarea>
+  <textarea  v-model="mem" class="memo"  cols="30" rows="10" v-else></textarea>
 
   </div>
 </div>  
@@ -57,33 +63,56 @@ export default {
     closing(){
       this.$emit('clsid')
     },
-        editor(){
+    editor(){
       this.editing = !this.editing
     },
-    destroy(){
-      console.log(this.interview_id)
-      API.delete(`/interview/del/${this.interview_id}`)
+    destroy(i){
+      console.log("인덱스",i)
+      API.delete(`/interview/del/${i}`)
       .then(response => {
         this.interviews = response.data
-        this.$emit("load")
         for (let i = 0; i < this.interviews.length; i++) {
         setTimeout(() => {
           this.sec ++
           console.log(this.sec);
         }, 100*i);
       }
+        this.$emit('deleteinterview')
       })
       .catch(error => {
       console.log(error)
       })
-    this.$emit('deleteinterview')
     },
+    
+    editInterview(){
+      var interview_info = {
+        "id":this.interview_id,
+        "interview_company": this.com,
+        "interview_task":this.ta,
+        "interview_date": this.da,
+        "interview_question":this.que,
+        "interview_answer":this.ans,
+        "interview_memo":this.mem,
+      };
+      API.post('interview/update', interview_info)
+      .then(res => {
+        console.log(res);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      this.editing = !this.editing
+      this.$emit('upload')
+    }
   }
 }
 </script>
 
 <style lang="scss">
 .idetail{
+  textarea{
+    resize: none;
+  }
   position: relative;
   z-index: 29;
   & .modalbox{
@@ -100,13 +129,13 @@ export default {
     & .edit{
       position: absolute;
       z-index: 32;
-      right: 8%;
+      right: 65px;
       top : 3%;
     }
     & .delete{
       position: absolute;
       z-index: 30;
-      right: 3%;
+      right: 15px;
       top : 3%;
     }
     animation: bounce 0.3s;
@@ -158,8 +187,6 @@ export default {
       top:26%;
       outline-style: none;
       left:5%;
-      text-align: center;
-      
       }
     & .answer{
       position: absolute;

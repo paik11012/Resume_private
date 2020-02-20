@@ -40,6 +40,10 @@ export default {
     search:{type:String},
     keypick:{type:Number},
   },
+  created(){
+    console.log("리스트 시작");
+    
+  },
   data() {
     return {
       searkey : ["resume_company","resume_task","resume_question","resume_answer"],

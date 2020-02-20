@@ -33,14 +33,14 @@
   <br>
   <div>
     <div v-if="editing"><textarea readonly v-model="question" class="question" id=""></textarea></div>
-    <div v-else><textarea v-model="question" class="question"></textarea></div>
+    <div v-else><textarea v-model="que" class="question"></textarea></div>
   </div>
   <div>
     <div v-if="editing"><textarea readonly v-model="answer" class="answer" id="" cols="30" rows="10"></textarea></div>
-    <div v-else><textarea v-model="answer" class="answer" id="" cols="30" rows="10"></textarea></div>
+    <div v-else><textarea v-model="ans" class="answer" id="" cols="30" rows="10"></textarea></div>
   </div>
   <div class="text_val">
-    {{ answer.length }} 자
+    {{ ans.length }} 자
   </div>
   <div v-if="editing" class="tags">
     <v-btn small aria-disabled="true" class="tag" outlined color="#92A8D1" v-for="i in tags.length" v-bind:key='i'>
@@ -95,6 +95,7 @@ export default {
     tags:{type:Array},
     text_val:{type:Number},
   },
+
   data(){
     return {
       pass:false,
@@ -114,7 +115,7 @@ export default {
   },
   methods:{
     closing(){
-      this.$emit('clsrsd')
+      this.$emit('clsrsd',this.tag_name)
     },
     editor(){
       this.editing = !this.editing
@@ -123,14 +124,14 @@ export default {
       API.delete(`/resume/del/${this.resume_id}`)
       .then(response => {
         this.resumes = response.data
-        console.log(response.data)
         this.$emit("load")
         for (let i = 0; i < this.resumes.length; i++) {
-        setTimeout(() => {
-          this.sec ++
-          console.log(this.sec);
-        }, 100*i);
-      }
+          console.log("for문");
+          setTimeout(() => {
+            this.sec ++
+            console.log(this.sec);
+          }, 100*i);
+        }
       })
       .catch(error => {
       console.log(error)
