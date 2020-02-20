@@ -4,9 +4,9 @@
     :class="{'justify-end' : phone, 'justify-center' : !phone}"
   >
   <img src="../assets/p.png" class="cat">
-  <img src="../assets/speech-bubble.png" class="chat">
+  <!-- <img src="../assets/speech-bubble.png" class="chat"> -->
   <img src="../assets/title.png" class="title">
-  <img src="../assets/menta.png" class="ment">
+  <!-- <img src="../assets/menta.png" class="ment"> -->
   <div class="light_box" v-if="backon"></div>
         <transition name="fadein">
           <div class="back" v-if="backon | loginModalOpen | signupModalOpen" @mouseover="back"></div>
@@ -200,21 +200,21 @@ export default {
   position: relative;
   & .logbtn{
     position: fixed;
-    top:30%;
+    top:20%;  // 원래30
     left: 22%;
     &on{
       position: fixed;
-      top:30%;
+      top:20%;
     left: 22%;
     }
   }
   & .signbtn{
     position:fixed;
-    top:55%;
+    top:45%;  // 원래55
     left: 22%;
     &on{
       position: fixed;
-       top:55%;
+       top:45%;
     left: 22%;
     }
   }
