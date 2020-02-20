@@ -331,7 +331,6 @@ export default {
       top:13.5%;
       left:3%;
       text-align: left;
-      font-family:'Nanum Square';
     }
     & .date{
       overflow: hidden;
