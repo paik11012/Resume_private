@@ -2,15 +2,18 @@
 <div class="idetail">
   <div class="modalbox" @click="closing"></div>
   <div class="modal">
-  <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark color="primary" >
+  <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark color="#92A8D1" >
     <v-icon dark>edit</v-icon>
   </v-btn>
-  <v-btn class="edit" v-on:click="editInterview" v-else small fab dark color="success" >
+  <v-btn class="edit" v-on:click="editInterview" v-else small fab dark color="#F7CAC9" >
     <v-icon dark>check</v-icon>
   </v-btn>
-  <v-btn class="delete" v-on:click="destroy(interview_id)" small fab color="red" >
+  <v-btn class="delete" v-on:click="destroy(interview_id)" small fab color="#F7CAC9" >
     <v-icon color="white">delete</v-icon>
   </v-btn>
+
+
+
   <div class="titleback"></div>
   <hr class="hr1">
   <hr class="hr2">
@@ -171,8 +174,8 @@ export default {
   }
   .titleback{
     width: 100%;
-    height: 62px;
-    background-color: #FAD1D1;
+    height: 58px;
+    background-color:rgb(245,246,251);
   }
 
   textarea{
