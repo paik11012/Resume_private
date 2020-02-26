@@ -42,13 +42,9 @@ export default {
     search:{type:String},
     keypick:{type:Number},
   },
-  created(){
-    console.log("리스트 시작");
-    
-  },
   data() {
     return {
-      searkey : ["resume_company","resume_task","resume_question","resume_answer"],
+      searkey : ["resume_company","resume_task","resume_question","resume_answer", "resume_date"],
       tag_names:["신뢰","책임감","창의성","도전정신","혁신","열정","도덕성","전문성","글로벌","협력","지원동기","포부"],
       sresumes:[],
       resumes: [],
@@ -65,7 +61,6 @@ export default {
   },
   methods: {
     rere(){
-      console.log("고침");
     },
     del_detail(){
       var a = document.querySelector('html')

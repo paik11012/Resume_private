@@ -103,7 +103,6 @@ export default {
     },
     create(){
       if (this.select == 1){
-        console.log("error찾기");
         var set = {
           "education": {
             "edu_school_sort": String(this.select),

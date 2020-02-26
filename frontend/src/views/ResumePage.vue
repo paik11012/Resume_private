@@ -3,8 +3,8 @@
     <v-layout justify-center align-center style="height:100%;" v-if="loading">
       <Load />
     </v-layout>
-    <v-flex xs12 text-xs-center round my-5>
-      <v-btn v-on:click="showWrite" class="mx-2 corner" small fab dark color="cyan">
+    <v-flex xs12 text-s-center round my-5>
+      <v-btn v-on:click="showWrite" class="mx-2 corner buttons" fab dark color="cyan">
         <v-icon dark>edit</v-icon>
       </v-btn>
     </v-flex>
@@ -93,7 +93,7 @@
           </p>
           </div>
           <!-- 검색 부분 -->
-        <div v-else style="position:absolute; z-index:30; background:white; left:0px; width:100%; height:178px; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
+        <div v-else style="position:absolute; z-index:30; background:white; left:0px; width:100%; height:145px; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
           <p v-for="i in searkey.length" :key="i" class="keyset" @click="selkey(i-1)">{{ searkey[i-1] }}</p>
         </div>
         </div>
@@ -103,7 +103,7 @@
 
       <v-layout>
         <v-row class="mb-6">
-          <v-col v-for="i in tags.length" :key="i" lg="2" xs="3" md="2" class="layout justify-center">
+          <v-col v-for="i in tags.length" :key="i" class="layout justify-center col-xs-6 col-sm-3 col-md-3 col-lg-2">
             <v-btn id="tag_button"  style="width:85px" :class="{nocheck: tags[i-1]['state'], check: !tags[i-1]['state']}" 
             depressed @click="changeTag(i)">#{{tags[i-1]["name"]}}</v-btn></v-col>
         </v-row>
@@ -159,7 +159,7 @@ export default {
       reload:false,
       filter_tag: [false,false,false,false,false,false,false,false,false,false,false,false],
       items :["전체","회사명","내용"],
-      searkey:["회사명","직무","질문","답변", "지원시기"],
+      searkey:["회사명","직무","질문","답변"],
       value : "전체",
       pickkey:0,
       search:'',
@@ -185,7 +185,6 @@ export default {
   },
   computed:{
     keyword:function(){
-      console.log('ghaha')
       return this.search.split(' ')
     }
   },
@@ -227,9 +226,7 @@ export default {
           || resume_info.resume_answer == null
           ) {
         return swal('태그와 지원시기 외 정보는 모두 입력해주세요')
-      } else {
-        console.log(r_data);
-        
+      } else {        
         API.post(
         '/resume/save', r_data)
       .then(response=>{

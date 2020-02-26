@@ -66,11 +66,6 @@ export default {
     created_at : {type: String},
     pass : {type:Boolean},
   },
-  created(){
-    console.log("이력서 시작");
-    
-  }
-  ,
   data() {
     return {
       showmenu: false,

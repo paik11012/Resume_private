@@ -4,9 +4,7 @@
     :class="{'justify-end' : phone, 'justify-center' : !phone}"
   >
   <img src="../assets/p.png" class="cat">
-  <!-- <img src="../assets/speech-bubble.png" class="chat"> -->
   <img src="../assets/title.png" class="title">
-  <!-- <img src="../assets/menta.png" class="ment"> -->
   <div class="light_box" v-if="backon"></div>
         <transition name="fadein">
           <div class="back" v-if="backon | loginModalOpen | signupModalOpen" @mouseover="back"></div>
@@ -170,32 +168,19 @@ export default {
   //   filter: blur(5px);
   //   animation: fadein 1s;
   // }
-  .ment{
-    position: fixed;
-    top:-2%;
-    width: 60%;
-    height: 70%;
-    left: 8%;
-  }
   .title{
     z-index: 29;
     position: fixed;
-    top: -3%;
-    right: 7%;
-  }
-  .chat{
-    position:fixed;
-    width:50%;
-    height: 35%;
-    top: 5%;
-    left: 15%;
-    transform: scale3d(-1,1,1)
+    width: 25%;
+    top: 9%;
+    right: 5%;
   }
   .cat{
     z-index: 29;
     position: fixed;
-    top:15%;
-    right:12%;
+    width: 25%;
+    top:25%;
+    right:15%;
   }
   position: relative;
   & .logbtn{
@@ -217,6 +202,14 @@ export default {
        top:45%;
     left: 22%;
     }
+  }
+}
+@media screen and (max-width:600px) {
+  .title {
+    display: none
+  }
+  .cat {
+  display: none
   }
 }
 </style>

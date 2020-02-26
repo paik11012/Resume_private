@@ -44,16 +44,12 @@ export default {
 	},
 	getInterView(){
 		const interViewCollection = firestore.collection('interview')
-		console.log("이건 됐어?");
 		
 		return interViewCollection
 			.orderBy('created_at', 'desc')
 			.get()
 			.then((docSnapshots)=>{
-				console.log(docSnapshots);
-				console.log("docsnap");
 				return docSnapshots.docs.map((doc)=>{
-					console.log("doc");
 					let data = doc.data()
 					return data
 				})

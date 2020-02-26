@@ -84,7 +84,6 @@ export default {
       .catch(error => {
         console.log(error)
       })
-        console.log("error 4");
     }
   },
   mounted() {

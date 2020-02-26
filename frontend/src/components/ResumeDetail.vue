@@ -11,10 +11,8 @@
       <img src="@/assets/pass(2).png" class="PFP" v-if="pass" @click="editing ? pass = pass : pass = !pass">
       <img src="@/assets/no_pets.png" class="PF" v-else @click="editing ? pass = pass : pass = !pass"> 
     </div>
-  <!-- <v-btn class="PF" v-if="editing" small fab dark color="success" >
-    <v-icon dark>check</v-icon>
-  </v-btn> -->
-  <!-- <v-checkbox v-else v-model="pass" class="mx-2 PFC" value="합격" label="서류합격" hide-details></v-checkbox> -->
+
+  <div class="buttons">
   <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark>
     <v-icon dark>edit</v-icon>
   </v-btn>
@@ -24,6 +22,9 @@
   <v-btn class="delete" v-on:click="destroy(resume_id)" small fab>
     <v-icon color="white">delete</v-icon>
   </v-btn>
+  </div>
+
+
   <div>
     <div class="titleback"></div>
     <div v-if="editing" class="company">{{ com }}</div>
@@ -52,6 +53,7 @@
     <div v-else><textarea v-model="ans" class="answer" id="" cols="30" rows="10"></textarea></div>
   </div>
   <div class="text_val">
+    {{ getByte(ans) }} bytes / 
     {{ ans.length }} 자
   </div>
   <div v-if="editing" class="tags">
@@ -94,6 +96,7 @@
 </template>
 
 <script>
+
 import swal from 'sweetalert';
 import API from "../services/Api"
 export default {
@@ -111,6 +114,7 @@ export default {
 
   data(){
     return {
+      bytes: 0,
       pass:this.res_pass,
       editing:true,
       modalop: false,
@@ -144,10 +148,8 @@ export default {
             this.resumes = response.data
             this.$emit("load")
             for (let i = 0; i < this.resumes.length; i++) {
-              console.log("for문");
               setTimeout(() => {
                 this.sec ++
-                console.log(this.sec);
               }, 100*i);
             }
           })
@@ -172,7 +174,6 @@ export default {
           resume_info : resume_info,
           tag_name : this.tag_name
       }
-      console.log(r_data)
       API.post('resume/update', r_data)
       .then(response => {
         this.$emit('upload',r_data.tag_name)
@@ -190,7 +191,13 @@ export default {
       .catch(error => {
         console.log(error)
       })
-    }
+    },
+    getByte(str) {
+    return str
+    .split('') 
+    .map(s => s.charCodeAt(0))
+    .reduce((prev, c) => (prev + ((c === 10) ? 2 : ((c >> 7) ? 2 : 1))), 0); // 계산식에 관한 설명은 위 블로그에 있습니다.
+}
   }
 }
 </script>
@@ -228,26 +235,30 @@ export default {
       position: absolute;
       width: 100%;
       top:11.1%;
+      border-bottom-width: 0;
     }
     &2{
       position:absolute;
       width: 100%;
       top:21%;
+      border-bottom-width: 0;
     }
     &3{
       position:absolute;
       width: 100%;
       top:34%;
+      border-bottom-width: 0;
     }
     &4{
       position:absolute;
       width: 100%;
       top:82%;
+      border-bottom-width: 0;
     }
   }
   .titleback{
     width: 100%;
-    height: 62px;
+    height: 59px;
     background: rgb(245,246,251);
   }
 
@@ -395,7 +406,7 @@ export default {
       font-family: Jua;
       position: absolute;
       right: 5%;
-      bottom: 4%;
+      bottom: 2%;
       margin: 5px;
     }
     & .tag{
@@ -408,7 +419,7 @@ export default {
       font-size: 15px;
       font-weight: 500;
       position: absolute;
-      right:1%;
+      right:2%;
       top: 83%;
     }
     .PF{
@@ -431,11 +442,15 @@ export default {
 } 
 .input{
   border-style:solid;
-  border-bottom:solid 1px #cacaca;
   border-collapse:collapse;
   width:100%; height:100%;}
   
 .v-input{
   padding-top:0px;
+}
+@media screen and (max-width:800px) {
+  .buttons {
+    display: none
+  }
 }
 </style>

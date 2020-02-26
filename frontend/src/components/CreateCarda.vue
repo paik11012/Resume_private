@@ -78,11 +78,9 @@ export default {
       'award_date': this.award_date,
       'award_file' : this.selectedFile.name
       }
-      console.log(set)
 
       API.post('/awards/save', set)
       .then(response => {
-        console.log(response)
       })
       .catch(error => {
         console.log(error)

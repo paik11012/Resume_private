@@ -6,12 +6,14 @@
           <th style="font-size:20px;font-family:Jua" colspan="2">My Info
           </th>
           <th>
-            <v-btn v-on:click="edit" v-if="editing" small fab dark color="cyan" id="write">
+            <div class="buttons">
+            <v-btn v-on:click="edit" v-if="editing" small fab dark color="#92A8D1" id="write">
               <v-icon dark>edit</v-icon>
             </v-btn>
             <v-btn v-else v-on:click="editor" small fab id="write" color="success">
               <v-icon>check</v-icon>
             </v-btn>
+            </div>
           </th>
         </tr>
       </thead>
@@ -52,10 +54,10 @@
           <th class="text-left" style="font-size:20px" colspan="1">My Info
           </th>
           <th>
-            <v-btn v-on:click="edit" v-if="editing" small fab dark color="cyan" id="write">
+            <v-btn v-on:click="edit" v-if="editing" small fab dark color="#92A8D1" id="writeinfo">
               <v-icon dark>edit</v-icon>
             </v-btn>
-            <v-btn v-else v-on:click="editor" small fab id="write" color="success">
+            <v-btn v-else v-on:click="editor" small fab id="writeinfo" color="success">
               <v-icon>check</v-icon>
             </v-btn>
           </th>
@@ -269,13 +271,11 @@ td{
 }
 
 .v-text-field__slot{
+  display:none !important;
   visibility: hidden;
   width: 0px;
 }
 
-.v-input__control{
-  // visibility: hidden;
-}
 .bound{
   position: relative;
   width: 33px;
@@ -294,5 +294,10 @@ td{
   // border-bottom:solid 1px #cacaca;
   border-collapse:collapse;
   width:100%; height:100%;}
+}
+#writeinfo{
+  position: absolute;
+  right: 5px;
+
 }
 </style>

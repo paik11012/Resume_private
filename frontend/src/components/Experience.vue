@@ -6,15 +6,16 @@
           <th colspan="5" v-if="editing" style="font-size:20px; font-family:Jua">{{ exp_org_name }}</th>
           <th v-else style="font-size:20px; font-family:Jua" colspan="6"><input type="text" v-model="exp_org_name"></th>
           <th class="layout hold" style="padding:0">
-            <v-btn @click="editor" v-if="editing" small fab dark color="cyan" class="edu_write">
+            <v-btn @click="del" v-if="editing" small fab dark color="#F7CAC9" class="delkey">
+              <v-icon>delete</v-icon>
+            </v-btn>
+            <v-btn @click="editor" v-if="editing" small fab dark color="#92A8D1" class="edu_write">
               <v-icon>edit</v-icon>
             </v-btn>
             <v-btn v-else @click="addExp" small fab class="edu_write" color="success">
               <v-icon>check</v-icon>
             </v-btn>
-            <v-btn @click="del" v-if="editing" small fab dark color="red" class="delkey">
-              <v-icon>delete</v-icon>
-            </v-btn>
+
           </th>
         </tr>
       </thead>

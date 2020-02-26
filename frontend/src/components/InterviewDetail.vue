@@ -2,6 +2,7 @@
 <div class="idetail">
   <div class="modalbox" @click="closing"></div>
   <div class="modal">
+  <div class="buttons">
   <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark color="#92A8D1" >
     <v-icon dark>edit</v-icon>
   </v-btn>
@@ -11,7 +12,7 @@
   <v-btn class="delete" v-on:click="destroy(interview_id)" small fab color="#F7CAC9" >
     <v-icon color="white">delete</v-icon>
   </v-btn>
-
+  </div>
 
 
   <div class="titleback"></div>
@@ -80,7 +81,6 @@ export default {
       this.editing = !this.editing
     },
     destroy(i){
-      console.log("인덱스",i)
       API.delete(`/interview/del/${i}`)
       .then(response => {
         this.interviews = response.data
@@ -129,21 +129,25 @@ export default {
       position: absolute;
       width:100%;
       top:10%;
+      border-bottom-width: 0;
     }
     &2{
       position: absolute;
       width:100%;
       top:19%;
+      border-bottom-width: 0;
       }
     &3{      
       position: absolute;
       width:100%;
       top:32%;
+      border-bottom-width: 0;
     }
     &4{      
       position: absolute;
       width:100%;
       top:62%;
+      border-bottom-width: 0;
     }
   }
   .p{
@@ -174,7 +178,7 @@ export default {
   }
   .titleback{
     width: 100%;
-    height: 58px;
+    height: 59px;
     background-color: rgb(245,246,251);
   }
 
@@ -329,5 +333,9 @@ export default {
     }
   }
 }
-
+@media screen and (max-width:800px) {
+  .buttons {
+    display: none
+  }
+}
 </style>

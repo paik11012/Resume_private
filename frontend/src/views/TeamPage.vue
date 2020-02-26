@@ -24,10 +24,10 @@ export default {
         "yun":[2,1,3,0],
       },
       message:{
-        "park":['', require("../assets/team_park_1.png"), require("../assets/team_park_2.png"), require("../assets/GitHub.png")],
-        "paik":[require("../assets/team_paik_1.png"),'', require("../assets/team_paik_2.png"), require("../assets/GitHub.png")],
-        "lee":[require("../assets/team_lee_1.png"), require("../assets/team_lee_2.png"),'', require("../assets/GitHub.png")],
-        "yun":[require("../assets/team_yun_1.png"), require("../assets/team_yun_2.png"), require("../assets/GitHub.png"),''],
+        "park":['', require("../assets/team_park_1.png"), require("../assets/team_park_2.png"), require("../assets/github.png")],
+        "paik":[require("../assets/team_paik_1.png"),'', require("../assets/team_paik_2.png"), require("../assets/gittube.png")],
+        "lee":[require("../assets/team_lee_1.png"), require("../assets/team_lee_2.png"),'', require("../assets/github.png")],
+        "yun":[require("../assets/team_yun_1.png"), require("../assets/team_yun_2.png"), require("../assets/github.png"),''],
       },
       github_link:{
         "park": "https://github.com/kwoneyng",
@@ -42,10 +42,14 @@ export default {
       imgsrc:[require("../assets/team_park.jpg"), require("../assets/team_minjoo.jpg"), require("../assets/team_daseul.jpg"), require("../assets/team_kkyu.jpg")]
     }
   },
+  // 유튜브 주소: https://www.youtube.com/channel/UCmNjgKuiiZr3MjBriGqVc_Q/videos  부탁합니다용:)
   methods:{
     link(name, i){
       if(this.sec[this.sel][i] == 3){
-        window.open(this.github_link[name], '_blank')
+        if (name == 'paik') {
+          window.open(this.github_link[name], '_blank')
+        } else {
+        window.open(this.github_link[name], '_blank')}
       }
     },
     select(i){
@@ -190,5 +194,12 @@ export default {
 
 .teams-leave-active{
   animation: spin .6s;
+}
+
+@media screen and (max-width:800px) {
+  .circle {
+    width: 30vh !important;
+    height: 30vh !important;
+  }
 }
 </style>

@@ -5,13 +5,13 @@
         <tr>
           <th class="text-left" style="font-size:20px; font-family:Jua">{{sch_name}}</th>
           <th class="layout hold">
-            <v-btn v-on:click="editor" v-if="editing" small fab dark color="cyan" class="edu_write">
+            <v-btn v-on:click="editor" v-if="editing" small fab dark color="#92A8D1" class="edu_write">
               <v-icon dark>edit</v-icon>
             </v-btn>
             <v-btn v-else v-on:click="addEduUniv" small fab class="edu_write" color="success">
               <v-icon>check</v-icon>
             </v-btn>
-            <v-btn @click="del" v-if="editing" small fab dark color="red" class="delkey">
+            <v-btn @click="del" v-if="editing" small fab dark color="#F7CAC9" class="delkey">
               <v-icon dark>delete</v-icon>
             </v-btn>
           </th>
