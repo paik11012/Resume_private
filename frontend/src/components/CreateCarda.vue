@@ -8,8 +8,8 @@
             <ul class="menubar"> 
                  <!-- eslint-disable -->
               <li
-                class="layout row" style="font-size:20px;font-family:Jua"
-              ><input type="text" v-model="award_title" style="font-family:Jua" placeholder="License / Award Title">
+                class="layout row" 
+              ><input type="text" v-model="award_title" style="font-family:Jua" placeholder="License / Award 입력">
                 <!-- eslint-disable -->
               </li>
             </ul>

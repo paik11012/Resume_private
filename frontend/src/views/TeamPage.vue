@@ -198,8 +198,8 @@ export default {
 
 @media screen and (max-width:800px) {
   .circle {
-    width: 30vh !important;
-    height: 30vh !important;
+    width: 30vw !important;
+    height: 30vw !important;
   }
 }
 </style>

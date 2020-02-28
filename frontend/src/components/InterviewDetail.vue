@@ -179,7 +179,6 @@ export default {
   .titleback{
     width: 100%;
     height: 59px;
-    background-color: rgb(245,246,251);
   }
 
   textarea{
@@ -224,7 +223,7 @@ export default {
       overflow: hidden;
       height: 9%;
       position: absolute;
-      font-size:32px;
+      font-size:30px;
       width: 80%;
       top:1%;
       left:10%;
@@ -235,7 +234,7 @@ export default {
       height: 5%;
       position: absolute;
       font-size:20px;
-      width: 30%;
+      width: 45%;
       color: black;
       top:12%;
       left:3%;

@@ -5,10 +5,12 @@
         <v-flex>
           <template>
             <v-layout justify-space-around="true" class="titlebox">
-              <div class="title-item" @click="myinfo">My info</div>
-              <div class="title-item" @click="myedu">Education</div>
-              <div class="title-item" @click="myaward">License</div>
-              <div class="title-item" @click="myexp">Experience</div>
+              <v-row>
+                <v-col sm="6" lg="3"><div class="title-item" @click="myinfo" style="text-align:center">My info</div></v-col>
+                <v-col sm="6" lg="3"><div class="title-item" @click="myedu" style="text-align:center">Education</div></v-col>
+                <v-col sm="6" lg="3"><div class="title-item" @click="myedu" style="text-align:center">Education</div></v-col>
+                <v-col sm="6" lg="3"><div class="title-item" @click="myexp" style="text-align:center">Experience</div></v-col>
+              </v-row>
             </v-layout>
             <transition name="bounce">
               <myinfo id="rcorners2" v-if="showme" @myinfo="mypage = true" />
@@ -36,33 +38,30 @@
               class="insert"
               v-if="showedu"
               @click="create"
-              small
               fab
               dark
-              color="#F7CAC9"
+              color="#FF5252"
             >
-              <v-icon color="black">mdi-plus</v-icon>
+              <v-icon color="white">mdi-plus</v-icon>
             </v-btn>
             <v-btn
               class="insert"
               v-if="showawd"
               @click="createa"
-              small
               fab
               dark
-              color="#F7CAC9"
+              color="#FF5252"
             >
-              <v-icon color="black">mdi-plus</v-icon>
+              <v-icon color="white">mdi-plus</v-icon>
             </v-btn><v-btn
               class="insert"
               v-if="showexp"
               @click="createe"
-              small
               fab
               dark
-              color="#F7CAC9"
+              color="#FF5252"
             >
-              <v-icon color="black">mdi-plus</v-icon>
+              <v-icon color="white">mdi-plus</v-icon>
             </v-btn>
           </template>
         </v-flex>

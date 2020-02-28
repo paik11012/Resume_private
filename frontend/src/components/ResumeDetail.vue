@@ -259,7 +259,7 @@ export default {
   .titleback{
     width: 100%;
     height: 59px;
-    background: rgb(245,246,251);
+
   }
 
   & .dig{
@@ -322,7 +322,7 @@ export default {
       overflow: hidden;
       height: 9%;
       position: absolute;
-      font-size:32px;
+      font-size:25px;
       font-family:'Nanum Square';
       width: 80%;
       top:2%;
@@ -425,15 +425,15 @@ export default {
     .PF{
       cursor: pointer;
       position: absolute;
-      width: 45px;
-      height: 45px;
-      top: 1.5%;
-      left: 15px;
+      width: 42px;
+      height: 42px;
+      top: 1.7%;
+      left: 16px;
       &P{
         cursor: pointer;
         position: absolute;
-        width: 74px;
-        height: 74px;
+        width: 70px;
+        height: 70px;
         top: -1%;
         left: 11px;
       }
@@ -451,6 +451,9 @@ export default {
 @media screen and (max-width:800px) {
   .buttons {
     display: none
+  }
+  .tags{
+    bottom: 0 !important;
   }
 }
 </style>

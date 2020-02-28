@@ -9,7 +9,7 @@
                  <!-- eslint-disable -->
               <li
                 class="layout row" style="font-size:20px;font-family:Jua"
-              ><input type="text" class="input" v-model="exp_org_name" style="font-family:Jua" placeholder="Experience Title">
+              ><input type="text" class="input" v-model="exp_org_name" style="font-family:Jua" placeholder="Experience 입력">
                 <!-- eslint-disable -->
               </li>
             </ul>

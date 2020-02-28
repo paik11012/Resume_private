@@ -16,7 +16,7 @@
     <v-dialog v-model="dialog" :persistent="true" max-width="70%" max-height="80%" style="z-index:32; position:relative">
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
       <v-card> <!-- body -->
-      <v-icon @click="dialog = !dialog">mdi-close</v-icon>
+      <v-icon @click="dialog = dialog">mdi-close</v-icon>
         <v-card-title class="justify-center">
           <span id="headline" style="margin-top:0px;">Write a Resume</span>
         </v-card-title>
@@ -86,19 +86,19 @@
 </template>
     <v-container>
       <v-layout class="justify-end">
-        <div style="position:relative; width:90px; margin-left:50%; hei ght:40px; margin-bottom:20px;">
-        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:29; width:100%; height:100%; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
-          <p class="keyset">
+        <div style="position:relative; width:90px; margin-left:50%; height:40px; margin-bottom:20px;">
+        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:29; width:80px; height:100%; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
+          <p class="keyset" style="width:80px">
           {{ searkey[pickkey] }}
           </p>
           </div>
           <!-- 검색 부분 -->
-        <div v-else style="position:absolute; z-index:30; background:white; left:0px; width:100%; height:145px; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
+        <div v-else style="position:absolute; z-index:30; background:white; left:0px; width:80px; height:145px; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
           <p v-for="i in searkey.length" :key="i" class="keyset" @click="selkey(i-1)">{{ searkey[i-1] }}</p>
         </div>
         </div>
-        <div style="width: 250px !important; z-index:29; margin-left:20px; height:40px; padding: 6px 12px; border:1px solid; margin-right:10px; border-radius:10px;"><v-icon>mdi-magnify</v-icon>
-        <input style="width:85%; margin-left:5px;" v-model="search" type="text"></div>
+        <div class="searchinput"><v-icon>mdi-magnify</v-icon>
+        <input style="width:60%; margin-left:5px;" v-model="search" type="text"></div>
       </v-layout>
 
       <v-layout>
@@ -326,8 +326,22 @@ i{
   left: 2%;
   top: 2%;
 }
-
+.searchinput{
+  width: 15vw !important; 
+  z-index:29; 
+  margin-left:20px; 
+  height:40px; 
+  padding: 6px 12px; 
+  border:1px solid; 
+  margin-right:10px; 
+  border-radius:10px;
+}
 .v-list-item__title{
   font-size: 1em;
+}
+@media screen and (max-width:800px) {
+  .buttons {
+    display: none
+  }
 }
 </style> 
