@@ -45,12 +45,10 @@ export default {
     Interview
   },
   mounted() {
-    // console.log(this.interview);
     this.getInterView();
   },
   methods: {
     del_detail(){
-      console.log("삭제");
       var a = document.querySelector('html')
       a.style.overflowY="scroll"
       this.getInterView()
@@ -64,13 +62,11 @@ export default {
     getInterView: function() {
       API.get("/interview")
         .then(resopnse => {
-          console.log(resopnse.data);
           this.interview = resopnse.data;
           this.$emit("load");
           for (let i = 0; i < this.interview.length; i++) {
             setTimeout(() => {
               this.sec++;
-              console.log(this.sec);
             }, 100 * i);
           }
         })

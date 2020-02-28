@@ -69,7 +69,6 @@ export default {
       }
       API.post('/exp/save', exp_data)
       .then(response => {
-        console.log(response)
       })
       .catch(error => {
         console.log(error)

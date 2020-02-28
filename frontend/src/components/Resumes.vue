@@ -83,7 +83,6 @@ export default {
     },
     input(value){
       this.showmenu = value
-      console.log(this.showmenu);
     },
     opendetail(){
       this.rsdt = true
@@ -91,7 +90,6 @@ export default {
       this.$emit('opdt')
       var a = document.querySelector('html')
       a.style.overflowY="hidden"
-      console.log(this.resume_id);
     },
     closedetail(){
       this.rsdt = false

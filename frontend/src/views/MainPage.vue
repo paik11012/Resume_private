@@ -85,7 +85,6 @@ export default {
       .then(res => {
           if(res.data.status) {
               swal('로그인이 성공적으로 이루어졌습니다')
-              console.log(res.data)
               storage.setItem('jwt-auth-token',res.headers['jwt-auth-token'])
               storage.setItem('user_id',res.data.data.user_id);
               router.push('home')

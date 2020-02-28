@@ -74,7 +74,7 @@ a{
     }
     &.signbtn{
       @include gradient_text(600, $main_degree, $main_gradient);
-      width: 50vw;
+      width: 80vw;
       font-weight: 600;
       line-height: 1;
       text-align: right;

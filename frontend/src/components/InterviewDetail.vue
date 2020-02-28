@@ -87,7 +87,6 @@ export default {
         for (let i = 0; i < this.interviews.length; i++) {
         setTimeout(() => {
           this.sec ++
-          console.log(this.sec);
         }, 100*i);
       }
         this.$emit('deleteinterview')
@@ -109,7 +108,6 @@ export default {
       };
       API.post('interview/update', interview_info)
       .then(res => {
-        console.log(res);
       })
       .catch(error => {
         console.log(error);

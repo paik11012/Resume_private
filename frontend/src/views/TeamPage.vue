@@ -25,7 +25,7 @@ export default {
       },
       message:{
         "park":['', require("../assets/team_park_1.png"), require("../assets/team_park_2.png"), require("../assets/github.png")],
-        "paik":[require("../assets/team_paik_1.png"),'', require("../assets/team_paik_2.png"), require("../assets/gittube.png")],
+        "paik":[require("../assets/team_paik_1.png"),'', require("../assets/team_paik_2.png"), require("../assets/you.png")],
         "lee":[require("../assets/team_lee_1.png"), require("../assets/team_lee_2.png"),'', require("../assets/github.png")],
         "yun":[require("../assets/team_yun_1.png"), require("../assets/team_yun_2.png"), require("../assets/github.png"),''],
       },
@@ -47,7 +47,7 @@ export default {
     link(name, i){
       if(this.sec[this.sel][i] == 3){
         if (name == 'paik') {
-          window.open(this.github_link[name], '_blank')
+          window.open('https://www.youtube.com/channel/UCmNjgKuiiZr3MjBriGqVc_Q/videos', '_blank')
         } else {
         window.open(this.github_link[name], '_blank')}
       }

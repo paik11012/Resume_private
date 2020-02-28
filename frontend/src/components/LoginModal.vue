@@ -301,7 +301,6 @@ export default {
       location.replace(this.kakaoLoginUrl);
     },
     passwordFind() {
-      console.log("heere");
       API.get(`/users/sendtmp/${this.email}`)
         .then(response => {
           this.dialog = false;

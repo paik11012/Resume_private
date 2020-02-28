@@ -11,7 +11,6 @@
   <!-- resume 작성하기 -->
   <template>
   <v-row justify="center">
-
     <!-- modal 시작 -->
     <v-dialog v-model="dialog" :persistent="true" max-width="70%" max-height="80%" style="z-index:32; position:relative">
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
@@ -85,26 +84,27 @@
   </v-row>
 </template>
     <v-container>
-      <v-layout class="justify-end">
-        <div style="position:relative; width:90px; margin-left:50%; height:40px; margin-bottom:20px;">
-        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:29; width:80px; height:100%; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
-          <p class="keyset" style="width:80px">
+      <v-layout style="margin-left:-50vw">
+        <div style="position:relative; width:90px; margin-left:60%; height:40px; margin-bottom:20px;">
+        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:29; width:65px; height:100%; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
+          <p class="keyset" style="width:65px">
           {{ searkey[pickkey] }}
           </p>
           </div>
           <!-- 검색 부분 -->
-        <div v-else style="position:absolute; z-index:30; background:white; left:0px; width:80px; height:145px; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
+        <div v-else style="position:absolute; z-index:30; background:white; width:65px; height:145px; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
           <p v-for="i in searkey.length" :key="i" class="keyset" @click="selkey(i-1)">{{ searkey[i-1] }}</p>
         </div>
         </div>
-        <div class="searchinput"><v-icon>mdi-magnify</v-icon>
-        <input style="width:60%; margin-left:5px;" v-model="search" type="text"></div>
+        <div class="searchinput"><v-icon small>mdi-magnify</v-icon>
+        <input style="width:80%; height:100%" v-model="search" type="text" class="true">
+        </div>
       </v-layout>
 
       <v-layout>
         <v-row class="mb-6">
-          <v-col v-for="i in tags.length" :key="i" class="layout justify-center col-xs-6 col-sm-3 col-md-3 col-lg-2">
-            <v-btn id="tag_button"  style="width:85px" :class="{nocheck: tags[i-1]['state'], check: !tags[i-1]['state']}" 
+          <v-col v-for="i in tags.length" :key="i" class="justify-center col-sm-4 col-md-3 col-lg-2" >
+            <v-btn id="tag_button"  style="width:85px" :class="{nocheck: tags[i-1]['state'], check: !tags[i-1]['state']} " 
             depressed @click="changeTag(i)">#{{tags[i-1]["name"]}}</v-btn></v-col>
         </v-row>
       </v-layout>
@@ -200,7 +200,6 @@ export default {
       this.tags[i-1]['state'] = !this.tags[i-1]['state']
       this.filter_tag[i-1] = this.tags[i-1]['state']
       this.$refs.updating.filter()
-      console.log(this.$refs.updating)
     },
     showWrite() {
       return this.dialog = true
@@ -231,7 +230,6 @@ export default {
         API.post(
         '/resume/save', r_data)
       .then(response=>{
-        console.log(response.data)
         this.$refs.updating.getResume()
         this.resume_company = null;
         this.resume_task = null;
@@ -308,6 +306,7 @@ i{
   font-family: Jua;
   font-size: 17px;
   border-radius: 10px;
+  margin-left:20%;
 }
 #headline{
   font-family: 'Fredoka One', cursive;
@@ -328,12 +327,12 @@ i{
   top: 2%;
 }
 .searchinput{
-  width: 15vw !important; 
+  width: 16vw !important; 
   z-index:29; 
-  margin-left:20px; 
+  margin-left:10px; 
   height:40px; 
-  padding: 6px 12px; 
-  border:1px solid; 
+  padding: 6px 3px; 
+  border:1px solid #92A8D1; 
   margin-right:10px; 
   border-radius:10px;
 }
@@ -345,4 +344,10 @@ i{
     display: none
   }
 }
+@media screen and (max-width:550px) {
+  .searchinput {
+    width: 100px !important;
+  }
+}
+
 </style> 

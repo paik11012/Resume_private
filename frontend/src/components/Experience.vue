@@ -63,10 +63,8 @@ export default {
   },
   methods:{
     del(){
-      console.log("삭제예정")
       API.delete(`/exp/del/${this.id}`)
       .then(response => {
-        console.log(response)
         this.$emit('delete')
       })
       .catch(error => {
@@ -87,7 +85,6 @@ export default {
       }
       API.post('/exp/update', exp)
       .then(response => {
-        console.log(response)
       })
       .catch(error => {
         console.log(error)

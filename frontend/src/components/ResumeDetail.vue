@@ -177,7 +177,6 @@ export default {
       API.post('resume/update', r_data)
       .then(response => {
         this.$emit('upload',r_data.tag_name)
-        console.log('hihi')
         this.editing = !this.editing
       })
       .catch(error => {

@@ -71,13 +71,7 @@ export default {
       }, 100);
     },
 
-    // async getResume() {
-      // this.resumes = await FirebaseService.getResume();    
-    //   console.log(this.resumes);
-    // },
     filter(){
-      console.log('sresumes')
-      console.log(this.sresumes)
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
       if(this.filter_tag.reduce(reducer)==0) this.sresumes = this.resumes;
       var filtering = []
@@ -96,13 +90,10 @@ export default {
         if (cnt == filtering.length) rs.push(this.resumes[i])
       }
       this.sresumes = rs
-      console.log('rs')
-      console.log(rs)
     },
     getResume: function() {
       API.get('/resume')
       .then(response => {
-        console.log(response);
         this.resumes = response.data 
         this.sresumes = this.resumes
         this.$emit("load")

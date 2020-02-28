@@ -29,12 +29,12 @@
         <tr>
           <td style="width:20%">계급</td>
           <td v-if="editing">{{ military_class }}</td>
-          <td v-else><input type="text" class="input"  v-model="military_class" placeholder="계급"></td>
+          <td v-else><input type="text" class="input" v-model="military_class" placeholder="계급"></td>
         </tr>
         <tr>
           <td style="width:20%">복무기간</td>
           <td v-if="editing">{{ military_st_date }}</td>
-          <td v-else><input type="text" class="input"  v-model="military_st_date" placeholder="복무기간"></td>
+          <td v-else><input type="text" class="input" v-model="military_st_date" placeholder="복무기간"></td>
         </tr>
         <tr>
           <td class="layout justify-center"><div class="bound"><v-file-input id="btn-upload" v-model="selectedFile" accept="image/*" prepend-icon="mdi-cloud-upload" height="1.8em" style="width:150px;" dark></v-file-input></div>
@@ -46,12 +46,12 @@
       </tbody>
     </template>
   </v-simple-table>
-  
+  <!-- 작을때 -->
   <v-simple-table v-else class="myinfo">
     <template v-slot:default>
       <thead>
         <tr>
-          <th class="text-left" style="font-size:20px" colspan="1">My Info
+          <th class="text-left" style="font-size:20px; font-family:Jua" colspan="1">My Info
           </th>
           <th>
             <v-btn v-on:click="edit" v-if="editing" small fab dark color="#92A8D1" id="writeinfo">
@@ -65,9 +65,7 @@
       </thead>
       <tbody>
         <tr>
-          <td style="width:200px; position:relative;" rowspan="3"><img id="myPic" style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/person.jpg"/><div style="position:absolute; left: 23%; top:0px;"><v-icon dark>mdi-close</v-icon></div></td>
-          <td class="layout justify-center"><div><v-file-input id="btn-upload" v-model="selectedFile" accept="image/*" prepend-icon="mdi-cloud-upload" height="1.8em" style="width:150px;"></v-file-input></div></td>
-          <td class="layout justify-center"><div style="margin-top:6px;" @click="downloadFile"><v-icon>mdi-cloud-download</v-icon></div></td>
+          <td style="width:200px; position:relative;" rowspan="5"><img id="myPic" style="width:140px; height:170px; display: block; margin: 0px auto;" src="@/assets/person.jpg"/><div style="position:absolute; left: 23%; top:0px;"><v-icon dark>mdi-close</v-icon></div></td>
         </tr>
         <tr>
           <td style="text-align:center;">병역구분</td>
@@ -144,7 +142,6 @@ export default {
     downloadFile() {
       var storageRef = firebase.storage().ref();
 
-      // firebase storage의 업로드되어 있는 파일 다운로드 //
       API.get("/careers/downloadFile")
       .then(response=>{
         var file_path = sessionStorage.getItem("user_id");

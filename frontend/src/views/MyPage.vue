@@ -8,7 +8,7 @@
               <v-row>
                 <v-col sm="6" lg="3"><div class="title-item" @click="myinfo" style="text-align:center">My info</div></v-col>
                 <v-col sm="6" lg="3"><div class="title-item" @click="myedu" style="text-align:center">Education</div></v-col>
-                <v-col sm="6" lg="3"><div class="title-item" @click="myedu" style="text-align:center">Education</div></v-col>
+                <v-col sm="6" lg="3"><div class="title-item" @click="myaward" style="text-align:center">License</div></v-col>
                 <v-col sm="6" lg="3"><div class="title-item" @click="myexp" style="text-align:center">Experience</div></v-col>
               </v-row>
             </v-layout>
@@ -142,7 +142,6 @@ export default {
       }, 200);
       setTimeout(() => {
         if(this.$refs.reawd){
-          console.log(this.$refs.reawd.awd);
           var awd = JSON.parse(JSON.stringify(this.$refs.reawd.awd))
           if (awd.length < 1){
             this.showcra = true
