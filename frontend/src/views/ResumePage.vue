@@ -124,7 +124,7 @@
 </template>
 <script>
 import API from "../services/Api"
-import ImgBanner from "../components/ImgBanner";
+
 import ResumeList from "../components/ResumeList";
 import Navbar from "../components/Navbar";
 import { mapActions } from 'vuex';
@@ -133,7 +133,6 @@ export default {
   name: "ResumePage",
   components: {
     Load,
-    ImgBanner,
     ResumeList,
     Navbar,
   },

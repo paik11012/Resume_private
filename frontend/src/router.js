@@ -10,6 +10,7 @@ import SignupPage from './views/SignupPage.vue'
 import UserInfo from './views/UserInfo.vue'
 import AdminPage from './views/AdminPage.vue'
 import EditInfo from './views/EditInfo.vue'
+import IntroPage from './views/IntroPage.vue'
 
 Vue.use(Router)
 
@@ -68,6 +69,11 @@ export default new Router({
 			path: '/editinfo',
 			name: 'editinfo',
 			component: EditInfo
+		},
+		{
+			path: '/intro',
+			name: 'intro',
+			component: IntroPage
 		}
   ]
 })

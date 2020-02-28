@@ -3,7 +3,7 @@
     class="full layout col align-center main"
     :class="{'justify-end' : phone, 'justify-center' : !phone}"
   >
-  <img src="../assets/p.png" class="cat">
+  <a href="/intro"><img src="../assets/p.png" class="cat"></a>
   <img src="../assets/title.png" class="title">
   <div class="light_box" v-if="backon"></div>
         <transition name="fadein">
@@ -207,8 +207,9 @@ export default {
   .title {
     display: none
   }
-  .cat {
-  display: none
+  .cat{
+    top: 70% !important;
   }
 }
+
 </style>
