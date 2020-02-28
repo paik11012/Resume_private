@@ -1,5 +1,4 @@
 <template>
-
   <v-layout mt-5 wrap justify-start class="nav">
     <v-flex
       v-for="i in sresumes.length"
@@ -11,12 +10,15 @@
       xl4
     >
     <transition-group name="list" >
-      <Resume @del="del_detail"
+      <Resume 
+        ref="tag"
+        @del="del_detail"
         @cldt="rere"
         @reload="getResume()"
         v-bind:key="i"
         v-if="sec >= i"
         class="ma-3 layout justify-center"
+        :cnt="i"
         :resume_id="sresumes[i-1].resume.id"
         :resume_company="sresumes[i-1].resume.resume_company"
         :resume_answer="sresumes[i-1].resume.resume_answer"
@@ -25,7 +27,6 @@
         :text_val="sresumes[i-1].text_val"
         :resume_date="sresumes[i-1].resume.resume_date"
         :tag_name="sresumes[i-1].tag_name"
-        :tag_names="sresumes[i-1].tag_names"
         :pass="sresumes[i-1].resume.resume_pass"
       ></Resume>
     </transition-group>
@@ -75,6 +76,8 @@ export default {
     //   console.log(this.resumes);
     // },
     filter(){
+      console.log('sresumes')
+      console.log(this.sresumes)
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
       if(this.filter_tag.reduce(reducer)==0) this.sresumes = this.resumes;
       var filtering = []
@@ -93,6 +96,8 @@ export default {
         if (cnt == filtering.length) rs.push(this.resumes[i])
       }
       this.sresumes = rs
+      console.log('rs')
+      console.log(rs)
     },
     getResume: function() {
       API.get('/resume')

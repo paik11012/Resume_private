@@ -200,6 +200,7 @@ export default {
       this.tags[i-1]['state'] = !this.tags[i-1]['state']
       this.filter_tag[i-1] = this.tags[i-1]['state']
       this.$refs.updating.filter()
+      console.log(this.$refs.updating)
     },
     showWrite() {
       return this.dialog = true
@@ -245,11 +246,11 @@ export default {
       })
     }
   },
-  pass() {
-    if (this.pass == false) {
-      return this.pass = true;
-    }
-   }
+  // passs() {
+  //   if (this.pass == false) {
+  //     return this.pass = true;
+  //   }
+  //  }
   },
 }
 </script>
