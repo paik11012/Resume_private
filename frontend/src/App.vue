@@ -28,9 +28,7 @@ export default {
   mounted(){
     this.curpath = window.location.pathname
     if (this.curpath != '/' & this.curpath != '/home'){
-      this.setting = true
-    }
-    
+      this.setting = true}
   },
   methods: {
     editinfo(value) { // 위에서 editinfo  실행되면 data를 value로 받는다

@@ -52,7 +52,11 @@
     <div v-if="editing"><textarea readonly v-model="answer" class="answer" id="" cols="30" rows="10"></textarea></div>
     <div v-else><textarea v-model="ans" class="answer" id="" cols="30" rows="10"></textarea></div>
   </div>
-  <div class="text_val">
+  <div v-if="editing" class="text_vale">
+    {{ getByte(ans) }} bytes / 
+    {{ ans.length }} 자
+  </div>
+  <div v-else class="text_val">
     {{ getByte(ans) }} bytes / 
     {{ ans.length }} 자
   </div>
@@ -165,7 +169,7 @@ export default {
         "id": String(this.resume_id),  // 현재 id가 없다
         "resume_company" : this.com,
         "resume_task" : this.ta,
-        "resume_date" : this.date,
+        "resume_date" : this.da,
         "resume_question" : this.que,
         "resume_answer" : this.ans,
         "resume_pass" : this.pass,
@@ -186,7 +190,7 @@ export default {
     sendPdf() {
       API.get(`attach/${this.resume_id}`)
       .then(response => {
-        alert("자소서 pdf를 메일로 전송 했다옹~")
+        swal("자소서 pdf를 메일로 전송 했다옹~")
       })
       .catch(error => {
         console.log(error)
@@ -360,7 +364,7 @@ export default {
       font-size:14px;
       color:black;
       width: 95%;
-      top:26%;
+      top:25%;
       outline-style: none;
       left:2%;
       text-align: left;
@@ -375,7 +379,7 @@ export default {
       top:37%;
       left:1%;
       overflow: auto;
-      height: 43%;
+      height: 44%;
       padding: 1%;
       // text-align: center;
       
@@ -420,7 +424,16 @@ export default {
       font-weight: 500;
       position: absolute;
       right:2%;
+      top: 95%;
+      font-family:'Nanum Square';
+    }
+    & .text_vale{
+      font-size: 15px;
+      font-weight: 500;
+      position: absolute;
+      right:2%;
       top: 83%;
+      font-family:'Nanum Square';
     }
     .PF{
       cursor: pointer;

@@ -19,21 +19,18 @@
         </v-card-title>
         <v-card-text>
           <v-container>
-            <v-row dense justify="center">
-              <v-col cols="12" sm="2" md="2">
+            <v-row justify="center" >
+              <v-col cols="12" sm="4" md="4" style="padding-bottom:0; padding-top:0">
               <v-text-field v-model="interview_company" label="회사명" required
-              :dense="true"
               ></v-text-field>
               </v-col>
-              <v-col cols="12" sm="2" md="2">
+              <v-col cols="12" sm="4" md="4" style="padding-bottom:0; padding-top:0">
               <v-text-field v-model="interview_task" label="직무" required
-              :dense="true"
               ></v-text-field>
               </v-col>
-            <v-col cols="12" sm="3" md="3">
-            <v-text-field v-model="interview_date" label="지원시기" required
-            :dense="true"></v-text-field>
-            </v-col>
+              <v-col cols="12" sm="4" md="4" style="padding-bottom:0; padding-top:0">
+              <v-select :items="interview_date_list" v-model="interview_date" placeholder="지원시기"></v-select>
+              </v-col>
             </v-row>
             <v-text-field label="질문"
             required
@@ -89,6 +86,7 @@ export default {
   },
   data() {
     return {
+      interview_date_list:['2017 상반기', '2017 하반기', '2018 상반기', '2018 하반기', '2019 상반기', '2019 하반기', '2020 상반기', '2020 하반기', '2021 상반기', '2021 하반기'],
       loading:true,
       dialog: false,
       interview_company: null,

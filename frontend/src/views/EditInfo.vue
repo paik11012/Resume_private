@@ -143,7 +143,7 @@ export default {
         buttons: ['Cancel', 'Yes']
       }).then((Yes) => {
         if (Yes) {
-          API.delete(`users/deleteByAdmin/${user_id}`)
+          API.delete(`users/delete/${user_id}`)
           .then(response => {
             swal(`$탈퇴가 완료되었습니다.`)
           })
