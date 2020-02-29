@@ -108,7 +108,6 @@ export default {
     return{
       editing:true,
       sch_name:'',
-
       new_edu_detail_grade_img: '',
       selectedFile: '',
     }
@@ -127,6 +126,7 @@ export default {
       this.editing = !this.editing
     },
     addEduUniv() {
+      
       var u_education = {
         'edu_id': String(this.education_id),
         'edu_school_sort': this.edu_school_sort,
@@ -134,6 +134,7 @@ export default {
         'edu_school_st_date': this.edu_school_st_date,
         'edu_school_ed_date': this.edu_school_ed_date,
       }
+      
       var u_detail = {
         'edu_detail_id': String(this.edu_detail_id),
         'edu_detail_grade': String(this.edu_detail_grade),
@@ -143,8 +144,11 @@ export default {
         'edu_detail_credit': String(this.edu_detail_credit)
       }
       var u_data = { education: u_education, education_detail: u_detail }
+      console.log('업로드')
+      console.log(u_data)
       API.post('/edu/upload', u_data)
       .then(response => {
+        console.log(response)
       })
       .catch(error => {
         console.log(error)

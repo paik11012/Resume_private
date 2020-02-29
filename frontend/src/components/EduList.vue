@@ -53,6 +53,7 @@ export default {
       this.univ=[]
       API.get('edu/findAll')
       .then(response => {
+        console.log(response.data)
         for (var [key,value] of Object.entries(response.data)){
           for (var [key1, value1] of Object.entries(value)){
             this.education_id = value1[0]["education"]["education_id"]

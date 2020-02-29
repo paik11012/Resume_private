@@ -85,7 +85,7 @@ public class UsersController {
                 .resume_task("SW개발")
                 .resume_date("2019 하반기")
                 .resume_question("OO기업에 지원한 동기를 작성해주세요.")
-                .resume_answer("돈 벌고 싶어냥")
+                .resume_answer("돈 벌고 싶어냥 / 팁: 이곳에 기준 글자 수, 바이트를 써 놓으면 검색으로 쉽게 찾을 수 있다냥")
                 .build();
         resumeDto.setUser(user);
         Resume resume = resumeService.save(resumeDto);
