@@ -170,7 +170,7 @@ export default {
       storageRef
       .child(user_id + '/' + this.selectedFile.name)
       .put(this.selectedFile);
-      // END: firebase storage에 파일 업로드 //
+      //END: firebase storage에 파일 업로드
     },
     downloadFile() {
       var storageRef = firebase.storage().ref();

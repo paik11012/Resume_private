@@ -5,14 +5,12 @@
         <tr>
           <th style="position:relative;">
             <div>
-            <ul class="menubar"> 
-                 <!-- eslint-disable -->
+            <!-- <ul class="menubar"> 
               <li
                 class="layout row" style="font-size:20px;font-family:Jua"
               ><input type="text" class="input" v-model="exp_org_name" style="font-family:Jua" placeholder="Experience 입력">
-                <!-- eslint-disable -->
               </li>
-            </ul>
+            </ul> -->
             </div>
           </th>
           <th class="layout justify-end">
@@ -24,12 +22,16 @@
       </thead>
       <tbody>
         <tr>
+          <td width="150px">기관명</td>
+          <td><input type="text" class="input" v-model="exp_org_name" placeholder="기관명"></td>
+        </tr>
+        <tr>
           <td width="150px">기간</td>
           <td><input type="text" class="input" v-model="exp_org_period" placeholder="기간"></td>
         </tr>
         <tr>
           <td width="150px">경험/경력 타입</td>
-          <td><input type="text" class="input" v-model="exp_org_type" placeholder="동아리/봉사/경력"></td>
+          <td><input type="text" class="input" v-model="exp_org_type" placeholder="동아리/봉사/인턴/경력"></td>
         </tr>
         <tr>
           <td width="150px">역할</td>
