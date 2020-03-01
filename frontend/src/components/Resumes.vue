@@ -79,6 +79,8 @@ export default {
     hihi(val){
       this.tag_name = val
       this.rsdt = false
+      var a = document.querySelector('html')
+      a.style.overflowY="scroll"
       this.$emit('reload')
     },
     input(value){
