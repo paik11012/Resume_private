@@ -13,7 +13,7 @@
     />
     </transition>
     <transition name="bounce">
-    <eduu  class="corners2"
+    <eduu class="corners2"
     v-if="sec >= i & i-1 > high.length-1"
     :education_id="school[i-1].education_id"
     :edu_school_name="school[i-1].edu_school_name"
@@ -53,7 +53,6 @@ export default {
       this.univ=[]
       API.get('edu/findAll')
       .then(response => {
-        console.log(response.data)
         for (var [key,value] of Object.entries(response.data)){
           for (var [key1, value1] of Object.entries(value)){
             this.education_id = value1[0]["education"]["education_id"]
