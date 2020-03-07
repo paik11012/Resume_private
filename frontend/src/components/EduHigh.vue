@@ -49,6 +49,7 @@ export default {
   //   }
   // },
   props:{
+    num:{type:Number},
     education_id:{type:Number},
     edu_school_name:{type:String},
     edu_school_sort:{type:String}, // 1이 고등학교 2가 대학교 3이 대학원 4가 편입,
@@ -68,7 +69,7 @@ export default {
     del(){
       API.delete(`/edu/deleteOne/${this.education_id}`)
       .then(response => {
-        this.$emit('delete')
+        this.$emit('delete',this.num,1)
       })
       .catch(error => {
         console.log(error)

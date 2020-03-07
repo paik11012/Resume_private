@@ -9,7 +9,8 @@
       :edu_school_sort="school[i-1].edu_school_sort"
       :edu_school_st_date="school[i-1].edu_school_st_date"
       :edu_school_ed_date="school[i-1].edu_school_ed_date"
-      @delete="pop(i)"
+      :num="i"
+      @delete="pop"
     />
     </transition>
     <transition name="bounce">
@@ -26,8 +27,8 @@
     :edu_detail_grade_img="school[i-1].edu_detail_grade_img"
     :edu_detail_credit="school[i-1].edu_detail_credit"
     :edu_detail_id="school[i-1].edu_detail_id"
-    :asd="i"
-    @delete="pop(i)"
+    :num="i"
+    @delete="pop"
   />
   </transition>
   </v-flex>
@@ -43,8 +44,11 @@ export default {
     eduh,eduu,
   },
   methods:{
-    pop(i){
-      this.school.splice(i-1,1)
+    pop(val,sort){
+      console.log(val)
+      console.log(this.school[val-1])
+      this.school.splice(val-1,1)
+      if(sort == 1){ this.high.splice(val-1,1) }
     },
     loadDt(){
       this.sec = 0
