@@ -6,7 +6,7 @@
   <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark color="#92A8D1" >
     <v-icon dark>edit</v-icon>
   </v-btn>
-  <v-btn class="edit" v-on:click="editInterview" v-else small fab dark color="#F7CAC9" >
+  <v-btn class="edit" v-on:click="editInterview" v-else small fab dark color="#92A8D1" >
     <v-icon dark>check</v-icon>
   </v-btn>
   <v-btn class="delete" v-on:click="destroy(interview_id)" small fab color="#F7CAC9" >
@@ -36,7 +36,7 @@
   <div class="date" v-if="editing">
     {{ da }}
   </div>
-  <input type="text" class="date" v-else v-model="da">
+  <div v-else class="date"><v-select :items="interview_date_list" v-model="da"></v-select></div>
   <br>
   <textarea readonly v-model="que" class="question" v-if="editing"></textarea>
   <textarea v-model="que" class="question" v-else></textarea>
@@ -71,6 +71,7 @@ export default {
       que : this.question,
       ans : this.answer,
       mem: this.memo,
+      interview_date_list: ['2017 상반기', '2017 하반기', '2018 상반기', '2018 하반기', '2019 상반기', '2019 하반기', '2020 상반기', '2020 하반기', '2021 상반기', '2021 하반기'],
     }
   },
   methods:{
@@ -229,7 +230,7 @@ export default {
     }
     & .task{
       overflow: hidden;
-      height: 5%;
+      height: 6%;
       position: absolute;
       font-size:20px;
       width: 45%;
@@ -240,7 +241,7 @@ export default {
     }
     & .date{
       overflow: hidden;
-      height: 5%;
+      height: 6%;
       position: absolute;
       font-size:20px;
       color:black;
@@ -334,5 +335,8 @@ export default {
   .buttons {
     display: none
   }
+}
+.v-list{
+  font-size:15px;
 }
 </style>

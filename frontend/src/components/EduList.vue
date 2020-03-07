@@ -14,7 +14,7 @@
     />
     </transition>
     <transition name="bounce">
-    <eduu  class="corners2"
+    <eduu class="corners2"
     v-if="sec >= i & i-1 > high.length-1"
     :education_id="school[i-1].education_id"
     :edu_school_name="school[i-1].edu_school_name"
