@@ -3,20 +3,19 @@
     <v-layout justify-center align-center style="height:100%;" v-if="loading">
       <Load />
     </v-layout>
-    <v-flex xs12 text-xs-center round my-5>
-      <v-btn v-on:click="showWrite" class="mx-2 corner" small fab dark color="cyan">
+    <v-flex xs12 text-s-center round my-5>
+      <v-btn v-on:click="showWrite" class="mx-2 corner buttons" fab dark color="cyan">
         <v-icon dark>edit</v-icon>
       </v-btn>
     </v-flex>
   <!-- resume 작성하기 -->
   <template>
   <v-row justify="center">
-
     <!-- modal 시작 -->
     <v-dialog v-model="dialog" :persistent="true" max-width="70%" max-height="80%" style="z-index:32; position:relative">
       <!-- v-dialog의 persistent속성 - 주위 클릭해도 안사라짐 -->
       <v-card> <!-- body -->
-      <v-icon @click="dialog = !dialog">mdi-close</v-icon>
+      <v-icon @click="dialog = dialog">mdi-close</v-icon>
         <v-card-title class="justify-center">
           <span id="headline" style="margin-top:0px;">Write a Resume</span>
         </v-card-title>
@@ -85,26 +84,27 @@
   </v-row>
 </template>
     <v-container>
-      <v-layout class="justify-end">
-        <div style="position:relative; width:90px; margin-left:50%; hei ght:40px; margin-bottom:20px;">
-        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:29; width:100%; height:100%; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
-          <p class="keyset">
+      <v-layout style="margin-left:-50vw">
+        <div style="position:relative; width:90px; margin-left:60%; height:40px; margin-bottom:20px;">
+        <div v-if="searchpick" @click="searching" style="background:white; position:relative; z-index:29; width:65px; height:100%; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
+          <p class="keyset" style="width:65px">
           {{ searkey[pickkey] }}
           </p>
           </div>
           <!-- 검색 부분 -->
-        <div v-else style="position:absolute; z-index:30; background:white; left:0px; width:100%; height:178px; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
+        <div v-else style="position:absolute; z-index:30; background:white; width:65px; height:145px; padding: 0.7% 1.5%; border:1px solid #92A8D1; margin-right:10px; border-radius:10px;">
           <p v-for="i in searkey.length" :key="i" class="keyset" @click="selkey(i-1)">{{ searkey[i-1] }}</p>
         </div>
         </div>
-        <div style="width: 250px !important; z-index:29; margin-left:20px; height:40px; padding: 6px 12px; border:1px solid; margin-right:10px; border-radius:10px;"><v-icon>mdi-magnify</v-icon>
-        <input style="width:85%; margin-left:5px;" v-model="search" type="text"></div>
+        <div class="searchinput"><v-icon small>mdi-magnify</v-icon>
+        <input style="width:80%; height:100%" v-model="search" type="text" class="true">
+        </div>
       </v-layout>
 
       <v-layout>
         <v-row class="mb-6">
-          <v-col v-for="i in tags.length" :key="i" lg="2" xs="3" md="2" class="layout justify-center">
-            <v-btn id="tag_button"  style="width:85px" :class="{nocheck: tags[i-1]['state'], check: !tags[i-1]['state']}" 
+          <v-col v-for="i in tags.length" :key="i" class="justify-center col-sm-4 col-md-3 col-lg-2" >
+            <v-btn id="tag_button"  style="width:85px" :class="{nocheck: tags[i-1]['state'], check: !tags[i-1]['state']} " 
             depressed @click="changeTag(i)">#{{tags[i-1]["name"]}}</v-btn></v-col>
         </v-row>
       </v-layout>
@@ -124,7 +124,7 @@
 </template>
 <script>
 import API from "../services/Api"
-import ImgBanner from "../components/ImgBanner";
+
 import ResumeList from "../components/ResumeList";
 import Navbar from "../components/Navbar";
 import { mapActions } from 'vuex';
@@ -133,7 +133,6 @@ export default {
   name: "ResumePage",
   components: {
     Load,
-    ImgBanner,
     ResumeList,
     Navbar,
   },
@@ -159,7 +158,7 @@ export default {
       reload:false,
       filter_tag: [false,false,false,false,false,false,false,false,false,false,false,false],
       items :["전체","회사명","내용"],
-      searkey:["회사명","직무","질문","답변", "지원시기"],
+      searkey:["회사명","직무","질문","답변"],
       value : "전체",
       pickkey:0,
       search:'',
@@ -185,7 +184,6 @@ export default {
   },
   computed:{
     keyword:function(){
-      console.log('ghaha')
       return this.search.split(' ')
     }
   },
@@ -227,13 +225,10 @@ export default {
           || resume_info.resume_answer == null
           ) {
         return swal('태그와 지원시기 외 정보는 모두 입력해주세요')
-      } else {
-        console.log(r_data);
-        
+      } else {        
         API.post(
         '/resume/save', r_data)
       .then(response=>{
-        console.log(response.data)
         this.$refs.updating.getResume()
         this.resume_company = null;
         this.resume_task = null;
@@ -248,11 +243,11 @@ export default {
       })
     }
   },
-  pass() {
-    if (this.pass == false) {
-      return this.pass = true;
-    }
-   }
+  // passs() {
+  //   if (this.pass == false) {
+  //     return this.pass = true;
+  //   }
+  //  }
   },
 }
 </script>
@@ -310,6 +305,7 @@ i{
   font-family: Jua;
   font-size: 17px;
   border-radius: 10px;
+  margin-left:20%;
 }
 #headline{
   font-family: 'Fredoka One', cursive;
@@ -329,8 +325,28 @@ i{
   left: 2%;
   top: 2%;
 }
-
+.searchinput{
+  width: 16vw !important; 
+  z-index:29; 
+  margin-left:10px; 
+  height:40px; 
+  padding: 6px 3px; 
+  border:1px solid #92A8D1; 
+  margin-right:10px; 
+  border-radius:10px;
+}
 .v-list-item__title{
   font-size: 1em;
 }
+@media screen and (max-width:800px) {
+  .buttons {
+    display: none
+  }
+}
+@media screen and (max-width:550px) {
+  .searchinput {
+    width: 100px !important;
+  }
+}
+
 </style> 

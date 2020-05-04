@@ -1,5 +1,4 @@
 <template>
-
   <v-layout mt-5 wrap justify-start class="nav">
     <v-flex
       v-for="i in sresumes.length"
@@ -11,12 +10,15 @@
       xl4
     >
     <transition-group name="list" >
-      <Resume @del="del_detail"
+      <Resume 
+        ref="tag"
+        @del="del_detail"
         @cldt="rere"
         @reload="getResume()"
         v-bind:key="i"
         v-if="sec >= i"
         class="ma-3 layout justify-center"
+        :cnt="i"
         :resume_id="sresumes[i-1].resume.id"
         :resume_company="sresumes[i-1].resume.resume_company"
         :resume_answer="sresumes[i-1].resume.resume_answer"
@@ -25,7 +27,6 @@
         :text_val="sresumes[i-1].text_val"
         :resume_date="sresumes[i-1].resume.resume_date"
         :tag_name="sresumes[i-1].tag_name"
-        :tag_names="sresumes[i-1].tag_names"
         :pass="sresumes[i-1].resume.resume_pass"
       ></Resume>
     </transition-group>
@@ -42,13 +43,9 @@ export default {
     search:{type:String},
     keypick:{type:Number},
   },
-  created(){
-    console.log("리스트 시작");
-    
-  },
   data() {
     return {
-      searkey : ["resume_company","resume_task","resume_question","resume_answer"],
+      searkey : ["resume_company","resume_task","resume_question","resume_answer", "resume_date"],
       tag_names:["신뢰","책임감","창의성","도전정신","혁신","열정","도덕성","전문성","글로벌","협력","지원동기","포부"],
       sresumes:[],
       resumes: [],
@@ -65,7 +62,6 @@ export default {
   },
   methods: {
     rere(){
-      console.log("고침");
     },
     del_detail(){
       var a = document.querySelector('html')
@@ -75,10 +71,6 @@ export default {
       }, 100);
     },
 
-    // async getResume() {
-      // this.resumes = await FirebaseService.getResume();    
-    //   console.log(this.resumes);
-    // },
     filter(){
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
       if(this.filter_tag.reduce(reducer)==0) this.sresumes = this.resumes;
@@ -102,7 +94,6 @@ export default {
     getResume: function() {
       API.get('/resume')
       .then(response => {
-        console.log(response);
         this.resumes = response.data 
         this.sresumes = this.resumes
         this.$emit("load")

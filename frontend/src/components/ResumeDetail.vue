@@ -11,10 +11,8 @@
       <img src="@/assets/pass(2).png" class="PFP" v-if="pass" @click="editing ? pass = pass : pass = !pass">
       <img src="@/assets/no_pets.png" class="PF" v-else @click="editing ? pass = pass : pass = !pass"> 
     </div>
-  <!-- <v-btn class="PF" v-if="editing" small fab dark color="success" >
-    <v-icon dark>check</v-icon>
-  </v-btn> -->
-  <!-- <v-checkbox v-else v-model="pass" class="mx-2 PFC" value="합격" label="서류합격" hide-details></v-checkbox> -->
+
+  <div class="buttons">
   <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark>
     <v-icon dark>edit</v-icon>
   </v-btn>
@@ -24,6 +22,9 @@
   <v-btn class="delete" v-on:click="destroy(resume_id)" small fab>
     <v-icon color="white">delete</v-icon>
   </v-btn>
+  </div>
+
+
   <div>
     <div class="titleback"></div>
     <div v-if="editing" class="company">{{ com }}</div>
@@ -51,7 +52,12 @@
     <div v-if="editing"><textarea readonly v-model="answer" class="answer" id="" cols="30" rows="10"></textarea></div>
     <div v-else><textarea v-model="ans" class="answer" id="" cols="30" rows="10"></textarea></div>
   </div>
-  <div class="text_val">
+  <div v-if="editing" class="text_vale">
+    {{ getByte(ans) }} bytes / 
+    {{ ans.length }} 자
+  </div>
+  <div v-else class="text_val">
+    {{ getByte(ans) }} bytes / 
     {{ ans.length }} 자
   </div>
   <div v-if="editing" class="tags">
@@ -94,6 +100,7 @@
 </template>
 
 <script>
+
 import swal from 'sweetalert';
 import API from "../services/Api"
 export default {
@@ -111,6 +118,7 @@ export default {
 
   data(){
     return {
+      bytes: 0,
       pass:this.res_pass,
       editing:true,
       modalop: false,
@@ -144,10 +152,8 @@ export default {
             this.resumes = response.data
             this.$emit("load")
             for (let i = 0; i < this.resumes.length; i++) {
-              console.log("for문");
               setTimeout(() => {
                 this.sec ++
-                console.log(this.sec);
               }, 100*i);
             }
           })
@@ -163,7 +169,7 @@ export default {
         "id": String(this.resume_id),  // 현재 id가 없다
         "resume_company" : this.com,
         "resume_task" : this.ta,
-        "resume_date" : this.date,
+        "resume_date" : this.da,
         "resume_question" : this.que,
         "resume_answer" : this.ans,
         "resume_pass" : this.pass,
@@ -172,7 +178,6 @@ export default {
           resume_info : resume_info,
           tag_name : this.tag_name
       }
-      console.log(r_data)
       API.post('resume/update', r_data)
       .then(response => {
         this.$emit('upload',r_data.tag_name)
@@ -185,12 +190,18 @@ export default {
     sendPdf() {
       API.get(`attach/${this.resume_id}`)
       .then(response => {
-        alert("자소서 pdf를 메일로 전송 했다옹~")
+        swal("자소서 pdf를 메일로 전송 했다옹~")
       })
       .catch(error => {
         console.log(error)
       })
-    }
+    },
+    getByte(str) {
+    return str
+    .split('') 
+    .map(s => s.charCodeAt(0))
+    .reduce((prev, c) => (prev + ((c === 10) ? 2 : ((c >> 7) ? 2 : 1))), 0); // 계산식에 관한 설명은 위 블로그에 있습니다.
+}
   }
 }
 </script>
@@ -228,27 +239,31 @@ export default {
       position: absolute;
       width: 100%;
       top:11.1%;
+      border-bottom-width: 0;
     }
     &2{
       position:absolute;
       width: 100%;
       top:21%;
+      border-bottom-width: 0;
     }
     &3{
       position:absolute;
       width: 100%;
       top:34%;
+      border-bottom-width: 0;
     }
     &4{
       position:absolute;
       width: 100%;
       top:82%;
+      border-bottom-width: 0;
     }
   }
   .titleback{
     width: 100%;
-    height: 62px;
-    background: rgb(245,246,251);
+    height: 59px;
+
   }
 
   & .dig{
@@ -311,7 +326,7 @@ export default {
       overflow: hidden;
       height: 9%;
       position: absolute;
-      font-size:32px;
+      font-size:25px;
       font-family:'Nanum Square';
       width: 80%;
       top:2%;
@@ -349,7 +364,7 @@ export default {
       font-size:14px;
       color:black;
       width: 95%;
-      top:26%;
+      top:25%;
       outline-style: none;
       left:2%;
       text-align: left;
@@ -364,7 +379,7 @@ export default {
       top:37%;
       left:1%;
       overflow: auto;
-      height: 43%;
+      height: 44%;
       padding: 1%;
       // text-align: center;
       
@@ -395,7 +410,7 @@ export default {
       font-family: Jua;
       position: absolute;
       right: 5%;
-      bottom: 4%;
+      bottom: 2%;
       margin: 5px;
     }
     & .tag{
@@ -408,21 +423,30 @@ export default {
       font-size: 15px;
       font-weight: 500;
       position: absolute;
-      right:1%;
+      right:2%;
+      top: 95%;
+      font-family:'Nanum Square';
+    }
+    & .text_vale{
+      font-size: 15px;
+      font-weight: 500;
+      position: absolute;
+      right:2%;
       top: 83%;
+      font-family:'Nanum Square';
     }
     .PF{
       cursor: pointer;
       position: absolute;
-      width: 45px;
-      height: 45px;
-      top: 1.5%;
-      left: 15px;
+      width: 42px;
+      height: 42px;
+      top: 1.7%;
+      left: 16px;
       &P{
         cursor: pointer;
         position: absolute;
-        width: 74px;
-        height: 74px;
+        width: 70px;
+        height: 70px;
         top: -1%;
         left: 11px;
       }
@@ -431,11 +455,18 @@ export default {
 } 
 .input{
   border-style:solid;
-  border-bottom:solid 1px #cacaca;
   border-collapse:collapse;
   width:100%; height:100%;}
   
 .v-input{
   padding-top:0px;
+}
+@media screen and (max-width:800px) {
+  .buttons {
+    display: none
+  }
+  .tags{
+    bottom: 0 !important;
+  }
 }
 </style>

@@ -2,16 +2,17 @@
 <div class="idetail">
   <div class="modalbox" @click="closing"></div>
   <div class="modal">
+  <div class="buttons">
   <v-btn class="edit" v-on:click="editor" v-if="editing" small fab dark color="#92A8D1" >
     <v-icon dark>edit</v-icon>
   </v-btn>
-  <v-btn class="edit" v-on:click="editInterview" v-else small fab dark color="#F7CAC9" >
+  <v-btn class="edit" v-on:click="editInterview" v-else small fab dark color="#92A8D1" >
     <v-icon dark>check</v-icon>
   </v-btn>
   <v-btn class="delete" v-on:click="destroy(interview_id)" small fab color="#F7CAC9" >
     <v-icon color="white">delete</v-icon>
   </v-btn>
-
+  </div>
 
 
   <div class="titleback"></div>
@@ -35,7 +36,7 @@
   <div class="date" v-if="editing">
     {{ da }}
   </div>
-  <input type="text" class="date" v-else v-model="da">
+  <div v-else class="date"><v-select :items="interview_date_list" v-model="da"></v-select></div>
   <br>
   <textarea readonly v-model="que" class="question" v-if="editing"></textarea>
   <textarea v-model="que" class="question" v-else></textarea>
@@ -70,6 +71,7 @@ export default {
       que : this.question,
       ans : this.answer,
       mem: this.memo,
+      interview_date_list: ['2017 상반기', '2017 하반기', '2018 상반기', '2018 하반기', '2019 상반기', '2019 하반기', '2020 상반기', '2020 하반기', '2021 상반기', '2021 하반기'],
     }
   },
   methods:{
@@ -80,14 +82,12 @@ export default {
       this.editing = !this.editing
     },
     destroy(i){
-      console.log("인덱스",i)
       API.delete(`/interview/del/${i}`)
       .then(response => {
         this.interviews = response.data
         for (let i = 0; i < this.interviews.length; i++) {
         setTimeout(() => {
           this.sec ++
-          console.log(this.sec);
         }, 100*i);
       }
         this.$emit('deleteinterview')
@@ -109,7 +109,6 @@ export default {
       };
       API.post('interview/update', interview_info)
       .then(res => {
-        console.log(res);
       })
       .catch(error => {
         console.log(error);
@@ -129,21 +128,25 @@ export default {
       position: absolute;
       width:100%;
       top:10%;
+      border-bottom-width: 0;
     }
     &2{
       position: absolute;
       width:100%;
       top:19%;
+      border-bottom-width: 0;
       }
     &3{      
       position: absolute;
       width:100%;
       top:32%;
+      border-bottom-width: 0;
     }
     &4{      
       position: absolute;
       width:100%;
       top:62%;
+      border-bottom-width: 0;
     }
   }
   .p{
@@ -174,8 +177,7 @@ export default {
   }
   .titleback{
     width: 100%;
-    height: 58px;
-    background-color: rgb(245,246,251);
+    height: 59px;
   }
 
   textarea{
@@ -220,7 +222,7 @@ export default {
       overflow: hidden;
       height: 9%;
       position: absolute;
-      font-size:32px;
+      font-size:30px;
       width: 80%;
       top:1%;
       left:10%;
@@ -228,10 +230,10 @@ export default {
     }
     & .task{
       overflow: hidden;
-      height: 5%;
+      height: 6%;
       position: absolute;
       font-size:20px;
-      width: 30%;
+      width: 45%;
       color: black;
       top:12%;
       left:3%;
@@ -239,7 +241,7 @@ export default {
     }
     & .date{
       overflow: hidden;
-      height: 5%;
+      height: 6%;
       position: absolute;
       font-size:20px;
       color:black;
@@ -329,5 +331,12 @@ export default {
     }
   }
 }
-
+@media screen and (max-width:800px) {
+  .buttons {
+    display: none
+  }
+}
+.v-list{
+  font-size:15px;
+}
 </style>

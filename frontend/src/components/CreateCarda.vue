@@ -5,14 +5,12 @@
         <tr>
           <th style="position:relative;">
             <div>
-            <ul class="menubar"> 
-                 <!-- eslint-disable -->
+            <!-- <ul class="menubar"> 
               <li
-                class="layout row" style="font-size:20px;font-family:Jua"
-              ><input type="text" v-model="award_title" style="font-family:Jua" placeholder="License / Award Title">
-                <!-- eslint-disable -->
+                class="layout row" 
+              ><input type="text" v-model="award_title" style="font-family:Jua" placeholder="License / Award 입력">
               </li>
-            </ul>
+            </ul> -->
             </div>
           </th>
           <th class="layout justify-end">
@@ -23,6 +21,10 @@
         </tr>
       </thead>
       <tbody>
+        <tr>
+          <td width="150px">자격증명/수상</td>
+          <td><input type="text" class="input" v-model="award_title" placeholder="명칭"></td>
+        </tr>
         <tr>
           <td width="150px">발급기관</td>
           <td><input type="text" class="input" v-model="award_org" placeholder="기관명"></td>
@@ -78,11 +80,9 @@ export default {
       'award_date': this.award_date,
       'award_file' : this.selectedFile.name
       }
-      console.log(set)
 
       API.post('/awards/save', set)
       .then(response => {
-        console.log(response)
       })
       .catch(error => {
         console.log(error)

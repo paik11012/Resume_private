@@ -238,7 +238,6 @@ export default {
     },
     sendMail() 
     {
-      console.log("heere")
         API.get(`/users/sendmail/${this.user_id}`)
       .then(response=>{
          this.auth_num = response.data;

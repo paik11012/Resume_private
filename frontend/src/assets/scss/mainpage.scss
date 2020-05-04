@@ -32,7 +32,6 @@ a{
   @include breakpoint(xs,down){
     width: 50vw;
     margin-right: 2vw;
-
   }
   @include breakpoint(sm){
     padding-bottom: 6vw;
@@ -47,7 +46,7 @@ a{
   animation: slide_f_l 1.5s;
   font-family: 'Fredoka One', cursive;  
   @include breakpoint(xs,down){
-    font-size: 25vw;
+    font-size: 23vw;
     &.logbtn{
       @include gradient_text(600, $main_degree, $main_gradient);
       width: 67vw;
@@ -75,7 +74,7 @@ a{
     }
     &.signbtn{
       @include gradient_text(600, $main_degree, $main_gradient);
-      width: 50vw;
+      width: 80vw;
       font-weight: 600;
       line-height: 1;
       text-align: right;
@@ -98,8 +97,7 @@ a{
     }
   }
   @include breakpoint(sm){
-
-    font-size: 18vw;
+    font-size: 13vw;
     &.signbtn{
       @include gradient_text(600, $main_degree, $main_gradient);
       left: 5%;
@@ -128,7 +126,7 @@ a{
     }
   }
   @include breakpoint(md,up){
-    font-size: 20vh;
+    font-size: 18vh;
     &.signbtn{
       @include gradient_text(600, $main_degree, $main_gradient);
       text-align: right;

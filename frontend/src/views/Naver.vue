@@ -42,8 +42,6 @@ export default {
     var code = string.split('code=');
     var state = string.split('state=');
     var codes = code[1].split('&')
-    console.log(codes[0])
-    console.log(state[1])
   }
 }
 </script>

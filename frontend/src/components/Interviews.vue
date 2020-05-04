@@ -76,7 +76,6 @@ export default {
     },
     input(value){
       this.showmenu = value
-      console.log(this.showmenu);
     },
     move(){
       window.scroll(0,100)

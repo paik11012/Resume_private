@@ -5,13 +5,13 @@
         <tr>
           <th class="text-left" style="font-size:20px; font-family:Jua">{{sch_name}}</th>
           <th class="layout hold">
-            <v-btn v-on:click="editor" v-if="editing" small fab dark color="cyan" class="edu_write">
+            <v-btn v-on:click="editor" v-if="editing" small fab dark color="#92A8D1" class="edu_write">
               <v-icon dark>edit</v-icon>
             </v-btn>
             <v-btn v-else v-on:click="addEduUniv" small fab class="edu_write" color="success">
               <v-icon>check</v-icon>
             </v-btn>
-            <v-btn @click="del" v-if="editing" small fab dark color="red" class="delkey">
+            <v-btn @click="del" v-if="editing" small fab dark color="#F7CAC9" class="delkey">
               <v-icon dark>delete</v-icon>
             </v-btn>
           </th>
@@ -91,6 +91,7 @@ export default {
     }
   },
   props:{
+    num : {type:Number},
     education_id:{type:Number},
     edu_school_sort:{type:String}, // 1이 고등학교 2가 대학교 3이 대학원 4가 편입
     edu_school_name:{type:String},
@@ -108,7 +109,6 @@ export default {
     return{
       editing:true,
       sch_name:'',
-
       new_edu_detail_grade_img: '',
       selectedFile: '',
     }
@@ -117,7 +117,7 @@ export default {
     del(){
       API.delete(`/edu/deleteOne/${this.education_id}`)
       .then(response => {
-        this.$emit('delete')
+        this.$emit('delete',this.num,2)
       })
       .catch(error => {
         console.log(error)
@@ -134,6 +134,7 @@ export default {
         'edu_school_st_date': this.edu_school_st_date,
         'edu_school_ed_date': this.edu_school_ed_date,
       }
+      
       var u_detail = {
         'edu_detail_id': String(this.edu_detail_id),
         'edu_detail_grade': String(this.edu_detail_grade),
@@ -143,8 +144,10 @@ export default {
         'edu_detail_credit': String(this.edu_detail_credit)
       }
       var u_data = { education: u_education, education_detail: u_detail }
+      console.log(u_data)
       API.post('/edu/upload', u_data)
       .then(response => {
+        console.log(response)
       })
       .catch(error => {
         console.log(error)
@@ -166,7 +169,7 @@ export default {
       storageRef
       .child(user_id + '/' + this.selectedFile.name)
       .put(this.selectedFile);
-      // END: firebase storage에 파일 업로드 //
+      //END: firebase storage에 파일 업로드
     },
     downloadFile() {
       var storageRef = firebase.storage().ref();

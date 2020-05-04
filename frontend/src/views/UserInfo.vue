@@ -87,7 +87,6 @@ export default {
       file_input.click();
     },
     setMyPicFromDB(){
-      console.log("DB에서 사진 가져온다");
       if (this.changepic == 0){
         var storageRef = firebase.storage().ref();
   
@@ -100,9 +99,7 @@ export default {
           profile_div.style.backgroundImage = "url('" + img_url + "')";
         });
       } else {
-        console.log("바뀌는 사진 있음!");
         var profile_div = document.querySelector(".img-profile");
-        console.log(profile_div.style);
         
       }
     },

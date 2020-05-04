@@ -14,14 +14,14 @@
     <div class="answer">{{resume_answer}}</div>
     <div class="text_val">{{ resume_answer.length }}자</div>
     <div class="tags">
-      <ul v-if="tagn.length > 2">
-        <div> #{{tagn[0]}}  #{{ tagn[1] }} ... </div>
+      <ul v-if="tag_name.length > 2">
+        <div> #{{tag_name[0]}}  #{{ tag_name[1] }} ... </div>
       </ul>
-      <ul v-else-if="tagn.length == 2">
-        <div> #{{tagn[0]}}  #{{ tagn[1] }} </div>
+      <ul v-else-if="tag_name.length == 2">
+        <div> #{{tag_name[0]}}  #{{ tag_name[1] }} </div>
       </ul>
       <ul v-else>
-        <div> {{tagn.length>0 ? '#'+tagn[0] : '' }}</div>
+        <div> {{tag_name.length>0 ? '#'+tag_name[0] : '' }}</div>
       </ul>
     </div>
     <!-- 개인적으로 글자를 오른쪽, 맨 아래 배치하고 싶음 -->
@@ -35,7 +35,7 @@
     :date="resume_date"
     :question="resume_question"
     :answer="resume_answer"
-    :tags="tagn"
+    :tags="tag_name"
     :text_val="resume_answer.length"
     :res_pass="pass"
     @upload="hihi"
@@ -54,44 +54,37 @@ export default {
     rsd,
   },
   props:{
+    cnt:{type:Number},
     resume_id:{type:Number},
     resume_company : {type: String},
     resume_answer : {type: String},
     resume_question : {type: String},
     resume_task : {type: String},
     tag_name : {type: Array},
-    tag_names : {type:Array},
     text_val : {type: Number},
     resume_date : {type: String},
     created_at : {type: String},
     pass : {type:Boolean},
   },
-  created(){
-    console.log("이력서 시작");
-    
-  }
-  ,
   data() {
     return {
       showmenu: false,
       rsdt:false,
       scr_cur:0,
-      tagn:this.tag_name,
     };
   },
   mounted(){
-    console.log(this.pass);
-    
   },
   methods: {
     hihi(val){
-      this.tagn = val
+      this.tag_name = val
       this.rsdt = false
+      var a = document.querySelector('html')
+      a.style.overflowY="scroll"
       this.$emit('reload')
     },
     input(value){
       this.showmenu = value
-      console.log(this.showmenu);
     },
     opendetail(){
       this.rsdt = true
@@ -99,7 +92,6 @@ export default {
       this.$emit('opdt')
       var a = document.querySelector('html')
       a.style.overflowY="hidden"
-      console.log(this.resume_id);
     },
     closedetail(){
       this.rsdt = false

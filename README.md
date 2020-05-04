@@ -20,7 +20,7 @@
 
 ##  소개
 
-  [![alt text](https://img.shields.io/badge/@vue--cli-v4.1.2-green.svg?longCache=true&style=flat-square)](https://github.com/sindresorhus/query-string) [![alt text](https://img.shields.io/badge/react-v16.4.2-orange.svg?longCache=true&style=flat-square)](https://github.com/facebook/react/)  
+  [![alt text](https://img.shields.io/badge/@vue--cli-v4.1.2-green.svg?longCache=true&style=flat-square)](https://github.com/sindresorhus/query-string) [![alt text](https://img.shields.io/badge/java-v16.4.2-orange.svg?longCache=true&style=flat-square)](https://github.com/facebook/react/)  
 
 
 
@@ -75,5 +75,11 @@ Views
 |-----Teampage.vue
 |-----Userinfo.vue
 |-----AdminPage.vue
+```
+
+### 설치하기
+
+```
+https://bit.dev/joshk/vue-spinners-css/ring-loader
 ```
 

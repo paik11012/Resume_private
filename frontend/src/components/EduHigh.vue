@@ -5,13 +5,13 @@
         <tr>
           <th class="text-left" style="font-size:20px; font-family:Jua">HighSchool</th>
           <th class="layout hold">
-            <v-btn @click="editor" v-if="editing" small fab dark color="cyan" class="edu_write">
+            <v-btn @click="editor" v-if="editing" small fab dark color="#92A8D1" class="edu_write">
               <v-icon>edit</v-icon>
             </v-btn>
             <v-btn v-else @click="addEduHigh" small fab class="edu_write" color="success">
               <v-icon>check</v-icon>
             </v-btn>
-            <v-btn @click="del" v-if="editing" small fab dark color="red" class="delkey">
+            <v-btn @click="del" v-if="editing" small fab dark color="#F7CAC9" class="delkey">
               <v-icon>delete</v-icon>
             </v-btn>
           </th>
@@ -49,6 +49,7 @@ export default {
   //   }
   // },
   props:{
+    num:{type:Number},
     education_id:{type:Number},
     edu_school_name:{type:String},
     edu_school_sort:{type:String}, // 1이 고등학교 2가 대학교 3이 대학원 4가 편입,
@@ -68,7 +69,7 @@ export default {
     del(){
       API.delete(`/edu/deleteOne/${this.education_id}`)
       .then(response => {
-        this.$emit('delete')
+        this.$emit('delete',this.num,1)
       })
       .catch(error => {
         console.log(error)
@@ -106,11 +107,11 @@ export default {
 }
 .edu_write{
   position: absolute;
-  right: 5px;
+  right: 55px;
 }
 .delkey{
   position: absolute;
-  right: 55px;
+  right: 5px;
 }
 .input{
   border-style:none;

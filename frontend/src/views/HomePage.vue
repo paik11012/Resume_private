@@ -51,7 +51,6 @@ export default {
   },
   methods:{
     resizing(e){
-      // console.log(e.target.window.innerWidth);
       if (e.target.window.innerWidth < 480){
         this.phone = true
       } else {
@@ -80,7 +79,6 @@ export default {
 
   },
   mounted(){
-    console.log(document.body.offsetWidth);
     
     if(document.body.offsetWidth < 480){
       this.phone = true
